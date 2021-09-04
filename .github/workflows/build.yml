@@ -48,6 +48,8 @@ jobs:
             $configuration = "Debug"
           }
           
+          Write-Host "Building $($configuration) configuration"
+          
           .\.sonar\scanner\dotnet-sonarscanner begin `
             /k:"COSC2650_Assignment" `
             /o:"cosc2650" `
