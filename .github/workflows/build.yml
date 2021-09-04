@@ -42,13 +42,12 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          if ([System.Environment]::GetEnvironmentVariable('GITHUB_REF') -eq "main") {
+          if ([System.Environment]::GetEnvironmentVariable('GITHUB_REF') -eq "refs/heads/main") {
             $configuration = "Release"
           } else {
             $configuration = "Debug"
           }
           
-          [System.Environment]::GetEnvironmentVariable('GITHUB_REF')
           Write-Host "Building $($configuration) configuration"
           
           .\.sonar\scanner\dotnet-sonarscanner begin `
