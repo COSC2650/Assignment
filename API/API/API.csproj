@@ -6,6 +6,13 @@
 
   <ItemGroup>
     <PackageReference Include="HotChocolate.AspNetCore" Version="11.3.6" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.28.0.36354">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="SonarAnalyzer.CSharp" />
+  </ItemGroup>
 </Project>
