@@ -42,7 +42,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          if (${{ steps.vars.outputs.short_ref }} -eq "main") {
+          if ([System.Environment]::GetEnvironmentVariable('GITHUB_REF') -eq "main") {
             $configuration = "Release"
           } else {
             $configuration = "Debug"
