@@ -48,6 +48,7 @@ jobs:
             $configuration = "Debug"
           }
           
+          Write-Host [System.Environment]::GetEnvironmentVariable('GITHUB_REF')
           Write-Host "Building $($configuration) configuration"
           
           .\.sonar\scanner\dotnet-sonarscanner begin `
