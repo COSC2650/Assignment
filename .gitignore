@@ -17,6 +17,8 @@
 mono_crash.*
 
 # Build results
+coverage.json
+coverage.opencover.xml
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
