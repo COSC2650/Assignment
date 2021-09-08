@@ -35,7 +35,7 @@ namespace API
                     endpoints.MapGraphQL();
                     endpoints.MapGet("/", async context =>
                         {
-                            await context.Response.WriteAsync("Working!");
+                            await context.Response.WriteAsync("Service working!");
                         });
                 });
         }
