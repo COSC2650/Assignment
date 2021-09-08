@@ -33,6 +33,10 @@ namespace API
                 .UseEndpoints(endpoints =>
                 {
                     endpoints.MapGraphQL();
+                    endpoints.MapGet("/", async context =>
+                        {
+                            await context.Response.WriteAsync("Working!");
+                        });
                 });
         }
     }
