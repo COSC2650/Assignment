@@ -80,4 +80,4 @@ jobs:
         with:
           push: true
           tags: mkellock/cosc2650:latest
-          directory: ./API/API
+          context: ./API/API
