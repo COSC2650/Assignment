@@ -77,6 +77,6 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v2.7.0
         with:
-          file: .\API\Dockerfile
+          file: API/API/Dockerfile
           push: true
           tags: mkellock/cosc2650:latest
