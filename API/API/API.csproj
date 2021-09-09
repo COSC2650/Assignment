@@ -10,10 +10,14 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="NewRelic.Agent" Version="8.41.1" />
+    <PackageReference Include="NewRelic.Agent.Api" Version="8.41.1" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="SonarAnalyzer.CSharp" />
+    <None Remove="NewRelic.Agent" />
+    <None Remove="NewRelic.Agent.Api" />
   </ItemGroup>
   
   <ItemGroup>
