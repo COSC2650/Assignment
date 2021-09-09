@@ -28,7 +28,7 @@ CORECLR_PROFILER={36032161-FFC0-4B61-B559-F6C5D41BAE5A} \
 CORECLR_NEWRELIC_HOME=/usr/local/newrelic-netcore20-agent \
 CORECLR_PROFILER_PATH=/usr/local/newrelic-netcore20-agent/libNewRelicProfiler.so \
 NEW_RELIC_LICENSE_KEY=3c9e5c618f31bf7394bb19e370a40ef5d2dfNRAL \
-NEW_RELIC_APP_NAME=Assignment
+NEW_RELIC_APP_NAME=API
 
 # Set the working directory and copy thr build assets
 WORKDIR /app
