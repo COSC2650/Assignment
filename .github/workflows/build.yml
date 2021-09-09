@@ -66,6 +66,15 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v2
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: mkellock/cosc2650
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -80,7 +89,8 @@ jobs:
         uses: docker/build-push-action@v2.7.0
         with:
           push: true
-          tags: mkellock/cosc2650:latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           context: ./API/API
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
