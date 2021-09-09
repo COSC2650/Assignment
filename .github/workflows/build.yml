@@ -88,11 +88,13 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
+      - name: Download task definition
+        run: aws ecs describe-task-definition --task-definition AssignmentFG:2 --query taskDefinition > task-definition.json
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: ./API/API/ecs-task.json
+          task-definition: task-definition.json
           container-name: Assignment
           image: ${{ steps.docker_build.outputs.digest }}
       - name: Deploy Amazon ECS task definition
