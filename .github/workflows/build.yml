@@ -109,7 +109,7 @@ jobs:
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          task-definition: mkellock/cosc2650:${{ steps.meta.outputs.tags }}
+          task-definition: ${{ steps.meta.outputs.tags }}
           service: ${{ secrets.ECS_SERVICE }}
           cluster: ${{ secrets.ECS_CLUSTER }}
           wait-for-service-stability: false
