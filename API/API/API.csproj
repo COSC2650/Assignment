@@ -15,4 +15,10 @@
   <ItemGroup>
     <None Remove="SonarAnalyzer.CSharp" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="Procfile">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
