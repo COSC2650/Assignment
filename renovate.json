@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "reviewers": [
+    "@COSC2650/engineering"
+  ],
+  "automerge": true
+}
