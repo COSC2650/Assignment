@@ -92,7 +92,7 @@ jobs:
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: ./API/API/ecs-task.json
+          task-definition: ./API/API/ecs-task2.json
           container-name: Assignment
           image: ${{ steps.docker_build.outputs.digest }}
       - name: Deploy Amazon ECS task definition
