@@ -13,10 +13,6 @@ RUN dotnet publish -c Release -o out
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:3.1
 
-# Set the working directory and copy thr build assets
-WORKDIR /app
-COPY --from=build-env /build-context/out .
-
 # Install the agent
 RUN apt-get update && apt-get install -y wget ca-certificates gnupg \
 && echo 'deb http://apt.newrelic.com/debian/ newrelic non-free' | tee /etc/apt/sources.list.d/newrelic.list \
@@ -33,6 +29,10 @@ CORECLR_NEWRELIC_HOME=/usr/local/newrelic-netcore20-agent \
 CORECLR_PROFILER_PATH=/usr/local/newrelic-netcore20-agent/libNewRelicProfiler.so \
 NEW_RELIC_LICENSE_KEY=3c9e5c618f31bf7394bb19e370a40ef5d2dfNRAL \
 NEW_RELIC_APP_NAME=Assignment
+
+# Set the working directory and copy thr build assets
+WORKDIR /app
+COPY --from=build-env /build-context/out .
 
 # Expose port 80
 EXPOSE 80
