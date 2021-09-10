@@ -39,4 +39,4 @@ COPY --from=build-env /build-context/out .
 EXPOSE 80
 
 # Run the app
-ENTRYPOINT ["/usr/local/newrelic-netcore20-agent/run.sh", "/app/API.dll"]
+ENTRYPOINT ["/usr/local/newrelic-netcore20-agent/run.sh", "dotnet /API.dll"]
