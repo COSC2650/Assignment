@@ -35,7 +35,7 @@ namespace API
                     endpoints.MapGraphQL();
                     endpoints.MapGet("/", async context =>
                         {
-                            NewRelic.Api.Agent.NewRelic.RecordMetric("Health check", 1);
+                            NewRelic.Api.Agent.NewRelic.RecordMetric("Custom/HealthCheck", 1);
 
                             await context.Response.WriteAsync("New Relic!");
                         });
