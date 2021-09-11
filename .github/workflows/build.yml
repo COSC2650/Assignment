@@ -30,7 +30,7 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          secrets: |
+          build-args: |
             github_token: ${{ secrets.GITHUB_TOKEN }}
             sonar_token: ${{ secrets.SONAR_TOKEN }}
             github_ref: ${{ github.ref }}
