@@ -2,13 +2,13 @@ FROM mkellock/buildtools:latest AS build-env
 
 # Container arguements
 ARG GITHUB_REF
-ENV GITHUB_REF=$GITHUB_TOKEN
+ENV GITHUB_REF $GITHUB_TOKEN
 
 ARG SONAR_TOKEN
-ENV SONAR_TOKEN=$GITHUB_TOKEN
+ENV SONAR_TOKEN $GITHUB_TOKEN
 
 ARG GITHUB_TOKEN
-ENV GITHUB_TOKEN=$GITHUB_TOKEN
+ENV GITHUB_TOKEN $GITHUB_TOKEN
 
 # Copy the build files
 RUN mkdir /build-context
@@ -19,6 +19,9 @@ RUN dotnet restore
 # Install/update the Sonar scanner
 RUN if [ ! -d /.sonar/scanner ]; then mkdir -p /.sonar/scanner; fi \
         && dotnet tool update dotnet-sonarscanner --tool-path /.sonar/scanner
+
+RUN echo "Fuckity fuck fuck"
+RUN echo "Fuckity $SONAR_TOKEN"
 
 # Start the Sonar scanner
 RUN /.sonar/scanner/dotnet-sonarscanner begin /k:\"COSC2650_Assignment\" /o:\"cosc2650\" /d:sonar.login=$SONAR_TOKEN \
