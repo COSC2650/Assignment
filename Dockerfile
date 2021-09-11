@@ -15,6 +15,10 @@ RUN dotnet restore
 RUN if [ ! -d /.sonar/scanner ]; then mkdir -p /.sonar/scanner; fi \
         && dotnet tool update dotnet-sonarscanner --tool-path /.sonar/scanner
 
+RUN echo "1: $GITHUB_REF"
+RUN echo "2: $SONAR_TOKEN"
+RUN echo "3: $GITHUB_TOKEN"
+
 # Start the Sonar scanner
 RUN /.sonar/scanner/dotnet-sonarscanner begin \
         /k:"COSC2650_Assignment" \
