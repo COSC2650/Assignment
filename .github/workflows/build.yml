@@ -15,7 +15,10 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: mkellock/cosc2650
-          tags: type=sha
+          tags: |
+            type=sha
+            type=ref,event=branch
+            type=ref,event=pr
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -36,8 +39,6 @@ jobs:
             GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}]
             SONAR_TOKEN=${{ secrets.SONAR_TOKEN }}
             GITHUB_REF=${{ github.ref }}
-      - name: Export digest
-        run: echo "${{ steps.docker_build.outputs.digest }}"
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
@@ -45,8 +46,6 @@ jobs:
     #if: github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v2
-      - name: Export sha
-        run: echo "mkellock/cosc2650:${{ needs.build.outputs.digest }}"
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -59,7 +58,7 @@ jobs:
         with:
           task-definition: ./IaC/ECS/task-definition.json
           container-name: Assignment
-          image: mkellock/cosc2650:${{ needs.build.outputs.digest }}
+          image: mkellock/cosc2650@${{ needs.build.outputs.digest }}
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
