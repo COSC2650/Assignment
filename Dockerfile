@@ -26,7 +26,7 @@ RUN echo "Fuckity $SONAR_TOKEN"
 RUN /.sonar/scanner/dotnet-sonarscanner begin \
         /k:\"COSC2650_Assignment\" \
         /o:\"cosc2650\" \
-        /d:sonar.login=$SONAR_TOKEN \
+        /d:sonar.login="$SONAR_TOKEN" \
         /d:sonar.host.url=\"https://sonarcloud.io\" \
         /d:sonar.cs.opencover.reportsPaths=\"**/coverage.opencover.xml\" \
         /d:sonar.coverage.exclusions=\"API/Program.cs\",\"API/Startup.cs\"
