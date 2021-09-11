@@ -30,8 +30,8 @@ RUN /.sonar/scanner/dotnet-sonarscanner begin \
 
 # Build test and publish
 RUN if [ "$GITHUB_REF" == "refs/heads/main" ]; then configuration="Release"; else configuration="Debug"; fi \
-        && dotnet build ./API/API.sln -c "$configuration" \
-        && dotnet test ./API/API.sln -c "$configuration" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover \
+        && dotnet build ./API.sln -c "$configuration" \
+        && dotnet test ./API.sln -c "$configuration" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover \
         && dotnet publish ./API/API/API.csproj -c "$configuration" -o out
 
 # End the SonarCloud scanner
