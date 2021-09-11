@@ -31,9 +31,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-            GITHUB_REF: ${{ github.ref }}
+            GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}],SONAR_TOKEN=${{ secrets.SONAR_TOKEN }},GITHUB_REF: ${{ github.ref }}
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
