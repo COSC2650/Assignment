@@ -15,10 +15,6 @@ RUN dotnet restore
 RUN if [ ! -d /.sonar/scanner ]; then mkdir -p /.sonar/scanner; fi \
         && dotnet tool update dotnet-sonarscanner --tool-path /.sonar/scanner
 
-RUN echo "1: $GITHUB_REF"
-RUN echo "2: $SONAR_TOKEN"
-RUN echo "3: $GITHUB_TOKEN"
-
 # Start the Sonar scanner
 RUN /.sonar/scanner/dotnet-sonarscanner begin \
         /k:"COSC2650_Assignment" \
@@ -32,10 +28,10 @@ RUN /.sonar/scanner/dotnet-sonarscanner begin \
 RUN if [ "$GITHUB_REF" == "refs/heads/main" ]; then configuration="Release"; else configuration="Debug"; fi \
         && dotnet build ./API.sln -c "$configuration" \
         && dotnet test ./API.sln -c "$configuration" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover \
-        && dotnet publish ./API/API/API.csproj -c "$configuration" -o out
+        && dotnet publish ./API/API.csproj -c "$configuration" -o out
 
 # End the SonarCloud scanner
-RUN /.sonar/scanner/dotnet-sonarscanner end /d:sonar.login=$SONAR_TOKEN
+RUN /.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="$SONAR_TOKEN"
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
