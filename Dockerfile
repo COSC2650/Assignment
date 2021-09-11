@@ -1,10 +1,10 @@
 FROM mkellock/buildtools:latest AS build-env
 
 # Container arguements
-ARG github_ref
-ARG sonar_token
-ARG github_token
-ENV GITHUB_TOKEN=$github_token
+ARG GITHUB_REF
+ARG SONAR_TOKEN
+ARG GITHUB_TOKEN
+ENV GITHUB_TOKEN=$GITHUB_TOKEN
 
 # Copy the build files
 RUN mkdir /build-context
@@ -20,19 +20,19 @@ RUN if [ ! -d /.sonar/scanner ]; then mkdir -p /.sonar/scanner; fi \
 RUN /.sonar/scanner/dotnet-sonarscanner begin \
         /k:"COSC2650_Assignment" \
         /o:"cosc2650" \
-        /d:sonar.login="${sonar_token}" \
+        /d:sonar.login="$SONAR_TOKEN" \
         /d:sonar.host.url="https://sonarcloud.io" \
         /d:sonar.cs.opencover.reportsPaths="**\coverage.opencover.xml" \
         /d:sonar.coverage.exclusions="API/Program.cs","API/Startup.cs"
 
 # Build test and publish
-RUN if [ "${github_ref}" == "refs/heads/main" ]; then configuration="Release"; else configuration="Debug"; fi \
+RUN if [ "$GITHUB_REF" == "refs/heads/main" ]; then configuration="Release"; else configuration="Debug"; fi \
         && dotnet build ./API/API.sln -c "${configuration}" \
         && dotnet test ./API/API.sln -c "${configuration}" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover \
         && dotnet publish ./API/API/API.csproj -c "${configuration}" -o out
 
 # End the SonarCloud scanner
-RUN /.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${sonar_token}"
+RUN /.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="$SONAR_TOKEN"
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
