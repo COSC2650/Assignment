@@ -5,6 +5,10 @@ ARG GITHUB_REF
 ARG SONAR_TOKEN
 ARG GITHUB_TOKEN
 
+# Update the container
+RUN apt-get update \
+        && apt-get upgrade -y
+
 # Copy the build files
 RUN mkdir /build-context
 COPY . /build-context
@@ -37,7 +41,9 @@ RUN /.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="$SONAR_TOKEN"
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
 
 # Install the NewRelic agent
-RUN apt-get update && apt-get install -y wget ca-certificates gnupg \
+RUN apt-get update \
+        && apt-get upgrade -y \
+        && apt-get install -y wget ca-certificates gnupg \
         && echo 'deb http://apt.newrelic.com/debian/ newrelic non-free' | tee /etc/apt/sources.list.d/newrelic.list \
         && wget https://download.newrelic.com/548C16BF.gpg \
         && apt-key add 548C16BF.gpg \
@@ -54,7 +60,7 @@ NEW_RELIC_LICENSE_KEY=3c9e5c618f31bf7394bb19e370a40ef5d2dfNRAL \
 NEW_RELIC_APP_NAME="API"
 
 # Set the working directory and copy thr build assets
-COPY --from=build-env /build-context/out .
+COPY --from=build-env /build-context/API/out .
 
 # Expose port 80
 EXPOSE 80
