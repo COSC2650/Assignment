@@ -5,7 +5,7 @@ ARG GITHUB_REF
 ENV GITHUB_REF $GITHUB_REF
 
 ARG SONAR_TOKEN
-ENV SONAR_TOKEN="blah"
+ENV SONAR_TOKEN="bf72bb52b5317691e33bb9ec3da8dde84351d71d"
 
 ARG GITHUB_TOKEN
 ENV GITHUB_TOKEN $GITHUB_TOKEN
@@ -20,11 +20,13 @@ RUN dotnet restore
 RUN if [ ! -d /.sonar/scanner ]; then mkdir -p /.sonar/scanner; fi \
         && dotnet tool update dotnet-sonarscanner --tool-path /.sonar/scanner
 
-RUN echo "Fuckity fuck fuck"
 RUN echo "Fuckity $SONAR_TOKEN"
 
 # Start the Sonar scanner
-RUN /.sonar/scanner/dotnet-sonarscanner begin /k:\"COSC2650_Assignment\" /o:\"cosc2650\" /d:sonar.login=$SONAR_TOKEN \
+RUN /.sonar/scanner/dotnet-sonarscanner begin \
+        /k:\"COSC2650_Assignment\" \
+        /o:\"cosc2650\" \
+        /d:sonar.login=$SONAR_TOKEN \
         /d:sonar.host.url=\"https://sonarcloud.io\" \
         /d:sonar.cs.opencover.reportsPaths=\"**/coverage.opencover.xml\" \
         /d:sonar.coverage.exclusions=\"API/Program.cs\",\"API/Startup.cs\"
@@ -36,7 +38,7 @@ RUN if [ "${GITHUB_REF}" == "refs/heads/main" ]; then configuration="Release"; e
         && dotnet publish ./API/API/API.csproj -c "${configuration}" -o out
 
 # End the SonarCloud scanner
-RUN /.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${SONAR_TOKEN}"
+RUN /.sonar/scanner/dotnet-sonarscanner end /d:sonar.login=$SONAR_TOKEN
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
