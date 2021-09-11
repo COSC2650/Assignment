@@ -2,13 +2,8 @@ FROM mkellock/buildtools:latest AS build-env
 
 # Container arguements
 ARG GITHUB_REF
-ENV GITHUB_REF $GITHUB_REF
-
-ARG SONAR_TOKEN
-ENV SONAR_TOKEN="bf72bb52b5317691e33bb9ec3da8dde84351d71d"
-
+ARG SONAR_TOKEN="bf72bb52b5317691e33bb9ec3da8dde84351d71d"
 ARG GITHUB_TOKEN
-ENV GITHUB_TOKEN $GITHUB_TOKEN
 
 # Copy the build files
 RUN mkdir /build-context
