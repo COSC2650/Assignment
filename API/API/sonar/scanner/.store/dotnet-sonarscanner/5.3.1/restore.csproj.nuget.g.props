@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <RestoreSuccess Condition=" '$(RestoreSuccess)' == '' ">True</RestoreSuccess>
+    <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
+    <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
+    <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">/Users/mattkellock/Documents/GitHub/COSC2650/Assignment/API/API/sonar/scanner/.store/.stage/vord0vtu.ese</NuGetPackageRoot>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">/Users/mattkellock/Documents/GitHub/COSC2650/Assignment/API/API/sonar/scanner/.store/.stage/vord0vtu.ese</NuGetPackageFolders>
+    <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">DotnetToolReference</NuGetProjectStyle>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">5.11.0</NuGetToolVersion>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <SourceRoot Include="/Users/mattkellock/Documents/GitHub/COSC2650/Assignment/API/API/sonar/scanner/.store/.stage/vord0vtu.ese/" />
+  </ItemGroup>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Pkgdotnet-sonarscanner Condition=" '$(Pkgdotnet-sonarscanner)' == '' ">/Users/mattkellock/Documents/GitHub/COSC2650/Assignment/API/API/sonar/scanner/.store/.stage/vord0vtu.ese/dotnet-sonarscanner/5.3.1</Pkgdotnet-sonarscanner>
+  </PropertyGroup>
+</Project>

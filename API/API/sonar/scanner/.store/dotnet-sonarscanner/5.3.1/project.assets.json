@@ -1,0 +1,170 @@
+{
+  "version": 3,
+  "targets": {
+    "net5.0": {
+      "dotnet-sonarscanner/5.3.1": {
+        "type": "package"
+      }
+    },
+    "net5.0/any": {
+      "dotnet-sonarscanner/5.3.1": {
+        "type": "package",
+        "tools": {
+          "tools/net5.0/any/DotnetToolSettings.xml": {},
+          "tools/net5.0/any/Newtonsoft.Json.dll": {},
+          "tools/net5.0/any/SonarQube.Analysis.xml": {},
+          "tools/net5.0/any/SonarScanner.MSBuild.Common.dll": {},
+          "tools/net5.0/any/SonarScanner.MSBuild.PostProcessor.dll": {},
+          "tools/net5.0/any/SonarScanner.MSBuild.PreProcessor.dll": {},
+          "tools/net5.0/any/SonarScanner.MSBuild.Shim.dll": {},
+          "tools/net5.0/any/SonarScanner.MSBuild.Tasks.dll": {},
+          "tools/net5.0/any/SonarScanner.MSBuild.dll": {},
+          "tools/net5.0/any/SonarScanner.MSBuild.runtimeconfig.json": {},
+          "tools/net5.0/any/Targets/SonarQube.Integration.ImportBefore.targets": {},
+          "tools/net5.0/any/Targets/SonarQube.Integration.targets": {},
+          "tools/net5.0/any/sonar-scanner-4.6.2.2472/bin/sonar-scanner": {},
+          "tools/net5.0/any/sonar-scanner-4.6.2.2472/bin/sonar-scanner-debug": {},
+          "tools/net5.0/any/sonar-scanner-4.6.2.2472/bin/sonar-scanner-debug.bat": {},
+          "tools/net5.0/any/sonar-scanner-4.6.2.2472/bin/sonar-scanner.bat": {},
+          "tools/net5.0/any/sonar-scanner-4.6.2.2472/conf/sonar-scanner.properties": {},
+          "tools/net5.0/any/sonar-scanner-4.6.2.2472/lib/sonar-scanner-cli-4.6.2.2472.jar": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "dotnet-sonarscanner/5.3.1": {
+      "sha512": "J3wfpiwe+XP/2G9A7eeYZVvtMtPwNuqqYHpYxplhHTOapnwMyd7ake+it3I5r/3SqPfFuNBYY9yt3TS6zbu0nQ==",
+      "type": "package",
+      "path": "dotnet-sonarscanner/5.3.1",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "License.txt",
+        "dotnet-sonarscanner.5.3.1.nupkg.sha512",
+        "dotnet-sonarscanner.nuspec",
+        "tools/net5.0/any/DotnetToolSettings.xml",
+        "tools/net5.0/any/Newtonsoft.Json.dll",
+        "tools/net5.0/any/SonarQube.Analysis.xml",
+        "tools/net5.0/any/SonarScanner.MSBuild.Common.dll",
+        "tools/net5.0/any/SonarScanner.MSBuild.PostProcessor.dll",
+        "tools/net5.0/any/SonarScanner.MSBuild.PreProcessor.dll",
+        "tools/net5.0/any/SonarScanner.MSBuild.Shim.dll",
+        "tools/net5.0/any/SonarScanner.MSBuild.Tasks.dll",
+        "tools/net5.0/any/SonarScanner.MSBuild.dll",
+        "tools/net5.0/any/SonarScanner.MSBuild.runtimeconfig.json",
+        "tools/net5.0/any/Targets/SonarQube.Integration.ImportBefore.targets",
+        "tools/net5.0/any/Targets/SonarQube.Integration.targets",
+        "tools/net5.0/any/sonar-scanner-4.6.2.2472/bin/sonar-scanner",
+        "tools/net5.0/any/sonar-scanner-4.6.2.2472/bin/sonar-scanner-debug",
+        "tools/net5.0/any/sonar-scanner-4.6.2.2472/bin/sonar-scanner-debug.bat",
+        "tools/net5.0/any/sonar-scanner-4.6.2.2472/bin/sonar-scanner.bat",
+        "tools/net5.0/any/sonar-scanner-4.6.2.2472/conf/sonar-scanner.properties",
+        "tools/net5.0/any/sonar-scanner-4.6.2.2472/lib/sonar-scanner-cli-4.6.2.2472.jar",
+        "tools/netcoreapp2.0/any/DotnetToolSettings.xml",
+        "tools/netcoreapp2.0/any/Newtonsoft.Json.dll",
+        "tools/netcoreapp2.0/any/SonarQube.Analysis.xml",
+        "tools/netcoreapp2.0/any/SonarScanner.MSBuild.Common.dll",
+        "tools/netcoreapp2.0/any/SonarScanner.MSBuild.PostProcessor.dll",
+        "tools/netcoreapp2.0/any/SonarScanner.MSBuild.PreProcessor.dll",
+        "tools/netcoreapp2.0/any/SonarScanner.MSBuild.Shim.dll",
+        "tools/netcoreapp2.0/any/SonarScanner.MSBuild.Tasks.dll",
+        "tools/netcoreapp2.0/any/SonarScanner.MSBuild.dll",
+        "tools/netcoreapp2.0/any/SonarScanner.MSBuild.runtimeconfig.json",
+        "tools/netcoreapp2.0/any/Targets/SonarQube.Integration.ImportBefore.targets",
+        "tools/netcoreapp2.0/any/Targets/SonarQube.Integration.targets",
+        "tools/netcoreapp2.0/any/sonar-scanner-4.6.2.2472/bin/sonar-scanner",
+        "tools/netcoreapp2.0/any/sonar-scanner-4.6.2.2472/bin/sonar-scanner-debug",
+        "tools/netcoreapp2.0/any/sonar-scanner-4.6.2.2472/bin/sonar-scanner-debug.bat",
+        "tools/netcoreapp2.0/any/sonar-scanner-4.6.2.2472/bin/sonar-scanner.bat",
+        "tools/netcoreapp2.0/any/sonar-scanner-4.6.2.2472/conf/sonar-scanner.properties",
+        "tools/netcoreapp2.0/any/sonar-scanner-4.6.2.2472/lib/sonar-scanner-cli-4.6.2.2472.jar",
+        "tools/netcoreapp3.0/any/DotnetToolSettings.xml",
+        "tools/netcoreapp3.0/any/Newtonsoft.Json.dll",
+        "tools/netcoreapp3.0/any/SonarQube.Analysis.xml",
+        "tools/netcoreapp3.0/any/SonarScanner.MSBuild.Common.dll",
+        "tools/netcoreapp3.0/any/SonarScanner.MSBuild.PostProcessor.dll",
+        "tools/netcoreapp3.0/any/SonarScanner.MSBuild.PreProcessor.dll",
+        "tools/netcoreapp3.0/any/SonarScanner.MSBuild.Shim.dll",
+        "tools/netcoreapp3.0/any/SonarScanner.MSBuild.Tasks.dll",
+        "tools/netcoreapp3.0/any/SonarScanner.MSBuild.dll",
+        "tools/netcoreapp3.0/any/SonarScanner.MSBuild.runtimeconfig.json",
+        "tools/netcoreapp3.0/any/Targets/SonarQube.Integration.ImportBefore.targets",
+        "tools/netcoreapp3.0/any/Targets/SonarQube.Integration.targets",
+        "tools/netcoreapp3.0/any/sonar-scanner-4.6.2.2472/bin/sonar-scanner",
+        "tools/netcoreapp3.0/any/sonar-scanner-4.6.2.2472/bin/sonar-scanner-debug",
+        "tools/netcoreapp3.0/any/sonar-scanner-4.6.2.2472/bin/sonar-scanner-debug.bat",
+        "tools/netcoreapp3.0/any/sonar-scanner-4.6.2.2472/bin/sonar-scanner.bat",
+        "tools/netcoreapp3.0/any/sonar-scanner-4.6.2.2472/conf/sonar-scanner.properties",
+        "tools/netcoreapp3.0/any/sonar-scanner-4.6.2.2472/lib/sonar-scanner-cli-4.6.2.2472.jar"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net5.0": [
+      "dotnet-sonarscanner >= *"
+    ]
+  },
+  "packageFolders": {
+    "/Users/mattkellock/Documents/GitHub/COSC2650/Assignment/API/API/sonar/scanner/.store/.stage/vord0vtu.ese": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/var/folders/4b/0vdqfj_x0f71yxlgt13c02sm0000gn/T/qxba55x0.mys/restore.csproj",
+      "projectName": "restore",
+      "projectPath": "/var/folders/4b/0vdqfj_x0f71yxlgt13c02sm0000gn/T/qxba55x0.mys/restore.csproj",
+      "packagesPath": "/Users/mattkellock/Documents/GitHub/COSC2650/Assignment/API/API/sonar/scanner/.store/.stage/vord0vtu.ese",
+      "outputPath": "/Users/mattkellock/Documents/GitHub/COSC2650/Assignment/API/API/sonar/scanner/.store/.stage/vord0vtu.ese/",
+      "projectStyle": "DotnetToolReference",
+      "configFilePaths": [
+        "/Users/mattkellock/.nuget/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net5.0"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net5.0": {
+        "targetAlias": "net5.0",
+        "dependencies": {
+          "dotnet-sonarscanner": {
+            "target": "Package",
+            "version": "[*, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
+      }
+    },
+    "runtimes": {
+      "any": {
+        "#import": []
+      }
+    }
+  }
+}
