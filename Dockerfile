@@ -21,7 +21,7 @@ RUN if [ ! -d /.sonar/scanner ]; then mkdir -p /.sonar/scanner; fi \
         && dotnet tool update dotnet-sonarscanner --tool-path /.sonar/scanner
 
 RUN echo "Fuckity fuck fuck"
-RUN echo "Fuckity $SONAR_TOKEN"
+RUN echo "$(Fuckity "$SONAR_TOKEN")"
 
 # Start the Sonar scanner
 RUN /.sonar/scanner/dotnet-sonarscanner begin /k:\"COSC2650_Assignment\" /o:\"cosc2650\" /d:sonar.login=$SONAR_TOKEN \
