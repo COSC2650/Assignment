@@ -43,6 +43,8 @@ jobs:
     #if: github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v2
+      - name: Export sha
+        run: echo "mkellock/cosc2650:${{ steps.task-def.outputs.digest }}"
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -56,8 +58,6 @@ jobs:
           task-definition: ./IaC/ECS/task-definition.json
           container-name: Assignment
           image: ${{ needs.build.outputs.image }}
-      - name: Export sha
-        run: echo "mkellock/cosc2650:${{ steps.task-def.outputs.digest }}"
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
