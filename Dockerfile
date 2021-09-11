@@ -21,13 +21,13 @@ RUN if [ ! -d /.sonar/scanner ]; then mkdir -p /.sonar/scanner; fi \
         && dotnet tool update dotnet-sonarscanner --tool-path /.sonar/scanner
 
 # Start the Sonar scanner
-RUN ["sh", "-c", "/.sonar/scanner/dotnet-sonarscanner begin \
+RUN $(/.sonar/scanner/dotnet-sonarscanner begin \
         /k:\"COSC2650_Assignment\" \
         /o:\"cosc2650\" \
         /d:sonar.login=\"$SONAR_TOKEN\" \
         /d:sonar.host.url=\"https://sonarcloud.io\" \
         /d:sonar.cs.opencover.reportsPaths=\"**/coverage.opencover.xml\" \
-        /d:sonar.coverage.exclusions=\"API/Program.cs\",\"API/Startup.cs\"" ]
+        /d:sonar.coverage.exclusions=\"API/Program.cs\",\"API/Startup.cs\")
 
 # Build test and publish
 RUN if [ "${GITHUB_REF}" == "refs/heads/main" ]; then configuration="Release"; else configuration="Debug"; fi \
