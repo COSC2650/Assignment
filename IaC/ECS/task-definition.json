@@ -4,7 +4,7 @@
       "name": "API",
       "image": "mkellock/cosc2650:latest",
       "cpu": 0,
-      "memory": 500,
+      "memory": 512,
       "memoryReservation": 300,
       "portMappings": [
         {

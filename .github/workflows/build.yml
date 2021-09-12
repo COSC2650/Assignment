@@ -57,7 +57,7 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: ./IaC/ECS/task-definition.json
-          container-name: API
+          container-name: Assignment
           image: mkellock/cosc2650@${{ needs.build.outputs.digest }}
           environment: |
             NEW_RELIC_LICENSE_KEY=${{ secrets.NEW_RELIC_LICENCE_KEY }}
