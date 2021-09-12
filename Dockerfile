@@ -4,7 +4,6 @@ FROM mkellock/buildtools:latest AS build-env
 ARG GITHUB_REF
 ARG SONAR_TOKEN
 ARG GITHUB_TOKEN
-ARG NEW_RELIC_LICENCE_KEY
 
 # Update the container
 RUN apt-get update \
@@ -40,6 +39,9 @@ RUN /.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="$SONAR_TOKEN"
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
+
+# New Relic licence key
+ENV NEW_RELIC_LICENCE_KEY=""
 
 # Install the NewRelic agent
 RUN apt-get update \
