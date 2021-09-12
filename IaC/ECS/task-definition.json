@@ -1,9 +1,8 @@
 {
-  "taskDefinitionArn": "arn:aws:ecs:ap-southeast-2:723465791019:task-definition/AssignmentFG:28",
   "containerDefinitions": [
     {
       "name": "API",
-      "image": "mkellock/cosc2650@latest",
+      "image": "mkellock/cosc2650:latest",
       "cpu": 0,
       "portMappings": [
         {
@@ -35,42 +34,11 @@
   "taskRoleArn": "arn:aws:iam::723465791019:role/ecsTaskExecutionRole",
   "executionRoleArn": "arn:aws:iam::723465791019:role/ecsTaskExecutionRole",
   "networkMode": "awsvpc",
-  "revision": 28,
   "volumes": [],
-  "status": "ACTIVE",
-  "requiresAttributes": [
-    {
-      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
-    },
-    {
-      "name": "ecs.capability.execution-role-awslogs"
-    },
-    {
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
-    },
-    {
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
-    },
-    {
-      "name": "com.amazonaws.ecs.capability.task-iam-role"
-    },
-    {
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
-    },
-    {
-      "name": "ecs.capability.task-eni"
-    }
-  ],
   "placementConstraints": [],
-  "compatibilities": [
-    "EC2",
-    "FARGATE"
-  ],
   "requiresCompatibilities": [
     "FARGATE"
   ],
   "cpu": "256",
-  "memory": "512",
-  "registeredAt": "2021-09-12T20:55:50.383000+10:00",
-  "registeredBy": "arn:aws:iam::723465791019:user/mkellock"
+  "memory": "512"
 }
