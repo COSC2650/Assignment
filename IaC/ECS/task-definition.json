@@ -2,7 +2,7 @@
   "containerDefinitions": [
     {
       "name": "API",
-      "image": "mkellock/cosc2650:latest",
+      "image": "Test",
       "cpu": 0,
       "memory": 512,
       "memoryReservation": 300,
@@ -58,8 +58,13 @@
     }
   ],
   "placementConstraints": [],
-  "compatibilities": ["EC2", "FARGATE"],
-  "requiresCompatibilities": ["FARGATE"],
+  "compatibilities": [
+    "EC2",
+    "FARGATE"
+  ],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
   "cpu": "256",
   "memory": "512",
   "registeredAt": "2021-09-08T22:57:12.949000+10:00",
