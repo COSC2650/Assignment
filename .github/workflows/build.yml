@@ -9,7 +9,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: 11
-          distribution: 'zulu'
+          distribution: "zulu"
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
@@ -101,12 +101,10 @@ jobs:
           task-definition: task-definition.json
           container-name: Assignment
           image: ${{ steps.meta.outputs.tags }}
-      - name: Echo out docker metadata
-        run: echo "${{ steps.meta.outputs.tags }}"
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          task-definition: task-definition.json
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
           service: ${{ secrets.ECS_SERVICE }}
           cluster: ${{ secrets.ECS_CLUSTER }}
           wait-for-service-stability: false
