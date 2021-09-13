@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
@@ -30,7 +30,7 @@ CORECLR_PROFILER_PATH=/usr/local/newrelic-netcore20-agent/libNewRelicProfiler.so
 NEW_RELIC_LICENSE_KEY=3c9e5c618f31bf7394bb19e370a40ef5d2dfNRAL \
 NEW_RELIC_APP_NAME="API"
 
-# Set the working directory and copy thr build assets
+# Copy the build assets
 COPY --from=build-env /build-context/out .
 
 # Expose port 80
