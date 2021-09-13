@@ -37,7 +37,7 @@ namespace API
                         {
                             NewRelic.Api.Agent.NewRelic.RecordMetric("Custom/HealthCheck", 1);
 
-                            await context.Response.WriteAsync("New Relic!");
+                            await context.Response.WriteAsync("Working!");
                         });
                 });
         }
