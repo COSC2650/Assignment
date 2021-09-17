@@ -11,7 +11,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="NewRelic.Agent" Version="8.41.1" />
-    <PackageReference Include="NewRelic.Agent.Api" Version="8.41.1" />
+    <PackageReference Include="NewRelic.Agent.Api" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
