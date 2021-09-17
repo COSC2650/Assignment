@@ -1,6 +1,8 @@
 using System;
 using Xunit;
 using API;
+using Moq;
+using Microsoft.Extensions.Logging;
 
 namespace Tests
 {
@@ -12,7 +14,7 @@ namespace Tests
         [InlineData("")]
         public void Author(String name)
         {
-            Author author = new Author();
+            Author author = new();
             author.Name = name;
             Assert.Equal(name, author.Name);
         }
@@ -23,10 +25,10 @@ namespace Tests
         [InlineData("", "")]
         public void Book(String bookTitle, String authorName)
         {
-            Book book = new Book();
+            Book book = new();
             book.Title = bookTitle;
 
-            Author author = new Author();
+            Author author = new();
             author.Name = authorName;
 
             book.Author = author;
@@ -39,7 +41,9 @@ namespace Tests
         [Fact]
         public void GetBookQuery()
         {
-            Query query = new Query();
+            var logger = new Mock<ILogger<Query>>();
+
+            Query query = new(logger.Object);
 
             Assert.Equal("C# in depth.", query.GetBook().Title);
             Assert.Equal("Jon Skeet", query.GetBook().Author.Name);

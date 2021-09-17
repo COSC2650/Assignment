@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NLog;
 
 namespace API
 {
@@ -37,7 +34,10 @@ namespace API
                         {
                             NewRelic.Api.Agent.NewRelic.RecordMetric("Custom/HealthCheck", 1);
 
-                            await context.Response.WriteAsync("Working!");
+                            Logger log = LogManager.GetCurrentClassLogger();
+                            log.Debug("Logging works!");
+
+                            await context.Response.WriteAsync(System.DateTime.Now.ToLongTimeString());
                         });
                 });
         }

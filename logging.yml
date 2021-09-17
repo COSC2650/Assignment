@@ -1,0 +1,7 @@
+logs:
+   # Path to a single log file
+  - name: nlog-internal
+    file: /var/log/nlog.log
+  # Path to another single log file
+  - name: api-log
+    file: /var/log/apilog.json
