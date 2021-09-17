@@ -55,7 +55,7 @@ RUN apt-get update \
         && rm -rf /var/lib/apt/lists/*
 
 # Copy the NewRelic configuration file
-RUN mkdir /etc/newrelic-infra/logging.d
+RUN mkdir -p /etc/newrelic-infra/logging.d
 COPY logging.yml /etc/newrelic-infra/logging.d/logging.yml
 
 # Enable the NewRelic agent
