@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NLog;
+using Sentry.AspNetCore;
 
 namespace API
 {
@@ -40,6 +41,8 @@ namespace API
                             await context.Response.WriteAsync("Health check");
                         });
                 });
+
+            app.UseSentryTracing();
         }
     }
 }

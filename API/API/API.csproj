@@ -6,6 +6,9 @@
 
   <ItemGroup>
     <PackageReference Include="HotChocolate.AspNetCore" Version="11.3.7" />
+    <PackageReference Include="Sentry" Version="3.9.2" />
+    <PackageReference Include="Sentry.AspNetCore" Version="3.9.2" />
+    <PackageReference Include="Sentry.NLog" Version="3.9.2" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.29.0.36737">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
