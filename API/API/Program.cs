@@ -38,7 +38,6 @@ namespace API
                     webBuilder.ConfigureLogging(loggerBuilder => 
                     { 
                         loggerBuilder.ClearProviders();
-                        loggerBuilder.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
                     }).UseNLog();
                 });
     }
