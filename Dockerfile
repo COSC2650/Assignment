@@ -56,10 +56,6 @@ RUN apt-get update \
         && apt-get install -y newrelic-netcore20-agent \
         && rm -rf /var/lib/apt/lists/*
 
-# Copy the NewRelic configuration file
-RUN mkdir -p /etc/newrelic-infra/logging.d
-COPY logging.yml /etc/newrelic-infra/logging.d/logging.yml
-
 # Enable the NewRelic agent
 ENV CORECLR_ENABLE_PROFILING=1 \
 CORECLR_PROFILER={36032161-FFC0-4B61-B559-F6C5D41BAE5A} \

@@ -35,9 +35,9 @@ namespace API
                             NewRelic.Api.Agent.NewRelic.RecordMetric("Custom/HealthCheck", 1);
 
                             Logger log = LogManager.GetCurrentClassLogger();
-                            log.Debug("Logging works!");
+                            log.Debug("Health check");
 
-                            await context.Response.WriteAsync(System.DateTime.Now.ToLongTimeString());
+                            await context.Response.WriteAsync("Health check");
                         });
                 });
         }
