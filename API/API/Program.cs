@@ -14,7 +14,7 @@ namespace API
             var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
             try
             {
-                logger.Debug("init main");
+                logger.Debug("Initialised application");
                 CreateHostBuilder(args).Build().Run(); 
             }
             catch (Exception ex)

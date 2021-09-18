@@ -40,6 +40,10 @@ namespace API
 
                             await context.Response.WriteAsync("Health check");
                         });
+                    endpoints.MapGet("/error", context =>
+                        {
+                            throw new System.Exception("Test exception");
+                        });
                 });
 
             app.UseSentryTracing();
