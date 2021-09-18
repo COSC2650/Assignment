@@ -42,6 +42,15 @@ FROM mcr.microsoft.com/dotnet/aspnet:5.0
 
 # New Relic licence key
 ENV NEW_RELIC_LICENCE_KEY=""
+ENV NEW_RELIC_API_KEY=""
+ENV NEW_RELIC_ACCOUNT_ID=""
+
+# Update the container
+RUN apt-get update \
+        && apt-get upgrade -y
+
+# Install the NewRelic infrastructure agent
+RUN curl -Ls https://download.newrelic.com/install/newrelic-cli/scripts/install.sh | bash && sudo NEW_RELIC_API_KEY=$NEW_RELIC_API_KEY NEW_RELIC_ACCOUNT_ID=$NEW_RELIC_ACCOUNT_ID /usr/local/bin/newrelic install
 
 # Install the NewRelic agent
 RUN apt-get update \
