@@ -46,7 +46,7 @@ jobs:
                 SENTRY_ORG: cosc2650
                 SENTRY_PROJECT: assignment
               with:
-                version: ${{ github.ref }}
+                version: ${{ github.sha }}
                 environment: 'Production'
                 ignore_empty: true
     deploy:
