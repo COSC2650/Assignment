@@ -39,6 +39,7 @@ namespace API
                     { 
                         loggerBuilder.ClearProviders();
                     }).UseNLog();
+                    webBuilder.UseSentry();
                 });
     }
 }
