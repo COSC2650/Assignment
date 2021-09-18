@@ -40,15 +40,15 @@ jobs:
                       SONAR_TOKEN=${{ secrets.SONAR_TOKEN }}
                       GITHUB_REF=${{ github.ref }}
             - name: Create a Sentry.io release
-              uses: tclindner/sentry-releases-action@v1.2.0
+              uses: getsentry/action-release@v1
               env:
                 SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
                 SENTRY_ORG: cosc2650
                 SENTRY_PROJECT: assignment
               with:
-                tagName: ${{ github.ref }}
-                environment: Production
-
+                version: ${{ github.ref }}
+                environment: 'Production'
+                ignore_empty: true
     deploy:
         name: Deploy
         runs-on: ubuntu-latest
