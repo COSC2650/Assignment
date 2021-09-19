@@ -6,22 +6,30 @@
 
   <ItemGroup>
     <PackageReference Include="HotChocolate.AspNetCore" Version="11.3.7" />
+    <PackageReference Include="NewRelic.Agent" Version="9.0.0" />
+    <PackageReference Include="Sentry.AspNetCore" Version="3.9.2" />
+    <PackageReference Include="Sentry.NLog" Version="3.9.2" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.29.0.36737">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="NewRelic.Agent" Version="9.0.0" />
     <PackageReference Include="NewRelic.Agent.Api" Version="9.0.0" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.14.0" />
+    <PackageReference Include="NLog" Version="4.7.11" />
+    <PackageReference Include="NewRelic.LogEnrichers.NLog" Version="1.2.1" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="SonarAnalyzer.CSharp" />
     <None Remove="NewRelic.Agent" />
     <None Remove="NewRelic.Agent.Api" />
+    <None Remove="NLog.Web.AspNetCore" />
+    <None Remove="NLog" />
+    <None Remove="NewRelic.LogEnrichers.NLog" />
   </ItemGroup>
-  
+
   <ItemGroup>
-    <None Update="Procfile">
+    <None Update="nlog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
