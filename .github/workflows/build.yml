@@ -8,6 +8,7 @@ jobs:
         api_changes: ${{ steps.api_changes.outputs.src }}
         ui_changes: ${{ steps.api_changes.outputs.src }}
     steps:
+    - uses: actions/checkout@v2
     - uses: dorny/paths-filter@v2
       id: api_changes
       with:
