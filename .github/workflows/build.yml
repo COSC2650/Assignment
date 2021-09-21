@@ -1,26 +1,26 @@
 name: Build
 on: push
 jobs
-    files_changed:
-      name: Check changes
-      runs-on: ubuntu-latest
-      outputs:
-          api_changes: ${{ steps.api_changes.outputs.src }}
-          ui_changes: ${{ steps.api_changes.outputs.src }}
-      steps:
-      - uses: dorny/paths-filter@v2
-        id: api_changes
-        with:
-          filters: |
-            src:
-              - 'API/**'
-              - Dockerfile
-      - uses: dorny/paths-filter@v2
-        id: ui_changes
-        with:
-          filters: |
-            src:
-              - 'UI/**'
+  files_changed:
+    name: Check changes
+    runs-on: ubuntu-latest
+    outputs:
+        api_changes: ${{ steps.api_changes.outputs.src }}
+        ui_changes: ${{ steps.api_changes.outputs.src }}
+    steps:
+    - uses: dorny/paths-filter@v2
+      id: api_changes
+      with:
+        filters: |
+          src:
+            - 'API/**'
+            - Dockerfile
+    - uses: dorny/paths-filter@v2
+      id: ui_changes
+      with:
+        filters: |
+          src:
+            - 'UI/**'
     build_api:
         name: Build API
         runs-on: ubuntu-latest
