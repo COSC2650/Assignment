@@ -135,6 +135,3 @@ jobs:
                   folder: build
                   bucket: ${{ secrets.S3_BUCKET }}
                   bucket-region: ap-southeast-2
-                  dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
-                  delete-removed: true
-                  invalidation: /
