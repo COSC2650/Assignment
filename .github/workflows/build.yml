@@ -104,4 +104,4 @@ jobs:
             - run: npm test
               env:
                   CI: true
-              working-directory: ./UI/zip-it
+              working-directory: ./UI/zip-it/
