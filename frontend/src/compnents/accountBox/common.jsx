@@ -22,14 +22,6 @@ export const MutedLink = styled.a`
   text-decoration: none;
 `;
 
-export const BoldLink = styled.a`
-  font-size: 11px;
-  color: rgb(18, 22, 243);
-  font-weight: 500;
-  text-decoration: none;
-  margin: 0 4px;
-`;
-
 export const Input = styled.input`
   width: 100%;
   height: 42px;
@@ -50,7 +42,7 @@ export const Input = styled.input`
 
   &:focus {
     outline: none;
-    border-bottom: 2px solid rgb(241, 196, 15);
+    border-bottom: 2px solid rgb(157, 156, 156);
   }
 `;
 
