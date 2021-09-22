@@ -5,22 +5,18 @@ jobs:
         name: Check changes
         runs-on: ubuntu-latest
         outputs:
-            api_changes: ${{ steps.api_changes.outputs.src }}
-            ui_changes: ${{ steps.api_changes.outputs.src }}
+            api_changes: ${{ steps.changes.outputs.api_changes }}
+            ui_changes: ${{ steps.changes.outputs.ui_changes }}
         steps:
             - uses: actions/checkout@v2
             - uses: dorny/paths-filter@v2
-              id: api_changes
+              id: changes
               with:
                   filters: |
-                      src:
+                      api_changes:
                         - 'API/**'
                         - Dockerfile
-            - uses: dorny/paths-filter@v2
-              id: ui_changes
-              with:
-                  filters: |
-                      src:
+                      ui_changes:
                         - 'UI/**'
     build_api:
         name: Build API
