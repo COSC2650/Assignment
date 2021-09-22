@@ -112,7 +112,7 @@ jobs:
               with: 
                 name: UI
                 path: UI/zip-it/build/**/*
-    deploy_api:
+    deploy_ui:
         name: Build UI
         runs-on: ubuntu-latest
         needs: build_ui
