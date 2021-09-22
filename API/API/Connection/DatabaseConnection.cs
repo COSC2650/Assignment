@@ -27,6 +27,15 @@ namespace API.Connection
 
         }
 
+        /*
+         * 
+         * 
+         * Look up EF CORE
+         *  and WDT
+         * 
+         * 
+         */
+
         //Close connection after operations have been completed
 
         public void CloseConnection()
