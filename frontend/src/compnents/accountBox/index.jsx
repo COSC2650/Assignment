@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { LoginForm } from './loginForm';
+import { motion } from 'framer-motion';
 
 const BoxContainer = styled.div`
   width: 280px;
@@ -23,7 +24,7 @@ const TopContainer = styled.div`
   padding-bottom: 5em;
 `;
 
-const BackDrop = styled.div`
+const BackDrop = styled(motion.div)`
   width: 160%;
   height: 550px;
   position: absolute;
