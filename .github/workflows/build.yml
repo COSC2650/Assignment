@@ -93,6 +93,8 @@ jobs:
                   cluster: ${{ secrets.ECS_CLUSTER }}
                   wait-for-service-stability: false
     build_ui:
+        name: Build UI
+        runs-on: ubuntu-latest
         defaults:
             run:
                 working-directory: UI/zip-it
@@ -113,7 +115,7 @@ jobs:
                 name: UI
                 path: UI/zip-it/build/**/*
     deploy_ui:
-        name: Build UI
+        name: Deploy UI
         runs-on: ubuntu-latest
         needs: build_ui
         env:
