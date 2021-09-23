@@ -1,20 +1,31 @@
-import React from 'react';
+import { useState } from 'react';
 import { Login } from './login';
 import { Register } from './register';
+import { AccountContext } from './accountContext';
 
 function Index() {
-  //main index viewport component
-  const LoginPage = () => {
-    return <Login />;
+  const switchToRegister = () => {
+    setTimeout(() => {
+      setActive('signup');
+    }, 400);
   };
-  const RegisterPage = () => {
-    return <Register />;
+
+  const switchToLogin = () => {
+    setTimeout(() => {
+      setActive('signin');
+    }, 400);
   };
+
+  const [active, setActive] = useState('signin');
+  const contextValue = { switchToRegister, switchToLogin };
+
   return (
-    <>
-      <LoginPage></LoginPage>
-      <RegisterPage></RegisterPage>
-    </>
+    <AccountContext.Provider value={contextValue}>
+      <div>
+        {active === 'signin' && <Login />}
+        {active === 'signup' && <Register />}
+      </div>
+    </AccountContext.Provider>
   );
 }
 

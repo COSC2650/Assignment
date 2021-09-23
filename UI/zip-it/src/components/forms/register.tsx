@@ -1,4 +1,4 @@
-import React from 'react';
+import { useContext } from 'react';
 import {
   Flex,
   Heading,
@@ -7,9 +7,11 @@ import {
   useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react';
+import { AccountContext } from './accountContext';
 
 //register component
 export function Register() {
+  const { switchToLogin } = useContext(AccountContext);
   const { toggleColorMode } = useColorMode();
   const formBackground = useColorModeValue('gray.100', 'gray.700');
   return (
@@ -50,8 +52,11 @@ export function Register() {
         type="password"
         id="password"
       />
-      <Button colorScheme="teal" mb={6} id="register">
+      <Button href="#" colorScheme="teal" mb={6} id="register">
         Register
+      </Button>
+      <Button onClick={switchToLogin} mb={6}>
+        Back to Login
       </Button>
       <Button onClick={toggleColorMode} id="color_mode">
         Toggle Colour mode
