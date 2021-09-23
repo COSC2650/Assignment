@@ -47,6 +47,8 @@ namespace API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors();
+
             app.UseRouting()
                 .UseEndpoints(endpoints =>
                 {

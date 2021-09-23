@@ -72,7 +72,7 @@ jobs:
         name: Deploy API
         runs-on: ubuntu-latest
         needs: build_api
-        #if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main'
         steps:
             - uses: actions/checkout@v2
             - name: Configure AWS credentials
@@ -85,6 +85,8 @@ jobs:
               run: echo "$(jq ".containerDefinitions[0].image=\"mkellock/cosc2650@${{ needs.build.outputs.digest }}\"" ./IaC/ECS/task-definition.json)" > ./IaC/ECS/task-definition.json
             - name: Update ECS New Relic licence key
               run: echo "$(jq ".containerDefinitions[0].environment[0].value=\"${{ secrets.NEW_RELIC_LICENCE_KEY }}\"" ./IaC/ECS/task-definition.json)" > ./IaC/ECS/task-definition.json
+            - name: Update CORS URLs
+              run: echo "$(jq ".containerDefinitions[0].environment[1].value=\"${{ secrets.CORS_URLS }}\"" ./IaC/ECS/task-definition.json)" > ./IaC/ECS/task-definition.json
             - name: Deploy Amazon ECS task definition
               uses: aws-actions/amazon-ecs-deploy-task-definition@v1
               with:
