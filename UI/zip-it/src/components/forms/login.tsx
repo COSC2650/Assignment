@@ -17,7 +17,7 @@ export function Login() {
   return (
     <Flex height="100vh" alignItems="center" justifyContent="center">
       <Flex direction="column" background={formBackground} p={12} rounded={6}>
-        <Heading mb={6}>Log in to Zip.It</Heading>
+        <Heading mb={6}>Ready? Set? Zip-It!</Heading>
         <Input
           placeholder="your@email.com"
           variant="filled"

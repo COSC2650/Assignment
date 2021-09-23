@@ -16,7 +16,7 @@ export function Register() {
   const formBackground = useColorModeValue('gray.100', 'gray.700');
   return (
     <Flex direction="column" background={formBackground} p={12} rounded={6}>
-      <Heading mb={6}>Log in to Zip.It</Heading>
+      <Heading mb={6}>Register to Zip-It!</Heading>
       <Input
         placeholder="your@email.com"
         variant="filled"
