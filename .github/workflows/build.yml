@@ -82,7 +82,7 @@ jobs:
                   aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                   aws-region: ${{ secrets.AWS_REGION }}
             - name: Update ECS image
-              run: echo "$(jq ".containerDefinitions[0].image=\"mkellock/cosc2650@${{ needs.build.outputs.digest }}\"" ./IaC/ECS/task-definition.json)" > ./IaC/ECS/task-definition.json
+              run: echo "$(jq ".containerDefinitions[0].image=\"mkellock/cosc2650@${{ needs.build_api.outputs.digest }}\"" ./IaC/ECS/task-definition.json)" > ./IaC/ECS/task-definition.json
             - name: Update ECS New Relic licence key
               run: echo "$(jq ".containerDefinitions[0].environment[0].value=\"${{ secrets.NEW_RELIC_LICENCE_KEY }}\"" ./IaC/ECS/task-definition.json)" > ./IaC/ECS/task-definition.json
             - name: Update CORS URLs
