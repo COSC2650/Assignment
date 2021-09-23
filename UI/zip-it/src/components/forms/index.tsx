@@ -1,29 +1,37 @@
 import { useState } from 'react';
 import { Login } from './login';
 import { Register } from './register';
+import { Filter } from './filter';
 import { AccountContext } from './accountContext';
 
 function Index() {
   const switchToRegister = () => {
     setTimeout(() => {
-      setActive('signup');
+      setActive('register');
     }, 400);
   };
 
   const switchToLogin = () => {
     setTimeout(() => {
-      setActive('signin');
+      setActive('login');
     }, 400);
   };
 
-  const [active, setActive] = useState('signin');
-  const contextValue = { switchToRegister, switchToLogin };
+  const switchToFilter = () => {
+    setTimeout(() => {
+      setActive('filter');
+    }, 400);
+  };
+
+  const [active, setActive] = useState('login');
+  const contextValue = { switchToRegister, switchToLogin, switchToFilter };
 
   return (
     <AccountContext.Provider value={contextValue}>
       <div>
-        {active === 'signin' && <Login />}
-        {active === 'signup' && <Register />}
+        {active === 'login' && <Login />}
+        {active === 'register' && <Register />}
+        {active === 'filter' && <Filter />}
       </div>
     </AccountContext.Provider>
   );

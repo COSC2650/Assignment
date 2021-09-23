@@ -12,11 +12,14 @@ import { AccountContext } from './accountContext';
 //register component
 export function Register() {
   const { switchToLogin } = useContext(AccountContext);
+  const { switchToFilter } = useContext(AccountContext);
   const { toggleColorMode } = useColorMode();
   const formBackground = useColorModeValue('gray.100', 'gray.700');
   return (
     <Flex direction="column" background={formBackground} p={12} rounded={6}>
-      <Heading mb={6}>Register to Zip-It!</Heading>
+      <Heading textAlign="center" mb={6}>
+        Register to Zip-It!
+      </Heading>
       <Input
         placeholder="your@email.com"
         variant="filled"
@@ -52,7 +55,7 @@ export function Register() {
         type="password"
         id="password"
       />
-      <Button href="#" colorScheme="teal" mb={6} id="register">
+      <Button onClick={switchToFilter} colorScheme="teal" mb={6} id="register">
         Register
       </Button>
       <Button onClick={switchToLogin} mb={6}>
