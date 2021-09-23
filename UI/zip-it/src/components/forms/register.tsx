@@ -51,7 +51,7 @@ export function Register() {
         id="password"
       />
       <Button colorScheme="teal" mb={6} id="register">
-        Log In
+        Register
       </Button>
       <Button onClick={toggleColorMode} id="color_mode">
         Toggle Colour mode
