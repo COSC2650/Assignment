@@ -88,7 +88,7 @@ jobs:
             - name: Update CORS URLs
               run: echo "$(jq ".containerDefinitions[0].environment[1].value=\"${{ secrets.CORS_URLS }}\"" ./IaC/ECS/task-definition.json)" > ./IaC/ECS/task-definition.json
             - name: Cat out task-definition.json
-              run: cat ./Iac/ECS/task-definition.json
+              run: cat ./IaC/ECS/task-definition.json
             - name: Deploy Amazon ECS task definition
               uses: aws-actions/amazon-ecs-deploy-task-definition@v1
               with:
