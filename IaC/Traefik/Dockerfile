@@ -10,6 +10,7 @@ RUN mkdir -p /etc/traefik \
 [providers] \n\
   [providers.ecs] \n\
     exposedByDefault = false \n\
+    autoDiscoverClusters: true \n\
 \n\
 [entryPoints]\n\
   [entryPoints.web]\n\
