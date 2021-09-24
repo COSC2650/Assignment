@@ -82,9 +82,11 @@ jobs:
                   aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                   aws-region: ${{ secrets.AWS_REGION }}
             - name: Update ECS image
-              run: echo "$(jq ".containerDefinitions[0].image=\"mkellock/cosc2650@${{ needs.build.outputs.digest }}\"" ./IaC/ECS/task-definition.json)" > ./IaC/ECS/task-definition.json
+              run: echo "$(jq ".containerDefinitions[0].image=\"mkellock/cosc2650@${{ needs.build_api.outputs.digest }}\"" ./IaC/ECS/task-definition.json)" > ./IaC/ECS/task-definition.json
             - name: Update ECS New Relic licence key
               run: echo "$(jq ".containerDefinitions[0].environment[0].value=\"${{ secrets.NEW_RELIC_LICENCE_KEY }}\"" ./IaC/ECS/task-definition.json)" > ./IaC/ECS/task-definition.json
+            - name: Update CORS URLs
+              run: echo "$(jq ".containerDefinitions[0].environment[1].value=\"${{ secrets.CORS_URLS }}\"" ./IaC/ECS/task-definition.json)" > ./IaC/ECS/task-definition.json
             - name: Deploy Amazon ECS task definition
               uses: aws-actions/amazon-ecs-deploy-task-definition@v1
               with:
@@ -111,25 +113,26 @@ jobs:
             - run: npm test
             - name: Upload UI
               uses: actions/upload-artifact@v2
-              with: 
-                name: UI
-                path: UI/zip-it/build/**/*
+              with:
+                  name: UI
+                  path: UI/zip-it/build/**/*
     deploy_ui:
-        name: Deploy UI
+        name: Deploy UI Blue
         runs-on: ubuntu-latest
         needs: build_ui
+        if: github.ref == 'refs/heads/main'
         steps:
             - name: Download UI
               uses: actions/download-artifact@v2
               with:
-                name: UI
-                path: build
+                  name: UI
+                  path: build
             - name: Configure AWS credentials
               uses: aws-actions/configure-aws-credentials@v1
               with:
-                aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-                aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
             - name: Deploy to S3
               run: aws s3 sync . s3://${{ secrets.S3_BUCKET }}
               working-directory: build
