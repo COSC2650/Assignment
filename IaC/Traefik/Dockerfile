@@ -9,14 +9,14 @@ RUN mkdir -p /etc/traefik \
 \n\
 [providers] \n\
   [providers.ecs] \n\
-    autoDiscoverClusters = true \n\
     exposedByDefault = false \n\
 \n\
 [entryPoints] \n\
-  [entryPoints.https] \n\
+  [entryPoints.websecure] \n\
     address = ":443" \n\
 \n\
-[certificatesResolvers.lets-encrypt.acme] \n\
-  storage = "/etc/traefik/acme.json" \n\
+[certificatesResolvers.letsEncrypt.acme] \n\
   email = "s3812552@student.rmit.edu.au" \n\
-  [certificatesResolvers.lets-encrypt.acme.tlsChallenge]' >> /etc/traefik/traefik.toml
+  storage = "/etc/traefik/acme.json" \n\
+  [certificatesResolvers.letsEncrypt.acme.httpChallenge] \n\
+    entryPoint = "web"' >> /etc/traefik/traefik.toml
