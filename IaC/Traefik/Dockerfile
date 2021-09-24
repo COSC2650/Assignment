@@ -16,9 +16,8 @@ RUN mkdir -p /etc/traefik/dynamic \
 \n\
 [http.services] \n\
   [http.services.noop.loadBalancer]'  >> /etc/traefik/dynamic/force-https.toml \
-        && touch /traefik/acme.json \
-        && chmod 600 /traefik/acme.json \
-        && mkdir -p /etc/traefik \
+        && touch /etc/traefik/acme.json \
+        && chmod 600 /etc/traefik/acme.json \
         && echo $'[log] \n\
   level = "WARN" \n\
 \n\
