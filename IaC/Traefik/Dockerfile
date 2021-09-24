@@ -1,7 +1,7 @@
 FROM traefik:2.5.3
 
 # Add the configuration files
-RUN mkdir -p /traefik/dynamic \ 
+RUN mkdir -p /etc/traefik/dynamic \ 
         && echo $' \n\
 [http.routers] \n\
   [http.routers.force-https] \n\
@@ -15,7 +15,7 @@ RUN mkdir -p /traefik/dynamic \
     scheme = "https" \n\
 \n\
 [http.services] \n\
-  [http.services.noop.loadBalancer]'  >> /traefik/dynamic/force-https.toml \
+  [http.services.noop.loadBalancer]'  >> /etc/traefik/dynamic/force-https.toml \
         && touch /traefik/acme.json \
         && chmod 600 /traefik/acme.json \
         && mkdir -p /etc/traefik \
