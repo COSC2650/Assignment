@@ -21,10 +21,14 @@ const Filter = (props: HeaderProps) => {
 
     return (
         <Flex align="right" width="100vw" position="fixed" top="0" left="0" zIndex="999" padding="5px" justify="right" background={headerBackground} id="color_mode">
-            <Image src={logo} height="45px" align="left" />
+            <Image src={logo} height="40px" align="left" />
             <Spacer />
-            <IconButton onClick={toggleColor} borderColor={textColor} marginLeft="5px" borderWidth="1px" color={textColor} backgroundColor={headerBackground} aria-label="Dark mode" size="lg" icon={colorModeIcon} />
-            <Button leftIcon={<Icon as={FaUser} />} onClick={props.toggleLogIn} borderColor={textColor} marginLeft="5px" borderWidth="1px" color={textColor} backgroundColor={headerBackground} aria-label="Log in" size="lg">
+            <IconButton onClick={toggleColor} display={["block", "none"]} borderColor={textColor} marginLeft="5px" borderWidth="1px" color={textColor} backgroundColor={headerBackground} aria-label="Theme" icon={colorModeIcon} />
+            <Button onClick={toggleColor} display={["none", "block"]} leftIcon={colorModeIcon} borderColor={textColor} marginLeft="5px" borderWidth="1px" color={textColor} backgroundColor={headerBackground} aria-label="Log in">
+                Theme
+            </Button>
+            <IconButton onClick={props.toggleLogIn} display={["block", "none"]} borderColor={textColor} marginLeft="5px" borderWidth="1px" color={textColor} backgroundColor={headerBackground} aria-label="Log in" icon={<Icon as={FaUser} />} />
+            <Button onClick={props.toggleLogIn} display={["none", "block"]} leftIcon={<Icon as={FaUser} />} borderColor={textColor} marginLeft="5px" borderWidth="1px" color={textColor} backgroundColor={headerBackground} aria-label="Log in">
                 Log in
             </Button>
         </Flex>

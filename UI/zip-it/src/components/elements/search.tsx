@@ -1,18 +1,11 @@
-import { useContext } from "react";
-import { Flex, Heading, Input, Button, Select } from "@chakra-ui/react";
-import { AccountContext } from "./accountContext";
+import { Input, Select, Stack, Button, Icon } from "@chakra-ui/react";
+import { FaSearch } from "react-icons/fa";
 
-//filter component
-export function Filter() {
-    const { switchToLogin } = useContext(AccountContext);
-
+const Search = () => {
     return (
-        <Flex direction="column" p={12} rounded={6}>
-            <Heading textAlign="center" mb={6}>
-                Zip-It Filter!
-            </Heading>
-            <Input placeholder="Zip/Area-code" variant="filled" mb={3} type="zipCode" id="zipCode" />
-            <Select placeholder="Category" mb={3}>
+        <Stack direction={["column"]} w={["100%", "300px"]}>
+            <Input placeholder="Post Code" variant="filled" type="number" id="postCode" />
+            <Select placeholder="Category">
                 <option value="option1">Gardening</option>
                 <option value="option2">Automotive</option>
                 <option value="option3">Collectables</option>
@@ -26,26 +19,23 @@ export function Filter() {
                 <option value="option2">Produce</option>
                 <option value="option3">Toys</option>
             </Select>
-            <Select placeholder="Condition" mb={3}>
+            <Select placeholder="Condition">
                 <option value="option1">Good Condition</option>
                 <option value="option2">Well used</option>
                 <option value="option3">Barely Used</option>
-                <option value="option1">UnUsed</option>
+                <option value="option1">Unused</option>
                 <option value="option2">Qualified</option>
                 <option value="option3">Qualified and Certified</option>
-                <option value="option1">Un Qualified and Un Certified</option>
+                <option value="option1">Unqualified and Uncertified</option>
             </Select>
-            <Select placeholder="Availibility" mb={3}>
+            <Select placeholder="Availibility">
                 <option value="option1">Now</option>
                 <option value="option2">Then</option>
                 <option value="option3">Booked Out</option>
             </Select>
-            <Button onClick={switchToLogin} colorScheme="teal" mb={6} id="logout">
-                Logout
-            </Button>
-        </Flex>
+            <Button leftIcon={<Icon as={FaSearch} />}>Search</Button>
+        </Stack>
     );
-}
-// }
+};
 
-export default Filter;
+export default Search;
