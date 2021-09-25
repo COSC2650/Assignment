@@ -5,6 +5,7 @@ jobs:
         name: Check changes
         runs-on: ubuntu-latest
         outputs:
+            status: ${{ job.status }}
             api_changes: ${{ steps.changes.outputs.api_changes }}
             ui_changes: ${{ steps.changes.outputs.ui_changes }}
         steps:
@@ -149,10 +150,10 @@ jobs:
       name: Finalise
       runs-on: ubuntu-latest
       if: always()
-      needs: [build_ui, deploy_ui, build_api, deploy_api]
+      needs: [files_changed, build_ui, deploy_ui, build_api, deploy_api]
       steps:
       - name: Invalidate pipeline
         if: ${{ needs.build_ui.outputs.status }} == failure() || ${{ needs.deploy_ui.outputs.status }} == failure() || ${{ needs.build_api.outputs.status }} == failure() || ${{ needs.deploy_api.outputs.status }} == failure()
         run: |
-            echo ${{ needs.build_ui.job.status }}
+            echo ${{ needs.files_changed.job.status }}
             exit 1
