@@ -48,16 +48,5 @@ namespace API.Connection
 
                 return 1;
         }
-
-        /*
-         * 
-         * 
-         * Look up EF CORE
-         *  and WDT
-         * 
-         * 
-         */
-
-        
     }
 }
