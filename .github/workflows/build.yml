@@ -19,9 +19,9 @@ jobs:
                         - Dockerfile
                       ui_changes:
                         - 'UI/**'
-            - run: |
-                id: result
-                if: always()
+            - id: result
+              if: always()
+              run: |
                 echo "::set-output result=yo"
     build_api:
         name: Build API
