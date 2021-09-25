@@ -1,8 +1,8 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Input, Button, Alert, AlertIcon, AlertTitle, AlertDescription } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Input, Button, Alert, AlertIcon, AlertDescription } from "@chakra-ui/react";
 import { Flex, Spacer } from "@chakra-ui/layout";
 import { useState } from "react";
 
-interface RestrationDetails {
+export interface RestrationDetails {
     email: string;
     firstName: string;
     lastName: string;
@@ -10,7 +10,7 @@ interface RestrationDetails {
 }
 
 interface RegisterProps {
-    onLogin(): void;
+    onOpenLogin(): void;
     onRegister(props: RestrationDetails): void;
     onClose(): void;
     visible: boolean;
@@ -41,21 +41,21 @@ export function Register(props: RegisterProps) {
         };
 
         // Email regex
-        var regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+        var regexp = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
         setFormValidationHidden(false);
 
-        if (email == "" || !regexp.test(email)) {
+        if (email === "" || !regexp.test(email)) {
             setFormValidationMessage("Your email is empty or invalid");
-        } else if (firstName == "") {
+        } else if (firstName === "") {
             setFormValidationMessage("Your first name is empty");
-        } else if (lastName == "") {
+        } else if (lastName === "") {
             setFormValidationMessage("Your last name is empty");
-        } else if (password == "") {
+        } else if (password === "") {
             setFormValidationMessage("Your passwork is empty");
-        } else if (passwordConfirm == "") {
+        } else if (passwordConfirm === "") {
             setFormValidationMessage("Your confirmation password is empty");
-        } else if (password != passwordConfirm) {
+        } else if (password !== passwordConfirm) {
             setFormValidationMessage("Your password and confirmation passwork do not match");
         } else {
             setFormValidationHidden(true);
@@ -83,7 +83,7 @@ export function Register(props: RegisterProps) {
 
                 <ModalFooter>
                     <Flex width="100%">
-                        <Button onClick={props.onLogin}>Log In</Button>
+                        <Button onClick={props.onOpenLogin}>Log In</Button>
                         <Spacer></Spacer>
                         <Button onClick={onRegister}>Register</Button>
                     </Flex>
