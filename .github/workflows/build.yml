@@ -143,6 +143,7 @@ jobs:
       runs-on: ubuntu-latest
       if: always()
       needs: [build_ui, deploy_ui, build_api, deploy_api]
+      steps:
       - name: Invalidate pipeline
         if: ${{ needs.build_ui.status }} == failure() || ${{ needs.deploy_ui.status }} == failure() || ${{ needs.build_api.status }} == failure() || ${{ needs.deploy_api.status }} == failure()
         run: exit 1
