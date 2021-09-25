@@ -1,52 +1,36 @@
-import { useContext } from 'react';
-import {
-  Flex,
-  Heading,
-  Input,
-  Button,
-  useColorMode,
-  useColorModeValue,
-} from '@chakra-ui/react';
-import { AccountContext } from './accountContext';
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Input, Button } from "@chakra-ui/react";
+import { Flex, Spacer } from "@chakra-ui/layout";
+
+interface LoginProps {
+    onLogin(): void;
+    onRegister(): void;
+    onClose(): void;
+    visible: boolean;
+}
 
 //login component
-export function Login() {
-  const { switchToRegister } = useContext(AccountContext);
-  const { switchToFilter } = useContext(AccountContext);
-  const { toggleColorMode } = useColorMode();
-  const formBackground = useColorModeValue('gray.100', 'gray.700');
-  return (
-    <Flex height="100vh" alignItems="center" justifyContent="center">
-      <Flex direction="column" background={formBackground} p={12} rounded={6}>
-        <Heading textAlign="center" mb={6}>
-          Ready? Set? Zip-It!
-        </Heading>
-        <Input
-          placeholder="your@email.com"
-          variant="filled"
-          mb={3}
-          type="email"
-          id="email"
-        />
-        <Input
-          placeholder="********"
-          variant="filled"
-          mb={6}
-          type="password"
-          id="password"
-        />
-        <Button onClick={switchToFilter} colorScheme="teal" mb={6} id="login">
-          Login
-        </Button>
-        <Button onClick={switchToRegister} mb={6}>
-          Register!
-        </Button>
-        <Button onClick={toggleColorMode} id="color_mode">
-          Toggle Colour mode
-        </Button>
-      </Flex>
-    </Flex>
-  );
+export function Login(props: LoginProps) {
+    return (
+        <Modal isOpen={props.visible} onClose={props.onClose}>
+            <ModalOverlay />
+            <ModalContent>
+                <ModalHeader>Ready? Set? Zip-It!</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                    <Input placeholder="your@email.com" variant="filled" mb={3} type="email" id="email" />
+                    <Input placeholder="********" variant="filled" type="password" id="password" />
+                </ModalBody>
+
+                <ModalFooter>
+                    <Flex width="100%">
+                        <Button onClick={props.onRegister}>Register</Button>
+                        <Spacer></Spacer>
+                        <Button onClick={props.onLogin}>Log In</Button>
+                    </Flex>
+                </ModalFooter>
+            </ModalContent>
+        </Modal>
+    );
 }
 // }
 
