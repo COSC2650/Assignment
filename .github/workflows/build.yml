@@ -5,7 +5,7 @@ jobs:
         name: Check changes
         runs-on: ubuntu-latest
         outputs:
-            result: ${{ steps.result.outputs.result }}
+            result: ${{ job.status }}
             api_changes: ${{ steps.changes.outputs.api_changes }}
             ui_changes: ${{ steps.changes.outputs.ui_changes }}
         steps:
