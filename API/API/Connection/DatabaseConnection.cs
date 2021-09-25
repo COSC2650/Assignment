@@ -33,20 +33,5 @@ namespace API.Connection
 
         // Call this method from Register to pass an object to the clientside copy of the database
         // then save it to the real database
-
-        public int CreateUser(User user)
-        {
-
-            using (var db = new DatabaseConnection())
-            {
-                var userData = user;
-                db.Users.Add(userData);
-                db.SaveChanges();
-            }
-
-
-
-                return 1;
-        }
     }
 }

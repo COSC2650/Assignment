@@ -9,12 +9,12 @@ namespace API.Connection
     public class HashWithSaltResult
     {
         public string Salt { get; }
-        public string Digest { get; set; }
+        public string HashedPass { get; set; }
 
-        public HashWithSaltResult(string salt, string digest)
+        public HashWithSaltResult(string salt, string pass)
         {
             Salt = salt;
-            Digest = digest;
+            HashedPass = pass;
         }
     }
 }
