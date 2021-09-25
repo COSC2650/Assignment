@@ -21,7 +21,8 @@ jobs:
                         - 'UI/**'
             - run: |
                 id: result
-                echo "::set-output result=${{ job.status }}"
+                if: always()
+                echo "::set-output result=yo"
     build_api:
         name: Build API
         runs-on: ubuntu-latest
