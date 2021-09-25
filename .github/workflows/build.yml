@@ -154,5 +154,5 @@ jobs:
       - name: Invalidate pipeline
         if: ${{ needs.build_ui.outputs.status }} == failure() || ${{ needs.deploy_ui.outputs.status }} == failure() || ${{ needs.build_api.outputs.status }} == failure() || ${{ needs.deploy_api.outputs.status }} == failure()
         run: |
-            echo ${{ needs.build_ui.outputs.status }}
+            echo ${{ needs.build_ui.job.status }}
             exit 1
