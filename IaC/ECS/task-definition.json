@@ -2,7 +2,7 @@
   "containerDefinitions": [
     {
       "name": "API",
-      "image": "mkellock/cosc2650:latest",
+      "image": "mkellock/cosc2650@latest",
       "cpu": 0,
       "portMappings": [
         {
@@ -15,7 +15,11 @@
       "environment": [
         {
           "name": "NEW_RELIC_LICENSE_KEY",
-          "value": "Test"
+          "value": "Licence"
+        },
+        {
+          "name": "CORS",
+          "value": "CORS1234"
         }
       ],
       "mountPoints": [],
