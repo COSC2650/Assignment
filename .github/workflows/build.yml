@@ -5,7 +5,7 @@ jobs:
         name: Check changes
         runs-on: ubuntu-latest
         outputs:
-            status: ${{ job.status }}
+            result: ${{ steps.result.outputs.result }}
             api_changes: ${{ steps.changes.outputs.api_changes }}
             ui_changes: ${{ steps.changes.outputs.ui_changes }}
         steps:
@@ -19,6 +19,9 @@ jobs:
                         - Dockerfile
                       ui_changes:
                         - 'UI/**'
+            - run: |
+                id: result
+                echo "::set-output result=${{ job.status }}"
     build_api:
         name: Build API
         runs-on: ubuntu-latest
@@ -155,5 +158,5 @@ jobs:
       - name: Invalidate pipeline
         if: ${{ needs.build_ui.outputs.status }} == failure() || ${{ needs.deploy_ui.outputs.status }} == failure() || ${{ needs.build_api.outputs.status }} == failure() || ${{ needs.deploy_api.outputs.status }} == failure()
         run: |
-            echo ${{ needs.files_changed.output.status }}
+            echo ${{ needs.files_changed.outputs.result }}
             exit 1
