@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Flex, VStack, Box, StackDivider } from "@chakra-ui/layout";
+import { Flex, VStack, StackDivider } from "@chakra-ui/layout";
 import Header from "./components/elements/header";
 import { useColorMode, useColorModeValue } from "@chakra-ui/react";
 import Login from "./components/forms/login";
 import Register from "./components/forms/register";
+import ListItem from "./components/elements/listitem";
 
 function App() {
     const { toggleColorMode } = useColorMode();
@@ -32,15 +33,11 @@ function App() {
             <Login visible={loginVisible} onRegister={onShowRegister} onLogin={onLogin} onClose={onLogInClose}></Login>
             <Register visible={registerVisible} onLogin={onShowLogin} onRegister={onRegister} onClose={onRegisterClose}></Register>
             <VStack width="100vw" height="100vh" padding="75px 10px 10px 10px" divider={<StackDivider borderColor="gray.200" />} spacing={2} align="stretch">
-                <Box h="40px" bg="yellow.200">
-                    1
-                </Box>
-                <Box h="40px" bg="tomato">
-                    2
-                </Box>
-                <Box h="40px" bg="pink.100">
-                    3
-                </Box>
+                <ListItem imageUrl="https://picsum.photos/100?random=1" title="" description="" price={100.0} quantity={10}></ListItem>
+                <ListItem imageUrl="https://picsum.photos/100?random=2" title="" description="" price={100.0} quantity={10}></ListItem>
+                <ListItem imageUrl="https://picsum.photos/100?random=3" title="" description="" price={100.0} quantity={10}></ListItem>
+                <ListItem imageUrl="https://picsum.photos/100?random=4" title="" description="" price={100.0} quantity={10}></ListItem>
+                <ListItem imageUrl="https://picsum.photos/100?random=5" title="" description="" price={100.0} quantity={10}></ListItem>
             </VStack>
         </Flex>
     );
