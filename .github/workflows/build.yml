@@ -22,7 +22,7 @@ jobs:
             - id: result
               if: always()
               run: |
-                echo "::set-output result=yo"
+                echo "::set-output name=result::${{ job.status }}"
     build_api:
         name: Build API
         runs-on: ubuntu-latest
