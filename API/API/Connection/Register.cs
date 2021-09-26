@@ -19,14 +19,12 @@ namespace API.Connection
         
         //Write to db
 
-        public int CreateUser(User user)
+        public void CreateUser(User user)
         {   
             HashWithSaltResult saltAndPassword = PasswordWithSaltHasher.HashPassword(user.Password);
             user.Password = saltAndPassword.HashedPass;
 
             Crud.DeployUser(user);
-
-            return 1;
         }
 
 
