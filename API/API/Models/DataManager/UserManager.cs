@@ -30,7 +30,7 @@ namespace API.Models.DataManager
                 PasswordHash = user.PasswordHash,
                 PasswordSalt = user.PasswordSalt,
                 EmailVerfied = user.EmailVerfied,
-        };
+            };
 
             return userDto;
         }
@@ -38,25 +38,25 @@ namespace API.Models.DataManager
         public IEnumerable<UserDto> GetAll()
         {
             var users = from x in _context.Users
-                            select new UserDto()
-                            {
-                                UserID = x.UserID,
-                                FirstName = x.FirstName,
-                                LastName = x.LastName,
-                                Street = x.Street,
-                                City = x.City,
-                                State = x.State,
-                                PostCode = x.PostCode,
-                                Email = x.Email,
-                                PasswordHash = x.PasswordHash,
-                                PasswordSalt = x.PasswordSalt,
-                                EmailVerfied = x.EmailVerfied,
-                            };
+                        select new UserDto()
+                        {
+                            UserID = x.UserID,
+                            FirstName = x.FirstName,
+                            LastName = x.LastName,
+                            Street = x.Street,
+                            City = x.City,
+                            State = x.State,
+                            PostCode = x.PostCode,
+                            Email = x.Email,
+                            PasswordHash = x.PasswordHash,
+                            PasswordSalt = x.PasswordSalt,
+                            EmailVerfied = x.EmailVerfied,
+                        };
 
             return users.ToList();
         }
 
-        // Required due to interface - not used
+        // Required due to interface, handled in controller
         public int Add(UserDto User)
         {
             return User.UserID;
