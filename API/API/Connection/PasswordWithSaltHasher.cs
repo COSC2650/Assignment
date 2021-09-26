@@ -7,7 +7,7 @@ using System.Text;
 
 namespace API.Connection {   
 
-    public class PasswordWithSaltHasher
+    static public class PasswordWithSaltHasher
     {
 
         //Salts create unique passwords even in the case where multiple users have the same password
@@ -16,7 +16,7 @@ namespace API.Connection {
         {
 
             //Securely generates random numbers
-            RNGCryptoServiceProvider fancyRNG = new RNGCryptoServiceProvider();
+            RNGCryptoServiceProvider fancyRNG = new();
 
             //"Salts only need to be long enough so that each user's salt will be unique. Random 64-bit salts are very unlikely to
             //ever repeat even with a billion registered users, so this should be fine"
@@ -45,7 +45,7 @@ namespace API.Connection {
             byte[] saltBytes = GenerateSalt();
             byte[] passwordAsBytes = Encoding.UTF8.GetBytes(password);
 
-            List<byte> passwordWithSaltBytes = new List<byte>();
+            List<byte> passwordWithSaltBytes = new();
             passwordWithSaltBytes.AddRange(passwordAsBytes);
             passwordWithSaltBytes.AddRange(saltBytes);
 

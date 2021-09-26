@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace API.Connection
 {
-    public class Crud
+    static public class Crud
     {
         static public int DeployUser(User user)
         {
