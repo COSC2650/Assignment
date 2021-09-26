@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 
 namespace API.Connection
@@ -15,21 +10,21 @@ namespace API.Connection
 
     public class DatabaseConnection : DbContext
     {
-
-
-
         //A real connection string will need to be added later, Matt K mentioned something about
         // a global variable even though they dont exist in C#
 
-        private readonly string ConnectionString = "dummyCONNECTIONstring";
+#if DEBUG
+        private readonly string ConnectionString = "Your connection string goes ere, don't commit passwords though";
+#else
+        private readonly string ConnectionString = System.Environment.GetEnvironmentVariable("CONNECTION_STRING");
+#endif
 
         public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(ConnectionString);
+            optionsBuilder.UseMySQL(ConnectionString);
         }
-
 
         // Call this method from Register to pass an object to the clientside copy of the database
         // then save it to the real database
