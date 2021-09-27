@@ -1,23 +1,3 @@
-FROM mkellock/buildtools:latest AS build-env
-
-# Container arguements
-ARG GITHUB_REF
-
-# Update the container
-RUN apt-get update \
-        && apt-get upgrade -y
-
-# Copy the build files
-RUN mkdir /build-context
-COPY . /build-context
-WORKDIR /build-context/API
-RUN dotnet restore
-
-# Build test and publish
-RUN if [ "$GITHUB_REF" = "refs/heads/main" ]; then configuration="Release"; else configuration="Debug"; fi \
-        && dotnet build ./API.sln -c "$configuration" \
-        && dotnet publish ./API/API.csproj -c "$configuration" -o out
-
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
 
@@ -35,7 +15,8 @@ RUN apt-get update \
         && apt-key add 548C16BF.gpg \
         && apt-get update \
         && apt-get install -y newrelic-netcore20-agent \
-        && rm -rf /var/lib/apt/lists/*
+        && rm -rf /var/lib/apt/lists/* \
+        && if [ ! -d ./API ]; then mkdir -p ./API; fi 
 
 # Enable the NewRelic agent
 ENV CORECLR_ENABLE_PROFILING=1 \
@@ -46,10 +27,10 @@ NEW_RELIC_LICENSE_KEY=$NEW_RELIC_LICENCE_KEY \
 NEW_RELIC_APP_NAME="API"
 
 # Set the working directory and copy thr build assets
-COPY --from=build-env /build-context/API/out .
+COPY . ./API
 
 # Expose port 80
 EXPOSE 80
 
 # Run the app
-ENTRYPOINT ["/usr/local/newrelic-netcore20-agent/run.sh", "dotnet /API.dll"]
+ENTRYPOINT ["/usr/local/newrelic-netcore20-agent/run.sh", "dotnet /API/API.dll"]

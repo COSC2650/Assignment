@@ -71,11 +71,13 @@ jobs:
                   dotnet publish ./API/API/API.csproj -c "$configuration" -o out
 
                   ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-            - name: Upload UI
+            - name: Upload API
               uses: actions/upload-artifact@v2
               with:
                   name: API
-                  path: ./out/**/*
+                  path: |
+                    ./out/**/*
+                    Dockerfile
     build_api:
         name: Build API
         runs-on: ubuntu-latest
@@ -85,12 +87,11 @@ jobs:
             result: ${{ job.status }}
             digest: ${{ steps.docker_build.outputs.digest }}
         steps:
-            - name: Download UI
+            - name: Download API
               uses: actions/download-artifact@v2
               with:
                   name: API
-                  path: ./out
-            - uses: actions/checkout@v2
+                  path: .
             - name: Docker meta
               id: meta
               uses: docker/metadata-action@v3
