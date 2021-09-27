@@ -26,6 +26,7 @@ jobs:
     sonar_scan:
         name: SonarCloud Scan
         runs-on: ubuntu-latest
+        needs: files_changed
         if: needs.files_changed.outputs.api_changes == 'true'
         outputs:
             result: ${{ job.status }}
