@@ -146,12 +146,12 @@ jobs:
             - name: Invalidate CloudFront cache
               run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
     finalise:
-      name: Finalise
-      runs-on: ubuntu-latest
-      if: always()
-      needs: [build_ui, deploy_ui, build_api, deploy_api]
-      steps:
-      - name: Invalidate pipeline
-        if: ${{ needs.build_ui.outputs.result == 'failure' || needs.deploy_ui.outputs.result == 'failure' || needs.build_api.outputs.result == 'failure' || needs.deploy_api.outputs.result == 'failure' }}
-        run: |
-            exit 1
+        name: Finalise
+        runs-on: ubuntu-latest
+        if: always()
+        needs: [build_ui, deploy_ui, build_api, deploy_api]
+        steps:
+            - name: Invalidate pipeline
+              if: ${{ needs.build_ui.outputs.result == 'failure' || needs.deploy_ui.outputs.result == 'failure' || needs.build_api.outputs.result == 'failure' || needs.deploy_api.outputs.result == 'failure' }}
+              run: |
+                  exit 1
