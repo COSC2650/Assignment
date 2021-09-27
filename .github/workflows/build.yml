@@ -54,24 +54,24 @@ jobs:
             - name: Install SonarCloud scanner
               if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
               run: |
-                  if [ ! -d /.sonar/scanner ]; then mkdir -p /.sonar/scanner; fi 
-                  dotnet tool update dotnet-sonarscanner --tool-path /.sonar/scanner
+                  if [ ! -d ./.sonar/scanner ]; then mkdir -p ./.sonar/scanner; fi 
+                  dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
             - name: Build and analyze
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
               shell: powershell
               run: |
-                  .\.sonar\scanner\dotnet-sonarscanner begin /k:"COSC2650_Assignment" /o:"cosc2650" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" /d:sonar.coverage.exclusions="API/Program.cs","API/Startup.cs"
+                  ./.sonar/scanner/dotnet-sonarscanner begin /k:"COSC2650_Assignment" /o:"cosc2650" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" /d:sonar.coverage.exclusions="API/Program.cs","API/Startup.cs"
 
                   if [ "$GITHUB_REF" = "refs/heads/main" ]; then configuration="Release"; else configuration="Debug"; fi
 
-                  dotnet clean ./API.sln
-                  dotnet build ./API.sln -c "$configuration"
-                  dotnet test ./API.sln -c "$configuration" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-                  dotnet publish ./API/API.csproj -c "$configuration" -o out
+                  dotnet clean ./API/API.sln
+                  dotnet build ./API/API.sln -c "$configuration"
+                  dotnet test ./API/API.sln -c "$configuration" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+                  dotnet publish ./API/API/API.csproj -c "$configuration" -o out
 
-                  .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+                  ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
     build_api:
         name: Build API
         runs-on: ubuntu-latest
