@@ -4,6 +4,7 @@ FROM mkellock/buildtools:latest AS build-env
 ARG GITHUB_REF
 ARG SONAR_TOKEN
 ARG GITHUB_TOKEN
+ENV GITHUB_TOKEN=$GITHUB_TOKEN
 
 # Update the container
 RUN apt-get update \
