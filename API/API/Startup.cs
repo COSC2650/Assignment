@@ -26,7 +26,6 @@ namespace API
         private readonly string ConnectionString = System.Environment.GetEnvironmentVariable("CONNECTION_STRING");
 #endif
 
-        [Obsolete]
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ZipitContext>(options =>
@@ -50,8 +49,6 @@ namespace API
                 .AddType<GraphQLTypes>()  
                 .AddQueryType<Query>()  
                 .AddMutationType<Mutuation>();
-                                                                
-
 
             services
                 .AddCors(options =>
