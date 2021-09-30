@@ -37,11 +37,16 @@ namespace Tests
 
         private static IList<User> GenerateUsers()
         {
+            // Create a list of users
             IList<User> users = new List<User>();
 
+            // Create a new instance on the fixture
             Fixture fixture = new();
+
+            // Create a list of users
             fixture.Build<List<User>>().Create();
 
+            // Return the list
             return users;
         }
     }
