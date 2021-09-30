@@ -41,10 +41,7 @@ namespace API
             services.AddScoped<Query>()
                 .AddScoped<Mutuation>()  
                 .AddScoped<IUserService, UserService>();
-            // services.AddGraphQL(c => SchemaBuilder.New().AddServices(c).AddType<GraphQLTypes>()  
-            //                                                         .AddQueryType<Query>()  
-            //                                                         .AddMutationType<Mutuation>()  
-            //                                                         .Create());
+
             services.AddGraphQLServer()
                 .AddType<GraphQLTypes>()  
                 .AddQueryType<Query>()  
