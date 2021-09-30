@@ -21,7 +21,7 @@ namespace API
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
 
 #if DEBUG
-        private readonly string ConnectionString = "Server=cosc2650.cl00c6onjmtb.ap-southeast-2.rds.amazonaws.com;Database=cosc2650;uid=admin;pwd=yREcSNJ3XMwPYNGVf6Py5cm75s";
+        private readonly string ConnectionString = "";
 #else
         private readonly string ConnectionString = System.Environment.GetEnvironmentVariable("CONNECTION_STRING");
 #endif
