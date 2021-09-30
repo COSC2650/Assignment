@@ -25,8 +25,8 @@ namespace API.Data
                     State = "QLD",
                     PostCode = 4114,
                     Email = "not@real.com",
-                    PasswordHash = "hakIJJBSUBUA92912nekaso",
-                    PasswordSalt = "19373920201",
+                    PasswordHash = "",
+                    PasswordSalt = "",
                     EmailVerfied = true,
                 }
             );
