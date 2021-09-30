@@ -10,11 +10,11 @@ namespace API.Data
 
         public DbSet<User> Users { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(builder);
+            base.OnModelCreating(modelBuilder);
 
-            builder.Entity<User>().HasData(
+            modelBuilder.Entity<User>().HasData(
                 new User
                 {
                     UserID = 0001,

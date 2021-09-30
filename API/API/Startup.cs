@@ -7,6 +7,11 @@ using Microsoft.EntityFrameworkCore;
 using NLog;
 using Sentry.AspNetCore;
 using API.Data;
+using API.Services;
+using API.GraphQL;
+using HotChocolate;  
+using System;  
+
 
 namespace API
 {
@@ -21,6 +26,7 @@ namespace API
         private readonly string ConnectionString = System.Environment.GetEnvironmentVariable("CONNECTION_STRING");
 #endif
 
+        [Obsolete]
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ZipitContext>(options =>
@@ -30,12 +36,22 @@ namespace API
 
             if (origins == null || origins.Length == 0)
             {
-                origins = new string[] { "http://localhost:3000" };
+                origins = new string[] { "http://localhost:3000", "http://localhost:5000", "http://localhost:5001" };
             }
 
-            services
-                .AddGraphQLServer()
-                .AddQueryType<Query>();
+            services.AddScoped<Query>()
+                .AddScoped<Mutuation>()  
+                .AddScoped<IUserService, UserService>();
+            // services.AddGraphQL(c => SchemaBuilder.New().AddServices(c).AddType<GraphQLTypes>()  
+            //                                                         .AddQueryType<Query>()  
+            //                                                         .AddMutationType<Mutuation>()  
+            //                                                         .Create());
+            services.AddGraphQLServer()
+                .AddType<GraphQLTypes>()  
+                .AddQueryType<Query>()  
+                .AddMutationType<Mutuation>();
+                                                                
+
 
             services
                 .AddCors(options =>
