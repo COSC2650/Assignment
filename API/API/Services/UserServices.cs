@@ -17,44 +17,29 @@ namespace API.Services
   
         public async Task<User> Create(User user)
         {  
-            var data = new User  
-            {  
-                UserID = user.UserID,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Street = user.Street,
-                City = user.City,
-                State = user.State,
-                PostCode = user.PostCode,
-                Email = user.Email,
-                PasswordHash = user.PasswordHash,
-                PasswordSalt = user.PasswordSalt,
-                EmailVerfied = user.EmailVerfied,
-            };  
-            await _context.Users.AddAsync(data);  
+            await _context.Users.AddAsync(user);  
             await _context.SaveChangesAsync();  
-            return data;
+            return user;
         }
 
-        public async Task<bool> Delete(DeleteVM deleteVM)  
+        public async Task<bool> Delete(int ID)  
         {  
-            var user = await  _context.Users.FirstOrDefaultAsync(c => c.UserID == deleteVM.Id);  
+            var user = await  _context.Users.FirstOrDefaultAsync(c => c.UserID == ID);
+            var response = false;
+
             if(user is not null)   
             {  
                 _context.Users.Remove(user);  
                 await _context.SaveChangesAsync();  
-                return true;  
-            }  
-            return false;  
-        }  
+                response = true;  
+            }
+
+            return response;
+        }
+
         public IQueryable<User> GetAll()  
         {  
             return _context.Users.AsQueryable();  
         }  
-    }  
-  
-    public class DeleteVM  
-    {  
-        public int Id { get; set; }  
     }
 }

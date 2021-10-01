@@ -7,7 +7,7 @@ namespace API.Services
    public interface IUserService  
     {  
         Task<User> Create(User user);
-        Task<bool> Delete(DeleteVM deleteVM);  
+        Task<bool> Delete(int UserID);  
         IQueryable<User> GetAll();  
     }  
 }  
