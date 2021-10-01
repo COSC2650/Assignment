@@ -41,7 +41,7 @@ namespace Tests
         }
 
         [Fact]
-        public async void UserService_Create()
+        public async Task UserService_Create()
         {
             // Create sample users
             User user = GenerateUser();
@@ -68,7 +68,7 @@ namespace Tests
         }
 
         [Fact]
-        public async void UserService_Delete()
+        public async Task UserService_Delete()
         {
             // Create sample users
             User user = GenerateUser();
@@ -88,13 +88,13 @@ namespace Tests
             await userService.Create(user);
 
             // Check we've added a user
-            Assert.Equal(userService.GetAll().Count(), 1);
+            Assert.Equal(1, userService.GetAll().Count());
 
             // Delete the user
-            userService.Delete(user.UserID);
+            await userService.Delete(user.UserID);
 
             // Check we have successfully delete the user
-            Assert.Equal(userService.GetAll().Count(), 0);
+            Assert.Equal(0, userService.GetAll().Count());
         }
 
         private static IList<User> GenerateUsers()
