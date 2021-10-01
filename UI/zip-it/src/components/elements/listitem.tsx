@@ -17,7 +17,7 @@ const ListItem = (props: ListItemProp) => {
                 <Heading as="h1" size="md" id="heading">
                     {props.title}
                 </Heading>
-                <Text size="md">{props.description}</Text>
+                <Text size="md" id="contents">{props.description}</Text>
             </VStack>
         </HStack>
     );
