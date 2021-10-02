@@ -56,16 +56,14 @@ describe("LogIn", () => {
     });
 
     it("onClose method should be triggered", () => {
-        const mockCloseCallBack = jest.fn();
+        const mockOnLoginCallBack = jest.fn();
+        const mockOnOpenRegisterCallBack = jest.fn();
+        const mockOnCloseCallBack = jest.fn();
 
         const props: LoginProps = {
-            onLogin: (ldprops: LoginDetails) => {
-                // Intentional
-            },
-            onOpenRegister: () => {
-                // Intentional
-            },
-            onClose: mockCloseCallBack,
+            onLogin: mockOnLoginCallBack,
+            onOpenRegister: mockOnOpenRegisterCallBack,
+            onClose: mockOnCloseCallBack,
             visible: true,
         };
 
@@ -74,20 +72,23 @@ describe("LogIn", () => {
 
         wrapper.find("ModalCloseButton").simulate("click");
 
-        expect(mockCloseCallBack.mock.calls.length).toEqual(1);
+        // Check that the callback was called
+        expect(mockOnCloseCallBack.mock.calls.length).toEqual(1);
+
+        // Check that none of the callbacks were called
+        expect(mockOnOpenRegisterCallBack.mock.calls.length).toEqual(0);
+        expect(mockOnLoginCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onLogin method should be triggered", () => {
-        const mockLoginCallBack = jest.fn();
+        const mockOnLoginCallBack = jest.fn();
+        const mockOnOpenRegisterCallBack = jest.fn();
+        const mockOnCloseCallBack = jest.fn();
 
         const props: LoginProps = {
-            onLogin: mockLoginCallBack,
-            onOpenRegister: () => {
-                // Intentional
-            },
-            onClose: () => {
-                // Intentional
-            },
+            onLogin: mockOnLoginCallBack,
+            onOpenRegister: mockOnOpenRegisterCallBack,
+            onClose: mockOnCloseCallBack,
             visible: true,
         };
 
@@ -102,20 +103,22 @@ describe("LogIn", () => {
         wrapper.find("Button#login").simulate("click");
 
         // Check that the callback was called
-        expect(mockLoginCallBack.mock.calls.length).toEqual(1);
+        expect(mockOnLoginCallBack.mock.calls.length).toEqual(1);
+
+        // Check that none of the callbacks were called
+        expect(mockOnOpenRegisterCallBack.mock.calls.length).toEqual(0);
+        expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onLogin method should not be triggered - no login details", () => {
-        const mockLoginCallBack = jest.fn();
+        const mockOnLoginCallBack = jest.fn();
+        const mockOnOpenRegisterCallBack = jest.fn();
+        const mockOnCloseCallBack = jest.fn();
 
         const props: LoginProps = {
-            onLogin: mockLoginCallBack,
-            onOpenRegister: () => {
-                // Intentional
-            },
-            onClose: () => {
-                // Intentional
-            },
+            onLogin: mockOnLoginCallBack,
+            onOpenRegister: mockOnOpenRegisterCallBack,
+            onClose: mockOnCloseCallBack,
             visible: true,
         };
 
@@ -125,21 +128,21 @@ describe("LogIn", () => {
         // Click the Login button
         wrapper.find("Button#login").simulate("click");
 
-        // Check that the callback was called
-        expect(mockLoginCallBack.mock.calls.length).toEqual(0);
+        // Check that none of the callbacks were called
+        expect(mockOnLoginCallBack.mock.calls.length).toEqual(0);
+        expect(mockOnOpenRegisterCallBack.mock.calls.length).toEqual(0);
+        expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onLogin method should not be triggered - invalid email", () => {
-        const mockLoginCallBack = jest.fn();
+        const mockOnLoginCallBack = jest.fn();
+        const mockOnOpenRegisterCallBack = jest.fn();
+        const mockOnCloseCallBack = jest.fn();
 
         const props: LoginProps = {
-            onLogin: mockLoginCallBack,
-            onOpenRegister: () => {
-                // Intentional
-            },
-            onClose: () => {
-                // Intentional
-            },
+            onLogin: mockOnLoginCallBack,
+            onOpenRegister: mockOnOpenRegisterCallBack,
+            onClose: mockOnCloseCallBack,
             visible: true,
         };
 
@@ -153,21 +156,21 @@ describe("LogIn", () => {
         // Click the Login button
         wrapper.find("Button#login").simulate("click");
 
-        // Check that the callback was called
-        expect(mockLoginCallBack.mock.calls.length).toEqual(0);
+        // Check that none of the callbacks were called
+        expect(mockOnLoginCallBack.mock.calls.length).toEqual(0);
+        expect(mockOnOpenRegisterCallBack.mock.calls.length).toEqual(0);
+        expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onLogin method should not be triggered - no email", () => {
-        const mockLoginCallBack = jest.fn();
+        const mockOnLoginCallBack = jest.fn();
+        const mockOnOpenRegisterCallBack = jest.fn();
+        const mockOnCloseCallBack = jest.fn();
 
         const props: LoginProps = {
-            onLogin: mockLoginCallBack,
-            onOpenRegister: () => {
-                // Intentional
-            },
-            onClose: () => {
-                // Intentional
-            },
+            onLogin: mockOnLoginCallBack,
+            onOpenRegister: mockOnOpenRegisterCallBack,
+            onClose: mockOnCloseCallBack,
             visible: true,
         };
 
@@ -180,21 +183,21 @@ describe("LogIn", () => {
         // Click the Login button
         wrapper.find("Button#login").simulate("click");
 
-        // Check that the callback was called
-        expect(mockLoginCallBack.mock.calls.length).toEqual(0);
+        // Check that none of the callbacks were called
+        expect(mockOnLoginCallBack.mock.calls.length).toEqual(0);
+        expect(mockOnOpenRegisterCallBack.mock.calls.length).toEqual(0);
+        expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onLogin method should not be triggered - no password", () => {
-        const mockLoginCallBack = jest.fn();
+        const mockOnLoginCallBack = jest.fn();
+        const mockOnOpenRegisterCallBack = jest.fn();
+        const mockOnCloseCallBack = jest.fn();
 
         const props: LoginProps = {
-            onLogin: mockLoginCallBack,
-            onOpenRegister: () => {
-                // Intentional
-            },
-            onClose: () => {
-                // Intentional
-            },
+            onLogin: mockOnLoginCallBack,
+            onOpenRegister: mockOnOpenRegisterCallBack,
+            onClose: mockOnCloseCallBack,
             visible: true,
         };
 
@@ -207,7 +210,9 @@ describe("LogIn", () => {
         // Click the Login button
         wrapper.find("Button#login").simulate("click");
 
-        // Check that the callback was called
-        expect(mockLoginCallBack.mock.calls.length).toEqual(0);
+        // Check that none of the callbacks were called
+        expect(mockOnLoginCallBack.mock.calls.length).toEqual(0);
+        expect(mockOnOpenRegisterCallBack.mock.calls.length).toEqual(0);
+        expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 });
