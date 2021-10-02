@@ -64,7 +64,7 @@ export function Register(props: RegisterProps) {
     };
 
     return (
-        <Modal isOpen={props.visible} onClose={props.onClose}>
+        <Modal isOpen={props.visible} onClose={props.onClose} id="register">
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>Register to Zip-It!</ModalHeader>
