@@ -1,6 +1,6 @@
 import ListItem, { ListItemProp } from "./listitem";
-import { shallow, configure, render } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import { configure, render } from "enzyme";
+import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import { describe, expect } from "@jest/globals";
 
 configure({ adapter: new Adapter() });
@@ -33,4 +33,4 @@ describe("ListItem", () => {
         const wrapper = render(<ListItem {...props} />);
         expect(wrapper.find("#contents").text()).toEqual(props.description);
     });
-});
+}); 

@@ -6,7 +6,7 @@ const getById = queryByAttribute.bind(null, "id");
 
 test("Renders the test log in page and looks for the title", () => {
     render(<App />);
-    // expect(screen.getByText(/Log in to Zip.It/i)).toBeInTheDocument();
+    //expect(screen.getByText(/Log in to Zip.It/i)).toBeInTheDocument();
 });
 
 test("Renders the test log in page and looks for email field", () => {
