@@ -9,7 +9,7 @@ export interface RestrationDetails {
     password: string;
 }
 
-interface RegisterProps {
+export interface RegisterProps {
     onOpenLogin(): void;
     onRegister(props: RestrationDetails): void;
     onClose(): void;
@@ -41,7 +41,7 @@ export function Register(props: RegisterProps) {
         };
 
         // Email regex
-        var regexp = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+        var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
 
         setFormValidationHidden(false);
 
@@ -83,9 +83,13 @@ export function Register(props: RegisterProps) {
 
                 <ModalFooter>
                     <Flex width="100%">
-                        <Button onClick={props.onOpenLogin}>Log In</Button>
+                        <Button onClick={props.onOpenLogin} id="login">
+                            Log In
+                        </Button>
                         <Spacer></Spacer>
-                        <Button onClick={onRegister}>Register</Button>
+                        <Button onClick={onRegister} id="register">
+                            Register
+                        </Button>
                     </Flex>
                 </ModalFooter>
             </ModalContent>
