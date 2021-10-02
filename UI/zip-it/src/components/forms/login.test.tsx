@@ -75,7 +75,7 @@ describe("LogIn", () => {
         // Check that the callback was called
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(1);
 
-        // Check that none of the callbacks were called
+        // Check that none of the other callbacks were called
         expect(mockOnOpenRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnLoginCallBack.mock.calls.length).toEqual(0);
     });
@@ -105,7 +105,7 @@ describe("LogIn", () => {
         // Check that the callback was called
         expect(mockOnLoginCallBack.mock.calls.length).toEqual(1);
 
-        // Check that none of the callbacks were called
+        // Check that none of the other callbacks were called
         expect(mockOnOpenRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
@@ -213,6 +213,32 @@ describe("LogIn", () => {
         // Check that none of the callbacks were called
         expect(mockOnLoginCallBack.mock.calls.length).toEqual(0);
         expect(mockOnOpenRegisterCallBack.mock.calls.length).toEqual(0);
+        expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
+    });
+
+    it("onOpenRegister method should be triggered", () => {
+        const mockOnLoginCallBack = jest.fn();
+        const mockOnOpenRegisterCallBack = jest.fn();
+        const mockOnCloseCallBack = jest.fn();
+
+        const props: LoginProps = {
+            onLogin: mockOnLoginCallBack,
+            onOpenRegister: mockOnOpenRegisterCallBack,
+            onClose: mockOnCloseCallBack,
+            visible: true,
+        };
+
+        // Render the component in a hidden state
+        const wrapper = mount(<Login {...props} />);
+
+        // Click the Register button
+        wrapper.find("Button#register").simulate("click");
+
+        // Check that the onOpenRegisterCallBack is called
+        expect(mockOnOpenRegisterCallBack.mock.calls.length).toEqual(1);
+
+        // Check that none of the other callbacks were called
+        expect(mockOnLoginCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 });
