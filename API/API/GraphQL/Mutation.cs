@@ -14,6 +14,6 @@ namespace API.GraphQL
         }  
 
         public async Task<User> Create(User user) => await _userService.Create(user);  
-        public async Task<bool> Delete(DeleteVM deleteVM) => await _userService.Delete(deleteVM);  
+        public async Task<bool> Delete(int UserID) => await _userService.Delete(UserID);  
     }  
 }  

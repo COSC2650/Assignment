@@ -30,7 +30,7 @@ namespace API.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "UserID", "City", "Email", "EmailVerfied", "FirstName", "LastName", "PasswordHash", "PasswordSalt", "PostCode", "State", "Street" },
-                values: new object[] { 1, "Fakesvile", "not@real.com", true, "Bob", "Peterson", "hakIJJBSUBUA92912nekaso", "19373920201", 4114, "QLD", "82 Fake St" });
+                values: new object[] { 1, "Fakesvile", "not@real.com", true, "Bob", "Peterson", "", "", 4114, "QLD", "82 Fake St" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

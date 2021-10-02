@@ -38,9 +38,6 @@ namespace API.Models
 
         [Required]
         public Boolean EmailVerfied { get; set; }
-
-        // once roles get established
-        // public virtual Roles Role { get; set; }
     }
 
 }

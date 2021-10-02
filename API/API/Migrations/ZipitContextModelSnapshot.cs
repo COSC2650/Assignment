@@ -11,7 +11,6 @@ namespace API.Migrations
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
-#pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.10");
@@ -78,14 +77,13 @@ namespace API.Migrations
                             EmailVerfied = true,
                             FirstName = "Bob",
                             LastName = "Peterson",
-                            PasswordHash = "hakIJJBSUBUA92912nekaso",
-                            PasswordSalt = "19373920201",
+                            PasswordHash = "",
+                            PasswordSalt = "",
                             PostCode = 4114,
                             State = "QLD",
                             Street = "82 Fake St"
                         });
                 });
-#pragma warning restore 612, 618
         }
     }
 }
