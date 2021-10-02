@@ -1,5 +1,4 @@
 import { Image, Heading, Text, HStack, VStack } from "@chakra-ui/react";
-import { LoremIpsum } from "react-lorem-ipsum";
 
 export interface ListItemProp {
     imageUrl: string;
