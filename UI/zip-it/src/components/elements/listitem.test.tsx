@@ -1,7 +1,9 @@
 import ListItem, { ListItemProp } from "./listitem";
 import { configure, render } from "enzyme";
-import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
+import Adapter from "enzyme-adapter-react-16";
 import { describe, expect } from "@jest/globals";
+
+jest.useFakeTimers();
 
 configure({ adapter: new Adapter() });
 

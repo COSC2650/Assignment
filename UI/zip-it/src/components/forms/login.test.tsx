@@ -1,6 +1,8 @@
 import Login, { LoginProps, LoginDetails } from "./login";
 import { configure, mount, render } from "enzyme";
-import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
+import Adapter from "enzyme-adapter-react-16";
+
+jest.useFakeTimers();
 
 configure({ adapter: new Adapter() });
 
@@ -11,7 +13,7 @@ jest.mock("react", () => ({
 
 describe("LogIn", () => {
     it("Should render correctly", () => {
-        let props: LoginProps = {
+        const props: LoginProps = {
             onLogin: (ldprops: LoginDetails) => {
                 // Intentional
             },

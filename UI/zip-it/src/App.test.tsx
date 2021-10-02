@@ -2,6 +2,8 @@ import React from "react";
 import { render, screen, queryByAttribute } from "@testing-library/react";
 import App from "./App";
 
+jest.useFakeTimers();
+
 const getById = queryByAttribute.bind(null, "id");
 
 test("Renders the test log in page and looks for the title", () => {
