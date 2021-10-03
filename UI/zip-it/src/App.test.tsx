@@ -1,14 +1,25 @@
-import React from "react";
-import { render, screen, queryByAttribute } from "@testing-library/react";
+import { queryByAttribute } from "@testing-library/react";
 import App from "./App";
+import { configure, mount, render } from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 
 jest.useFakeTimers();
 
+configure({ adapter: new Adapter() });
+
+jest.mock("react", () => ({
+    ...jest.requireActual("react"),
+    useLayoutEffect: jest.requireActual("react").useEffect,
+}));
+
 const getById = queryByAttribute.bind(null, "id");
 
-test("Renders the test log in page and looks for the title", () => {
-    render(<App />);
-    //expect(screen.getByText(/Log in to Zip.It/i)).toBeInTheDocument();
+test("Should render correctly", () => {
+    // Render the component
+    const component = render(<App />);
+
+    // Check the component against the snapshot
+    expect(component).toMatchSnapshot();
 });
 
 test("Renders the test log in page and looks for email field", () => {
