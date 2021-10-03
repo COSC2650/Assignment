@@ -10,6 +10,7 @@ import Search from "./components/elements/search";
 function App() {
     const [loginVisible, setLoginVisible] = useState(false);
     const [registerVisible, setRegisterVisible] = useState(false);
+    const { toggleColorMode } = useColorMode();
     const onShowLogin = () => setLoginVisible(true);
     const onShowRegister = () => {
         setLoginVisible(false);
@@ -64,12 +65,12 @@ function App() {
 
     return (
         <>
-            <Header toggleColorMode={useColorMode} toggleLogIn={onShowLogin}></Header>
+            <Header toggleColorMode={toggleColorMode} toggleLogIn={onShowLogin}></Header>
             <Login visible={loginVisible} onOpenRegister={onShowRegister} onLogin={onLogin} onClose={onLogInClose}></Login>
             <Register visible={registerVisible} onOpenLogin={onShowLogin} onRegister={onRegister} onClose={onRegisterClose}></Register>
             <Stack direction={["column", "row"]} margin="60px 5px 5px 5px" divider={<StackDivider />} spacing={2}>
                 <Search></Search>
-                <VStack divider={<StackDivider />} spacing={2}>
+                <VStack divider={<StackDivider />} spacing={2} width="100%">
                     <ListItem imageUrl="https://picsum.photos/100?random=1" title="Title" description="Description" price={100.0} quantity={10}></ListItem>
                     <ListItem imageUrl="https://picsum.photos/100?random=2" title="Title" description="Description" price={100.0} quantity={10}></ListItem>
                     <ListItem imageUrl="https://picsum.photos/100?random=3" title="Title" description="Description" price={100.0} quantity={10}></ListItem>
