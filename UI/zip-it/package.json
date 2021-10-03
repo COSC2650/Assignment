@@ -11,7 +11,7 @@
         "@emotion/react": "11.4.1",
         "@emotion/styled": "11.3.0",
         "@jest/globals": "27.2.4",
-        "@testing-library/react": "12.1.1",
+        "@testing-library/react": "12.1.2",
         "@types/jest": "27.0.2",
         "@types/node": "16.10.2",
         "@types/react": "17.0.26",
