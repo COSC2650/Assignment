@@ -3,8 +3,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 using NLog;
 using Sentry.AspNetCore;
+using API.Data;
+using API.Services;
+using API.GraphQL;
+using HotChocolate;  
+using System;  
+
 
 namespace API
 {
@@ -12,19 +19,33 @@ namespace API
     {
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+
+#if DEBUG
+        private readonly string ConnectionString = "";
+#else
+        private readonly string ConnectionString = System.Environment.GetEnvironmentVariable("CONNECTION_STRING");
+#endif
+
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ZipitContext>(options =>
+                options.UseMySQL(ConnectionString));
             var cors = System.Environment.GetEnvironmentVariable("CORS");
             var origins = cors?.Split(',', System.StringSplitOptions.RemoveEmptyEntries);
 
             if (origins == null || origins.Length == 0)
             {
-                origins = new string[] { "http://localhost:3000" };
+                origins = new string[] { "http://localhost:3000", "http://localhost:5000", "http://localhost:5001" };
             }
 
-            services
-                .AddGraphQLServer()
-                .AddQueryType<Query>();
+            services.AddScoped<Query>()
+                .AddScoped<Mutuation>()  
+                .AddScoped<IUserService, UserService>();
+
+            services.AddGraphQLServer()
+                .AddType<GraphQLTypes>()  
+                .AddQueryType<Query>()  
+                .AddMutationType<Mutuation>();
 
             services
                 .AddCors(options =>
