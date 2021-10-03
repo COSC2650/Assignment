@@ -1,6 +1,6 @@
 import Register, { RegisterProps, RestrationDetails } from "./register";
 import { configure, mount, render } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 
 jest.useFakeTimers();
 
