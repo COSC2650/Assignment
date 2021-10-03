@@ -7,7 +7,7 @@ export interface LoginDetails {
     password: string;
 }
 
-interface LoginProps {
+export interface LoginProps {
     onLogin(props: LoginDetails): void;
     onOpenRegister(): void;
     onClose(): void;
@@ -31,7 +31,7 @@ export function Login(props: LoginProps) {
         };
 
         // Email regex
-        var regexp = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+        var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
 
         setFormValidationHidden(false);
 
@@ -46,7 +46,7 @@ export function Login(props: LoginProps) {
     }
 
     return (
-        <Modal isOpen={props.visible} onClose={props.onClose}>
+        <Modal isOpen={props.visible} onClose={props.onClose} id="login">
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>Ready? Set? Zip-It!</ModalHeader>
@@ -62,9 +62,9 @@ export function Login(props: LoginProps) {
 
                 <ModalFooter>
                     <Flex width="100%">
-                        <Button onClick={props.onOpenRegister}>Register</Button>
+                        <Button onClick={props.onOpenRegister} id="register">Register</Button>
                         <Spacer></Spacer>
-                        <Button onClick={onLogin}>Log In</Button>
+                        <Button onClick={onLogin} id="login">Log In</Button>
                     </Flex>
                 </ModalFooter>
             </ModalContent>
