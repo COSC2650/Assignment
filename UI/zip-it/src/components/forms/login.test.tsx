@@ -1,6 +1,6 @@
 import Login, { LoginProps, LoginDetails } from "./login";
 import { configure, mount, render } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 
 jest.useFakeTimers();
 
