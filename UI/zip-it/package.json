@@ -6,7 +6,7 @@
         "@apollo/client": "3.4.16",
         "@chakra-ui/icons": "1.0.15",
         "@chakra-ui/layout": "1.4.9",
-        "@chakra-ui/react": "1.6.8",
+        "@chakra-ui/react": "1.6.9",
         "@chakra-ui/react-utils": "1.1.2",
         "@emotion/react": "11.4.1",
         "@emotion/styled": "11.3.0",
