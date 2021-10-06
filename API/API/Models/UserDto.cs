@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using API.Connection;
 
 namespace API.Models
 {
@@ -39,5 +40,19 @@ namespace API.Models
 
         [Required]
         public Boolean EmailVerfied { get; set; }
+
+        public UserDto(User user){
+
+            FirstName = user.FirstName;
+            LastName = user.LastName;
+            Street = user.Street;
+            City = user.City;
+            State = user.State;
+            PostCode = user.PostCode;
+            Email = user.Email;
+            PasswordHash = user.PasswordHash;
+            PasswordSalt= user.PasswordSalt;
+            EmailVerfied = user.EmailVerified;
+        }
     }
 }

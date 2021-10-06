@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using API.Data;
 using API.Models.Repository;
+using API.Models;
 
 namespace API.Models.DataManager
 {
@@ -17,20 +18,7 @@ namespace API.Models.DataManager
         public UserDto Get(int id)
         {
             var user = _context.Users.Find(id);
-            var userDto = new UserDto()
-            {
-                UserID = user.UserID,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Street = user.Street,
-                City = user.City,
-                State = user.State,
-                PostCode = user.PostCode,
-                Email = user.Email,
-                PasswordHash = user.PasswordHash,
-                PasswordSalt = user.PasswordSalt,
-                EmailVerfied = user.EmailVerfied,
-            };
+            var userDto = new UserDto(user);
 
             return userDto;
         }
@@ -38,20 +26,7 @@ namespace API.Models.DataManager
         public IEnumerable<UserDto> GetAll()
         {
             var users = from x in _context.Users
-                        select new UserDto()
-                        {
-                            UserID = x.UserID,
-                            FirstName = x.FirstName,
-                            LastName = x.LastName,
-                            Street = x.Street,
-                            City = x.City,
-                            State = x.State,
-                            PostCode = x.PostCode,
-                            Email = x.Email,
-                            PasswordHash = x.PasswordHash,
-                            PasswordSalt = x.PasswordSalt,
-                            EmailVerfied = x.EmailVerfied,
-                        };
+                        select new UserDto(x);
 
             return users.ToList();
         }
@@ -84,7 +59,7 @@ namespace API.Models.DataManager
             dbUser.Email = User.Email;
             dbUser.PasswordHash = User.PasswordHash;
             dbUser.PasswordSalt = User.PasswordSalt;
-            dbUser.EmailVerfied = User.EmailVerfied;
+            dbUser.EmailVerified = User.EmailVerfied;
 
             _context.Update(dbUser);
             _context.SaveChanges();

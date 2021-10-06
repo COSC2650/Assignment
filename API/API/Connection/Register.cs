@@ -2,29 +2,55 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Models;
+using API.Controllers;
+using API.Models.DataManager;
+using API.Data;
+using Microsoft.AspNetCore.Mvc;
+
 
 
 namespace API.Connection
 {
     public class Register
     {
-        //Call this method from the ui, using information provided by the forms
-        //packed in a User object
+        
+         private readonly ZipitContext _context;
 
-        //Call db validation (db exists)
-        
-        //Call connection method (open) and validation (connection retry/length)
-        
-        //CreateUser method to generate data for SQL db (includes hash and salt)
-        
-        //Write to db
+        public Register(ZipitContext context)
+        {
+            _context = context;
+        }
 
         public void CreateUser(User user)
         {   
-            HashWithSaltResult saltAndPassword = PasswordWithSaltHasher.HashPassword(user.Password);
-            user.Password = saltAndPassword.HashedPass;
+            //Hash and salt the password, do not transfer the password to db for security reasons
 
-            Crud.DeployUser(user);
+            HashWithSaltResult saltAndPassword = PasswordWithSaltHasher.HashPassword(user.Password);
+            user.PasswordHash = saltAndPassword.HashedPass;
+            user.PasswordSalt = saltAndPassword.Salt;
+            user.EmailVerified = false;
+
+            //Create a Data transfer object to post to the database using the userDTO constructor
+
+            UserDto dto = new UserDto(user);
+
+            //Check to see if user already exists on the database
+
+            //Send dto to User Manager 
+
+            UserManager manager = new UserManager(_context);
+
+            manager.Add(dto);
+
+            //Use the user controller to send it to the db
+
+            UserController controller = new UserController(manager);
+            
+            controller.Post(dto);
+
+            // send confirmation email
+            
         }
 
 

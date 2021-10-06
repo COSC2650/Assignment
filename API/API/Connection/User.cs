@@ -16,6 +16,11 @@ namespace API.Connection
          *   saves a lot of work!
          *   
          */
+        [Required(ErrorMessage = "{0} is required")]
+        [StringLength(50, MinimumLength = 2,
+        ErrorMessage = "User ID should be minimum 3 characters and a maximum of 50 characters")]
+        [DataType(DataType.Text)]
+        public int UserID { get; set; }
 
         [Required(ErrorMessage = "{0} is required")]
         [StringLength(50, MinimumLength = 2,
@@ -45,21 +50,30 @@ namespace API.Connection
         [StringLength(100, MinimumLength = 2,
         ErrorMessage = "Post code should be minimum 2 characters and a maximum of 50 characters")]
         [DataType(DataType.PostalCode)]
-        public int PostCode { get; set; }
+        public string PostCode { get; set; }
+
+        [Required(ErrorMessage = "{0} is required")]
+        [StringLength(100, MinimumLength = 2,
+        ErrorMessage = "State should be minimum 2 characters and a maximum of 3 characters")]
+        [DataType(DataType.Text)]
+        public string State { get; set; }
 
         [Required(ErrorMessage = "{0} is required")]
         [DataType(DataType.EmailAddress)]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "{0} is required")]
         [StringLength(100, MinimumLength = 2,
         ErrorMessage = "Password should be minimum 7 characters and a maximum of 50 characters")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
+        public string PasswordHash { get; set; }
+
+        public string PasswordSalt { get; set; }
+
         public Boolean EmailVerified { get; set; }
 
-        public string Role { get; set; }
+       
     }
 }

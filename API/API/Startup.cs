@@ -22,15 +22,18 @@ namespace API
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
+            services.AddDbContext<ZipitContext>(options => 
+                { 
+                    options.UseMySQL(ConnectionString);
+                });
 
-            services.AddDbContext<ZipitContext>(options =>
-                options.UseMySQL(ConnectionString));
             var cors = System.Environment.GetEnvironmentVariable("CORS");
             var origins = cors?.Split(',', System.StringSplitOptions.RemoveEmptyEntries);
 
             if (origins == null || origins.Length == 0)
             {
-                origins = new string[] { "http://localhost:3000" };
+                origins = new string[] { "http://localhost:3000","http://localhost:5000"  };
             }
 
             services
