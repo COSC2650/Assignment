@@ -9,7 +9,7 @@ export interface RestrationDetails {
     password: string;
 }
 
-export interface RegisterProps {
+interface RegisterProps {
     onOpenLogin(): void;
     onRegister(props: RestrationDetails): void;
     onClose(): void;
@@ -41,7 +41,7 @@ export function Register(props: RegisterProps) {
         };
 
         // Email regex
-        var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
+        var regexp = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
         setFormValidationHidden(false);
 
@@ -64,7 +64,7 @@ export function Register(props: RegisterProps) {
     };
 
     return (
-        <Modal isOpen={props.visible} onClose={props.onClose} id="register">
+        <Modal isOpen={props.visible} onClose={props.onClose}>
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>Register to Zip-It!</ModalHeader>
@@ -83,13 +83,9 @@ export function Register(props: RegisterProps) {
 
                 <ModalFooter>
                     <Flex width="100%">
-                        <Button onClick={props.onOpenLogin} id="login">
-                            Log In
-                        </Button>
+                        <Button onClick={props.onOpenLogin}>Log In</Button>
                         <Spacer></Spacer>
-                        <Button onClick={onRegister} id="register">
-                            Register
-                        </Button>
+                        <Button onClick={onRegister}>Register</Button>
                     </Flex>
                 </ModalFooter>
             </ModalContent>
