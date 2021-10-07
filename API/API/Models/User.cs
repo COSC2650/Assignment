@@ -6,7 +6,7 @@ namespace API.Models
 {
     public class User 
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserID { get; set; }
 
         [Required, MinLength(3), MaxLength(50)]
@@ -32,9 +32,6 @@ namespace API.Models
 
         [Required]
         public string PasswordHash { get; set; }
-
-        [Required]
-        public string PasswordSalt { get; set; }
 
         [Required]
         public Boolean EmailVerfied { get; set; }
