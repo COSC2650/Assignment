@@ -8,6 +8,13 @@ namespace API.Data
         public ZipitContext(DbContextOptions<ZipitContext> options) : base(options)
         { }
 
-        public virtual DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasIndex(f => f.Email)
+                .IsUnique();
+        }
     }
 }
