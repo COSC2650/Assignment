@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using API.Models;
 using API.Services;
+using API.GraphQL.Users;
 
 namespace API.GraphQL  
 {  
@@ -13,7 +14,7 @@ namespace API.GraphQL
             _userService = userService;  
         }  
 
-        public async Task<User> Create(User user) => await _userService.Create(user);  
+        public async Task<User> Create(AddUserInput input) => await _userService.Create(input);
         public async Task<bool> Delete(int UserID) => await _userService.Delete(UserID);  
     }  
 }  

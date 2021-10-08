@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;  
 using API.Data;
 using API.Models;
+using API.Extensions;
+using System;
+using API.GraphQL.Users;
 
 namespace API.Services
 {  
@@ -15,10 +18,25 @@ namespace API.Services
             _context = context;
         } 
   
-        public async Task<User> Create(User user)
+        public async Task<User> Create(AddUserInput input)
         {  
-            await _context.Users.AddAsync(user);  
-            await _context.SaveChangesAsync();  
+            var hash = Hashbrowns.HashPassword(input.Password);
+            var user = new User
+            {
+                FirstName = input.FirstName,
+                LastName = input.LastName,
+                Street = input.Street,
+                City = input.City,
+                State = input.State,
+                PostCode = input.PostCode,
+                Email = input.Email,
+                PasswordHash = hash,
+                EmailVerfied = false
+            };
+
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
             return user;
         }
 
@@ -40,6 +58,24 @@ namespace API.Services
         public IQueryable<User> GetAll()  
         {  
             return _context.Users.AsQueryable();  
-        }  
+        }
+
+        public async Task<User> GetUserByEmail(string email, string password)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(c => c.Email == email);
+            if(user is null)
+                return null;
+            
+            var result = ValidatePassword(user, password);
+            if (!result)
+                return null;
+            
+            return user;
+        }
+
+        public Boolean ValidatePassword(User user, string password)
+        {
+            return Hashbrowns.ValidatePassword(password, user.PasswordHash);
+        }
     }
 }

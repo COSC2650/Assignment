@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Threading.Tasks;
 using API.Models;
 using API.Services;
 
@@ -14,5 +15,8 @@ namespace API.GraphQL
         }
 
         public IQueryable<User> Users => _userService.GetAll();
+
+        public Task<User> GetUserByEmail(string email, string password) =>
+            _userService.GetUserByEmail(email, password);
     }
 }
