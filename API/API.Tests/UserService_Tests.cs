@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using Moq.EntityFrameworkCore;
 using AutoFixture;
 using System.Threading.Tasks;
+using API.GraphQL.Users;
+using API.Extensions;
 
 namespace Tests
 {
@@ -18,6 +20,7 @@ namespace Tests
         {
             // Create sample users
             IList<User> users = GenerateUsers();
+            
 
             // Change the context options to use an inmemory database
             var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
@@ -45,6 +48,7 @@ namespace Tests
         {
             // Create sample users
             User user = GenerateUser();
+            AddUserInput input = GenerateUserInput();
 
             // Change the context options to use an inmemory database
             var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
@@ -58,7 +62,7 @@ namespace Tests
             UserService userService = new(context);
 
             // Create a user
-            await userService.Create(user);
+            user = await userService.Create(input);
 
             // Get all users
             var userToAssert = userService.GetAll().FirstOrDefault();
@@ -68,10 +72,17 @@ namespace Tests
         }
 
         [Fact]
-        public async Task UserService_Delete()
+        public async Task UserService_GetUserByEmail()
         {
-            // Create sample users
-            User user = GenerateUser();
+            AddUserInput input = new AddUserInput(
+                "ted",
+                "whatever",
+                "123 faKE ST",
+                "Yup",
+                "QLD",
+                3123, 
+                "123@test.com",
+                "password");
 
             // Change the context options to use an inmemory database
             var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
@@ -85,17 +96,100 @@ namespace Tests
             UserService userService = new(context);
 
             // Create a user
-            await userService.Create(user);
+            await userService.Create(input);
 
-            // Check we've added a user
-            Assert.Equal(1, userService.GetAll().Count());
-
-            // Delete the user
-            await userService.Delete(user.UserID);
-
-            // Check we have successfully delete the user
-            Assert.Equal(0, userService.GetAll().Count());
+            Assert.NotNull(await userService.GetUserByEmail(input.Email, input.Password));
         }
+
+        [Fact]
+        public async Task UserService_GetUserByEmail_BadEmail()
+        {
+            AddUserInput input = new AddUserInput(
+                "ted",
+                "whatever",
+                "123 fake st",
+                "Yup",
+                "QLD",
+                3123, 
+                "123@test.com",
+                "password");
+
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                  .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                  .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the UserService with the mocked context
+            UserService userService = new(context);
+
+            // Create a user
+            await userService.Create(input);
+
+            Assert.Null(await userService.GetUserByEmail("kajdfkajfk@kjajfkfja", input.Password));
+        }
+
+        [Fact]
+        public async Task UserService_GetUserByEmail_BadPass()
+        {
+            AddUserInput input = new AddUserInput(
+                "ted",
+                "whatever",
+                "123 fake st",
+                "Yup",
+                "QLD",
+                3123, 
+                "123@test.com",
+                "password");
+
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                  .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                  .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the UserService with the mocked context
+            UserService userService = new(context);
+
+            // Create a user
+            await userService.Create(input);
+
+            Assert.Null(await userService.GetUserByEmail(input.Email, "jkhasjdhajh"));
+        }
+
+        // [Fact]
+        // public async Task UserService_Delete()
+        // {
+        //     // Create sample users
+        //     User user = GenerateUser();
+
+        //     // Change the context options to use an inmemory database
+        //     var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+        //           .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+        //           .Options;
+
+        //     // Create a new instance of the ZipitContext
+        //     var context = new API.Data.ZipitContext(contextOptions);
+
+        //     // Create a new instance on the UserService with the mocked context
+        //     UserService userService = new(context);
+
+        //     // Create a user
+        //     await userService.Create(user);
+
+        //     // Check we've added a user
+        //     Assert.Equal(1, userService.GetAll().Count());
+
+        //     // Delete the user
+        //     await userService.Delete(user.UserID);
+
+        //     // Check we have successfully delete the user
+        //     Assert.Equal(0, userService.GetAll().Count());
+        // }
 
         private static IList<User> GenerateUsers()
         {
@@ -112,7 +206,21 @@ namespace Tests
             Fixture fixture = new();
 
             // Generte and return the list
-            return fixture.Build<User>().Create();
+            var user = fixture.Build<User>().Create();
+            user.Email = "123@test.com";
+            var password = Hashbrowns.HashPassword("password");
+            user.PasswordHash = password;
+            return user;
+        }
+
+        private static AddUserInput GenerateUserInput()
+        {
+            // Create a new instance on the fixture
+            Fixture fixture = new();
+
+            // Generte and return the list
+            return fixture.Build<AddUserInput>().Create();
+          
         }
     }
 }
