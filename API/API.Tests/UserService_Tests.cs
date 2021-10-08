@@ -5,49 +5,48 @@ using API.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Collections.Generic;
-using Moq.EntityFrameworkCore;
 using AutoFixture;
 using System.Threading.Tasks;
 using API.GraphQL.Users;
-using API.Extensions;
 
 namespace Tests
 {
     public class ZipitContext {
 
         [Fact]
-        public void UserService_GetAll()
+        public async Task UserService_GetAll()
         {
-            // Create sample users
-            IList<User> users = GenerateUsers();
-            
+            // Generate a series of users
+            IList<AddUserInput> users = GenerateUsers();
 
             // Change the context options to use an inmemory database
             var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
                   .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
                   .Options;
 
-            // Mock the ZipItContext
-            var userContextMock = new Mock<API.Data.ZipitContext>(contextOptions);
-
-            // Add the data to the context
-            userContextMock.Setup(x => x.Users).ReturnsDbSet(users);
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
 
             // Create a new instance on the UserService with the mocked context
-            UserService userService = new(userContextMock.Object);
+            UserService userService = new(context);
+
+            // Add the users
+            foreach (AddUserInput input in users) {
+                await userService.Create(input);
+            }
 
             // Get all users
             var usersToAssert = userService.GetAll();
 
             // Assert that the generated list is equal to the returned
-            Assert.Equal(usersToAssert, users);
+            Assert.Equal(usersToAssert.Count(), users.Count);
         }
 
         [Fact]
         public async Task UserService_Create()
         {
             // Create sample users
-            User user = GenerateUser();
+            User user;
             AddUserInput input = GenerateUserInput();
 
             // Change the context options to use an inmemory database
@@ -74,7 +73,7 @@ namespace Tests
         [Fact]
         public async Task UserService_GetUserByEmail()
         {
-            AddUserInput input = new AddUserInput(
+            AddUserInput input = new(
                 "ted",
                 "whatever",
                 "123 faKE ST",
@@ -104,7 +103,7 @@ namespace Tests
         [Fact]
         public async Task UserService_GetUserByEmail_BadEmail()
         {
-            AddUserInput input = new AddUserInput(
+            AddUserInput input = new(
                 "ted",
                 "whatever",
                 "123 fake st",
@@ -134,7 +133,7 @@ namespace Tests
         [Fact]
         public async Task UserService_GetUserByEmail_BadPass()
         {
-            AddUserInput input = new AddUserInput(
+            AddUserInput input = new(
                 "ted",
                 "whatever",
                 "123 fake st",
@@ -190,27 +189,13 @@ namespace Tests
         //     // Check we have successfully delete the user
         //     Assert.Equal(0, userService.GetAll().Count());
         // }
-
-        private static IList<User> GenerateUsers()
+        private static IList<AddUserInput> GenerateUsers()
         {
             // Create a new instance on the fixture
             Fixture fixture = new();
 
             // Generte and return the list
-            return fixture.Build<List<User>>().Create();
-        }
-
-        private static User GenerateUser()
-        {
-            // Create a new instance on the fixture
-            Fixture fixture = new();
-
-            // Generte and return the list
-            var user = fixture.Build<User>().Create();
-            user.Email = "123@test.com";
-            var password = Hashbrowns.HashPassword("password");
-            user.PasswordHash = password;
-            return user;
+            return fixture.Build<List<AddUserInput>>().Create();
         }
 
         private static AddUserInput GenerateUserInput()
