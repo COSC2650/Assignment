@@ -27,7 +27,7 @@ NEW_RELIC_LICENSE_KEY=$NEW_RELIC_LICENCE_KEY \
 NEW_RELIC_APP_NAME="API"
 
 # Set the working directory and copy thr build assets
-COPY ./out ./API
+COPY out ./API/
 
 # Expose port 80
 EXPOSE 80
