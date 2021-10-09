@@ -27,7 +27,7 @@ jobs:
         name: Build and SonarCloud Scan
         runs-on: ubuntu-latest
         needs: files_changed
-        if: needs.files_changed.outputs.api_changes == 'true'
+        if: needs.files_changed.outputs.api_changes == 'true' || github.ref == 'refs/heads/main'
         outputs:
             result: ${{ job.status }}
         steps:
@@ -82,7 +82,6 @@ jobs:
         name: Build API
         runs-on: ubuntu-latest
         needs: sonar_scan
-        if: needs.files_changed.outputs.api_changes == 'true' || github.ref == 'refs/heads/main'
         outputs:
             result: ${{ job.status }}
             digest: ${{ steps.docker_build.outputs.digest }}
