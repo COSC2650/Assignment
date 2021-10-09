@@ -2,7 +2,7 @@ name: Build
 on:
     push:
         branches:
-            - master
+            - main
     pull_request:
         types: [opened, synchronize, reopened]
 jobs:
@@ -82,7 +82,7 @@ jobs:
         name: Build API
         runs-on: ubuntu-latest
         needs: sonar_scan
-        if: needs.files_changed.outputs.api_changes == 'true'
+        if: needs.files_changed.outputs.api_changes == 'true' || github.ref == 'refs/heads/main'
         outputs:
             result: ${{ job.status }}
             digest: ${{ steps.docker_build.outputs.digest }}
@@ -166,7 +166,7 @@ jobs:
             run:
                 working-directory: UI/zip-it
         needs: files_changed
-        if: needs.files_changed.outputs.ui_changes == 'true'
+        if: needs.files_changed.outputs.ui_changes == 'true' || github.ref == 'refs/heads/main'
         steps:
             - uses: actions/checkout@v2
               with:
