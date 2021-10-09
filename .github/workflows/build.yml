@@ -90,7 +90,7 @@ jobs:
               uses: actions/download-artifact@v2
               with:
                   name: API
-                  path: .
+                  path: out
             - name: Docker meta
               id: meta
               uses: docker/metadata-action@v3
