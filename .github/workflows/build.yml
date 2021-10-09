@@ -118,6 +118,9 @@ jobs:
                   labels: ${{ steps.meta.outputs.labels }}
                   build-args: |
                       GITHUB_REF=${{ github.ref }}
+            - name: Display structure of downloaded files
+              if: always()
+              run: ls -R
     deploy_api:
         name: Deploy API
         runs-on: ubuntu-latest
