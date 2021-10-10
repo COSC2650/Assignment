@@ -14,6 +14,7 @@ interface HeaderProps {
   toggleColorMode(): void;
   toggleLogIn(): void;
   userName: String;
+  logInOutLabel: String;
 }
 
 const Filter = (props: HeaderProps) => {
@@ -102,7 +103,7 @@ const Filter = (props: HeaderProps) => {
         backgroundColor={headerBackground}
         aria-label="Log in"
       >
-        Log in
+        {props.logInOutLabel}
       </Button>
     </Flex>
   );

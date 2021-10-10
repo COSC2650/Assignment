@@ -10,6 +10,7 @@ import { ApolloClient, InMemoryCache } from '@apollo/client';
 import query from './graphQL/query';
 
 function App() {
+  const [logInOutLable, setLogInOutLabel] = useState('Login');
   const [disableInput, setDisableInput] = useState(false);
   const [userName, setUserName] = useState('');
   const [loginVisible, setLoginVisible] = useState(false);
@@ -29,7 +30,7 @@ function App() {
       title: 'Error occured',
       description: 'An error occured, please retry.',
       status: 'error',
-      duration: 5000,
+      duration: 2000,
       isClosable: true,
       position: 'top',
     });
@@ -44,11 +45,10 @@ function App() {
 
     //query database
     client.query(query(props.email, props.password)).then((result) => {
-      var queryResult = result.data.userByEmail;
-      // queryResult = null; -testing
-
+      const queryResult = result.data.userByEmail;
       if (queryResult != null) {
         setUserName(queryResult.FirstName);
+        setLogInOutLabel('Logout');
         toast({
           title: 'Logged In',
           description: 'You have been successfully logged in.',
@@ -72,7 +72,7 @@ function App() {
         title: 'Account Created',
         description: 'Your account has been created.',
         status: 'success',
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
         position: 'top',
       });
@@ -89,6 +89,7 @@ function App() {
         toggleColorMode={toggleColorMode}
         toggleLogIn={onShowLogin}
         userName={userName}
+        logInOutLabel={logInOutLable}
       ></Header>
       <Login
         disabled={disableInput}
