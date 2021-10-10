@@ -15,11 +15,23 @@
       "environment": [
         {
           "name": "NEW_RELIC_LICENSE_KEY",
-          "value": "Licence"
+          "value": "NR_LICENCE"
         },
         {
-          "name": "CORS",
-          "value": "CORS1234"
+          "name": "NEW_RELIC_ACCOUNT_ID",
+          "value": "NR_ACCT_ID"
+        },
+        {
+          "name": "NEW_RELIC_API_KEY",
+          "value": "NR_API_KEY"
+        },
+        {
+          "name": "CORS_URLS",
+          "value": "URLS"
+        },
+        {
+          "name": "CONNECTION_STRING",
+          "value": "CONN_STRING"
         }
       ],
       "mountPoints": [],

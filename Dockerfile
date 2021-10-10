@@ -5,6 +5,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:5.0
 ENV NEW_RELIC_LICENCE_KEY=""
 ENV NEW_RELIC_API_KEY=""
 ENV NEW_RELIC_ACCOUNT_ID=""
+ENV CONNECTION_STRING=""
+ENV CORS_URLS=""
 
 # Install the NewRelic agent
 RUN apt-get update \
@@ -23,11 +25,10 @@ ENV CORECLR_ENABLE_PROFILING=1 \
 CORECLR_PROFILER={36032161-FFC0-4B61-B559-F6C5D41BAE5A} \
 CORECLR_NEWRELIC_HOME=/usr/local/newrelic-netcore20-agent \
 CORECLR_PROFILER_PATH=/usr/local/newrelic-netcore20-agent/libNewRelicProfiler.so \
-NEW_RELIC_LICENSE_KEY=$NEW_RELIC_LICENCE_KEY \
 NEW_RELIC_APP_NAME="API"
 
 # Set the working directory and copy thr build assets
-COPY . ./API
+COPY out ./API/
 
 # Expose port 80
 EXPOSE 80
