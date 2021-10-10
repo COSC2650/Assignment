@@ -74,13 +74,13 @@ namespace Tests
         public async Task UserService_GetUserByEmail()
         {
             AddUserInput input = new(
-                "ted",
-                "whatever",
-                "123 faKE ST",
-                "Yup",
-                "QLD",
-                3123, 
-                "123@test.com",
+                "firstName",
+                "lastName",
+                "street",
+                "city",
+                "###",
+                0000, 
+                "test@email.com",
                 "password");
 
             // Change the context options to use an inmemory database
@@ -104,13 +104,13 @@ namespace Tests
         public async Task UserService_GetUserByEmail_BadEmail()
         {
             AddUserInput input = new(
-                "ted",
-                "whatever",
-                "123 fake st",
-                "Yup",
-                "QLD",
-                3123, 
-                "123@test.com",
+                "firstName",
+                "lastName",
+                "street",
+                "city",
+                "###",
+                0000, 
+                "test@email.com",
                 "password");
 
             // Change the context options to use an inmemory database
@@ -127,20 +127,20 @@ namespace Tests
             // Create a user
             await userService.Create(input);
 
-            Assert.Null(await userService.GetUserByEmail("kajdfkajfk@kjajfkfja", input.Password));
+            Assert.Null(await userService.GetUserByEmail("bad@email", input.Password));
         }
 
         [Fact]
         public async Task UserService_GetUserByEmail_BadPass()
         {
             AddUserInput input = new(
-                "ted",
-                "whatever",
-                "123 fake st",
-                "Yup",
-                "QLD",
-                3123, 
-                "123@test.com",
+                "firstName",
+                "lastName",
+                "street",
+                "city",
+                "###",
+                0000, 
+                "test@email.com",
                 "password");
 
             // Change the context options to use an inmemory database
@@ -157,7 +157,7 @@ namespace Tests
             // Create a user
             await userService.Create(input);
 
-            Assert.Null(await userService.GetUserByEmail(input.Email, "jkhasjdhajh"));
+            Assert.Null(await userService.GetUserByEmail(input.Email, "badPass"));
         }
 
         // [Fact]

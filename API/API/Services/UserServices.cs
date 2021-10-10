@@ -55,6 +55,7 @@ namespace API.Services
             return response;
         }
 
+        // Remove for production
         public IQueryable<User> GetAll()  
         {  
             return _context.Users.AsQueryable();  
@@ -70,6 +71,7 @@ namespace API.Services
             if (!result)
                 return null;
             
+            user.PasswordHash = "#";
             return user;
         }
 
