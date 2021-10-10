@@ -28,7 +28,7 @@ function App() {
             isClosable: true,
             position: "top",
         });
- 
+
     const onLogin = (props: LoginDetails) => {
         if (true) {
             toast({
