@@ -57,7 +57,12 @@ namespace API.Services
 
         public IQueryable<User> GetAll()  
         {  
-            return _context.Users.AsQueryable();  
+            var users = _context.Users.AsQueryable();
+            foreach(User user in users)
+            {
+                user.PasswordHash = "#";
+            }
+            return users;
         }
 
         public async Task<User> GetUserByEmail(string email, string password)
@@ -70,6 +75,7 @@ namespace API.Services
             if (!result)
                 return null;
             
+            user.PasswordHash = "#";
             return user;
         }
 
