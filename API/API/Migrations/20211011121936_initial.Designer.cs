@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(ZipitContext))]
-    [Migration("20210930064952_Initial")]
-    partial class Initial
+    [Migration("20211011121936_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,9 +18,38 @@ namespace API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.10");
 
+            modelBuilder.Entity("API.Models.Role", b =>
+                {
+                    b.Property<int>("RoleID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("RoleID");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleID = 1,
+                            RoleName = "Admin"
+                        },
+                        new
+                        {
+                            RoleID = 2,
+                            RoleName = "User"
+                        });
+                });
+
             modelBuilder.Entity("API.Models.User", b =>
                 {
                     b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<string>("City")
@@ -30,7 +59,7 @@ namespace API.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(767)");
 
                     b.Property<bool>("EmailVerfied")
                         .HasColumnType("tinyint(1)");
@@ -49,12 +78,11 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("PasswordSalt")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<int>("PostCode")
                         .HasMaxLength(4)
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleID")
                         .HasColumnType("int");
 
                     b.Property<string>("State")
@@ -69,23 +97,28 @@ namespace API.Migrations
 
                     b.HasKey("UserID");
 
-                    b.ToTable("Users");
+                    b.HasIndex("Email")
+                        .IsUnique();
 
-                    b.HasData(
-                        new
-                        {
-                            UserID = 1,
-                            City = "Fakesvile",
-                            Email = "not@real.com",
-                            EmailVerfied = true,
-                            FirstName = "Bob",
-                            LastName = "Peterson",
-                            PasswordHash = "",
-                            PasswordSalt = "",
-                            PostCode = 4114,
-                            State = "QLD",
-                            Street = "82 Fake St"
-                        });
+                    b.HasIndex("RoleID");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("API.Models.User", b =>
+                {
+                    b.HasOne("API.Models.Role", "Role")
+                        .WithMany("UserID")
+                        .HasForeignKey("RoleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("API.Models.Role", b =>
+                {
+                    b.Navigation("UserID");
                 });
 #pragma warning restore 612, 618
         }
