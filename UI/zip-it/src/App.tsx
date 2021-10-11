@@ -7,7 +7,7 @@ import Register, { RestrationDetails } from './components/forms/register';
 import ListItem from './components/elements/listitem';
 import Search from './components/elements/search';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import query from './graphQL/query';
+import query from './data/queries';
 
 function App() {
   const [logInOutLable, setLogInOutLabel] = useState('Login');
@@ -58,7 +58,7 @@ function App() {
           position: 'top',
         });
 
-        setLoginVisible(false);
+        //setLoginVisible(false); - test
       } else {
         errorToast();
         setLoginVisible(false);
@@ -154,4 +154,3 @@ function App() {
 }
 
 export default App;
-
