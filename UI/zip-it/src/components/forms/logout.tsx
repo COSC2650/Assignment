@@ -1,99 +1,38 @@
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Input,
-  Button,
-  Alert,
-  AlertIcon,
-  AlertDescription,
-  FormControl,
-} from '@chakra-ui/react';
-import { Flex, Heading, Spacer } from '@chakra-ui/layout';
-import { useState } from 'react';
-
-export interface LogoutDetails {
-  email: string;
-  password: string;
-}
+import { AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button, Spacer } from "@chakra-ui/react";
+import React from "react";
+import { FocusableElement } from "@chakra-ui/utils";
 
 export interface LogoutProps {
-  disabled: boolean;
-  onLogout(props: LogoutDetails): void;
-  onOpenRegister(): void;
-  onClose(): void;
-  visible: boolean;
+    onLogout(): void;
+    onClose(): void;
+    visible: boolean;
 }
 
 //logout component
 export function Logout(props: LogoutProps) {
-  const [formValidationMessage, setFormValidationMessage] = useState('');
-  const [formValidationHidden, setFormValidationHidden] = useState(true);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+    const cancelRef = React.useRef<FocusableElement | HTMLButtonElement>(null);
 
-  const emailOnChange = (event) => setEmail(event.target.value);
-  const passwordOnChange = (event) => setPassword(event.target.value);
+    return (
+        <AlertDialog isOpen={props.visible} leastDestructiveRef={cancelRef} onClose={props.onClose}>
+            <AlertDialogOverlay>
+                <AlertDialogContent>
+                    <AlertDialogHeader>Log out</AlertDialogHeader>
 
-  const onLogout = () => {
-    const logoutDetails: LogoutDetails = {
-      email: email,
-      password: password,
-    };
+                    <AlertDialogBody>Are you sure you would like to log out?</AlertDialogBody>
 
-    // Email regex
-    var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
-
-    setFormValidationHidden(false);
-
-    if (email === '' || !regexp.test(email)) {
-      setFormValidationMessage('Your email is empty or invalid');
-    } else if (password === '') {
-      setFormValidationMessage('Your passwork is empty');
-    } else {
-      setFormValidationHidden(true);
-      props.onLogout(logoutDetails);
-    }
-  };
-
-  return (
-    <FormControl>
-      <Modal isOpen={props.visible} onClose={props.onClose} id="logout">
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Ready? Set? Zip-It!</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Alert status="error" hidden={formValidationHidden} mb={3}>
-              <AlertIcon />
-              <AlertDescription>{formValidationMessage}</AlertDescription>
-            </Alert>
-            <Heading>Sure you want to log out?</Heading>
-          </ModalBody>
-
-          <ModalFooter>
-            <Flex width="100%">
-              <Button
-                onClick={props.onOpenRegister}
-                id="register"
-                disabled={props.disabled}
-              >
-                Cancel
-              </Button>
-              <Spacer></Spacer>
-              <Button onClick={onLogout} id="logout" disabled={props.disabled}>
-                Log Out
-              </Button>
-            </Flex>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </FormControl>
-  );
+                    <AlertDialogFooter>
+                        <Button id="close" onClick={props.onClose}>
+                            Cancel
+                        </Button>
+                        <Spacer></Spacer>
+                        <Button id="log_out" onClick={props.onLogout}>
+                            Log out
+                        </Button>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialogOverlay>
+        </AlertDialog>
+    );
 }
 
 export default Logout;
