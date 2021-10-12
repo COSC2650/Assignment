@@ -4,11 +4,9 @@ import {
   useColorModeValue,
   Button,
   Image,
-  Icon,
   Heading,
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-import { FaUser } from 'react-icons/fa';
 import LogOutButton from './logoutbutton';
 import LogInButton from './loginbutton';
 

@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { VStack, StackDivider, Stack } from '@chakra-ui/layout';
-import Header from './components/elements/header';
-import { useColorMode, useToast } from '@chakra-ui/react';
-import Login, { LoginDetails } from './components/forms/login';
-import Register, { RestrationDetails } from './components/forms/register';
-import ListItem from './components/elements/listitem';
-import Search from './components/elements/search';
-import query from './data/queries';
-import clientConnection from './data/client';
+import { useState } from "react";
+import { VStack, StackDivider, Stack } from "@chakra-ui/layout";
+import Header from "./components/elements/header";
+import { useColorMode, useToast } from "@chakra-ui/react";
+import Login, { LoginDetails } from "./components/forms/login";
+import Register, { RestrationDetails } from "./components/forms/register";
+import ListItem from "./components/elements/listitem";
+import Search from "./components/elements/search";
+import query from "./data/queries";
+import clientConnection from "./data/client";
 
 function App() {
   const [userTitle, setUserTitle] = useState('Welcome');
@@ -84,22 +84,22 @@ function App() {
       });
   };
 
-  const onRegister = (props: RestrationDetails) => {
-    if (true) {
-      toast({
-        title: 'Account Created',
-        description: 'Your account has been created.',
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
-        position: 'top',
-      });
-    } else {
-      errorToast();
-    }
+    const onRegister = (props: RestrationDetails) => {
+        if (true) {
+            toast({
+                title: "Account Created",
+                description: "Your account has been created.",
+                status: "success",
+                duration: 2000,
+                isClosable: true,
+                position: "top",
+            });
+        } else {
+            errorToast();
+        }
 
-    setRegisterVisible(false);
-  };
+        setRegisterVisible(false);
+    };
 
   return (
     <>
