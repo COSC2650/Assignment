@@ -6,8 +6,8 @@ import Login, { LoginDetails } from './components/forms/login';
 import Register, { RestrationDetails } from './components/forms/register';
 import ListItem from './components/elements/listitem';
 import Search from './components/elements/search';
-import { ApolloClient, InMemoryCache } from '@apollo/client';
 import query from './data/queries';
+import clientConnection from './data/clientConnection';
 
 function App() {
   const [logInOutLable, setLogInOutLabel] = useState('Login');
@@ -16,7 +16,6 @@ function App() {
   const [loginVisible, setLoginVisible] = useState(false);
   const [registerVisible, setRegisterVisible] = useState(false);
   const { toggleColorMode } = useColorMode();
-  const onSubmit = () => setDisableInput(true);
   const onShowLogin = () => setLoginVisible(true);
   const onShowRegister = () => {
     setLoginVisible(false);
@@ -36,12 +35,8 @@ function App() {
     });
 
   const onLogin = (props: LoginDetails) => {
-    onSubmit();
-    //creates client connection instance
-    const client = new ApolloClient({
-      uri: 'http://localhost:9002/graphql',
-      cache: new InMemoryCache(),
-    });
+    setDisableInput(true);
+    const client = clientConnection();
 
     //query database
     client.query(query(props.email, props.password)).then((result) => {
