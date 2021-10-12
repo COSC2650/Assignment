@@ -2,14 +2,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Models;
 using API.Services;
+using HotChocolate.Types;
 
-namespace API.GraphQL
+namespace API.GraphQL.Users
 {
-    public class Query
+    [ExtendObjectType("Query")]
+    public class UserQueries
     {
         private readonly IUserService _userService;
 
-        public Query(IUserService userService)
+        public UserQueries(IUserService userService)
         {
             _userService = userService;
         }
