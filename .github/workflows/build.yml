@@ -61,7 +61,7 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
               run: |
-                  ./.sonar/scanner/dotnet-sonarscanner begin /k:"COSC2650_Assignment" /o:"cosc2650" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" /d:sonar.coverage.exclusions="API/Program.cs","API/Startup.cs","API/Migrations/*"
+                  ./.sonar/scanner/dotnet-sonarscanner begin /k:"COSC2650_Assignment" /o:"cosc2650" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" /d:sonar.coverage.exclusions="API/Program.cs","API/Startup.cs","API/GraphQL/Users/*","API/Migrations/*"
 
                   if [ "$GITHUB_REF" = "refs/heads/main" ]; then configuration="Release"; else configuration="Debug"; fi
 

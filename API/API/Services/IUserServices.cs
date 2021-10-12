@@ -10,8 +10,8 @@ namespace API.Services
 {  
    public interface IUserService  
     {  
-        Task<User> Create(AddUserInput input);
-        Task<bool> Delete(int UserID);  
+        Task<User> CreateUser(AddUserInput input);
+        Task<bool> DeleteUser(int UserID);  
         IQueryable<User> GetAll(); 
         Task<User> GetUserByEmail(string email, string password);
         Boolean ValidatePassword(User user, string password);

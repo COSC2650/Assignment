@@ -8,10 +8,9 @@ using NLog;
 using Sentry.AspNetCore;
 using API.Data;
 using API.Services;
-using API.GraphQL;
 using HotChocolate;  
-using System;  
-
+using System;
+using API.GraphQL.Users;
 
 namespace API
 {
@@ -38,14 +37,16 @@ namespace API
                 origins = new string[] { "http://localhost:3000", "http://localhost:5000", "http://localhost:5001" };
             }
 
-            services.AddScoped<Query>()
-                .AddScoped<Mutuation>()  
-                .AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserService, UserService>()
+                .AddScoped<UserQueries>()
+                .AddScoped<UserMutations>();
 
             services.AddGraphQLServer()
-                .AddType<GraphQLTypes>()  
-                .AddQueryType<Query>()  
-                .AddMutationType<Mutuation>();
+                .AddQueryType(d => d.Name("Query"))
+                    .AddTypeExtension<UserQueries>()
+                .AddMutationType(d => d.Name("Mutation"))
+                    .AddTypeExtension<UserMutations>()
+                .AddType<UserType>();
 
             services
                 .AddCors(options =>
