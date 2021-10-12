@@ -7,7 +7,7 @@ import Register, { RestrationDetails } from './components/forms/register';
 import ListItem from './components/elements/listitem';
 import Search from './components/elements/search';
 import query from './data/queries';
-import clientConnection from './data/clientConnection';
+import clientConnection from './data/client';
 
 function App() {
   const [logInOutLable, setLogInOutLabel] = useState('Login');
