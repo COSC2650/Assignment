@@ -10,9 +10,9 @@ import query from './data/queries';
 import clientConnection from './data/client';
 
 function App() {
-  const [logInOutLable, setLogInOutLabel] = useState('Login');
+  const [userTitle, setUserTitle] = useState('Welcome');
+  const [authenticated, setAuthenticated] = useState(false);
   const [disableInput, setDisableInput] = useState(false);
-  const [userName, setUserName] = useState('');
   const [loginVisible, setLoginVisible] = useState(false);
   const [registerVisible, setRegisterVisible] = useState(false);
   const { toggleColorMode } = useColorMode();
@@ -24,10 +24,19 @@ function App() {
   const onLogInClose = () => setLoginVisible(false);
   const onRegisterClose = () => setRegisterVisible(false);
   const toast = useToast();
+  const validationToast = () =>
+    toast({
+      title: 'Sorry invalid - Try again?',
+      description: 'Invalid credentials.',
+      status: 'error',
+      duration: 2000,
+      isClosable: true,
+      position: 'top',
+    });
   const errorToast = () =>
     toast({
-      title: 'Error occured',
-      description: 'An error occured, please retry.',
+      title: 'Sorry the system is down - Try later',
+      description: 'Invalid credentials.',
       status: 'error',
       duration: 2000,
       isClosable: true,
@@ -36,29 +45,43 @@ function App() {
 
   const onLogin = (props: LoginDetails) => {
     setDisableInput(true);
+
+    //invoke client
     const client = clientConnection();
 
-    //query database
-    client.query(query(props.email, props.password)).then((result) => {
-      const queryResult = result.data.userByEmail;
-      if (queryResult != null) {
-        setUserName(queryResult.FirstName);
-        setLogInOutLabel('Logout');
-        toast({
-          title: 'Logged In',
-          description: 'You have been successfully logged in.',
-          status: 'success',
-          duration: 2000,
-          isClosable: true,
-          position: 'top',
-        });
+    //query database + pass result to
+    client
+      .query(query(props.email, props.password))
+      .then((result) => {
+        const queryResult = result.data.userByEmail;
+        if (queryResult != null) {
+          //set user data
+          setUserTitle('Welcome back ' + queryResult.FirstName);
+          setAuthenticated(true);
 
-        //setLoginVisible(false); - test
-      } else {
+          //confirmation toast
+          toast({
+            title: 'Logged In',
+            description: 'You have been successfully logged in.',
+            status: 'success',
+            duration: 2000,
+            isClosable: true,
+            position: 'top',
+          });
+
+          //hide login
+          setLoginVisible(false);
+        } else {
+          validationToast();
+          setLoginVisible(false);
+          setDisableInput(false);
+        }
+      })
+      .catch((result) => {
         errorToast();
         setLoginVisible(false);
-      }
-    });
+        setDisableInput(false);
+      });
   };
 
   const onRegister = (props: RestrationDetails) => {
@@ -83,8 +106,8 @@ function App() {
       <Header
         toggleColorMode={toggleColorMode}
         toggleLogIn={onShowLogin}
-        userName={userName}
-        logInOutLabel={logInOutLable}
+        userTitle={userTitle}
+        authenticated={authenticated}
       ></Header>
       <Login
         disabled={disableInput}
