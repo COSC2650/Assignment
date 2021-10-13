@@ -1,27 +1,40 @@
-import { useState } from "react";
-import { VStack, StackDivider, Stack } from "@chakra-ui/layout";
-import Header from "./components/elements/header";
-import { useColorMode, useToast } from "@chakra-ui/react";
-import Login, { LoginDetails } from "./components/forms/login";
-import Register, { RestrationDetails } from "./components/forms/register";
-import ListItem from "./components/elements/listitem";
-import Search from "./components/elements/search";
-import query from "./data/queries";
-import clientConnection from "./data/client";
+import { useState } from 'react';
+import { VStack, StackDivider, Stack } from '@chakra-ui/layout';
+import Header from './components/elements/header';
+import { useColorMode, useToast } from '@chakra-ui/react';
+import Login, { LoginDetails } from './components/forms/login';
+import Logout, { LogoutDetails } from './components/forms/logout';
+import Register, { RestrationDetails } from './components/forms/register';
+import ListItem from './components/elements/listitem';
+import Search from './components/elements/search';
+import query from './data/queries';
+import clientConnection from './data/client';
 
 function App() {
   const [userTitle, setUserTitle] = useState('Welcome');
   const [authenticated, setAuthenticated] = useState(false);
   const [disableInput, setDisableInput] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
+  const [logoutVisible, setLogoutVisible] = useState(false);
   const [registerVisible, setRegisterVisible] = useState(false);
   const { toggleColorMode } = useColorMode();
-  const onShowLogin = () => setLoginVisible(true);
+  const onShowLogin = () => {
+    setLoginVisible(true);
+    setLogoutVisible(false);
+    setRegisterVisible(false);
+  };
   const onShowRegister = () => {
+    setLogoutVisible(false);
     setLoginVisible(false);
     setRegisterVisible(true);
   };
+  const onShowLogout = () => {
+    setLogoutVisible(true);
+    setLoginVisible(false);
+    setRegisterVisible(false);
+  };
   const onLogInClose = () => setLoginVisible(false);
+  const onLogoutClose = () => setLogoutVisible(false);
   const onRegisterClose = () => setRegisterVisible(false);
   const toast = useToast();
   const validationToast = () =>
@@ -43,6 +56,7 @@ function App() {
       position: 'top',
     });
 
+  //Logic for Login fucntion
   const onLogin = (props: LoginDetails) => {
     setDisableInput(true);
 
@@ -59,7 +73,7 @@ function App() {
           setUserTitle('Welcome back ' + queryResult.FirstName);
           setAuthenticated(true);
 
-          //confirmation toast
+          //login confirmation
           toast({
             title: 'Logged In',
             description: 'You have been successfully logged in.',
@@ -77,6 +91,7 @@ function App() {
           setDisableInput(false);
         }
       })
+      //catch apollo/graphQL failure
       .catch((result) => {
         errorToast();
         setLoginVisible(false);
@@ -84,28 +99,51 @@ function App() {
       });
   };
 
-    const onRegister = (props: RestrationDetails) => {
-        if (true) {
-            toast({
-                title: "Account Created",
-                description: "Your account has been created.",
-                status: "success",
-                duration: 2000,
-                isClosable: true,
-                position: "top",
-            });
-        } else {
-            errorToast();
-        }
+  //logic for logout function
+  const onLogout = (props: LogoutDetails) => {
+    
+    
+    //log out confirmation
+    toast({
+      title: 'Logged out',
+      description: 'You have been successfully logged out.',
+      status: 'success',
+      duration: 2000,
+      isClosable: true,
+      position: 'top',
+    });
 
-        setRegisterVisible(false);
-    };
+    //setheader title and authentication status
+    setUserTitle('Welcome');
+    setAuthenticated(false);
+    setDisableInput(false);
+
+    //hide login
+    setLogoutVisible(false);
+  };
+  const onRegister = (props: RestrationDetails) => {
+    if (true) {
+      toast({
+        title: 'Account Created',
+        description: 'Your account has been created.',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position: 'top',
+      });
+    } else {
+      errorToast();
+    }
+
+    setRegisterVisible(false);
+  };
 
   return (
     <>
       <Header
         toggleColorMode={toggleColorMode}
         toggleLogIn={onShowLogin}
+        toggleLogout={onShowLogout}
         userTitle={userTitle}
         authenticated={authenticated}
       ></Header>
@@ -116,6 +154,11 @@ function App() {
         onLogin={onLogin}
         onClose={onLogInClose}
       ></Login>
+      <Logout
+        visible={logoutVisible}
+        onLogout={onLogout}
+        onClose={onLogoutClose}
+      ></Logout>
       <Register
         visible={registerVisible}
         onOpenLogin={onShowLogin}

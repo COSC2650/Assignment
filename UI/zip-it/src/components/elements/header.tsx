@@ -13,6 +13,7 @@ import LogInButton from './loginbutton';
 interface HeaderProps {
   toggleColorMode(): void;
   toggleLogIn(): void;
+  toggleLogout(): void;
   userTitle: String;
   authenticated: boolean;
 }
@@ -29,7 +30,10 @@ const Header = (props: HeaderProps) => {
   let authenticateButton = <LogInButton toggleLogIn={props.toggleLogIn} />;
   let userTitle;
   if (props.authenticated!) {
-    authenticateButton = <LogOutButton toggleLogIn={props.toggleLogIn} />;
+    authenticateButton = <LogOutButton toggleLogIn={props.toggleLogout} />;
+    userTitle = props.userTitle;
+  } else {
+    authenticateButton = <LogInButton toggleLogIn={props.toggleLogIn} />;
     userTitle = props.userTitle;
   }
 
