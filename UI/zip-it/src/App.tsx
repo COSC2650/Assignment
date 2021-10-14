@@ -6,45 +6,83 @@ import Login, { LoginDetails } from "./components/forms/login";
 import Register, { RestrationDetails } from "./components/forms/register";
 import ListItem from "./components/elements/listitem";
 import Search from "./components/elements/search";
+import query from "./data/queries";
+import clientConnection from "./data/client";
 
 function App() {
-    const [loginVisible, setLoginVisible] = useState(false);
-    const [registerVisible, setRegisterVisible] = useState(false);
-    const { toggleColorMode } = useColorMode();
-    const onShowLogin = () => setLoginVisible(true);
-    const onShowRegister = () => {
-        setLoginVisible(false);
-        setRegisterVisible(true);
-    };
-    const onLogInClose = () => setLoginVisible(false);
-    const onRegisterClose = () => setRegisterVisible(false);
-    const toast = useToast();
-    const errorToast = () =>
-        toast({
-            title: "Error occured",
-            description: "An error occured, please retry.",
-            status: "error",
-            duration: 5000,
+  const [userTitle, setUserTitle] = useState('Welcome');
+  const [authenticated, setAuthenticated] = useState(false);
+  const [disableInput, setDisableInput] = useState(false);
+  const [loginVisible, setLoginVisible] = useState(false);
+  const [registerVisible, setRegisterVisible] = useState(false);
+  const { toggleColorMode } = useColorMode();
+  const onShowLogin = () => setLoginVisible(true);
+  const onShowRegister = () => {
+    setLoginVisible(false);
+    setRegisterVisible(true);
+  };
+  const onLogInClose = () => setLoginVisible(false);
+  const onRegisterClose = () => setRegisterVisible(false);
+  const toast = useToast();
+  const validationToast = () =>
+    toast({
+      title: 'Sorry invalid - Try again?',
+      description: 'Invalid credentials.',
+      status: 'error',
+      duration: 2000,
+      isClosable: true,
+      position: 'top',
+    });
+  const errorToast = () =>
+    toast({
+      title: 'Sorry the system is down - Try later',
+      description: 'Invalid credentials.',
+      status: 'error',
+      duration: 2000,
+      isClosable: true,
+      position: 'top',
+    });
+
+  const onLogin = (props: LoginDetails) => {
+    setDisableInput(true);
+
+    //invoke client
+    const client = clientConnection();
+
+    //query database + pass result to
+    client
+      .query(query(props.email, props.password))
+      .then((result) => {
+        const queryResult = result.data.userByEmail;
+        if (queryResult != null) {
+          //set user data
+          setUserTitle('Welcome back ' + queryResult.FirstName);
+          setAuthenticated(true);
+
+          //confirmation toast
+          toast({
+            title: 'Logged In',
+            description: 'You have been successfully logged in.',
+            status: 'success',
+            duration: 2000,
             isClosable: true,
-            position: "top",
-        });
+            position: 'top',
+          });
 
-    const onLogin = (props: LoginDetails) => {
-        if (true) {
-            toast({
-                title: "Logged In",
-                description: "You have been successfully logged in.",
-                status: "success",
-                duration: 5000,
-                isClosable: true,
-                position: "top",
-            });
-
-            setLoginVisible(false);
+          //hide login
+          setLoginVisible(false);
         } else {
-            errorToast();
+          validationToast();
+          setLoginVisible(false);
+          setDisableInput(false);
         }
-    };
+      })
+      .catch((result) => {
+        errorToast();
+        setLoginVisible(false);
+        setDisableInput(false);
+      });
+  };
 
     const onRegister = (props: RestrationDetails) => {
         if (true) {
@@ -52,7 +90,7 @@ function App() {
                 title: "Account Created",
                 description: "Your account has been created.",
                 status: "success",
-                duration: 5000,
+                duration: 2000,
                 isClosable: true,
                 position: "top",
             });
@@ -63,23 +101,74 @@ function App() {
         setRegisterVisible(false);
     };
 
-    return (
-        <>
-            <Header toggleColorMode={toggleColorMode} toggleLogIn={onShowLogin}></Header>
-            <Login visible={loginVisible} onOpenRegister={onShowRegister} onLogin={onLogin} onClose={onLogInClose}></Login>
-            <Register visible={registerVisible} onOpenLogin={onShowLogin} onRegister={onRegister} onClose={onRegisterClose}></Register>
-            <Stack direction={["column", "row"]} margin="60px 5px 5px 5px" divider={<StackDivider />} spacing={2}>
-                <Search></Search>
-                <VStack divider={<StackDivider />} spacing={2} width="100%">
-                    <ListItem imageUrl="https://picsum.photos/100?random=1" title="Title" description="Description" price={100.0} quantity={10}></ListItem>
-                    <ListItem imageUrl="https://picsum.photos/100?random=2" title="Title" description="Description" price={100.0} quantity={10}></ListItem>
-                    <ListItem imageUrl="https://picsum.photos/100?random=3" title="Title" description="Description" price={100.0} quantity={10}></ListItem>
-                    <ListItem imageUrl="https://picsum.photos/100?random=4" title="Title" description="Description" price={100.0} quantity={10}></ListItem>
-                    <ListItem imageUrl="https://picsum.photos/100?random=5" title="Title" description="Description" price={100.0} quantity={10}></ListItem>
-                </VStack>
-            </Stack>
-        </>
-    );
+  return (
+    <>
+      <Header
+        toggleColorMode={toggleColorMode}
+        toggleLogIn={onShowLogin}
+        userTitle={userTitle}
+        authenticated={authenticated}
+      ></Header>
+      <Login
+        disabled={disableInput}
+        visible={loginVisible}
+        onOpenRegister={onShowRegister}
+        onLogin={onLogin}
+        onClose={onLogInClose}
+      ></Login>
+      <Register
+        visible={registerVisible}
+        onOpenLogin={onShowLogin}
+        onRegister={onRegister}
+        onClose={onRegisterClose}
+      ></Register>
+      <Stack
+        direction={['column', 'row']}
+        margin="60px 5px 5px 5px"
+        divider={<StackDivider />}
+        spacing={2}
+      >
+        <Search></Search>
+        <VStack divider={<StackDivider />} spacing={2} width="100%">
+          <ListItem
+            imageUrl="https://picsum.photos/100?random=1"
+            title="Title"
+            description="Description"
+            price={100.0}
+            quantity={10}
+          ></ListItem>
+          <ListItem
+            imageUrl="https://picsum.photos/100?random=2"
+            title="Title"
+            description="Description"
+            price={100.0}
+            quantity={10}
+          ></ListItem>
+          <ListItem
+            imageUrl="https://picsum.photos/100?random=3"
+            title="Title"
+            description="Description"
+            price={100.0}
+            quantity={10}
+          ></ListItem>
+          <ListItem
+            imageUrl="https://picsum.photos/100?random=4"
+            title="Title"
+            description="Description"
+            price={100.0}
+            quantity={10}
+          ></ListItem>
+          <ListItem
+            imageUrl="https://picsum.photos/100?random=5"
+            title="Title"
+            description="Description"
+            price={100.0}
+            quantity={10}
+          ></ListItem>
+        </VStack>
+      </Stack>
+    </>
+  );
 }
 
 export default App;

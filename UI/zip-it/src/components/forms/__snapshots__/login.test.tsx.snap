@@ -3,9 +3,25 @@
 exports[`LogIn Should render correctly 1`] = `
 LoadedCheerio {
   "0": Node {
-    "attribs": Object {},
-    "children": Array [],
-    "name": "span",
+    "attribs": Object {
+      "class": "chakra-form-control css-0",
+      "role": "group",
+    },
+    "children": Array [
+      Node {
+        "attribs": Object {},
+        "children": Array [],
+        "name": "span",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": [Circular],
+        "prev": null,
+        "type": "tag",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+    ],
+    "name": "div",
     "namespace": "http://www.w3.org/1999/xhtml",
     "next": null,
     "parent": Node {
@@ -20,8 +36,14 @@ LoadedCheerio {
     },
     "prev": null,
     "type": "tag",
-    "x-attribsNamespace": Object {},
-    "x-attribsPrefix": Object {},
+    "x-attribsNamespace": Object {
+      "class": undefined,
+      "role": undefined,
+    },
+    "x-attribsPrefix": Object {
+      "class": undefined,
+      "role": undefined,
+    },
   },
   "_root": LoadedCheerio {
     "0": Node {
