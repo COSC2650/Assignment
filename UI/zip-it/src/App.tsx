@@ -62,9 +62,7 @@ function App() {
 
         //invoke client
         const client = clientConnection();
-
-        console.log(query(props.email, props.password));
-
+      
         //query database + pass result to
         client
             .query(query(props.email, props.password))
