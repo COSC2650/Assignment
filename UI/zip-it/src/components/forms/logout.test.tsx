@@ -62,7 +62,7 @@ describe("LogOut", () => {
         };
 
         // Render the component in a hidden state
-        const wrapper = mount(<Logout {...props} />)
+        const wrapper = mount(<Logout {...props} />);
 
         wrapper.find("button#close").simulate("click");
 
