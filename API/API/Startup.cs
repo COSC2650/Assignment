@@ -29,7 +29,7 @@ namespace API
         {
             services.AddDbContext<ZipitContext>(options =>
                 options.UseMySQL(ConnectionString));
-            var cors = System.Environment.GetEnvironmentVariable("CORS");
+            var cors = System.Environment.GetEnvironmentVariable("CORS_URLS");
             var origins = cors?.Split(',', System.StringSplitOptions.RemoveEmptyEntries);
 
             if (origins == null || origins.Length == 0)
