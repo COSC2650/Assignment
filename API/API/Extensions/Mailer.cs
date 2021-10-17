@@ -31,7 +31,7 @@ namespace Examples.SmtpExamples.Async
             mailSent = true;
         }
 
-        public Mailer(string email, string confirmationCode)
+        public Mailer(string email)
         {
 
             //SMTP Host of the email provider we choose to send from 
@@ -49,7 +49,7 @@ namespace Examples.SmtpExamples.Async
 
             message.Body = "Welcome to Zip It Online!";
             message.Body = "Please enter the confirmation code below to confirm your account";
-            message.Body = confirmationCode;
+            message.Body = ConfirmCodeGenerator();
             message.BodyEncoding =  System.Text.Encoding.UTF8;
             message.Subject = "Zip It Online Confirmation";
             message.SubjectEncoding = System.Text.Encoding.UTF8;
@@ -57,6 +57,15 @@ namespace Examples.SmtpExamples.Async
             client.SendCompleted += new
             SendCompletedEventHandler(SendCompletedCallback);
 
+        }
+
+        public string ConfirmCodeGenerator(){
+            
+            Random rd = new Random();
+            int rand_num = rd.Next(0,9999999);
+            
+
+            return rand_num.ToString();
         }
     }
 
