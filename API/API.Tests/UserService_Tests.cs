@@ -186,7 +186,7 @@ namespace Tests
              UserService userService = new(context);
 
              // Create a user
-             await userService.Create(input);
+             var genInput = await userService.Create(input);
 
              // Check we've added a user
              Assert.Equal(1, userService.GetAll().Count());
