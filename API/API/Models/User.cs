@@ -35,6 +35,10 @@ namespace API.Models
 
         [Required]
         public Boolean EmailVerfied { get; set; }
+
+        [Required]
+        public int RoleID {get; set; }
+        public virtual Role Role { get; set; }
     }
 
 }

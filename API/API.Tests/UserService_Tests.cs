@@ -32,7 +32,7 @@ namespace Tests
 
             // Add the users
             foreach (AddUserInput input in users) {
-                await userService.Create(input);
+                await userService.CreateUser(input);
             }
 
             // Get all users
@@ -61,7 +61,7 @@ namespace Tests
             UserService userService = new(context);
 
             // Create a user
-            user = await userService.Create(input);
+            user = await userService.CreateUser(input);
 
             // Get all users
             var userToAssert = userService.GetAll().FirstOrDefault();
@@ -95,7 +95,7 @@ namespace Tests
             UserService userService = new(context);
 
             // Create a user
-            await userService.Create(input);
+            await userService.CreateUser(input);
 
             Assert.NotNull(await userService.GetUserByEmail(input.Email, input.Password));
         }
@@ -125,7 +125,7 @@ namespace Tests
             UserService userService = new(context);
 
             // Create a user
-            await userService.Create(input);
+            await userService.CreateUser(input);
 
             Assert.Null(await userService.GetUserByEmail("bad@email.com", input.Password));
         }
@@ -155,7 +155,7 @@ namespace Tests
             UserService userService = new(context);
 
             // Create a user
-            await userService.Create(input);
+            await userService.CreateUser(input);
 
             Assert.Null(await userService.GetUserByEmail(input.Email, "badPassword"));
         }

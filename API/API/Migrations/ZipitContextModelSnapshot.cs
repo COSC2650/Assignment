@@ -16,6 +16,34 @@ namespace API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.10");
 
+            modelBuilder.Entity("API.Models.Role", b =>
+                {
+                    b.Property<int>("RoleID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("RoleID");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleID = 1,
+                            RoleName = "Admin"
+                        },
+                        new
+                        {
+                            RoleID = 2,
+                            RoleName = "User"
+                        });
+                });
+
             modelBuilder.Entity("API.Models.User", b =>
                 {
                     b.Property<int>("UserID")
@@ -52,6 +80,9 @@ namespace API.Migrations
                         .HasMaxLength(4)
                         .HasColumnType("int");
 
+                    b.Property<int>("RoleID")
+                        .HasColumnType("int");
+
                     b.Property<string>("State")
                         .IsRequired()
                         .HasMaxLength(3)
@@ -67,7 +98,25 @@ namespace API.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
+                    b.HasIndex("RoleID");
+
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("API.Models.User", b =>
+                {
+                    b.HasOne("API.Models.Role", "Role")
+                        .WithMany("UserID")
+                        .HasForeignKey("RoleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("API.Models.Role", b =>
+                {
+                    b.Navigation("UserID");
                 });
 #pragma warning restore 612, 618
         }

@@ -18,7 +18,7 @@ namespace API.Services
             _context = context;
         } 
   
-        public async Task<User> Create(AddUserInput input)
+        public async Task<User> CreateUser(AddUserInput input)
         {  
             var hash = Hashbrowns.HashPassword(input.Password);
             var user = new User
@@ -31,7 +31,8 @@ namespace API.Services
                 PostCode = input.PostCode,
                 Email = input.Email,
                 PasswordHash = hash,
-                EmailVerfied = false
+                EmailVerfied = false,
+                RoleID = 2
             };
 
             _context.Users.Add(user);
@@ -40,7 +41,7 @@ namespace API.Services
             return user;
         }
 
-        public async Task<bool> Delete(int UserID)  
+        public async Task<bool> DeleteUser(int UserID)  
         {  
             var user = await  _context.Users.FirstOrDefaultAsync(c => c.UserID == UserID);
             var response = false;
