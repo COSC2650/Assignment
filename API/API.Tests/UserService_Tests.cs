@@ -163,8 +163,16 @@ namespace Tests
          [Fact]
          public async Task UserService_Delete()
          {
-        //     // Create sample users
-        //     User user = GenerateUser();
+             // Create sample users
+            AddUserInput input = new(
+                "firstName",
+                "lastName",
+                "street",
+                "city",
+                "###",
+                0000, 
+                "test@email.com",
+                "password");
 
              // Change the context options to use an inmemory database
              var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
@@ -178,13 +186,13 @@ namespace Tests
              UserService userService = new(context);
 
              // Create a user
-             await userService.Create(user);
+             await userService.Create(input);
 
              // Check we've added a user
              Assert.Equal(1, userService.GetAll().Count());
 
              // Delete the user
-             // await userService.Delete(user.UserID);
+             await userService.Delete(genInput.UserID);
 
              // Check we have successfully delete the user
              Assert.Equal(0, userService.GetAll().Count());
