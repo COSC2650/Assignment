@@ -186,13 +186,13 @@ namespace Tests
              UserService userService = new(context);
 
              // Create a user
-             var genInput = await userService.Create(input);
+             var genInput = await userService.CreateUser(input);
 
              // Check we've added a user
              Assert.Equal(1, userService.GetAll().Count());
 
              // Delete the user
-             await userService.Delete(genInput.UserID);
+             await userService.DeleteUser(genInput.UserID);
 
              // Check we have successfully delete the user
              Assert.Equal(0, userService.GetAll().Count());
