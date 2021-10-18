@@ -160,35 +160,43 @@ namespace Tests
             Assert.Null(await userService.GetUserByEmail(input.Email, "badPassword"));
         }
 
-        // [Fact]
-        // public async Task UserService_Delete()
-        // {
-        //     // Create sample users
-        //     User user = GenerateUser();
+         [Fact]
+         public async Task UserService_Delete()
+         {
+             // Create sample users
+            AddUserInput input = new(
+                "firstName",
+                "lastName",
+                "street",
+                "city",
+                "###",
+                0000, 
+                "test@email.com",
+                "password");
 
-        //     // Change the context options to use an inmemory database
-        //     var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
-        //           .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
-        //           .Options;
+             // Change the context options to use an inmemory database
+             var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                   .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                   .Options;
 
-        //     // Create a new instance of the ZipitContext
-        //     var context = new API.Data.ZipitContext(contextOptions);
+             // Create a new instance of the ZipitContext
+             var context = new API.Data.ZipitContext(contextOptions);
 
-        //     // Create a new instance on the UserService with the mocked context
-        //     UserService userService = new(context);
+             // Create a new instance on the UserService with the mocked context
+             UserService userService = new(context);
 
-        //     // Create a user
-        //     await userService.Create(user);
+             // Create a user
+             var genInput = await userService.CreateUser(input);
 
-        //     // Check we've added a user
-        //     Assert.Equal(1, userService.GetAll().Count());
+             // Check we've added a user
+             Assert.Equal(1, userService.GetAll().Count());
 
-        //     // Delete the user
-        //     await userService.Delete(user.UserID);
+             // Delete the user
+             await userService.DeleteUser(genInput.UserID);
 
-        //     // Check we have successfully delete the user
-        //     Assert.Equal(0, userService.GetAll().Count());
-        // }
+             // Check we have successfully delete the user
+             Assert.Equal(0, userService.GetAll().Count());
+         }
         private static IList<AddUserInput> GenerateUsers()
         {
             // Create a new instance on the fixture
