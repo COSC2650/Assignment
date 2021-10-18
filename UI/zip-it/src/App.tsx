@@ -70,7 +70,7 @@ function App() {
                 const queryResult = result.data.userByEmail;
                 if (queryResult != null) {
                     //set user data
-                    setUserTitle("Welcome back " + queryResult.FirstName);
+                    setUserTitle("Welcome back " + queryResult.firstName);
                     setAuthenticated(true);
 
                     //login confirmation
