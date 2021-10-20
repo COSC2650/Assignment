@@ -1,8 +1,6 @@
 import { Input, Select, Stack, Button, Icon } from '@chakra-ui/react';
 import { FaSearch } from 'react-icons/fa';
 import { useState } from 'react';
-import query from '../../data/queries';
-import clientConnection from '../../data/client';
 
 export interface SearchDetails {
   postcode: number;

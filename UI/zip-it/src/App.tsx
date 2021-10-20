@@ -1,15 +1,12 @@
 import { useState } from 'react';
-import { VStack, StackDivider, Stack } from '@chakra-ui/layout';
 import Header from './components/elements/header';
 import { useColorMode, useToast } from '@chakra-ui/react';
 import Login, { LoginDetails } from './components/forms/login';
 import Logout, { LogoutDetails } from './components/forms/logout';
 import Register, { RestrationDetails } from './components/forms/register';
-import ListItem from './components/elements/listitem';
-import Search, {SearchDetails} from './components/forms/search';
 import query from './data/queries';
 import clientConnection from './data/client';
-
+import { Listings } from "./components/display/itemlist";
 
 function App() {
   const [userTitle, setUserTitle] = useState('Welcome');
@@ -136,31 +133,9 @@ function App() {
 
     setRegisterVisible(false);
   };
+  //defaultListingQuery
+  //itemList("DefaultListingQuery");
   
-  const queryAPI = (props: SearchDetails) => {
-    //invoke client
-    const client = clientConnection();
-    client
-      .query(query(props))
-      .then((result) => {
-        const queryResult = result.data.ads;
-        if (queryResult != null) {
-          const resultCount = queryResult.length;
-
-          for(var i = 0; i < resultCount; i++){
-
-              console.log("result count is " + i)
-              console.log(queryResult[i].title)
-          }
-        } else {
-          console.log('Query Else');
-        }
-      })
-      //catch apollo/graphQL failure
-      .catch((result) => {
-        console.log('Search Catch');
-      });
-    }
 
   return (
     <>
@@ -189,51 +164,7 @@ function App() {
         onRegister={onRegister}
         onClose={onRegisterClose}
       ></Register>
-      <Stack
-        direction={['column', 'row']}
-        margin="60px 5px 5px 5px"
-        divider={<StackDivider />}
-        spacing={2}
-      >
-        <Search onSearchI={queryAPI}></Search>
-        <VStack divider={<StackDivider />} spacing={2} width="100%">
-          <ListItem
-            imageUrl="https://picsum.photos/100?random=1"
-            title="Title"
-            description="Description"
-            price={100.0}
-            quantity={10}
-          ></ListItem>
-          <ListItem
-            imageUrl="https://picsum.photos/100?random=2"
-            title="Title"
-            description="Description"
-            price={100.0}
-            quantity={10}
-          ></ListItem>
-          <ListItem
-            imageUrl="https://picsum.photos/100?random=3"
-            title="Title"
-            description="Description"
-            price={100.0}
-            quantity={10}
-          ></ListItem>
-          <ListItem
-            imageUrl="https://picsum.photos/100?random=4"
-            title="Title"
-            description="Description"
-            price={100.0}
-            quantity={10}
-          ></ListItem>
-          <ListItem
-            imageUrl="https://picsum.photos/100?random=5"
-            title="Title"
-            description="Description"
-            price={100.0}
-            quantity={10}
-          ></ListItem>
-        </VStack>
-      </Stack>
+      <Listings />
     </>
   );
 }
