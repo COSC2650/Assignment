@@ -7,7 +7,7 @@ using System.Linq;
 using System.Collections.Generic;
 using AutoFixture;
 using System.Threading.Tasks;
-using API.GraphQL.Users;
+
 using System;
 
 namespace Tests
@@ -64,10 +64,78 @@ namespace Tests
             Assert.Null(Test.User);
         }
 
-        private static Listing CreateListing()
+        [Fact]
+        public async Task ListingService_GetAll()
+        {
+            // Generate a series of listings
+            IList<Listing> listings = GenerateListings();
+
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                  .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                  .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the ListingService with the mocked context
+            ListingService listingService = new(context);
+
+            // Add the listings
+            foreach (Listing listing in listings) {
+                await listingService.CreateListing(listing);
+            }
+
+            // Get all listings
+            var listingsToAssert = listingService.GetAll();
+
+            // Assert that the generated list is equal to the returned
+            Assert.Equal(listingsToAssert.Count(), listings.Count);
+        }
+
+        [Fact]
+        public async Task ListingService_Create()
+        {
+            // Create sample listing
+            Listing listing = GenerateListing();
+
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                  .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                  .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the ListingService with the mocked context
+            ListingService listingService = new(context);
+
+            // Create a listing
+            await listingService.CreateListing(listing);
+
+            // Get all users
+            var listingToAssert = listingService.GetAll().FirstOrDefault();
+
+            // Assert that the generated list is equal to the returned
+            Assert.Equal(listingToAssert, listing);
+        }
+
+
+        private static IList<Listing> GenerateListings()
         {
             // Create a new instance on the fixture
             Fixture fixture = new();
+
+            // Generte and return the list
+            return fixture.Build<List<Listing>>().Create();
+        }
+
+        private static Listing GenerateListing()
+        {
+            // Create a new instance on the fixture
+            Fixture fixture = new();
+            fixture.Behaviors.Remove(new ThrowingRecursionBehavior());
+            fixture.Behaviors.Add(new OmitOnRecursionBehavior());
 
             // Generte and return the list
             return fixture.Build<Listing>().Create();
