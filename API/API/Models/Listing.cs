@@ -6,7 +6,7 @@ namespace API.Models
 {
     public class Listing
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ListingID { get; set; }
 
         [Required]
