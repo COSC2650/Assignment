@@ -8,26 +8,58 @@ using System.Collections.Generic;
 using AutoFixture;
 using System.Threading.Tasks;
 using API.GraphQL.Users;
+using System;
 
 namespace Tests
 {   
-    public class ListingTests
+    public class ModelTest
     {
-        [Fact]
-        public static Listing NewListing()
+        [Theory]
+        [InlineData(
+            "Product", 
+            4000,
+            1,
+            "Great", 
+            "Test",
+            "2009-06-15T13:45:30",
+            "2009-06-15T13:45:30",   
+            "This is a test listing",
+            1, 
+            "TestProduct")]
+        public void NewListing(
+            string ListingType, 
+            int PostCode,
+            Decimal Price,
+            string ProdCondition,
+            string Title,
+            DateTime ServAvailability,
+            DateTime DateListed,
+            string Description,
+            int UserID,
+            string Category)
         {
             Listing Test = new Listing();
-            Test.ListingType = "Product";
-            Test.PostCode = 4000;
-            Test.Price = 1.00M;
-            Test.ProdCondition = "Great";
-            Test.Title = "Test";
-            Test.ServAvailability = System.DateTime.UtcNow;
-            Test.DateListed = System.DateTime.UtcNow;
-            Test.Description = "This is a test listing";
-            Test.UserID = 1;
-            Test.Category = "TestProduct";
-            return Test;
+            Test.ListingType = ListingType;
+            Test.PostCode = PostCode;
+            Test.Price = Price;
+            Test.ProdCondition = ProdCondition;
+            Test.Title = Title;
+            Test.ServAvailability = ServAvailability;
+            Test.DateListed = DateListed;
+            Test.Description = Description;
+            Test.UserID = UserID;
+            Test.Category = Category;
+            
+            Assert.Equal(ListingType, Test.ListingType);
+            Assert.Equal(PostCode, Test.PostCode);
+            Assert.Equal(1.00M, Test.Price);
+            Assert.Equal(ProdCondition, Test.ProdCondition);
+            Assert.Equal(Title, Test.Title);
+            Assert.Equal(ServAvailability, Test.ServAvailability);
+            Assert.Equal(DateListed, Test.DateListed);
+            Assert.Equal(Description, Test.Description);
+            Assert.Equal(UserID, Test.UserID);
+            Assert.Equal(Category, Test.Category);
         }
 
         private static Listing CreateListing()
