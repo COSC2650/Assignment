@@ -6,9 +6,10 @@ import Login, { LoginDetails } from './components/forms/login';
 import Logout, { LogoutDetails } from './components/forms/logout';
 import Register, { RestrationDetails } from './components/forms/register';
 import ListItem from './components/elements/listitem';
-import Search from './components/elements/search';
+import Search, {SearchDetails} from './components/forms/search';
 import query from './data/queries';
 import clientConnection from './data/client';
+
 
 function App() {
   const [userTitle, setUserTitle] = useState('Welcome');
@@ -135,6 +136,31 @@ function App() {
 
     setRegisterVisible(false);
   };
+  
+  const queryAPI = (props: SearchDetails) => {
+    //invoke client
+    const client = clientConnection();
+    client
+      .query(query(props))
+      .then((result) => {
+        const queryResult = result.data.ads;
+        if (queryResult != null) {
+          const resultCount = queryResult.length;
+
+          for(var i = 0; i < resultCount; i++){
+
+              console.log("result count is " + i)
+              console.log(queryResult[i].title)
+          }
+        } else {
+          console.log('Query Else');
+        }
+      })
+      //catch apollo/graphQL failure
+      .catch((result) => {
+        console.log('Search Catch');
+      });
+    }
 
   return (
     <>
@@ -169,7 +195,7 @@ function App() {
         divider={<StackDivider />}
         spacing={2}
       >
-        <Search></Search>
+        <Search onSearchI={queryAPI}></Search>
         <VStack divider={<StackDivider />} spacing={2} width="100%">
           <ListItem
             imageUrl="https://picsum.photos/100?random=1"

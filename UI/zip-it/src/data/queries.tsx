@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 const query = (props) => {
-  if (props!= null) {
+  if (props.email!= null) {
     console.log('userQuery--------------------------------------');
     return {
       query: gql`
