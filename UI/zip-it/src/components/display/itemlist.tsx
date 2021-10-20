@@ -1,5 +1,5 @@
 import { VStack, StackDivider, Stack } from '@chakra-ui/layout';
-import ListItem from '../../components/elements/listitem';
+import ListItem, {ListItemProp} from '../../components/elements/listitem';
 import Search, { SearchDetails } from '../forms/search';
 import query from '../../data/queries';
 import clientConnection from '../../data/client';
@@ -8,7 +8,7 @@ import { useState } from 'react';
 export function Listings() {
   // let  [title, setTitle] = useState("TITLE");
   // let  [description, setDescription] = useState("TITLE");
-  let [adList, setAdList] = useState([]);
+  let [listings, setListings] = useState([]);
 
   //default query parameters
   var SearchDetails = {
@@ -24,10 +24,10 @@ export function Listings() {
       .query(query(props))
       .then((result) => {
         //create constant from result
-        const queryResult = result.data;
-        if (queryResult != null) {
+        setListings(result.data.ads)
+        if (listings != null) {
           //set list of ads
-          setAdList(queryResult.ads)
+          
           
         } else {
           console.log('Query Else');
@@ -49,19 +49,14 @@ export function Listings() {
       >{queryAPI(SearchDetails)}
         <Search onSearchI={queryAPI}></Search>
         <VStack divider={<StackDivider />} spacing={2} width="100%">
-        {adList && (
-        <>
-          {adList.map((ad) => (<ListItem
-            imageUrl="https://picsum.photos/100?random=1"
-            title={"text"}
-            description="Description"
-            price={100.0}
-            quantity={10}
-          ></ListItem>
-          ))}
-        </>
-      )}
-        </VStack>
+                    {listings && (
+                        <>
+                            {listings.map((listing: ListItemProp) => (
+                                <ListItem key={listing.id} {...listing}></ListItem>
+                            ))}
+                        </>
+                    )}
+                </VStack>
       </Stack>
     </>
   );
