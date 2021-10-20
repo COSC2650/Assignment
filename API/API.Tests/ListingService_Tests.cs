@@ -60,6 +60,8 @@ namespace Tests
             Assert.Equal(Description, Test.Description);
             Assert.Equal(UserID, Test.UserID);
             Assert.Equal(Category, Test.Category);
+            Assert.IsType<int>(Test.ListingID);
+            Assert.Null(Test.User);
         }
 
         private static Listing CreateListing()
