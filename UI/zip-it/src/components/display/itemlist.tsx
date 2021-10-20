@@ -3,7 +3,7 @@ import ListItem, {ListItemProp} from '../../components/elements/listitem';
 import Search, { SearchDetails } from '../forms/search';
 import query from '../../data/queries';
 import clientConnection from '../../data/client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export function Listings() {
   // let  [title, setTitle] = useState("TITLE");
@@ -37,8 +37,11 @@ export function Listings() {
       .catch((result) => {
         console.log('Search Catch');
       });
+     
   };
-
+  useEffect(()=>{
+    queryAPI(SearchDetails);
+}, [])
   return (
     <>
       <Stack
@@ -46,7 +49,7 @@ export function Listings() {
         margin="60px 5px 5px 5px"
         divider={<StackDivider />}
         spacing={2}
-      >{queryAPI(SearchDetails)}
+      >
         <Search onSearchI={queryAPI}></Search>
         <VStack divider={<StackDivider />} spacing={2} width="100%">
                     {listings && (
