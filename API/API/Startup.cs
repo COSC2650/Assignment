@@ -11,6 +11,7 @@ using API.Services;
 using HotChocolate;  
 using System;
 using API.GraphQL.Users;
+using API.GraphQL.Listings;
 
 namespace API
 {
@@ -38,15 +39,19 @@ namespace API
             }
 
             services.AddScoped<IUserService, UserService>()
+                .AddScoped<IListingService, ListingService>()
                 .AddScoped<UserQueries>()
-                .AddScoped<UserMutations>();
+                .AddScoped<UserMutations>()
+                .AddScoped<ListingQueries>();
 
             services.AddGraphQLServer()
                 .AddQueryType(d => d.Name("Query"))
                     .AddTypeExtension<UserQueries>()
+                    .AddTypeExtension<ListingQueries>()
                 .AddMutationType(d => d.Name("Mutation"))
                     .AddTypeExtension<UserMutations>()
-                .AddType<UserType>();
+                .AddType<UserType>()
+                .AddType<ListingType>();
 
             services
                 .AddCors(options =>
