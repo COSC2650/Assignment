@@ -6,46 +6,41 @@ using System.Net.Mime;
 using System.Threading;
 using System.ComponentModel;
 
-namespace Examples.SmtpExamples.Async
+namespace API.Extensions
 {
     public class Mailer
     {
-
-        static bool mailSent = false;
-         private static void SendCompletedCallback(object sender, AsyncCompletedEventArgs e)
-        {
-            // Get the unique identifier for this asynchronous operation.
-             String token = (string) e.UserState;
-
-            if (e.Cancelled)
-            {
-                 Console.WriteLine("[{0}] Send canceled.", token);
-            }
-            if (e.Error != null)
-            {
-                 Console.WriteLine("[{0}] {1}", token, e.Error.ToString());
-            } else
-            {
-                Console.WriteLine("Message sent.");
-            }
-            mailSent = true;
-        }
-
         public Mailer(string email)
         {
 
-            //SMTP Host of the email provider we choose to send from 
-            string smptHost = "smtp.office365.com";
-
-            SmtpClient client = new SmtpClient(smptHost);
+            //VERIFY EMAIL USING AMAZON SES
+            MailAddress from = new MailAddress("zipitonlineautomated@email.com");
 
 
-            //HARD CODED BUSINESS EMAIL !!!!PLACEHOLDER!!!!
-            MailAddress from = new MailAddress("zipitonline@outlook.com");
+            //ADDRESS OF THE CODE RECIPIENT
+            MailAddress to = new MailAddress("email");
 
-            MailAddress to = new MailAddress(email);
+
+            String SMTP_USERNAME = "smtp_username";
+
+            // Replace smtp_password with your Amazon SES SMTP password.
+            String SMTP_PASSWORD = "smtp_password";
+
+            // If you're using Amazon SES in a region other than US West (Oregon), 
+            // replace email-smtp.us-west-2.amazonaws.com with the Amazon SES SMTP  
+            // endpoint in the appropriate AWS Region.
+            String HOST = "email-smtp.ap-southeast-2.amazonaws.com";
+
+            // The port you will connect to on the Amazon SES SMTP endpoint. We
+            // are choosing port 587 because we will use STARTTLS to encrypt
+            // the connection.
+            int PORT = 587;
+
+
 
             MailMessage message = new MailMessage(from, to);
+
+            message.Subject ="Confirmation Code";
 
             message.Body = "Welcome to Zip It Online!";
             message.Body = "Please enter the confirmation code below to confirm your account";
@@ -54,9 +49,31 @@ namespace Examples.SmtpExamples.Async
             message.Subject = "Zip It Online Confirmation";
             message.SubjectEncoding = System.Text.Encoding.UTF8;
 
-            client.SendCompleted += new
-            SendCompletedEventHandler(SendCompletedCallback);
+           using (var client = new System.Net.Mail.SmtpClient(HOST, PORT))
+            {
+                // Pass SMTP credentials
+                client.Credentials =
+                    new NetworkCredential(SMTP_USERNAME, SMTP_PASSWORD);
 
+                // Enable SSL encryption
+                client.EnableSsl = true;
+
+                // Try to send the message. Show status in console.
+                try
+                {
+
+                    //PLACEHOLDER, LINK BACK TO UI
+                    Console.WriteLine("Attempting to send email...");
+                    client.Send(message);
+                    Console.WriteLine("Email sent!");
+                }
+                catch (Exception ex)
+                {
+                    //PLACEHOLDER, LINK BACK TO UI
+                    Console.WriteLine("The email was not sent.");
+                    Console.WriteLine("Error message: " + ex.Message);
+                }
+            }
         }
 
         public string ConfirmCodeGenerator(){
