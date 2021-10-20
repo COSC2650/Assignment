@@ -20,7 +20,7 @@ namespace API.Extensions
             //ADDRESS OF THE CODE RECIPIENT
             MailAddress to = new MailAddress("email");
 
-
+             // Replace smtp_password with your Amazon SES SMTP username
             String SMTP_USERNAME = "smtp_username";
 
             // Replace smtp_password with your Amazon SES SMTP password.
