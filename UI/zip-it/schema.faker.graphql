@@ -10,11 +10,13 @@ type User {
 }
 
 type Advertisment{
+  id: String @fake(type:number)
   title:String @fake(type:word)
   category: String @fake(type:productCategory)
   condition: String @fake(type:word)
   availibility: String @fake(type:date)
   price: String @fake(type:number)
+  description: String @fake(type:words)
   
 }
 

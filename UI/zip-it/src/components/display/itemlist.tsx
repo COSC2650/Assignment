@@ -6,11 +6,9 @@ import clientConnection from '../../data/client';
 import { useState } from 'react';
 
 export function Listings() {
-  const [title1, setTitle1] = useState('FIX ME MATTY');
-  const [title2, setTitle2] = useState('FIX ME MATTY');
-  const [title3, setTitle3] = useState('FIX ME MATTY');
-  const [title4, setTitle4] = useState('FIX ME MATTY');
-  const [title5, setTitle5] = useState("FIX ME MATTY");
+  // let  [title, setTitle] = useState("TITLE");
+  // let  [description, setDescription] = useState("TITLE");
+  let [adList, setAdList] = useState([]);
 
   //default query parameters
   var SearchDetails = {
@@ -25,25 +23,12 @@ export function Listings() {
     client
       .query(query(props))
       .then((result) => {
-        const queryResult = result.data.ads;
+        //create constant from result
+        const queryResult = result.data;
         if (queryResult != null) {
-          console.log(queryResult[0].title);
-          setTitle1(queryResult[0].title);
-          console.log(queryResult[1].title);
-          setTitle2(queryResult[1].title);
-          console.log(queryResult[2].title);
-          setTitle3(queryResult[2].title);
-          console.log(queryResult[3].title);
-          setTitle4(queryResult[3].title);
-          console.log(queryResult[4].title);
-          setTitle5(queryResult[4].title);
-          // const resultCount = queryResult.length;
-
-          // for(var i = 0; i < resultCount; i++){
-
-          //     console.log("result count is " + i)
-          //     console.log(queryResult[i].title)
-          // }
+          //set list of ads
+          setAdList(queryResult.ads)
+          
         } else {
           console.log('Query Else');
         }
@@ -64,41 +49,18 @@ export function Listings() {
       >{queryAPI(SearchDetails)}
         <Search onSearchI={queryAPI}></Search>
         <VStack divider={<StackDivider />} spacing={2} width="100%">
-          <ListItem
+        {adList && (
+        <>
+          {adList.map((ad) => (<ListItem
             imageUrl="https://picsum.photos/100?random=1"
-            title={title1}
-            description="Press F12 to see console logs>look at data/queries for clues"
+            title={"text"}
+            description="Description"
             price={100.0}
             quantity={10}
           ></ListItem>
-          <ListItem
-            imageUrl="https://picsum.photos/100?random=2"
-            title={title2}
-            description="Press F12 to see console logs>look at data/queries for clues"
-            price={100.0}
-            quantity={10}
-          ></ListItem>
-          <ListItem
-            imageUrl="https://picsum.photos/100?random=3"
-            title={title3}
-            description="Press F12 to see console logs>look at data/queries for clues"
-            price={100.0}
-            quantity={10}
-          ></ListItem>
-          <ListItem
-            imageUrl="https://picsum.photos/100?random=4"
-            title={title4}
-            description="Press F12 to see console logs>look at data/queries for clues"
-            price={100.0}
-            quantity={10}
-          ></ListItem>
-          <ListItem
-            imageUrl="https://picsum.photos/100?random=5"
-            title={title5}
-            description="Press F12 to see console logs>look at data/queries for clues"
-            price={100.0}
-            quantity={10}
-          ></ListItem>
+          ))}
+        </>
+      )}
         </VStack>
       </Stack>
     </>

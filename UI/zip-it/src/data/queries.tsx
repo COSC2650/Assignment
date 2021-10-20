@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 const query = (props) => {
-  if (props.email!= null) {
+  if (props.email != null) {
     console.log('userQuery--------------------------------------');
     return {
       query: gql`
@@ -12,62 +12,63 @@ const query = (props) => {
       }
     }
   `,
-  };
-  } if(props.postcode > 0){
-    console.log("postcode query -------------------------------------");
-    return {
-      query: gql`
-        {
-          ads{
-            title
-          }
-        }
-      `,
-    }
-
+    };
   }
-  if(props.type === "product"){
-    console.log("product query --------------------------------------");
+  if (props.postcode > 0) {
+    console.log('postcode query -------------------------------------');
     return {
       query: gql`
         {
-          ads{
+          ads {
             title
           }
         }
       `,
-    }
-
-  }if(props.type === "service"){
-    console.log("service query --------------------------------------");
+    };
+  }
+  if (props.type === 'product') {
+    console.log('product query --------------------------------------');
     return {
       query: gql`
         {
-          ads{
+          ads {
             title
           }
         }
       `,
-    }
-
-  }if(props.type === "onLoad"&&props.category==="onLoad"){
-    console.log("query on load --------------------------------------");
+    };
+  }
+  if (props.type === 'service') {
+    console.log('service query --------------------------------------');
     return {
       query: gql`
         {
-          ads{
+          ads {
             title
           }
         }
       `,
-    }
-
-  }else {
+    };
+  }
+  if (props.type === 'onLoad' && props.category === 'onLoad') {
+    console.log('query on load --------------------------------------');
+    return {
+      query: gql`
+        {
+          ads {
+            id
+            title
+            description
+          }
+        }
+      `,
+    };
+  } else {
     console.log('Query Undefined -- Zip-It---------------------------');
     return {
       query: gql`
         {
-          ads{
+          ads {
             title
           }
         }
