@@ -1,14 +1,11 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client';
-
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: 'http://localhost:9002/graphql',
+  uri: "http://localhost:9002/graphql",
   cache: new InMemoryCache(),
 });
 
 function clientConnection() {
-  return (
-    client
-  )
+  return client;
 }
-export default clientConnection
+export default clientConnection;

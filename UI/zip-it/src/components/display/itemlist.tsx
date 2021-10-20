@@ -39,6 +39,7 @@ export function Listings() {
   };
   useEffect(() => {
     queryAPI(SearchDetails);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
