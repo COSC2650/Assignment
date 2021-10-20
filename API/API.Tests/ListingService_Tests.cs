@@ -93,6 +93,33 @@ namespace Tests
             Assert.Equal(listingsToAssert.Count(), listings.Count);
         }
 
+        [Fact]
+        public async Task ListingService_Create()
+        {
+            // Create sample listing
+            var listing = GenerateListing();
+
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                  .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                  .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the ListingService with the mocked context
+            ListingService listingService = new(context);
+
+            // Create a user
+            var testListing = await listingService.CreateListing(listing);
+
+            // Get all users
+            var listingToAssert = listingService.GetAll().FirstOrDefault();
+
+            // Assert that the generated list is equal to the returned
+            Assert.Equal(listingToAssert, testListing);
+        }
+
 
         private static IList<Listing> GenerateListings()
         {
