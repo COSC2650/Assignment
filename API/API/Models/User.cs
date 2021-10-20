@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -39,6 +40,8 @@ namespace API.Models
         [Required]
         public int RoleID {get; set; }
         public virtual Role Role { get; set; }
+
+        public virtual List<Listing> Listings { get; set; }
     }
 
 }
