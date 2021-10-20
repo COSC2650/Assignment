@@ -6,11 +6,11 @@ import clientConnection from '../../data/client';
 import { useState } from 'react';
 
 export function Listings() {
-  const [title1, setTitle1] = useState('');
-  const [title2, setTitle2] = useState('DefaultTitle');
-  const [title3, setTitle3] = useState('DefaultTitle');
-  const [title4, setTitle4] = useState('DefaultTitle');
-  const [title5, setTitle5] = useState("");
+  const [title1, setTitle1] = useState('FIX ME MATTY');
+  const [title2, setTitle2] = useState('FIX ME MATTY');
+  const [title3, setTitle3] = useState('FIX ME MATTY');
+  const [title4, setTitle4] = useState('FIX ME MATTY');
+  const [title5, setTitle5] = useState("FIX ME MATTY");
 
   //default query parameters
   var SearchDetails = {
@@ -67,35 +67,35 @@ export function Listings() {
           <ListItem
             imageUrl="https://picsum.photos/100?random=1"
             title={title1}
-            description="Description"
+            description="Press F12 to see console logs>look at data/queries for clues"
             price={100.0}
             quantity={10}
           ></ListItem>
           <ListItem
             imageUrl="https://picsum.photos/100?random=2"
             title={title2}
-            description="Description"
+            description="Press F12 to see console logs>look at data/queries for clues"
             price={100.0}
             quantity={10}
           ></ListItem>
           <ListItem
             imageUrl="https://picsum.photos/100?random=3"
             title={title3}
-            description="Description"
+            description="Press F12 to see console logs>look at data/queries for clues"
             price={100.0}
             quantity={10}
           ></ListItem>
           <ListItem
             imageUrl="https://picsum.photos/100?random=4"
             title={title4}
-            description="Description"
+            description="Press F12 to see console logs>look at data/queries for clues"
             price={100.0}
             quantity={10}
           ></ListItem>
           <ListItem
             imageUrl="https://picsum.photos/100?random=5"
             title={title5}
-            description="Description"
+            description="Press F12 to see console logs>look at data/queries for clues"
             price={100.0}
             quantity={10}
           ></ListItem>
