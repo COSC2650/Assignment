@@ -61,9 +61,9 @@ namespace API.Extensions
             using var client = new SmtpClient(HOST, PORT);
 
             // Pass SMTP credentials
-#pragma warning disable S2068
+#pragma warning disable csharpsquid:S2068
             client.Credentials = new NetworkCredential(SMTP_USERNAME, SMTP_PASSWORD);
-#pragma warning restore S2068
+#pragma warning restore csharpsquid:S2068
 
             // Enable SSL encryption
             client.EnableSsl = true;
