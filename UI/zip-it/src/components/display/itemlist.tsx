@@ -9,7 +9,7 @@ export function Listings() {
   // let  [title, setTitle] = useState("TITLE");
   // let  [description, setDescription] = useState("TITLE");
   let [listings, setListings] = useState([]);
-  let [listingFragment, setListingFragment] = useState(ListingsFragment);
+  let [listingFragment, setListingFragment] = useState(<ListingsFragment />);
 
   //default query parameters
   var SearchDetails = {
@@ -63,6 +63,7 @@ export function Listings() {
       >
         <Search onSearchI={queryAPI}></Search>
         <VStack divider={<StackDivider />} spacing={2} width="100%">
+        {/* <ListingsFragment /> */}
           {listingFragment}
         </VStack>
       </Stack>
