@@ -1,8 +1,8 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 const query = (props) => {
   if (props.email != null) {
-    console.log("userQuery--------------------------------------");
+    console.log('userQuery--------------------------------------');
     return {
       query: gql`
     {
@@ -15,7 +15,7 @@ const query = (props) => {
     };
   }
   if (props.postcode > 0) {
-    console.log("postcode query -------------------------------------");
+    console.log('postcode query -------------------------------------');
     return {
       query: gql`
         {
@@ -29,8 +29,23 @@ const query = (props) => {
       `,
     };
   }
-  if (props.type === "product") {
-    console.log("product query --------------------------------------");
+  if (props.type === 'product') {
+    console.log('product query --------------------------------------');
+    return {
+      query: gql`
+        {
+          adsByType(type: "${props.type}") {
+            id
+            postCode
+            type
+            title
+          }
+        }
+      `,
+    };
+  }
+  if (props.type === 'service') {
+    console.log('service query --------------------------------------');
     return {
       query: gql`
         {
@@ -44,23 +59,8 @@ const query = (props) => {
       `,
     };
   }
-  if (props.type === "service") {
-    console.log("service query --------------------------------------");
-    return {
-      query: gql`
-        {
-          ads {
-            id
-            title
-            description
-            imageUrl
-          }
-        }
-      `,
-    };
-  }
-  if (props.type === "onLoad" && props.category === "onLoad") {
-    console.log("query on load --------------------------------------");
+  if (props.type === 'onLoad' && props.category === 'onLoad') {
+    console.log('query on load --------------------------------------');
     return {
       query: gql`
         {
@@ -74,7 +74,7 @@ const query = (props) => {
       `,
     };
   } else {
-    console.log("Query Undefined -- Zip-It---------------------------");
+    console.log('Query Undefined -- Zip-It---------------------------');
     return {
       query: gql`
         {
