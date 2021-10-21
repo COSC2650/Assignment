@@ -59,7 +59,7 @@ const query = (props) => {
       `,
     };
   }
-  if (props.type === 'onLoad' && props.category === 'onLoad') {
+  if (props.type === 'onLoad') {
     console.log('query on load --------------------------------------');
     return {
       query: gql`
