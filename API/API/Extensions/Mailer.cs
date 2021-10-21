@@ -61,9 +61,7 @@ namespace API.Extensions
             using var client = new SmtpClient(HOST, PORT);
 
             // Pass SMTP credentials
-#pragma warning disable 2068
-            client.Credentials = new NetworkCredential(SMTP_USERNAME, SMTP_PASSWORD);
-#pragma warning restore 2068
+            client.Credentials = new NetworkCredential(SMTP_USERNAME, SMTP_PASSWORD); //NOSONAR
 
             // Enable SSL encryption
             client.EnableSsl = true;
