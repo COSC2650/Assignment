@@ -12,6 +12,6 @@ namespace API.Models
         [Required, MinLength(3), MaxLength(50)]
         public string RoleName { get; set; }
 
-        public virtual List<User> UserID { get; set; }
+        public virtual List<User> Users { get; set; }
     }
 }

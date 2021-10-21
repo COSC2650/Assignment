@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(ZipitContext))]
-    partial class ZipitContextModelSnapshot : ModelSnapshot
+    [Migration("20211020120207_test_listings_seed")]
+    partial class test_listings_seed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,7 +71,7 @@ namespace API.Migrations
                         {
                             ListingID = 1001,
                             Category = "Test Products",
-                            DateListed = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(4632),
+                            DateListed = new DateTime(2021, 10, 20, 12, 2, 7, 519, DateTimeKind.Utc).AddTicks(581),
                             Description = "This is a test description for a test product 1.",
                             ListingType = "Product",
                             PostCode = 2650,
@@ -83,7 +85,7 @@ namespace API.Migrations
                         {
                             ListingID = 1002,
                             Category = "Test Products",
-                            DateListed = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6076),
+                            DateListed = new DateTime(2021, 10, 20, 12, 2, 7, 519, DateTimeKind.Utc).AddTicks(2165),
                             Description = "This is a test description for a test product 2.",
                             ListingType = "Product",
                             PostCode = 4000,
@@ -97,7 +99,7 @@ namespace API.Migrations
                         {
                             ListingID = 1003,
                             Category = "Test Products",
-                            DateListed = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6080),
+                            DateListed = new DateTime(2021, 10, 20, 12, 2, 7, 519, DateTimeKind.Utc).AddTicks(2168),
                             Description = "This is a test description for test product 3.",
                             ListingType = "Product",
                             PostCode = 2222,
@@ -111,7 +113,7 @@ namespace API.Migrations
                         {
                             ListingID = 1004,
                             Category = "Test Products",
-                            DateListed = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6081),
+                            DateListed = new DateTime(2021, 10, 20, 12, 2, 7, 519, DateTimeKind.Utc).AddTicks(2169),
                             Description = "This is a test description for a test product 4.",
                             ListingType = "Product",
                             PostCode = 3232,
@@ -125,7 +127,7 @@ namespace API.Migrations
                         {
                             ListingID = 1005,
                             Category = "Test Products",
-                            DateListed = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6082),
+                            DateListed = new DateTime(2021, 10, 20, 12, 2, 7, 519, DateTimeKind.Utc).AddTicks(2170),
                             Description = "This is a test description for a test product 5.",
                             ListingType = "Product",
                             PostCode = 4154,
@@ -139,12 +141,12 @@ namespace API.Migrations
                         {
                             ListingID = 1006,
                             Category = "Test Services",
-                            DateListed = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6083),
+                            DateListed = new DateTime(2021, 10, 20, 12, 2, 7, 519, DateTimeKind.Utc).AddTicks(2171),
                             Description = "This is a test description for a test service 1.",
                             ListingType = "Service",
                             PostCode = 4000,
                             Price = 6.0m,
-                            ServAvailability = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6083),
+                            ServAvailability = new DateTime(2021, 10, 20, 12, 2, 7, 519, DateTimeKind.Utc).AddTicks(2171),
                             Title = "Test Service 1",
                             UserID = 1
                         },
@@ -152,12 +154,12 @@ namespace API.Migrations
                         {
                             ListingID = 1007,
                             Category = "Test Services",
-                            DateListed = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6506),
+                            DateListed = new DateTime(2021, 10, 20, 12, 2, 7, 519, DateTimeKind.Utc).AddTicks(2427),
                             Description = "This is a test description for a test service 2.",
                             ListingType = "Service",
                             PostCode = 3456,
                             Price = 7.0m,
-                            ServAvailability = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6507),
+                            ServAvailability = new DateTime(2021, 10, 20, 12, 2, 7, 519, DateTimeKind.Utc).AddTicks(2427),
                             Title = "Test Service 2",
                             UserID = 1
                         },
@@ -165,12 +167,12 @@ namespace API.Migrations
                         {
                             ListingID = 1008,
                             Category = "Test Services",
-                            DateListed = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6508),
+                            DateListed = new DateTime(2021, 10, 20, 12, 2, 7, 519, DateTimeKind.Utc).AddTicks(2428),
                             Description = "This is a test description for a test service 3.",
                             ListingType = "Service",
                             PostCode = 2560,
                             Price = 8.89m,
-                            ServAvailability = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6508),
+                            ServAvailability = new DateTime(2021, 10, 20, 12, 2, 7, 519, DateTimeKind.Utc).AddTicks(2428),
                             Title = "Test Service 3",
                             UserID = 1
                         },
@@ -178,12 +180,12 @@ namespace API.Migrations
                         {
                             ListingID = 1009,
                             Category = "Test Services",
-                            DateListed = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6509),
+                            DateListed = new DateTime(2021, 10, 20, 12, 2, 7, 519, DateTimeKind.Utc).AddTicks(2429),
                             Description = "This is a test description for a test service 4.",
                             ListingType = "Service",
                             PostCode = 3000,
                             Price = 8.89m,
-                            ServAvailability = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6510),
+                            ServAvailability = new DateTime(2021, 10, 20, 12, 2, 7, 519, DateTimeKind.Utc).AddTicks(2430),
                             Title = "Test Service 4",
                             UserID = 3
                         },
@@ -191,12 +193,12 @@ namespace API.Migrations
                         {
                             ListingID = 1010,
                             Category = "Test Services",
-                            DateListed = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6511),
+                            DateListed = new DateTime(2021, 10, 20, 12, 2, 7, 519, DateTimeKind.Utc).AddTicks(2431),
                             Description = "This is a test description for a test service 5.",
                             ListingType = "Service",
                             PostCode = 4000,
                             Price = 10.99m,
-                            ServAvailability = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6511),
+                            ServAvailability = new DateTime(2021, 10, 20, 12, 2, 7, 519, DateTimeKind.Utc).AddTicks(2431),
                             Title = "Test Service 5",
                             UserID = 3
                         });
