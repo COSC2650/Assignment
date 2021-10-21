@@ -14,31 +14,40 @@ namespace API.Extensions
         {
 
             //VERIFY EMAIL USING AMAZON SES
-            MailAddress from = new MailAddress("zipitonlineautomated@email.com");
-
+            MailAddress from = new("nonotrespond@zipitonline.com");
 
             //ADDRESS OF THE CODE RECIPIENT
-            MailAddress to = new MailAddress("email");
+            MailAddress to = new(email);
 
              // Replace smtp_password with your Amazon SES SMTP username
-            String SMTP_USERNAME = "smtp_username";
+#if DEBUG
+            string SMTP_USERNAME = "smtp_username";
+#else
+            string SMTP_USERNAME = System.Environment.GetEnvironmentVariable("SMTP_USERNAME");
+#endif
 
             // Replace smtp_password with your Amazon SES SMTP password.
-            String SMTP_PASSWORD = "smtp_password";
+#if DEBUG
+            string SMTP_PASSWORD = "smtp_password";
+#else
+            string SMTP_PASSWORD = System.Environment.GetEnvironmentVariable("SMTP_PASSWORD");
+#endif
 
             // If you're using Amazon SES in a region other than US West (Oregon), 
             // replace email-smtp.us-west-2.amazonaws.com with the Amazon SES SMTP  
             // endpoint in the appropriate AWS Region.
-            String HOST = "email-smtp.ap-southeast-2.amazonaws.com";
+#if DEBUG
+            string HOST = "host";
+#else
+            string HOST = System.Environment.GetEnvironmentVariable("SMTP_HOST");
+#endif
 
             // The port you will connect to on the Amazon SES SMTP endpoint. We
             // are choosing port 587 because we will use STARTTLS to encrypt
             // the connection.
             int PORT = 587;
 
-
-
-            MailMessage message = new MailMessage(from, to);
+            MailMessage message = new(from, to);
 
             message.Subject ="Confirmation Code";
 
@@ -61,7 +70,6 @@ namespace API.Extensions
                 // Try to send the message. Show status in console.
                 try
                 {
-
                     //PLACEHOLDER, LINK BACK TO UI
                     Console.WriteLine("Attempting to send email...");
                     client.Send(message);
@@ -77,12 +85,7 @@ namespace API.Extensions
         }
 
         public string ConfirmCodeGenerator(){
-            
-            Random rd = new Random();
-            int rand_num = rd.Next(0,9999999);
-            
-
-            return rand_num.ToString();
+            return System.Security.Cryptography.RandomNumberGenerator.GetInt32(0, int.MaxValue).ToString();
         }
     }
 
