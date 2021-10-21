@@ -37,5 +37,7 @@ namespace API.Models
         public string ProdCondition { get; set; }
 
         public DateTime ServAvailability { get; set; }
+
+        public string ImageURL { get; set; }
     }
 }
