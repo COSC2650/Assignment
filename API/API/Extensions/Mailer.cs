@@ -58,29 +58,29 @@ namespace API.Extensions
             message.Subject = "Zip It Online Confirmation";
             message.SubjectEncoding = System.Text.Encoding.UTF8;
 
-           using (var client = new System.Net.Mail.SmtpClient(HOST, PORT))
+            using var client = new SmtpClient(HOST, PORT);
+
+            // Pass SMTP credentials
+#pragma warning disable S2068
+            client.Credentials = new NetworkCredential(SMTP_USERNAME, SMTP_PASSWORD);
+#pragma warning restore S2068
+
+            // Enable SSL encryption
+            client.EnableSsl = true;
+
+            // Try to send the message. Show status in console.
+            try
             {
-                // Pass SMTP credentials
-                client.Credentials =
-                    new NetworkCredential(SMTP_USERNAME, SMTP_PASSWORD);
-
-                // Enable SSL encryption
-                client.EnableSsl = true;
-
-                // Try to send the message. Show status in console.
-                try
-                {
-                    //PLACEHOLDER, LINK BACK TO UI
-                    Console.WriteLine("Attempting to send email...");
-                    client.Send(message);
-                    Console.WriteLine("Email sent!");
-                }
-                catch (Exception ex)
-                {
-                    //PLACEHOLDER, LINK BACK TO UI
-                    Console.WriteLine("The email was not sent.");
-                    Console.WriteLine("Error message: " + ex.Message);
-                }
+                //PLACEHOLDER, LINK BACK TO UI
+                Console.WriteLine("Attempting to send email...");
+                client.Send(message);
+                Console.WriteLine("Email sent!");
+            }
+            catch (Exception ex)
+            {
+                //PLACEHOLDER, LINK BACK TO UI
+                Console.WriteLine("The email was not sent.");
+                Console.WriteLine("Error message: " + ex.Message);
             }
         }
 

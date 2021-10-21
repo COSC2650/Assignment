@@ -38,7 +38,7 @@ namespace Tests
             int UserID,
             string Category)
         {
-            Listing Test = new Listing();
+            Listing Test = new();
             Test.ListingType = ListingType;
             Test.PostCode = PostCode;
             Test.Price = Price;
