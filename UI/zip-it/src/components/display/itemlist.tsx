@@ -9,7 +9,6 @@ export function Listings() {
   // let  [title, setTitle] = useState("TITLE");
   // let  [description, setDescription] = useState("TITLE");
   let [listings, setListings] = useState([]);
-  let [listingFragment, setListingFragment] = useState(<ListingsFragment />);
 
   //default query parameters
   var SearchDetails = {
@@ -26,7 +25,6 @@ export function Listings() {
       .then((result) => {
         //create constant from result
         setListings(result.data.ads);
-        setListingFragment(ListingsFragment)
       })
       //catch apollo/graphQL failure
       .catch((result) => {
