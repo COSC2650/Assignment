@@ -23,7 +23,7 @@ const query = (props) => {
             listingID
             title
             description
-            ImageURL
+            imageURL
           }
         }
       `,
@@ -39,7 +39,7 @@ const query = (props) => {
             postCode
             type
             title
-            ImageURL
+            imageURL
           }
         }
       `,
@@ -54,7 +54,7 @@ const query = (props) => {
             listingID
             title
             description
-            ImageURL
+            imageURL
           }
         }
       `,
@@ -69,7 +69,7 @@ const query = (props) => {
             listingID
             title
             description
-            ImageURL
+            imageURL
           }
         }
       `,
