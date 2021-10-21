@@ -63,8 +63,7 @@ export function Listings() {
       >
         <Search onSearchI={queryAPI}></Search>
         <VStack divider={<StackDivider />} spacing={2} width="100%">
-        {/* <ListingsFragment /> */}
-          {listingFragment}
+        <ListingsFragment />
         </VStack>
       </Stack>
     </>
