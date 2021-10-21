@@ -88,6 +88,4 @@ namespace API.Extensions
             return System.Security.Cryptography.RandomNumberGenerator.GetInt32(0, int.MaxValue).ToString();
         }
     }
-
-    
 }

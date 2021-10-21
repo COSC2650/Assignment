@@ -152,6 +152,12 @@ jobs:
               run: echo "$(jq ".containerDefinitions[0].environment[3].value=\"${{ secrets.CORS_URLS }}\"" ./IaC/ECS/task-definition.json)" > ./IaC/ECS/task-definition.json
             - name: Update connection string
               run: echo "$(jq ".containerDefinitions[0].environment[4].value=\"${{ secrets.CONNECTION_STRING }}\"" ./IaC/ECS/task-definition.json)" > ./IaC/ECS/task-definition.json
+            - name: SMTP username
+              run: echo "$(jq ".containerDefinitions[0].environment[5].value=\"${{ secrets.SMTP_USERNAME }}\"" ./IaC/ECS/task-definition.json)" > ./IaC/ECS/task-definition.json
+            - name: SMTP password
+              run: echo "$(jq ".containerDefinitions[0].environment[6].value=\"${{ secrets.SMTP_PASSWORD }}\"" ./IaC/ECS/task-definition.json)" > ./IaC/ECS/task-definition.json
+            - name: SMTP host
+              run: echo "$(jq ".containerDefinitions[0].environment[7].value=\"${{ secrets.SMTP_HOST }}\"" ./IaC/ECS/task-definition.json)" > ./IaC/ECS/task-definition.json
             - name: Deploy Amazon ECS task definition
               uses: aws-actions/amazon-ecs-deploy-task-definition@v1
               with:

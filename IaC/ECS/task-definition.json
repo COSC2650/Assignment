@@ -1,60 +1,70 @@
 {
-  "containerDefinitions": [
-    {
-      "name": "API",
-      "image": "mkellock/cosc2650@latest",
-      "cpu": 0,
-      "portMappings": [
+    "containerDefinitions": [
         {
-          "containerPort": 80,
-          "hostPort": 80,
-          "protocol": "tcp"
+            "name": "API",
+            "image": "mkellock/cosc2650@latest",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [
+                {
+                    "name": "NEW_RELIC_LICENSE_KEY",
+                    "value": "NR_LICENCE"
+                },
+                {
+                    "name": "NEW_RELIC_ACCOUNT_ID",
+                    "value": "NR_ACCT_ID"
+                },
+                {
+                    "name": "NEW_RELIC_API_KEY",
+                    "value": "NR_API_KEY"
+                },
+                {
+                    "name": "CORS_URLS",
+                    "value": "URLS"
+                },
+                {
+                    "name": "CONNECTION_STRING",
+                    "value": "CONN_STRING"
+                },
+                {
+                    "name": "SMTP_USERNAME",
+                    "value": "SMTP_USERNAME"
+                },
+                {
+                    "name": "SMTP_PASSWORD",
+                    "value": "SMTP_PASSWORD"
+                },
+                {
+                    "name": "SMTP_HOST",
+                    "value": "SMTP_HOST"
+                }
+            ],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/AssignmentFG",
+                    "awslogs-region": "ap-southeast-2",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }
         }
-      ],
-      "essential": true,
-      "environment": [
-        {
-          "name": "NEW_RELIC_LICENSE_KEY",
-          "value": "NR_LICENCE"
-        },
-        {
-          "name": "NEW_RELIC_ACCOUNT_ID",
-          "value": "NR_ACCT_ID"
-        },
-        {
-          "name": "NEW_RELIC_API_KEY",
-          "value": "NR_API_KEY"
-        },
-        {
-          "name": "CORS_URLS",
-          "value": "URLS"
-        },
-        {
-          "name": "CONNECTION_STRING",
-          "value": "CONN_STRING"
-        }
-      ],
-      "mountPoints": [],
-      "volumesFrom": [],
-      "logConfiguration": {
-        "logDriver": "awslogs",
-        "options": {
-          "awslogs-group": "/ecs/AssignmentFG",
-          "awslogs-region": "ap-southeast-2",
-          "awslogs-stream-prefix": "ecs"
-        }
-      }
-    }
-  ],
-  "family": "AssignmentFG",
-  "taskRoleArn": "arn:aws:iam::723465791019:role/ecsTaskExecutionRole",
-  "executionRoleArn": "arn:aws:iam::723465791019:role/ecsTaskExecutionRole",
-  "networkMode": "awsvpc",
-  "volumes": [],
-  "placementConstraints": [],
-  "requiresCompatibilities": [
-    "FARGATE"
-  ],
-  "cpu": "256",
-  "memory": "512"
+    ],
+    "family": "AssignmentFG",
+    "taskRoleArn": "arn:aws:iam::723465791019:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::723465791019:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "volumes": [],
+    "placementConstraints": [],
+    "requiresCompatibilities": ["FARGATE"],
+    "cpu": "256",
+    "memory": "512"
 }
