@@ -10,7 +10,7 @@ type User {
 }
 
 type Advertisment {
-  id: String @fake(type: number)
+  listingID: String @fake(type: number)
   postCode: String @fake(type: zipCode)
   type: String @examples(values: ["product" "service"])
   title: String @fake(type: word)

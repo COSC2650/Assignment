@@ -20,10 +20,9 @@ const query = (props) => {
       query: gql`
         {
           ads {
-            id
+            listingID
             title
             description
-            imageUrl
           }
         }
       `,
@@ -35,7 +34,7 @@ const query = (props) => {
       query: gql`
         {
           adsByType(type: "${props.type}") {
-            id
+            listingID
             postCode
             type
             title
@@ -50,10 +49,9 @@ const query = (props) => {
       query: gql`
         {
           ads {
-            id
+            listingID
             title
             description
-            imageUrl
           }
         }
       `,
@@ -65,10 +63,10 @@ const query = (props) => {
       query: gql`
         {
           ads {
-            id
+            listingID
             title
             description
-            imageUrl
+            
           }
         }
       `,

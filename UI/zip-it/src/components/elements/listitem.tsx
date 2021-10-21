@@ -2,7 +2,7 @@ import { Image, Heading, Text, HStack, VStack } from "@chakra-ui/react";
 
 export interface ListItemProp {
     imageUrl: string;
-    id: string;
+    listingID: string;
     postCode: number;
     title: string;
     category: string;

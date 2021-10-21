@@ -40,7 +40,7 @@ export function Listings() {
         {listings && (
           <>
             {listings.map((listing: ListItemProp) => (
-              <ListItem key={listing.id} {...listing}></ListItem>
+              <ListItem key={listing.listingID} {...listing}></ListItem>
             ))}
           </>
         )}
