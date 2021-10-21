@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(ZipitContext))]
-    partial class ZipitContextModelSnapshot : ModelSnapshot
+    [Migration("20211020125253_remove_seed_data")]
+    partial class remove_seed_data
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,9 +34,6 @@ namespace API.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("ImageURL")
                         .HasColumnType("text");
 
                     b.Property<string>("ListingType")
@@ -72,9 +71,8 @@ namespace API.Migrations
                         {
                             ListingID = 1001,
                             Category = "Test Products",
-                            DateListed = new DateTime(2021, 10, 21, 9, 9, 3, 48, DateTimeKind.Utc).AddTicks(7460),
+                            DateListed = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(4632),
                             Description = "This is a test description for a test product 1.",
-                            ImageURL = "https://picsum.photos/100?random=1",
                             ListingType = "Product",
                             PostCode = 2650,
                             Price = 1.00m,
@@ -87,9 +85,8 @@ namespace API.Migrations
                         {
                             ListingID = 1002,
                             Category = "Test Products",
-                            DateListed = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1112),
+                            DateListed = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6076),
                             Description = "This is a test description for a test product 2.",
-                            ImageURL = "https://picsum.photos/100?random=2",
                             ListingType = "Product",
                             PostCode = 4000,
                             Price = 2.00m,
@@ -102,9 +99,8 @@ namespace API.Migrations
                         {
                             ListingID = 1003,
                             Category = "Test Products",
-                            DateListed = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1117),
+                            DateListed = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6080),
                             Description = "This is a test description for test product 3.",
-                            ImageURL = "https://picsum.photos/100?random=3",
                             ListingType = "Product",
                             PostCode = 2222,
                             Price = 3.00m,
@@ -117,9 +113,8 @@ namespace API.Migrations
                         {
                             ListingID = 1004,
                             Category = "Test Products",
-                            DateListed = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1120),
+                            DateListed = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6081),
                             Description = "This is a test description for a test product 4.",
-                            ImageURL = "https://picsum.photos/100?random=4",
                             ListingType = "Product",
                             PostCode = 3232,
                             Price = 4.44m,
@@ -132,9 +127,8 @@ namespace API.Migrations
                         {
                             ListingID = 1005,
                             Category = "Test Products",
-                            DateListed = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1122),
+                            DateListed = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6082),
                             Description = "This is a test description for a test product 5.",
-                            ImageURL = "https://picsum.photos/100?random=5",
                             ListingType = "Product",
                             PostCode = 4154,
                             Price = 5.0m,
@@ -147,13 +141,12 @@ namespace API.Migrations
                         {
                             ListingID = 1006,
                             Category = "Test Services",
-                            DateListed = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1124),
+                            DateListed = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6083),
                             Description = "This is a test description for a test service 1.",
-                            ImageURL = "https://picsum.photos/100?random=1",
                             ListingType = "Service",
                             PostCode = 4000,
                             Price = 6.0m,
-                            ServAvailability = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1124),
+                            ServAvailability = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6083),
                             Title = "Test Service 1",
                             UserID = 1
                         },
@@ -161,13 +154,12 @@ namespace API.Migrations
                         {
                             ListingID = 1007,
                             Category = "Test Services",
-                            DateListed = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1717),
+                            DateListed = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6506),
                             Description = "This is a test description for a test service 2.",
-                            ImageURL = "https://picsum.photos/100?random=2",
                             ListingType = "Service",
                             PostCode = 3456,
                             Price = 7.0m,
-                            ServAvailability = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1718),
+                            ServAvailability = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6507),
                             Title = "Test Service 2",
                             UserID = 1
                         },
@@ -175,13 +167,12 @@ namespace API.Migrations
                         {
                             ListingID = 1008,
                             Category = "Test Services",
-                            DateListed = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1720),
+                            DateListed = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6508),
                             Description = "This is a test description for a test service 3.",
-                            ImageURL = "https://picsum.photos/100?random=3",
                             ListingType = "Service",
                             PostCode = 2560,
                             Price = 8.89m,
-                            ServAvailability = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1720),
+                            ServAvailability = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6508),
                             Title = "Test Service 3",
                             UserID = 1
                         },
@@ -189,13 +180,12 @@ namespace API.Migrations
                         {
                             ListingID = 1009,
                             Category = "Test Services",
-                            DateListed = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1722),
+                            DateListed = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6509),
                             Description = "This is a test description for a test service 4.",
-                            ImageURL = "https://picsum.photos/100?random=4",
                             ListingType = "Service",
                             PostCode = 3000,
                             Price = 8.89m,
-                            ServAvailability = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1722),
+                            ServAvailability = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6510),
                             Title = "Test Service 4",
                             UserID = 3
                         },
@@ -203,13 +193,12 @@ namespace API.Migrations
                         {
                             ListingID = 1010,
                             Category = "Test Services",
-                            DateListed = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1724),
+                            DateListed = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6511),
                             Description = "This is a test description for a test service 5.",
-                            ImageURL = "https://picsum.photos/100?random=5",
                             ListingType = "Service",
                             PostCode = 4000,
                             Price = 10.99m,
-                            ServAvailability = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1724),
+                            ServAvailability = new DateTime(2021, 10, 20, 12, 52, 53, 536, DateTimeKind.Utc).AddTicks(6511),
                             Title = "Test Service 5",
                             UserID = 3
                         });
