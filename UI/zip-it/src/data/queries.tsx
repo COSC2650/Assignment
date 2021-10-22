@@ -37,12 +37,12 @@ const query = (props) => {
     return {
       query: gql`
         {
-          adsByType(type: "${props.type}") {
+          adsByType(listingType: "${props.type}"){
             listingID
             title
             description
             imageURL
-            type
+    				listingType
           }
         }
       `,
@@ -59,6 +59,7 @@ const query = (props) => {
             title
             description
             imageURL
+            listingType
           }
         }
       `,
@@ -74,6 +75,7 @@ const query = (props) => {
             title
             description
             imageURL
+            listingType
           }
         }
       `,
