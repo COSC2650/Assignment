@@ -6,7 +6,7 @@ import clientConnection from '../../data/client';
 import React, { useState, useEffect } from 'react';
 
 export function Listings() {  
-  var [listings, setListings] = useState([]);
+  let [listings, setListings] = useState([]);
 
   //default query parameters
   var SearchDetails = {
