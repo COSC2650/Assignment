@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 
+//query users by email and password
 const query = (props) => {
   if (props.email != null) {
     console.log('userQuery--------------------------------------');
@@ -14,12 +15,13 @@ const query = (props) => {
   `,
     };
   }
+  //query by type postcode
   if (props.postcode > 0) {
     console.log('postcode query -------------------------------------');
     return {
       query: gql`
         {
-          ads {
+          ads(postcode: "${props.postcode}") {
             listingID
             title
             description
@@ -29,36 +31,24 @@ const query = (props) => {
       `,
     };
   }
-  if (props.type === 'product') {
-    console.log('product query --------------------------------------');
+  //query by type product or service
+  if (props.type === 'product' || props.type === 'service') {
+    console.log('type query --------------------------------------');
     return {
       query: gql`
         {
-          ads {
+          adsByType(type: "${props.type}") {
             listingID
             title
             description
             imageURL
+            type
           }
         }
       `,
     };
   }
-  if (props.type === 'service') {
-    console.log('service query --------------------------------------');
-    return {
-      query: gql`
-        {
-          ads {
-            listingID
-            title
-            description
-            imageURL
-          }
-        }
-      `,
-    };
-  }
+  //default query on load
   if (props.type === 'onLoad') {
     console.log('query on load --------------------------------------');
     return {
@@ -74,10 +64,11 @@ const query = (props) => {
       `,
     };
   } else {
-    console.log('Query Undefined -- Zip-It---------------------------');
+    //called when no query defined for the passed params
+    console.log('Query Not Defined in queries.tsx -- Zip-It');
     return {
       query: gql`
-       {
+        {
           ads {
             listingID
             title

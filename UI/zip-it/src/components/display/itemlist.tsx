@@ -25,10 +25,15 @@ export function Listings() {
       .then((result) => {
         //create constant from result
         setListings(result.data.ads);
+        console.log(listings)
+        
       })
       //catch apollo/graphQL failure
       .catch((result) => {
-        console.log('Search Catch');
+        console.log('Apollo/GraphQL failure - Zip-It');
+        console.log("check relevant query in queries.tsx")
+        console.log(props)
+        console.log(result)
       });
   };
 
@@ -62,10 +67,6 @@ export function Listings() {
         <Search onSearchI={queryAPI}></Search>
         <VStack divider={<StackDivider />} spacing={2} width="100%">
         <ListingsFragment />
-<<<<<<< HEAD
-          {/* {listingFragment} */}
-=======
->>>>>>> origin/main
         </VStack>
       </Stack>
     </>
