@@ -21,12 +21,15 @@ const query = (props) => {
     return {
       query: gql`
         {
-          ads(postcode: "${props.postcode}") {
+          ads {
             listingID
             title
             description
             imageURL
+            postCode
+            
           }
+        }
         }
       `,
     };
@@ -37,20 +40,21 @@ const query = (props) => {
     console.log(props.type)
     return {
       query: gql`
-        {
-          adsByType(listingType: "${props.type}"){
+         {
+          ads {
             listingID
             title
             description
             imageURL
-    				listingType
+            listingType
+            
           }
         }
       `,
     };
   }
   //default query on load
-  if (props.type === 'onLoad') {
+  if (props === 'default') {
     console.log('query on load --------------------------------------');
     return {
       query: gql`
@@ -60,7 +64,7 @@ const query = (props) => {
             title
             description
             imageURL
-            listingType
+            
           }
         }
       `,
