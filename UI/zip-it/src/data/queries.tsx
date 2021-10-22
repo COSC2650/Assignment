@@ -34,6 +34,7 @@ const query = (props) => {
   //query by type product or service
   if (props.type === 'product' || props.type === 'service') {
     console.log('type query --------------------------------------');
+    console.log(props.type)
     return {
       query: gql`
         {
