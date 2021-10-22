@@ -20,7 +20,7 @@ const query = (props) => {
     console.log('postcode query -------------------------------------');
     return {
       query: gql`
-        {
+         {
           ads {
             listingID
             title
@@ -29,7 +29,6 @@ const query = (props) => {
             postCode
             
           }
-        }
         }
       `,
     };

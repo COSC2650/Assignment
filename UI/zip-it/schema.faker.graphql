@@ -11,7 +11,7 @@ type User {
 
 type Advertisment {
   listingID: String @fake(type: number)
-  postCode: String @fake(type: zipCode)
+  postCode: String @fake(type: number)
   listingType: String @examples(values: ["product" "service"])
   title: String @fake(type: word)
   category: String @fake(type: productCategory)
