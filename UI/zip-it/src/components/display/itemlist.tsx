@@ -1,24 +1,29 @@
 import { VStack, StackDivider, Stack } from '@chakra-ui/layout';
 import ListItem, { ListItemProp } from '../../components/elements/listitem';
-import Search from '../forms/search';
+import Search, { SearchDetails } from '../forms/search';
 import query from '../../data/queries';
 import clientConnection from '../../data/client';
 import React, { useState, useEffect } from 'react';
 
 export function Listings() {  
-  let [listings, setListings] = useState([]);
+  let listings = [];
 
   //default query parameters
-  
+  var SearchDetails = {
+    postcode: 0o0,
+    type: 'onLoad',
+    category: 'onLoad',
+  };
 
-  const queryAPI = (props) => {
+  const queryAPI = (props: SearchDetails) => {
+    
     //invoke client
     const client = clientConnection();
     client
       .query(query(props))
       .then((result) => {
         //create constant from result
-        setListings(result.data.ads);
+        listings = result.data.ads;
         console.log(listings)
         
       })
@@ -46,7 +51,7 @@ export function Listings() {
   }
 
   useEffect(() => {
-    queryAPI("default");
+    queryAPI(SearchDetails);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

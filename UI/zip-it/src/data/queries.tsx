@@ -54,7 +54,7 @@ const query = (props) => {
     };
   }
   //default query on load
-  if (props === 'default') {
+  if (props.type === 'onLoad') {
     console.log('query on load --------------------------------------');
     return {
       query: gql`
@@ -72,6 +72,7 @@ const query = (props) => {
   } else {
     //called when no query defined for the passed params
     console.log('Query Not Defined in queries.tsx -- Zip-It');
+    console.log(props);
     return {
       query: gql`
         {
