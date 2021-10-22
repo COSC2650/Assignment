@@ -6,7 +6,7 @@ import clientConnection from '../../data/client';
 import React, { useState, useEffect } from 'react';
 
 export function Listings() {  
-  let listings = [];
+  var [listings, setListings] = useState([]);
 
   //default query parameters
   var SearchDetails = {
@@ -16,7 +16,6 @@ export function Listings() {
   };
 
   const queryAPI = (props: SearchDetails) => {
-    
     //invoke client
     const client = clientConnection();
     client
@@ -24,6 +23,7 @@ export function Listings() {
       .then((result) => {
         //create constant from result
         listings = result.data.ads;
+        setListings(listings);
         console.log(listings)
         
       })
