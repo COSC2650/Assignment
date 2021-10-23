@@ -11,6 +11,7 @@ export interface ListItemProp {
     description: string;
     price: number;
     quantity: number;
+    listingType: string;
 }
 
 const ListItem = (props: ListItemProp) => {

@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 export interface SearchDetails {
   postcode: number;
-  type: string;
+  listingType: string;
   category: string;
 }
 
@@ -15,7 +15,7 @@ export interface SearchProps {
 export function Search(props: SearchProps) {
   //defines Search Type and creates setter
   const [postcode, setPostcode] = useState(0o0);
-  const [type, setType] = useState('');
+  const [listingType, setType] = useState('');
   const [category, setCategory] = useState("");
   
 
@@ -28,7 +28,7 @@ export function Search(props: SearchProps) {
     //sets Search Details
     const searchDetails: SearchDetails = {
       postcode: postcode,
-      type: type,
+      listingType: listingType,
       category: category,
       
     };

@@ -11,7 +11,7 @@ export function Listings() {
   //default query parameters
   var SearchDetails = {
     postcode: 0o0,
-    type: 'onLoad',
+    listingType: 'onLoad',
     category: 'onLoad',
   };
 

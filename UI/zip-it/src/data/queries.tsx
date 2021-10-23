@@ -34,25 +34,25 @@ const query = (props) => {
     };
   }
   //query by type product or service
-  if (props.type === 'product' || props.type === 'service') {
+  if (props.listingType === 'product' || props.listingType === 'service') {
     console.log('type query --------------------------------------');
-    console.log(props.type)
+    console.log(props.listingType)
     return {
       query: gql`
-         {
-          adsByType(listingType: "${props.type}"){
-            listingID
-            title
-            description
-            imageURL
-    				listingType
-          }
+      {
+        ads {
+          listingID
+          title
+          description
+          imageURL
+          
         }
-      `,
+      }
+    `,
     };
   }
   //default query on load
-  if (props.type === 'onLoad') {
+  if (props.listingType === 'onLoad') {
     console.log('query on load --------------------------------------');
     return {
       query: gql`
