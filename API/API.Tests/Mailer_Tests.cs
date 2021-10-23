@@ -5,13 +5,13 @@ using Moq;
 
 namespace Tests
 {
-    public class Mailer_Test {
+    public class Mailer_Tests {
 
         [Fact]
         public void SendEmail()
         {
             // Mock an instance of the SMTP client
-            Mock<API.Extensions.SmtpClient> mockedSMTPClient = new();
+            Mock<ISmtpClient> mockedSMTPClient = new();
 
             // Set up a new mailer instance
             Mailer mailer = new("email@gmail.com", mockedSMTPClient.Object);
@@ -27,7 +27,7 @@ namespace Tests
         public void SecureRNG(){
 
             // Mock an instance of the SMTP client
-            var mockedSMTPClient = new Mock<API.Extensions.SmtpClient>();
+            var mockedSMTPClient = new Mock<ISmtpClient>();
 
             // Create a new instance of the mailer
             Mailer mailer = new("email@gmail.com", mockedSMTPClient.Object);

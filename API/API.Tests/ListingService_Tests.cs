@@ -11,7 +11,7 @@ using System;
 
 namespace Tests
 {   
-    public class ModelTest
+    public class ListingService_Tests
     {
         [Theory]
         [InlineData(

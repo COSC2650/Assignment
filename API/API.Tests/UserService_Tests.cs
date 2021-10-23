@@ -10,7 +10,7 @@ using API.GraphQL.Users;
 
 namespace Tests
 {
-    public class ZipitContext {
+    public class UserService_Tests {
 
         [Fact]
         public async Task UserService_GetAll()
