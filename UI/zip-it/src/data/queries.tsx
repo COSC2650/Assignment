@@ -45,7 +45,7 @@ const query = (props) => {
           title
           description
           imageURL
-          
+          listingType
         }
       }
     `,
