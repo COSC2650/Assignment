@@ -9,10 +9,10 @@ namespace API.Models
         [Key]
 
         [Required, EmailAddress]
-        public string email { get; set; }
+        public string Email { get; set; }
         
         [Required]
-        public int code { get; set; }
+        public int Code { get; set; }
 
     }
 }

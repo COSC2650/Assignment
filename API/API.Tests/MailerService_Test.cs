@@ -1,13 +1,7 @@
 using Xunit;
+using API.Extensions;
+using System.Net.Mail;
 using Moq;
-using API.Models;
-using API.Services;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Collections.Generic;
-using AutoFixture;
-using System.Threading.Tasks;
-using API.GraphQL.Users;
 
 namespace Tests
 {
@@ -16,20 +10,38 @@ namespace Tests
         [Fact]
         public void SendEmail()
         {
-            Mailer mailer = new Mailer("email@gmail.com");
+            // Mock an instance of the SMTP client
+            Mock<ISmtpClient> mockedSMTPClient = new();
 
-            Assert.NotNull(SMTP_USERNAME,SMTP_PASSWORD,HOST,PORT,client);
+            // Set up a new mailer instance
+            Mailer mailer = new("email@gmail.com", mockedSMTPClient.Object);
+
+            // Send the mail
+            mailer.SendMail();
+
+            // Ensure it runs
+            mockedSMTPClient.Verify(x => x.Send(It.IsAny<MailMessage>()), Times.Once());
         }
 
+        [Fact]
         public void SecureRNG(){
 
-            Mailer mailer = new Mailer("email@gmail.com");
+            // Mock an instance of the SMTP client
+            var mockedSMTPClient = new Mock<ISmtpClient>();
 
-            int rng1 = mailer.ConfirmCodeGenerator();
-            int rng2 = mailer.ConfirmCodeGenerator();
+            // Create a new instance of the mailer
+            Mailer mailer = new("email@gmail.com", mockedSMTPClient.Object);
 
-            Assert(rng1!=rng2);
-            Assert.NotNull(rng1,rng2);
+            // Grab confirmation codes
+            int rng1 = int.Parse(mailer.ConfirmCodeGenerator());
+            int rng2 = int.Parse(mailer.ConfirmCodeGenerator());
+
+            // Assert that we have values
+            Assert.True(rng1 > 0);
+            Assert.True(rng2 > 0);
+
+            // Assert that we're retriving different values each time
+            Assert.NotEqual(rng1,rng2);
         }
     }
 }
