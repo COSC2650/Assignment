@@ -11,7 +11,7 @@ namespace Tests
         public void SendEmail()
         {
             // Mock an instance of the SMTP client
-            Mock<ISmtpClient> mockedSMTPClient = new();
+            Mock<API.Extensions.SmtpClient> mockedSMTPClient = new();
 
             // Set up a new mailer instance
             Mailer mailer = new("email@gmail.com", mockedSMTPClient.Object);
@@ -27,7 +27,7 @@ namespace Tests
         public void SecureRNG(){
 
             // Mock an instance of the SMTP client
-            var mockedSMTPClient = new Mock<ISmtpClient>();
+            var mockedSMTPClient = new Mock<API.Extensions.SmtpClient>();
 
             // Create a new instance of the mailer
             Mailer mailer = new("email@gmail.com", mockedSMTPClient.Object);
