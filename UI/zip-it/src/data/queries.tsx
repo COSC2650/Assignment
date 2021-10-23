@@ -21,7 +21,7 @@ const query = (props) => {
     return {
       query: gql`
          {
-          ads {
+          listings {
             listingID
             title
             description
@@ -40,7 +40,7 @@ const query = (props) => {
     return {
       query: gql`
       {
-        ads {
+        listings {
           listingID
           title
           description
@@ -57,7 +57,7 @@ const query = (props) => {
     return {
       query: gql`
         {
-          ads {
+          listings {
             listingID
             title
             description
@@ -74,7 +74,7 @@ const query = (props) => {
     return {
       query: gql`
         {
-          ads {
+          listings {
             listingID
             title
             description

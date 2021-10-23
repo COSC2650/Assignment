@@ -22,7 +22,7 @@ export function Listings() {
       .query(query(props))
       .then((result) => {
         //create constant from result
-        listings = result.data.ads;
+        listings = result.data.listings;
         setListings(listings);
         console.log(listings)
         
