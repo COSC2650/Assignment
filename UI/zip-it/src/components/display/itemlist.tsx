@@ -27,7 +27,7 @@ export function Listings() {
       .query(query(props))
       .then((result) => {
         //create constant from result
-        listings = result.data.listingsByType;
+        listings = result.data.listingsByFilter;
         setListings(listings);
 
         //debug what is returned
