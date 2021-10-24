@@ -41,5 +41,6 @@ type Query {
   userByEmail(email: String, password: String): User
   listingsByCategory(category: String): Advertisment
   listingsByType(listingType: String): [Advertisment]@listLength(min: 10, max: 30)
+  listingsByPostcode(listingPostcode: Int): [Advertisment]@listLength(min: 10, max: 30)
   listings: [Advertisment] @listLength(min: 10, max: 30)
 }

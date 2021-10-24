@@ -16,20 +16,16 @@ const query = (props) => {
     };
   }
   //query by type postcode
-  if (props.postcode > 0) {
+  if (props.postcode >= 200 && props.postcode <= 9729) {
     console.log('postcode query -------------------------------------');
     return {
       query: gql`
-         {
-          listings {
-            listingID
-            title
-            description
-            imageURL
-            postCode
-            
-          }
+      {
+        listingsByPostcode(listingPostcode:"${props.postcode}"){
+          listingID
+          postCode
         }
+      }
       `,
     };
   }

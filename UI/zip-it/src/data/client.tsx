@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: "http://api.zipitconline.com/graphql",
+  uri: "http://localhost:9002/graphql",
   cache: new InMemoryCache(),
 });
 
