@@ -15,8 +15,8 @@ export interface SearchProps {
 export function Search(props: SearchProps) {
   //defines Search Type and creates setter
   const [postcode, setPostcode] = useState(0o0);
-  const [listingType, setType] = useState("default");
-  const [category, setCategory] = useState("default");
+  const [listingType, setType] = useState("");
+  const [category, setCategory] = useState("");
 
   //on change calls setSearchType
   const postcodeOnChange = (event) => setPostcode(event.target.value);

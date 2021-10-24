@@ -11,8 +11,8 @@ export function Listings() {
   //default query parameters
   var SearchDetails = {
     postcode: 0o0,
-    listingType: 'onLoad',
-    category: 'onLoad',
+    listingType: '',
+    category: '',
   };
 
   const queryAPI = (props: SearchDetails) => {
