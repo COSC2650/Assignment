@@ -40,7 +40,7 @@ const query = (props) => {
     return {
       query: gql`
       {
-        listingsByType(listingType:"{product}"){
+        listingsByType(listingType:"${props.listingType}"){
           listingID
           title
           listingType
