@@ -40,11 +40,9 @@ const query = (props) => {
     return {
       query: gql`
       {
-        listings {
+        listingsByType(listingType:"{product}"){
           listingID
           title
-          description
-          imageURL
           listingType
         }
       }

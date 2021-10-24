@@ -16,6 +16,11 @@ export function Listings() {
   };
 
   const queryAPI = (props: SearchDetails) => {
+
+    //debug what is passed in 
+    console.log("Passed in:")
+    console.log(props)
+
     //invoke client
     const client = clientConnection();
     client
@@ -24,8 +29,15 @@ export function Listings() {
         //create constant from result
         listings = result.data.listings;
         setListings(listings);
+
+        //debug what is returned
+        console.log("Returned:")
         console.log(listings)
         
+        //debug query undefined notice
+        if(listings === undefined){
+          console.log("check relevant query in queries.txt")
+        }
       })
       //catch apollo/graphQL failure
       .catch((result) => {
