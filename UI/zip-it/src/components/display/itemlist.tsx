@@ -1,25 +1,24 @@
-import { VStack, StackDivider, Stack } from '@chakra-ui/layout';
-import ListItem, { ListItemProp } from '../../components/elements/listitem';
-import Search, { SearchDetails } from '../forms/search';
-import query from '../../data/queries';
-import clientConnection from '../../data/client';
-import React, { useState, useEffect } from 'react';
+import { VStack, StackDivider, Stack } from "@chakra-ui/layout";
+import ListItem, { ListItemProp } from "../../components/elements/listitem";
+import Search, { SearchDetails } from "../forms/search";
+import query from "../../data/queries";
+import clientConnection from "../../data/client";
+import React, { useState, useEffect } from "react";
 
-export function Listings() {  
+export function Listings() {
   let [listings, setListings] = useState([]);
 
   //default query parameters
   var SearchDetails = {
     postcode: 0o0,
-    listingType: '',
-    category: '',
+    listingType: "",
+    category: "",
   };
 
   const queryAPI = (props: SearchDetails) => {
-
-    //debug what is passed in 
-    console.log("Passed in:")
-    console.log(props)
+    //debug what is passed in
+    console.log("Passed in:");
+    console.log(props);
 
     //invoke client
     const client = clientConnection();
@@ -27,24 +26,33 @@ export function Listings() {
       .query(query(props))
       .then((result) => {
         //create constant from result
-        listings = result.data.listingsByFilter;
-        setListings(listings);
+        if (
+          props.postcode !== 0 ||
+          props.listingType !== "" ||
+          props.category !== ""
+        ) {
+          listings = result.data.listingsByFilter;
+          setListings(listings);
+        } else {
+          listings = result.data.listings;
+          setListings(listings);
+        }
 
         //debug what is returned
-        console.log("Returned:")
-        console.log(listings)
-        
+        console.log("Returned:");
+        console.log(listings);
+
         //debug query undefined notice
-        if(listings === undefined){
-          console.log("check relevant query in queries.txt")
+        if (listings === undefined) {
+          console.log("check relevant query in queries.txt");
         }
       })
       //catch apollo/graphQL failure
       .catch((result) => {
-        console.log('Apollo/GraphQL failure - Zip-It');
-        console.log("check relevant query in queries.tsx")
-        console.log(props)
-        console.log(result)
+        console.log("Apollo/GraphQL failure - Zip-It");
+        console.log("check relevant query in queries.tsx");
+        console.log(props);
+        console.log(result);
       });
   };
 
@@ -70,14 +78,14 @@ export function Listings() {
   return (
     <>
       <Stack
-        direction={['column', 'row']}
+        direction={["column", "row"]}
         margin="60px 5px 5px 5px"
         divider={<StackDivider />}
         spacing={2}
       >
         <Search onSearchI={queryAPI}></Search>
         <VStack divider={<StackDivider />} spacing={2} width="100%">
-        <ListingsFragment />
+          <ListingsFragment />
         </VStack>
       </Stack>
     </>

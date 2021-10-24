@@ -15,8 +15,12 @@ const query = (props) => {
   `,
     };
   }
-  if (props!=null) {
-    console.log("query on load --------------------------------------");
+  if (
+    props.postcode !== 0 ||
+    props.listingType !== "" ||
+    props.category !== ""
+  ) {
+    console.log("listings query --------------------------------------");
     return {
       query: gql`
         {
@@ -32,8 +36,7 @@ const query = (props) => {
     };
   } else {
     //called when no query defined for the passed params
-    console.log("Query Not Defined in queries.tsx -- Zip-It");
-    console.log(props);
+    console.log("Default query -- Zip-It");
     return {
       query: gql`
         {
