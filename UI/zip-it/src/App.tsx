@@ -65,11 +65,10 @@ function App() {
     client
       .query(query(props))
       .then((result) => {
-        console.log(result);
         const queryResult = result.data.userByEmail;
         if (queryResult.userEmail != null) {
           //set user data
-          setUserTitle("Welcome back " + queryResult.firstName);
+          setUserTitle("Welcome back " + queryResult.userFirstName);
           setAuthenticated(true);
 
           //login confirmation

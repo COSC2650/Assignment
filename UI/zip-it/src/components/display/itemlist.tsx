@@ -17,18 +17,14 @@ export function Listings() {
   };
 
   const queryAPI = (props: SearchDetails) => {
-
     //invoke client
     const client = clientConnection();
     client
       .query(query(props))
       .then((result) => {
-
         //create constant from result
-          listings = result.data.listingsByFilter;
-          setListings(listings);
-          console.log(listings)
-        
+        listings = result.data.listingsByFilter;
+        setListings(listings);
       })
       //catch apollo/graphQL failure
       .catch((result) => {
