@@ -2,14 +2,14 @@ import { gql } from "@apollo/client";
 
 //query users by email and password
 const query = (props) => {
-  if (props.email != null) {
-    console.log("userQuery--------------------------------------");
+  if (props.userEmail != null) {
+    console.log("Login Query--------------------------------------");
     return {
       query: gql`
     {
-      userByEmail(email: "${props.email}", password: "${props.password}") {
-        email
-        firstName
+      userByEmail(userEmail: "${props.userEmail}", userPassword: "${props.userPassword}") {
+        userEmail
+        userFirstName
       }
     }
   `,
@@ -20,11 +20,11 @@ const query = (props) => {
     return {
       query: gql`
       {
-        listingsByFilter(listingPostcode:${props.listingPostcode},listingType:"${props.listingType}",category:"${props.listingCategory}") {
+        listingsByFilter(listingPostcode:${props.listingPostcode},listingType:"${props.listingType}",listingCategory:"${props.listingCategory}") {
           listingID
-          title
-          description
-          imageURL
+          listingTitle
+          listingDescription
+          listingImageURL
           listingType
         }
       }
