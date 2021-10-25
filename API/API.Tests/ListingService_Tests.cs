@@ -1,5 +1,4 @@
 using Xunit;
-using Moq;
 using API.Models;
 using API.Services;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +11,7 @@ using System;
 
 namespace Tests
 {   
-    public class ModelTest
+    public class ListingService_Tests
     {
         [Theory]
         [InlineData(
@@ -38,7 +37,7 @@ namespace Tests
             int UserID,
             string Category)
         {
-            Listing Test = new Listing();
+            Listing Test = new();
             Test.ListingType = ListingType;
             Test.PostCode = PostCode;
             Test.Price = Price;

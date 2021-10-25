@@ -133,9 +133,6 @@ function App() {
 
     setRegisterVisible(false);
   };
-  //defaultListingQuery
-  //itemList("DefaultListingQuery");
-  
 
   return (
     <>
