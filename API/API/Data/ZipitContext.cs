@@ -19,23 +19,6 @@ namespace API.Data
             modelBuilder.Entity<User>()
                 .HasIndex(f => f.UserEmail)
                 .IsUnique();
-            
-            modelBuilder.Entity<User>()
-                .HasData(
-                    new User {
-                        UserID = 1,
-                        UserFirstName = "Test",
-                        UserLastName = "Account",
-                        UserStreet = "Street",
-                        UserCity = "City",
-                        UserState = "XXX",
-                        UserPostCode = 4000,
-                        UserEmail = "not@real.com",
-                        UserEmailVerfied = false,
-                        UserPasswordHash = "50000:8q+Oc/+2RcPpp3fH6b4ugc18mui+ZCTi:kSUzflp66KeT6+TZZdoNrg7fp+E=",
-                        RoleID = 2,
-                    }
-                );
 
             modelBuilder.Entity<Role>()
                 .HasData(
@@ -47,6 +30,7 @@ namespace API.Data
                         RoleID = 2,
                         RoleName = "User"
                     });
+                    
             modelBuilder.Entity<Listing>()
                 .HasData(
                     new Listing {

@@ -87,7 +87,7 @@ namespace API.Migrations
                             ListingAvailability = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ListingCategory = "Test Products",
                             ListingCondition = "Good",
-                            ListingDate = new DateTime(2021, 10, 25, 12, 47, 27, 381, DateTimeKind.Utc).AddTicks(9230),
+                            ListingDate = new DateTime(2021, 10, 25, 21, 41, 49, 477, DateTimeKind.Utc).AddTicks(9308),
                             ListingDescription = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
                             ListingImageURL = "https://picsum.photos/100?random=1",
                             ListingPostCode = 2650,
@@ -102,7 +102,7 @@ namespace API.Migrations
                             ListingAvailability = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ListingCategory = "Test Products",
                             ListingCondition = "Great",
-                            ListingDate = new DateTime(2021, 10, 25, 12, 47, 27, 382, DateTimeKind.Utc).AddTicks(825),
+                            ListingDate = new DateTime(2021, 10, 25, 21, 41, 49, 478, DateTimeKind.Utc).AddTicks(915),
                             ListingDescription = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
                             ListingImageURL = "https://picsum.photos/100?random=2",
                             ListingPostCode = 4000,
@@ -117,7 +117,7 @@ namespace API.Migrations
                             ListingAvailability = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ListingCategory = "Test Products",
                             ListingCondition = "Needs Repair",
-                            ListingDate = new DateTime(2021, 10, 25, 12, 47, 27, 382, DateTimeKind.Utc).AddTicks(828),
+                            ListingDate = new DateTime(2021, 10, 25, 21, 41, 49, 478, DateTimeKind.Utc).AddTicks(918),
                             ListingDescription = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
                             ListingImageURL = "https://picsum.photos/100?random=3",
                             ListingPostCode = 2222,
@@ -132,7 +132,7 @@ namespace API.Migrations
                             ListingAvailability = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ListingCategory = "Test Products",
                             ListingCondition = "Fair",
-                            ListingDate = new DateTime(2021, 10, 25, 12, 47, 27, 382, DateTimeKind.Utc).AddTicks(830),
+                            ListingDate = new DateTime(2021, 10, 25, 21, 41, 49, 478, DateTimeKind.Utc).AddTicks(920),
                             ListingDescription = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
                             ListingImageURL = "https://picsum.photos/100?random=4",
                             ListingPostCode = 3232,
@@ -147,7 +147,7 @@ namespace API.Migrations
                             ListingAvailability = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ListingCategory = "Test Products",
                             ListingCondition = "Excellent",
-                            ListingDate = new DateTime(2021, 10, 25, 12, 47, 27, 382, DateTimeKind.Utc).AddTicks(831),
+                            ListingDate = new DateTime(2021, 10, 25, 21, 41, 49, 478, DateTimeKind.Utc).AddTicks(921),
                             ListingDescription = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
                             ListingImageURL = "https://picsum.photos/100?random=5",
                             ListingPostCode = 4154,
@@ -159,9 +159,9 @@ namespace API.Migrations
                         new
                         {
                             ListingID = 1006,
-                            ListingAvailability = new DateTime(2021, 10, 25, 12, 47, 27, 382, DateTimeKind.Utc).AddTicks(832),
+                            ListingAvailability = new DateTime(2021, 10, 25, 21, 41, 49, 478, DateTimeKind.Utc).AddTicks(922),
                             ListingCategory = "Test Services",
-                            ListingDate = new DateTime(2021, 10, 25, 12, 47, 27, 382, DateTimeKind.Utc).AddTicks(832),
+                            ListingDate = new DateTime(2021, 10, 25, 21, 41, 49, 478, DateTimeKind.Utc).AddTicks(922),
                             ListingDescription = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
                             ListingImageURL = "https://picsum.photos/100?random=1",
                             ListingPostCode = 4000,
@@ -173,9 +173,9 @@ namespace API.Migrations
                         new
                         {
                             ListingID = 1007,
-                            ListingAvailability = new DateTime(2021, 10, 25, 12, 47, 27, 382, DateTimeKind.Utc).AddTicks(1072),
+                            ListingAvailability = new DateTime(2021, 10, 25, 21, 41, 49, 478, DateTimeKind.Utc).AddTicks(1161),
                             ListingCategory = "Test Services",
-                            ListingDate = new DateTime(2021, 10, 25, 12, 47, 27, 382, DateTimeKind.Utc).AddTicks(1071),
+                            ListingDate = new DateTime(2021, 10, 25, 21, 41, 49, 478, DateTimeKind.Utc).AddTicks(1160),
                             ListingDescription = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
                             ListingImageURL = "https://picsum.photos/100?random=2",
                             ListingPostCode = 3456,
@@ -187,9 +187,9 @@ namespace API.Migrations
                         new
                         {
                             ListingID = 1008,
-                            ListingAvailability = new DateTime(2021, 10, 25, 12, 47, 27, 382, DateTimeKind.Utc).AddTicks(1073),
+                            ListingAvailability = new DateTime(2021, 10, 25, 21, 41, 49, 478, DateTimeKind.Utc).AddTicks(1162),
                             ListingCategory = "Test Services",
-                            ListingDate = new DateTime(2021, 10, 25, 12, 47, 27, 382, DateTimeKind.Utc).AddTicks(1073),
+                            ListingDate = new DateTime(2021, 10, 25, 21, 41, 49, 478, DateTimeKind.Utc).AddTicks(1162),
                             ListingDescription = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
                             ListingImageURL = "https://picsum.photos/100?random=3",
                             ListingPostCode = 2560,
@@ -201,9 +201,9 @@ namespace API.Migrations
                         new
                         {
                             ListingID = 1009,
-                            ListingAvailability = new DateTime(2021, 10, 25, 12, 47, 27, 382, DateTimeKind.Utc).AddTicks(1074),
+                            ListingAvailability = new DateTime(2021, 10, 25, 21, 41, 49, 478, DateTimeKind.Utc).AddTicks(1164),
                             ListingCategory = "Test Services",
-                            ListingDate = new DateTime(2021, 10, 25, 12, 47, 27, 382, DateTimeKind.Utc).AddTicks(1074),
+                            ListingDate = new DateTime(2021, 10, 25, 21, 41, 49, 478, DateTimeKind.Utc).AddTicks(1163),
                             ListingDescription = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
                             ListingImageURL = "https://picsum.photos/100?random=4",
                             ListingPostCode = 3000,
@@ -215,9 +215,9 @@ namespace API.Migrations
                         new
                         {
                             ListingID = 1010,
-                            ListingAvailability = new DateTime(2021, 10, 25, 12, 47, 27, 382, DateTimeKind.Utc).AddTicks(1076),
+                            ListingAvailability = new DateTime(2021, 10, 25, 21, 41, 49, 478, DateTimeKind.Utc).AddTicks(1165),
                             ListingCategory = "Test Services",
-                            ListingDate = new DateTime(2021, 10, 25, 12, 47, 27, 382, DateTimeKind.Utc).AddTicks(1076),
+                            ListingDate = new DateTime(2021, 10, 25, 21, 41, 49, 478, DateTimeKind.Utc).AddTicks(1165),
                             ListingDescription = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
                             ListingImageURL = "https://picsum.photos/100?random=5",
                             ListingPostCode = 4000,
@@ -313,22 +313,6 @@ namespace API.Migrations
                         .IsUnique();
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            UserID = 1,
-                            RoleID = 2,
-                            UserCity = "City",
-                            UserEmail = "not@real.com",
-                            UserEmailVerfied = false,
-                            UserFirstName = "Test",
-                            UserLastName = "Account",
-                            UserPasswordHash = "50000:8q+Oc/+2RcPpp3fH6b4ugc18mui+ZCTi:kSUzflp66KeT6+TZZdoNrg7fp+E=",
-                            UserPostCode = 4000,
-                            UserState = "XXX",
-                            UserStreet = "Street"
-                        });
                 });
 
             modelBuilder.Entity("API.Models.Listing", b =>
