@@ -9,7 +9,7 @@ type User {
   userVerified: Boolean @examples(values: [false])
 }
 
-type Advertisment {
+type Listing {
   listingID: String @fake(type: number)
   listingPostcode: String @fake(type: number)
   listingType: String @examples(values: ["product" "service"])
@@ -39,5 +39,5 @@ type Advertisment {
 
 type Query {
   userByEmail(email: String, password: String): User
-  listingsByFilter(listingPostcode: Int,listingType: String,listingCategory: String): [Advertisment]@listLength(min: 10, max: 30)
+  listingsByFilter(listingPostcode: Int,listingType: String,listingCategory: String): [Listing]@listLength(min: 10, max: 30)
 }
