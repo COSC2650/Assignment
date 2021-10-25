@@ -1,13 +1,10 @@
-using System.Linq;  
-using System.Threading.Tasks;  
-using Microsoft.EntityFrameworkCore;  
+using System.Linq;
+using System.Threading.Tasks;
 using API.Data;
 using API.Models;
-using System;
-using System.Collections.Generic;
 
 namespace API.Services
-{  
+{
     public class ListingService : IListingService  
     {  
         private readonly ZipitContext _context;
@@ -33,9 +30,9 @@ namespace API.Services
 
         public IQueryable<Listing> ListingByFilter(int postCode, string listingType, string category)
         {
-            Boolean postCodeQuery = false;
-            Boolean listingTypeQuery = false;
-            Boolean categoryQuery = false;
+            bool postCodeQuery = false;
+            bool listingTypeQuery = false;
+            bool categoryQuery = false;
 
             // 4 digit check
             // is postcode queried
@@ -43,16 +40,20 @@ namespace API.Services
                 postCodeQuery = true;
 
             // is listingtype queried
-            if(listingType.Length != 0)
+            if(listingType.Length > 0)
                 listingTypeQuery = true;
             
             // is category queried
-            if(category.Length != 0)
+            if(category.Length > 0)
                 categoryQuery = true;
+
+            // nothing is queried
+            if(!postCodeQuery && !listingTypeQuery && !categoryQuery)
+                return _context.Listings.AsQueryable();
 
             // only postcode queried
             if(postCodeQuery && !listingTypeQuery && !categoryQuery)
-                return _context.Listings.Where(x => x.PostCode == postCode).AsQueryable();
+                return _context.Listings.Where(x => x.ListingPostCode == postCode).AsQueryable();
             
             // only listingtype queried
             if(!postCodeQuery && listingTypeQuery && !categoryQuery)
@@ -60,37 +61,36 @@ namespace API.Services
 
             // only category queried
             if(!postCodeQuery && !listingTypeQuery && categoryQuery)
-                return _context.Listings.Where(x => x.Category == category).AsQueryable();
+                return _context.Listings.Where(x => x.ListingCategory == category).AsQueryable();
 
             // postcode & listingtype are queried
             if(postCodeQuery && listingTypeQuery && !categoryQuery)
             {
-                return _context.Listings.Where(x => x.PostCode == postCode)
+                return _context.Listings.Where(x => x.ListingPostCode == postCode)
                     .Where(x => x.ListingType == listingType)
                     .AsQueryable();
             }
             
             // postcode & category are queried
-            if(postCodeQuery && categoryQuery && !listingTypeQuery)
+            if(!listingTypeQuery && postCodeQuery && categoryQuery)
             {
-                return _context.Listings.Where(x => x.PostCode == postCode)
-                    .Where(x => x.Category == category)
+                return _context.Listings.Where(x => x.ListingPostCode == postCode)
+                    .Where(x => x.ListingCategory == category)
                     .AsQueryable();
             }
 
             // listingtype & category are queried
-            if(listingTypeQuery && categoryQuery && !postCodeQuery)
+            if(!postCodeQuery && listingTypeQuery && categoryQuery)
             {
                 return _context.Listings.Where(x => x.ListingType == listingType)
-                    .Where(x => x.Category == category)
+                    .Where(x => x.ListingCategory == category)
                     .AsQueryable();
             }
             
-            // all 3 fields are queried 
-            // or nothing is queries using this function which should not happen and in which case will return null
-            return _context.Listings.Where(x => x.PostCode == postCode)
+            // all 3 fields are queried
+            return _context.Listings.Where(x => x.ListingPostCode == postCode)
                 .Where(x => x.ListingType == listingType)
-                .Where(x => x.Category == category)
+                .Where(x => x.ListingCategory == category)
                 .AsQueryable();
         }
     }

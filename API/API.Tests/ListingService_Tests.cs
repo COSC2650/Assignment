@@ -39,26 +39,26 @@ namespace Tests
         {
             Listing Test = new();
             Test.ListingType = ListingType;
-            Test.PostCode = PostCode;
-            Test.Price = Price;
-            Test.ProdCondition = ProdCondition;
-            Test.Title = Title;
-            Test.ServAvailability = ServAvailability;
-            Test.DateListed = DateListed;
-            Test.Description = Description;
+            Test.ListingPostCode = PostCode;
+            Test.ListingPrice = Price;
+            Test.ListingCondition = ProdCondition;
+            Test.ListingTitle = Title;
+            Test.ListingAvailability = ServAvailability;
+            Test.ListingDate = DateListed;
+            Test.ListingDescription = Description;
             Test.UserID = UserID;
-            Test.Category = Category;
+            Test.ListingCategory = Category;
             
             Assert.Equal(ListingType, Test.ListingType);
-            Assert.Equal(PostCode, Test.PostCode);
-            Assert.Equal(1.00M, Test.Price);
-            Assert.Equal(ProdCondition, Test.ProdCondition);
-            Assert.Equal(Title, Test.Title);
-            Assert.Equal(ServAvailability, Test.ServAvailability);
-            Assert.Equal(DateListed, Test.DateListed);
-            Assert.Equal(Description, Test.Description);
+            Assert.Equal(PostCode, Test.ListingPostCode);
+            Assert.Equal(1.00M, Test.ListingPrice);
+            Assert.Equal(ProdCondition, Test.ListingCondition);
+            Assert.Equal(Title, Test.ListingTitle);
+            Assert.Equal(ServAvailability, Test.ListingAvailability);
+            Assert.Equal(DateListed, Test.ListingDate);
+            Assert.Equal(Description, Test.ListingDescription);
             Assert.Equal(UserID, Test.UserID);
-            Assert.Equal(Category, Test.Category);
+            Assert.Equal(Category, Test.ListingCategory);
             Assert.IsType<int>(Test.ListingID);
             Assert.Null(Test.User);
         }
@@ -128,15 +128,15 @@ namespace Tests
 
             Listing Test = new();
             Test.ListingType = "Product";
-            Test.PostCode = 4000;
-            Test.Price = 1;
-            Test.ProdCondition = "Great";
-            Test.Title = "Test Product";
-            Test.ServAvailability = DateTime.UtcNow;
-            Test.DateListed = DateTime.UtcNow;
-            Test.Description = "Description";
+            Test.ListingPostCode = 4000;
+            Test.ListingPrice = 1;
+            Test.ListingCondition = "Great";
+            Test.ListingTitle = "Test Product";
+            Test.ListingAvailability = DateTime.UtcNow;
+            Test.ListingDate = DateTime.UtcNow;
+            Test.ListingDescription = "Description";
             Test.UserID = 1;
-            Test.Category = "Test Products";
+            Test.ListingCategory = "Test Products";
 
             // Change the context options to use an inmemory database
             var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
@@ -180,15 +180,15 @@ namespace Tests
 
             Listing Test = new();
             Test.ListingType = "Product";
-            Test.PostCode = 4000;
-            Test.Price = 1;
-            Test.ProdCondition = "Great";
-            Test.Title = "Test Product";
-            Test.ServAvailability = DateTime.UtcNow;
-            Test.DateListed = DateTime.UtcNow;
-            Test.Description = "Description";
+            Test.ListingPostCode = 4000;
+            Test.ListingPrice = 1;
+            Test.ListingCondition = "Great";
+            Test.ListingTitle = "Test Product";
+            Test.ListingAvailability = DateTime.UtcNow;
+            Test.ListingDate = DateTime.UtcNow;
+            Test.ListingDescription = "Description";
             Test.UserID = 1;
-            Test.Category = "Test Products";
+            Test.ListingCategory = "Test Products";
 
             // Change the context options to use an inmemory database
             var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()

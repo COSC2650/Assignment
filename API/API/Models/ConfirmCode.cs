@@ -7,7 +7,6 @@ namespace API.Models
     public class ConfirmCode 
     {
         [Key]
-
         [Required, EmailAddress]
         public string Email { get; set; }
         
