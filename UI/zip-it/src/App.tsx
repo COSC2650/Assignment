@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import Header from './components/elements/header';
-import { useColorMode, useToast } from '@chakra-ui/react';
-import Login, { LoginDetails } from './components/forms/login';
-import Logout, { LogoutDetails } from './components/forms/logout';
-import Register, { RestrationDetails } from './components/forms/register';
-import query from './data/queries';
-import clientConnection from './data/client';
+import { useState } from "react";
+import Header from "./components/elements/header";
+import { useColorMode, useToast } from "@chakra-ui/react";
+import Login, { LoginDetails } from "./components/forms/login";
+import Logout, { LogoutDetails } from "./components/forms/logout";
+import Register, { RestrationDetails } from "./components/forms/register";
+import query from "./data/queries";
+import clientConnection from "./data/client";
 import { Listings } from "./components/display/itemlist";
 
 function App() {
-  const [userTitle, setUserTitle] = useState('Welcome');
+  const [userTitle, setUserTitle] = useState("Welcome");
   const [authenticated, setAuthenticated] = useState(false);
   const [disableInput, setDisableInput] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
@@ -37,21 +37,21 @@ function App() {
   const toast = useToast();
   const validationToast = () =>
     toast({
-      title: 'Sorry invalid - Try again?',
-      description: 'Invalid credentials.',
-      status: 'error',
+      title: "Sorry invalid - Try again?",
+      description: "Invalid credentials.",
+      status: "error",
       duration: 2000,
       isClosable: true,
-      position: 'top',
+      position: "top",
     });
   const errorToast = () =>
     toast({
-      title: 'Sorry the system is down - Try later',
-      description: 'Invalid credentials.',
-      status: 'error',
+      title: "Sorry the system is down - Try later",
+      description: "Invalid credentials.",
+      status: "error",
       duration: 2000,
       isClosable: true,
-      position: 'top',
+      position: "top",
     });
 
   //Logic for Login fucntion
@@ -65,20 +65,21 @@ function App() {
     client
       .query(query(props))
       .then((result) => {
+        console.log(result);
         const queryResult = result.data.userByEmail;
-        if (queryResult != null) {
+        if (queryResult.userEmail != null) {
           //set user data
-          setUserTitle('Welcome back ' + queryResult.firstName);
+          setUserTitle("Welcome back " + queryResult.firstName);
           setAuthenticated(true);
 
           //login confirmation
           toast({
-            title: 'Logged In',
-            description: 'You have been successfully logged in.',
-            status: 'success',
+            title: "Logged In",
+            description: "You have been successfully logged in.",
+            status: "success",
             duration: 2000,
             isClosable: true,
-            position: 'top',
+            position: "top",
           });
 
           //hide login
@@ -101,16 +102,16 @@ function App() {
   const onLogout = (props: LogoutDetails) => {
     //log out confirmation
     toast({
-      title: 'Logged out',
-      description: 'You have been successfully logged out.',
-      status: 'success',
+      title: "Logged out",
+      description: "You have been successfully logged out.",
+      status: "success",
       duration: 2000,
       isClosable: true,
-      position: 'top',
+      position: "top",
     });
 
     //setheader title and authentication status
-    setUserTitle('Welcome');
+    setUserTitle("Welcome");
     setAuthenticated(false);
     setDisableInput(false);
 
@@ -120,12 +121,12 @@ function App() {
   const onRegister = (props: RestrationDetails) => {
     if (true) {
       toast({
-        title: 'Account Created',
-        description: 'Your account has been created.',
-        status: 'success',
+        title: "Account Created",
+        description: "Your account has been created.",
+        status: "success",
         duration: 2000,
         isClosable: true,
-        position: 'top',
+        position: "top",
       });
     } else {
       errorToast();
