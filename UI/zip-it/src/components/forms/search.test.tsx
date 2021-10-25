@@ -1,5 +1,5 @@
 import Search, { SearchProps, SearchDetails } from "./search";
-import { configure, mount, render } from "enzyme";
+import { configure, render } from "enzyme";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 
 jest.useFakeTimers();
