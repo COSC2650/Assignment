@@ -39,5 +39,5 @@ type Listing {
 
 type Query {
   userByEmail(email: String, password: String): User
-  listingsByFilter(listingPostcode: number,listingType: String,listingCategory: String): [Listing]@listLength(min: 10, max: 30)
+  listingsByFilter(listingPostcode: Int,listingType: String,listingCategory: String): [Listing]@listLength(min: 10, max: 30)
 }
