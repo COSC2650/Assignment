@@ -119,6 +119,109 @@ namespace Tests
             Assert.Equal(listingToAssert, listing);
         }
 
+        [Fact]
+        public async Task Listing_Service_ListingsByQueries_Pass()
+        {
+            string listingType;
+            string category;
+            int postCode;
+
+            Listing Test = new();
+            Test.ListingType = "Product";
+            Test.PostCode = 4000;
+            Test.Price = 1;
+            Test.ProdCondition = "Great";
+            Test.Title = "Test Product";
+            Test.ServAvailability = DateTime.UtcNow;
+            Test.DateListed = DateTime.UtcNow;
+            Test.Description = "Description";
+            Test.UserID = 1;
+            Test.Category = "Test Products";
+
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                  .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                  .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the ListingService with the mocked context
+            ListingService listingService = new(context);
+
+            // Create a listing
+            await listingService.CreateListing(Test);
+
+            // Check for single field query - alter to check each field
+            postCode = 4000;
+            listingType = "";
+            category = "";
+            Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
+
+            // Check for two field query - alter to check each field
+            postCode = 4000;
+            listingType = "Product";
+            category = "";
+            Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
+
+            // Check for three field query - alter to check each field
+            postCode = 4000;
+            listingType = "Product";
+            category = "Test Products";
+            Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
+        }
+
+        [Fact]
+        public async Task Listing_Service_ListingsByQueries_Fail()
+        {
+            string listingType;
+            string category;
+            int postCode;
+
+            Listing Test = new();
+            Test.ListingType = "Product";
+            Test.PostCode = 4000;
+            Test.Price = 1;
+            Test.ProdCondition = "Great";
+            Test.Title = "Test Product";
+            Test.ServAvailability = DateTime.UtcNow;
+            Test.DateListed = DateTime.UtcNow;
+            Test.Description = "Description";
+            Test.UserID = 1;
+            Test.Category = "Test Products";
+
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                  .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                  .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the ListingService with the mocked context
+            ListingService listingService = new(context);
+
+            // Create a listing
+            await listingService.CreateListing(Test);
+
+            // Check for single field query - alter to check each field
+            postCode = 0;
+            listingType = "Wrong ListingType";
+            category = "";
+            Assert.Equal(0, listingService.ListingByFilter(postCode, listingType, category).Count());
+
+            // Check for two field query - alter to check each field
+            postCode = 4000;
+            listingType = "Wrong ListingType";
+            category = "";
+            Assert.Equal(0, listingService.ListingByFilter(postCode, listingType, category).Count());
+
+            // Check for three field query - alter to check each field
+            postCode = 4000;
+            listingType = "Wrong ListingType";
+            category = "Test Products";
+            Assert.Equal(0, listingService.ListingByFilter(postCode, listingType, category).Count());
+        }
 
         private static IList<Listing> GenerateListings()
         {

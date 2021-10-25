@@ -10,7 +10,8 @@ export function Listings() {
 
   //default query parameters
   var SearchDetails = {
-    listingPostcode: 0o0,
+    // need this to be 0 for default searches for it to work (MP)
+    listingPostcode: 0,
     listingType: "",
     listingCategory: "",
   };
