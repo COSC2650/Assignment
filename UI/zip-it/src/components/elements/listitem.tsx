@@ -1,5 +1,6 @@
 import { Image, Heading, Text, HStack, VStack } from "@chakra-ui/react";
 
+//listItem properties
 export interface ListItemProp {
     listingImageURL: string;
     listingID: string;
@@ -14,6 +15,7 @@ export interface ListItemProp {
     listingType: string;
 }
 
+//list item fragment 
 const ListItem = (props: ListItemProp) => {
     return (
         <HStack align="flex-start" width="100%">

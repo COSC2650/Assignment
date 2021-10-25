@@ -16,28 +16,17 @@ export function Listings() {
   };
 
   const queryAPI = (props: SearchDetails) => {
-    //debug what is passed in
-    console.log("Passed in:");
-    console.log(props);
 
     //invoke client
     const client = clientConnection();
     client
       .query(query(props))
       .then((result) => {
+
         //create constant from result
-        
           listings = result.data.listingsByFilter;
           setListings(listings);
         
-        //debug what is returned
-        console.log("Returned:");
-        console.log(listings);
-
-        //debug query undefined notice
-        if (listings === undefined) {
-          console.log("check relevant query in queries.txt");
-        }
       })
       //catch apollo/graphQL failure
       .catch((result) => {
@@ -67,6 +56,7 @@ export function Listings() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  //item list component
   return (
     <>
       <Stack
@@ -75,7 +65,7 @@ export function Listings() {
         divider={<StackDivider />}
         spacing={2}
       >
-        <Search onSearchI={queryAPI}></Search>
+        <Search onSearchInterface={queryAPI}></Search>
         <VStack divider={<StackDivider />} spacing={2} width="100%">
           <ListingsFragment />
         </VStack>

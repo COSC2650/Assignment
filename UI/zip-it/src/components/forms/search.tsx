@@ -2,14 +2,16 @@ import { Input, Select, Stack, Button, Icon } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 import { useState } from "react";
 
+//SearchDetails constructor
 export interface SearchDetails {
   listingPostcode: number;
   listingType: string;
   listingCategory: string;
 }
 
+//interface to caller
 export interface SearchProps {
-  onSearchI(props: SearchDetails): void;
+  onSearchInterface(props: SearchDetails): void;
 }
 
 export function Search(props: SearchProps) {
@@ -24,17 +26,17 @@ export function Search(props: SearchProps) {
   const categoryOnChange = (event) => setCategory(event.target.value);
 
   const onSearch = () => {
-    //sets Search Details
+    //sets search setails
     const searchDetails: SearchDetails = {
       listingPostcode: listingPostcode,
       listingType: listingType,
       listingCategory: listingCategory,
     };
-
-    props.onSearchI(searchDetails);
+    //sets details in interface
+    props.onSearchInterface(searchDetails);
   };
 
-  //search criteria logic
+  //search menu logic
   function CategorySelection() {
     if (listingType === "product") {
       return (
@@ -83,6 +85,7 @@ export function Search(props: SearchProps) {
     }
   }
 
+//search menu component
   return (
     <Stack direction={["column"]} w={["100%", "300px"]}>
       <Input

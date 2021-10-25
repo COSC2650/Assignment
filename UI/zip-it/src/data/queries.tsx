@@ -1,9 +1,8 @@
 import { gql } from "@apollo/client";
 
-//query users by email and password
+//fetches user authentication information
 const query = (props) => {
   if (props.userEmail != null) {
-    console.log("Login Query--------------------------------------");
     return {
       query: gql`
     {
@@ -15,8 +14,7 @@ const query = (props) => {
   `,
     };
   }else {
-    //called when no query defined for the passed params
-    console.log("Listings query -- Zip-It");
+    //fetches listings according to passed params
     return {
       query: gql`
       {
