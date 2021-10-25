@@ -11,7 +11,7 @@ type User {
 
 type Listing {
   listingID: String @fake(type: number)
-  listingPostCode: String @fake(type: number)
+  listingPostcode: String @fake(type: number)
   listingType: String @examples(values: ["product" "service"])
   listingTitle: String @fake(type: word)
   listingCategory: String @fake(type: productCategory)

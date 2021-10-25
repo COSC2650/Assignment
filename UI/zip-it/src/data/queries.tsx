@@ -15,6 +15,7 @@ const query = (props) => {
     };
   }else {
     //fetches listings according to passed params
+    console.log(props)
     return {
       query: gql`
       {

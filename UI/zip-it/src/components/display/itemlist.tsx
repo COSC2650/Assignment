@@ -27,6 +27,7 @@ export function Listings() {
         //create constant from result
           listings = result.data.listingsByFilter;
           setListings(listings);
+          console.log(listings)
         
       })
       //catch apollo/graphQL failure
