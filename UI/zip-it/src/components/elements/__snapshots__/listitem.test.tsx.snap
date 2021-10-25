@@ -10,6 +10,7 @@ LoadedCheerio {
       Node {
         "attribs": Object {
           "class": "chakra-image css-9100mp",
+          "src": "https://picsum.photos/100?random=1",
         },
         "children": Array [],
         "name": "img",
@@ -152,9 +153,11 @@ LoadedCheerio {
         "type": "tag",
         "x-attribsNamespace": Object {
           "class": undefined,
+          "src": undefined,
         },
         "x-attribsPrefix": Object {
           "class": undefined,
+          "src": undefined,
         },
       },
       Node {
@@ -284,6 +287,7 @@ LoadedCheerio {
         "prev": Node {
           "attribs": Object {
             "class": "chakra-image css-9100mp",
+            "src": "https://picsum.photos/100?random=1",
           },
           "children": Array [],
           "name": "img",
@@ -294,9 +298,11 @@ LoadedCheerio {
           "type": "tag",
           "x-attribsNamespace": Object {
             "class": undefined,
+            "src": undefined,
           },
           "x-attribsPrefix": Object {
             "class": undefined,
+            "src": undefined,
           },
         },
         "type": "tag",

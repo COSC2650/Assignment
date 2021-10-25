@@ -11,31 +11,31 @@ namespace API.Models
         public int UserID { get; set; }
 
         [Required, MinLength(3), MaxLength(50)]
-        public string FirstName { get; set; }
+        public string UserFirstName { get; set; }
 
         [Required, MinLength(3), MaxLength(50)]
-        public string LastName { get; set; }
+        public string UserLastName { get; set; }
 
         [Required, MinLength(3), MaxLength(50)]
-        public string Street { get; set; }
+        public string UserStreet { get; set; }
         
         [Required, MinLength(3), MaxLength(50)]
-        public string City { get; set; }
+        public string UserCity { get; set; }
 
         [Required, MinLength(3), MaxLength(3)]
-        public string State { get; set; }
+        public string UserState { get; set; }
 
         [Required, MinLength(4), MaxLength(4)]
-        public int PostCode { get; set; }
+        public int UserPostCode { get; set; }
         
         [Required, EmailAddress]
-        public string Email { get; set; }
+        public string UserEmail { get; set; }
 
         [Required]
-        public string PasswordHash { get; set; }
+        public string UserPasswordHash { get; set; }
 
         [Required]
-        public Boolean EmailVerfied { get; set; }
+        public Boolean UserEmailVerfied { get; set; }
 
         [Required]
         public int RoleID {get; set; }

@@ -1,43 +1,93 @@
-import { Input, Select, Stack, Button, Icon } from '@chakra-ui/react';
-import { FaSearch } from 'react-icons/fa';
-import { useState } from 'react';
+import { Input, Select, Stack, Button, Icon } from "@chakra-ui/react";
+import { FaSearch } from "react-icons/fa";
+import { useState } from "react";
 
+//SearchDetails constructor
 export interface SearchDetails {
-  postcode: number;
-  type: string;
-  category: string;
+  listingPostcode: number;
+  listingType: string;
+  listingCategory: string;
 }
 
+//interface to caller
 export interface SearchProps {
-  onSearchI(props: SearchDetails): void;
+  onSearchInterface(props: SearchDetails): void;
 }
 
 export function Search(props: SearchProps) {
   //defines Search Type and creates setter
-  const [postcode, setPostcode] = useState(0o0);
-  const [type, setType] = useState('');
-  const [category, setCategory] = useState("");
-  
+  const [listingPostcode, setPostcode] = useState(0o0);
+  const [listingType, setType] = useState("");
+  const [listingCategory, setCategory] = useState("");
 
   //on change calls setSearchType
   const postcodeOnChange = (event) => setPostcode(event.target.value);
   const typeOnChange = (event) => setType(event.target.value);
   const categoryOnChange = (event) => setCategory(event.target.value);
-  
-  const onSearch = () => {
-    //sets Search Details
-    const searchDetails: SearchDetails = {
-      postcode: postcode,
-      type: type,
-      category: category,
-      
-    };
 
-    props.onSearchI(searchDetails);
+  const onSearch = () => {
+    //sets search setails
+    const searchDetails: SearchDetails = {
+      listingPostcode: listingPostcode,
+      listingType: listingType,
+      listingCategory: listingCategory,
+    };
+    //sets details in interface
+    props.onSearchInterface(searchDetails);
   };
 
+  //search menu logic
+  function CategorySelection() {
+    if (listingType === "product") {
+      return (
+        <>
+          <Select
+            placeholder="Condition"
+            type="condition"
+            id="condition"
+            onChange={categoryOnChange}
+          >
+            <option value="goodcondition">Good Condition</option>
+            <option value="wellused">Well used</option>
+            <option value="barelyused">Barely Used</option>
+            <option value="unused">Unused</option>
+          </Select>
+        </>
+      );
+    }
+    if (listingType === "service") {
+      return (
+        <>
+          <Select
+            placeholder="Qualification"
+            type="qualificaiton"
+            id="qualification"
+            onChange={categoryOnChange}
+          >
+            <option value="qualified">Qualified</option>
+            <option value="licenced">Qualified and Certified</option>
+            <option value="unqualified">Unqualified and Uncertified</option>
+          </Select>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Select
+            placeholder="Category"
+            type="category"
+            id="category"
+            onChange={categoryOnChange}
+            disabled
+          ></Select>
+        </>
+      );
+    }
+  }
+
+//search menu component
   return (
-    <Stack direction={['column']} w={['100%', '300px']}>
+    <Stack direction={["column"]} w={["100%", "300px"]}>
       <Input
         placeholder="Post Code"
         variant="filled"
@@ -54,18 +104,7 @@ export function Search(props: SearchProps) {
         <option value="product">Product</option>
         <option value="service">Service</option>
       </Select>
-      <Select placeholder="Category"
-        type="category"
-        id="category"
-        onChange={categoryOnChange}>
-        <option value="option1">Good Condition</option>
-        <option value="option2">Well used</option>
-        <option value="option3">Barely Used</option>
-        <option value="option1">Unused</option>
-        <option value="option2">Qualified</option>
-        <option value="option3">Qualified and Certified</option>
-        <option value="option1">Unqualified and Uncertified</option>
-      </Select>
+      <CategorySelection />
       <Select placeholder="Availibility">
         <option value="option1">Now</option>
         <option value="option2">Then</option>
