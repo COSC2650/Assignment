@@ -10,9 +10,9 @@ export function Listings() {
 
   //default query parameters
   var SearchDetails = {
-    postcode: 0o0,
+    listingPostcode: 0o0,
     listingType: "",
-    category: "",
+    listingCategory: "",
   };
 
   const queryAPI = (props: SearchDetails) => {
@@ -26,18 +26,10 @@ export function Listings() {
       .query(query(props))
       .then((result) => {
         //create constant from result
-        if (
-          props.postcode !== 0 ||
-          props.listingType !== "" ||
-          props.category !== ""
-        ) {
+        
           listings = result.data.listingsByFilter;
           setListings(listings);
-        } else {
-          listings = result.data.listings;
-          setListings(listings);
-        }
-
+        
         //debug what is returned
         console.log("Returned:");
         console.log(listings);

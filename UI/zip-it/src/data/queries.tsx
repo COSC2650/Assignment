@@ -16,15 +16,15 @@ const query = (props) => {
     };
   }
   if (
-    props.postcode !== 0 ||
+    props.listingPostcode !== 0 ||
     props.listingType !== "" ||
-    props.category !== ""
+    props.listingCategory !== ""
   ) {
     console.log("listings query --------------------------------------");
     return {
       query: gql`
         {
-          listingsByFilter(listingPostcode:${props.postcode},listingType:"${props.listingType}",category:"${props.category}") {
+          listingsByFilter(listingPostcode:${props.listingPostcode},listingType:"${props.listingType}",category:"${props.listingCategory}") {
             listingID
             title
             description
@@ -39,15 +39,15 @@ const query = (props) => {
     console.log("Default query -- Zip-It");
     return {
       query: gql`
-        {
-          listings {
-            listingID
-            title
-            description
-            imageURL
-            listingType
-          }
+      {
+        listingsByFilter(listingPostcode:${props.listingPostcode},listingType:"${props.listingType}",category:"${props.listingCategory}") {
+          listingID
+          title
+          description
+          imageURL
+          listingType
         }
+      }
       `,
     };
   }

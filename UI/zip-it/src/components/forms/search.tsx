@@ -3,9 +3,9 @@ import { FaSearch } from "react-icons/fa";
 import { useState } from "react";
 
 export interface SearchDetails {
-  postcode: number;
+  listingPostcode: number;
   listingType: string;
-  category: string;
+  listingCategory: string;
 }
 
 export interface SearchProps {
@@ -14,9 +14,9 @@ export interface SearchProps {
 
 export function Search(props: SearchProps) {
   //defines Search Type and creates setter
-  const [postcode, setPostcode] = useState(0o0);
+  const [listingPostcode, setPostcode] = useState(0o0);
   const [listingType, setType] = useState("");
-  const [category, setCategory] = useState("");
+  const [listingCategory, setCategory] = useState("");
 
   //on change calls setSearchType
   const postcodeOnChange = (event) => setPostcode(event.target.value);
@@ -26,9 +26,9 @@ export function Search(props: SearchProps) {
   const onSearch = () => {
     //sets Search Details
     const searchDetails: SearchDetails = {
-      postcode: postcode,
+      listingPostcode: listingPostcode,
       listingType: listingType,
-      category: category,
+      listingCategory: listingCategory,
     };
 
     props.onSearchI(searchDetails);
