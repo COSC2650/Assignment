@@ -45,18 +45,18 @@ export function Register(props: RegisterProps) {
 
         setFormValidationHidden(false);
 
-        if (email === "" || !regexp.test(email)) {
+        if (!regexp.test(email)) {
             setFormValidationMessage("Your email is empty or invalid");
-        } else if (firstName === "") {
-            setFormValidationMessage("Your first name is empty");
-        } else if (lastName === "") {
-            setFormValidationMessage("Your last name is empty");
-        } else if (password === "") {
-            setFormValidationMessage("Your passwork is empty");
-        } else if (passwordConfirm === "") {
-            setFormValidationMessage("Your confirmation password is empty");
+        } else if (firstName.length < 2 || firstName.length > 50) {
+            setFormValidationMessage("Your first name is either empty or an invalid length");
+        } else if (lastName.length < 2 || lastName.length > 50) {
+            setFormValidationMessage("Your last name is either empty or an invalid length");
+        } else if (password.length < 2 || password.length > 50) {
+            setFormValidationMessage("Your passwork is either empty or an invalid length");
+        } else if (passwordConfirm.length < 2 || passwordConfirm.length > 50) {
+            setFormValidationMessage("Your confirmation password is either empty or an invalid length");
         } else if (password !== passwordConfirm) {
-            setFormValidationMessage("Your password and confirmation passwork do not match");
+            setFormValidationMessage("Your password and confirmation password do not match");
         } else {
             setFormValidationHidden(true);
             props.onRegister(registrationDetails);

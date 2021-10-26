@@ -20,18 +20,18 @@ namespace API.Services
   
         public async Task<User> CreateUser(AddUserInput input)
         {  
-            var hash = Hashbrowns.HashPassword(input.Password);
+            var hash = Hashbrowns.HashPassword(input.UserPassword);
             var user = new User
             {
-                FirstName = input.FirstName,
-                LastName = input.LastName,
-                Street = input.Street,
-                City = input.City,
-                State = input.State,
-                PostCode = input.PostCode,
-                Email = input.Email,
-                PasswordHash = hash,
-                EmailVerfied = false,
+                UserFirstName = input.UserFirstName,
+                UserLastName = input.UserLastName,
+                UserStreet = input.UserStreet,
+                UserCity = input.UserCity,
+                UserState = input.UserState,
+                UserPostCode = input.UserPostCode,
+                UserEmail = input.UserEmail,
+                UserPasswordHash = hash,
+                UserEmailVerfied = false,
                 RoleID = 2
             };
 
@@ -61,14 +61,14 @@ namespace API.Services
             var users = _context.Users.AsQueryable();
             foreach(User user in users)
             {
-                user.PasswordHash = "#";
+                user.UserPasswordHash = "#";
             }
             return users;
         }
 
         public async Task<User> GetUserByEmail(string email, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(c => c.Email == email);
+            var user = await _context.Users.FirstOrDefaultAsync(c => c.UserEmail == email);
             if(user is null)
                 return null;
             
@@ -76,13 +76,13 @@ namespace API.Services
             if (!result)
                 return null;
             
-            user.PasswordHash = "#";
+            user.UserPasswordHash = "#";
             return user;
         }
 
         public Boolean ValidatePassword(User user, string password)
         {
-            return Hashbrowns.ValidatePassword(password, user.PasswordHash);
+            return Hashbrowns.ValidatePassword(password, user.UserPasswordHash);
         }
     }
 }

@@ -24,6 +24,8 @@ describe('LogIn', () => {
         // Intentional
       },
       visible: true,
+
+      disabled:false
     };
 
     const component = render(<Login {...props} />);
@@ -42,6 +44,8 @@ describe('LogIn', () => {
         // Intentional
       },
       visible: false,
+
+      disabled:false
     };
 
     // Render the component in a hidden state
@@ -67,6 +71,8 @@ describe('LogIn', () => {
       onOpenRegister: mockOnOpenRegisterCallBack,
       onClose: mockOnCloseCallBack,
       visible: true,
+
+      disabled:false
     };
 
     // Render the component in a hidden state
@@ -92,6 +98,8 @@ describe('LogIn', () => {
       onOpenRegister: mockOnOpenRegisterCallBack,
       onClose: mockOnCloseCallBack,
       visible: true,
+
+      disabled:false
     };
 
     // Render the component in a hidden state
@@ -126,6 +134,8 @@ describe('LogIn', () => {
       onOpenRegister: mockOnOpenRegisterCallBack,
       onClose: mockOnCloseCallBack,
       visible: true,
+
+      disabled:false
     };
 
     // Render the component in a hidden state
@@ -150,6 +160,8 @@ describe('LogIn', () => {
       onOpenRegister: mockOnOpenRegisterCallBack,
       onClose: mockOnCloseCallBack,
       visible: true,
+
+      disabled:false
     };
 
     // Render the component in a hidden state
@@ -182,6 +194,8 @@ describe('LogIn', () => {
       onOpenRegister: mockOnOpenRegisterCallBack,
       onClose: mockOnCloseCallBack,
       visible: true,
+
+      disabled:false
     };
 
     // Render the component in a hidden state
@@ -211,6 +225,8 @@ describe('LogIn', () => {
       onOpenRegister: mockOnOpenRegisterCallBack,
       onClose: mockOnCloseCallBack,
       visible: true,
+
+      disabled:false
     };
 
     // Render the component in a hidden state
@@ -240,6 +256,8 @@ describe('LogIn', () => {
       onOpenRegister: mockOnOpenRegisterCallBack,
       onClose: mockOnCloseCallBack,
       visible: true,
+      
+      disabled:false
     };
 
     // Render the component in a hidden state

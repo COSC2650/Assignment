@@ -96,7 +96,7 @@ namespace Tests
             // Create a user
             await userService.CreateUser(input);
 
-            Assert.NotNull(await userService.GetUserByEmail(input.Email, input.Password));
+            Assert.NotNull(await userService.GetUserByEmail(input.UserEmail, input.UserPassword));
         }
 
         [Fact]
@@ -126,7 +126,7 @@ namespace Tests
             // Create a user
             await userService.CreateUser(input);
 
-            Assert.Null(await userService.GetUserByEmail("bad@email.com", input.Password));
+            Assert.Null(await userService.GetUserByEmail("bad@email.com", input.UserPassword));
         }
 
         [Fact]
@@ -156,7 +156,7 @@ namespace Tests
             // Create a user
             await userService.CreateUser(input);
 
-            Assert.Null(await userService.GetUserByEmail(input.Email, "badPassword"));
+            Assert.Null(await userService.GetUserByEmail(input.UserEmail, "badPassword"));
         }
 
          [Fact]

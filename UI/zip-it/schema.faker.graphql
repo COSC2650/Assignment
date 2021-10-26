@@ -1,30 +1,30 @@
 type User {
-  firstName: String @fake(type: firstName)
-  lastName: String @fake(type: lastName)
-  street: String @fake(type: streetAddress)
-  city: String @fake(type: city)
-  state: String @fake(type: state)
-  postCode: Int @fake(type: zipCode)
-  email: String @examples(values: ["email@email.email"])
-  emailVerified: Boolean @examples(values: [false])
+  userFirstName: String @fake(type: firstName)
+  userLastName: String @fake(type: lastName)
+  userStreet: String @fake(type: streetAddress)
+  userCity: String @fake(type: city)
+  userState: String @fake(type: state)
+  userPostCode: Int @fake(type: zipCode)
+  userEmail: String @examples(values: ["email@email.email"])
+  userVerified: Boolean @examples(values: [false])
 }
 
-type Advertisment {
+type Listing {
   listingID: String @fake(type: number)
-  postCode: String @fake(type: zipCode)
-  type: String @examples(values: ["product" "service"])
-  title: String @fake(type: word)
-  category: String @fake(type: productCategory)
-  condition: String @fake(type: word)
-  availibility: String @fake(type: date)
-  price: String @fake(type: number)
-  description: String
+  listingPostCode: String @fake(type: number)
+  listingType: String @examples(values: ["product" "service"])
+  listingTitle: String @fake(type: word)
+  listingCategory: String @fake(type: productCategory)
+  listingCondition: String @fake(type: word)
+  listingAvailibility: String @fake(type: date)
+  listingPrice: String @fake(type: number)
+  listingDescription: String
     @examples(
       values: [
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
-      ]
+      ] 
     )
-  imageURL: String
+  listingImageURL: String
     @examples(
       values: [
         "https://picsum.photos/100?random=1"
@@ -39,7 +39,5 @@ type Advertisment {
 
 type Query {
   userByEmail(email: String, password: String): User
-  adsByCategory(category: String): Advertisment
-  adsByType(type: String): [Advertisment]@listLength(min: 10, max: 30)
-  ads: [Advertisment] @listLength(min: 10, max: 30)
+  listingsByFilter(listingPostCode: Int,listingType: String,listingCategory: String): [Listing]@listLength(min: 10, max: 30)
 }
