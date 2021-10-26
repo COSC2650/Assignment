@@ -4,7 +4,7 @@ import { useState } from "react";
 
 //SearchDetails constructor
 export interface SearchDetails {
-  listingPostcode: number;
+  listingPostCode: number;
   listingType: string;
   listingCategory: string;
 }
@@ -16,19 +16,19 @@ export interface SearchProps {
 
 export function Search(props: SearchProps) {
   //defines Search Type and creates setter
-  const [listingPostcode, setPostcode] = useState(0o0);
+  const [listingPostCode, setPostCode] = useState(0o0);
   const [listingType, setType] = useState("");
   const [listingCategory, setCategory] = useState("");
 
   //on change calls setSearchType
-  const postcodeOnChange = (event) => setPostcode(event.target.value);
+  const postcodeOnChange = (event) => setPostCode(event.target.value);
   const typeOnChange = (event) => setType(event.target.value);
   const categoryOnChange = (event) => setCategory(event.target.value);
 
   const onSearch = () => {
     //sets search setails
     const searchDetails: SearchDetails = {
-      listingPostcode: listingPostcode,
+      listingPostCode: listingPostCode,
       listingType: listingType,
       listingCategory: listingCategory,
     };

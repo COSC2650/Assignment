@@ -4,14 +4,14 @@ type User {
   userStreet: String @fake(type: streetAddress)
   userCity: String @fake(type: city)
   userState: String @fake(type: state)
-  userPostode: Int @fake(type: zipCode)
+  userPostCode: Int @fake(type: zipCode)
   userEmail: String @examples(values: ["email@email.email"])
   userVerified: Boolean @examples(values: [false])
 }
 
 type Listing {
   listingID: String @fake(type: number)
-  listingPostcode: String @fake(type: number)
+  listingPostCode: String @fake(type: number)
   listingType: String @examples(values: ["product" "service"])
   listingTitle: String @fake(type: word)
   listingCategory: String @fake(type: productCategory)
@@ -39,5 +39,5 @@ type Listing {
 
 type Query {
   userByEmail(email: String, password: String): User
-  listingsByFilter(listingPostcode: Int,listingType: String,listingCategory: String): [Listing]@listLength(min: 10, max: 30)
+  listingsByFilter(listingPostCode: Int,listingType: String,listingCategory: String): [Listing]@listLength(min: 10, max: 30)
 }
