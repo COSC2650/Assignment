@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Search Should render correctly 1`] = `
+exports[`Search Component Should render correctly 1`] = `
 LoadedCheerio {
   "0": Node {
     "attribs": Object {
@@ -10,7 +10,7 @@ LoadedCheerio {
       Node {
         "attribs": Object {
           "class": "chakra-input css-0",
-          "id": "postCode",
+          "id": "listingPostcode",
           "placeholder": "Post Code",
           "type": "number",
         },
@@ -25,7 +25,7 @@ LoadedCheerio {
             Node {
               "attribs": Object {
                 "class": "chakra-select css-1ik61og",
-                "id": "type",
+                "id": "listingType",
                 "type": "type",
               },
               "children": Array [
@@ -416,7 +416,7 @@ LoadedCheerio {
               "prev": Node {
                 "attribs": Object {
                   "class": "chakra-select css-1ik61og",
-                  "id": "type",
+                  "id": "listingType",
                   "type": "type",
                 },
                 "children": Array [
@@ -2199,7 +2199,7 @@ LoadedCheerio {
           Node {
             "attribs": Object {
               "class": "chakra-select css-1ik61og",
-              "id": "type",
+              "id": "listingType",
               "type": "type",
             },
             "children": Array [
@@ -2590,7 +2590,7 @@ LoadedCheerio {
             "prev": Node {
               "attribs": Object {
                 "class": "chakra-select css-1ik61og",
-                "id": "type",
+                "id": "listingType",
                 "type": "type",
               },
               "children": Array [
@@ -4343,7 +4343,7 @@ LoadedCheerio {
         "prev": Node {
           "attribs": Object {
             "class": "chakra-input css-0",
-            "id": "postCode",
+            "id": "listingPostcode",
             "placeholder": "Post Code",
             "type": "number",
           },
@@ -5862,7 +5862,7 @@ LoadedCheerio {
             Node {
               "attribs": Object {
                 "class": "chakra-select css-1ik61og",
-                "id": "type",
+                "id": "listingType",
                 "type": "type",
               },
               "children": Array [
@@ -6253,7 +6253,7 @@ LoadedCheerio {
               "prev": Node {
                 "attribs": Object {
                   "class": "chakra-select css-1ik61og",
-                  "id": "type",
+                  "id": "listingType",
                   "type": "type",
                 },
                 "children": Array [
@@ -6519,7 +6519,7 @@ LoadedCheerio {
           "prev": Node {
             "attribs": Object {
               "class": "chakra-input css-0",
-              "id": "postCode",
+              "id": "listingPostcode",
               "placeholder": "Post Code",
               "type": "number",
             },
@@ -8038,7 +8038,7 @@ LoadedCheerio {
               Node {
                 "attribs": Object {
                   "class": "chakra-select css-1ik61og",
-                  "id": "type",
+                  "id": "listingType",
                   "type": "type",
                 },
                 "children": Array [
@@ -8429,7 +8429,7 @@ LoadedCheerio {
                 "prev": Node {
                   "attribs": Object {
                     "class": "chakra-select css-1ik61og",
-                    "id": "type",
+                    "id": "listingType",
                     "type": "type",
                   },
                   "children": Array [
@@ -8695,7 +8695,7 @@ LoadedCheerio {
             "prev": Node {
               "attribs": Object {
                 "class": "chakra-input css-0",
-                "id": "postCode",
+                "id": "listingPostcode",
                 "placeholder": "Post Code",
                 "type": "number",
               },
@@ -10212,7 +10212,7 @@ LoadedCheerio {
                 Node {
                   "attribs": Object {
                     "class": "chakra-select css-1ik61og",
-                    "id": "type",
+                    "id": "listingType",
                     "type": "type",
                   },
                   "children": Array [
@@ -10603,7 +10603,7 @@ LoadedCheerio {
                   "prev": Node {
                     "attribs": Object {
                       "class": "chakra-select css-1ik61og",
-                      "id": "type",
+                      "id": "listingType",
                       "type": "type",
                     },
                     "children": Array [
@@ -10869,7 +10869,7 @@ LoadedCheerio {
               "prev": Node {
                 "attribs": Object {
                   "class": "chakra-input css-0",
-                  "id": "postCode",
+                  "id": "listingPostcode",
                   "placeholder": "Post Code",
                   "type": "number",
                 },
