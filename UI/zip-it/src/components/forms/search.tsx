@@ -87,7 +87,7 @@ export function Search(props: SearchProps) {
 
 //search menu component
   return (
-    <Stack direction={["column"]} w={["100%", "300px"]}>
+    <Stack direction={["column"]} w={["100%", "500px"]}>
       <Input
         placeholder="Post Code"
         variant="filled"

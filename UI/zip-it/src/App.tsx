@@ -4,9 +4,9 @@ import { useColorMode, useToast } from "@chakra-ui/react";
 import Login, { LoginDetails } from "./components/forms/login";
 import Logout, { LogoutDetails } from "./components/forms/logout";
 import Register, { RestrationDetails } from "./components/forms/register";
+import ListingInfoDrawer, { ListingDetails } from "./components/forms/listinginfodrawer";
 import query from "./data/queries";
 import clientConnection from "./data/client";
-import { Listings } from "./components/display/itemlist";
 
 function App() {
   const [userTitle, setUserTitle] = useState("Welcome");
@@ -15,6 +15,7 @@ function App() {
   const [loginVisible, setLoginVisible] = useState(false);
   const [logoutVisible, setLogoutVisible] = useState(false);
   const [registerVisible, setRegisterVisible] = useState(false);
+  const [listingdrawerVisible, setListingDrawerVisible] = useState(false);
   const { toggleColorMode } = useColorMode();
   const onShowLogin = () => {
     setLoginVisible(true);
@@ -96,7 +97,7 @@ function App() {
         setDisableInput(false);
       });
   };
-
+ 
   //logic for logout function
   const onLogout = (props: LogoutDetails) => {
     //log out confirmation
@@ -117,6 +118,7 @@ function App() {
     //hide login
     setLogoutVisible(false);
   };
+  
   const onRegister = (props: RestrationDetails) => {
     if (true) {
       toast({
@@ -134,6 +136,13 @@ function App() {
     setRegisterVisible(false);
   };
 
+  const onSelectListing = (props:ListingDetails) =>{
+
+//Fill in details that need to be written to the main page here
+
+    setListingDrawerVisible(true);
+  }
+
   return (
     <>
       <Header
@@ -143,6 +152,7 @@ function App() {
         userTitle={userTitle}
         authenticated={authenticated}
       ></Header>
+      
       <Login
         disabled={disableInput}
         visible={loginVisible}
@@ -161,7 +171,13 @@ function App() {
         onRegister={onRegister}
         onClose={onRegisterClose}
       ></Register>
-      <Listings />
+
+      <ListingInfoDrawer 
+        disabled={disableInput}
+        visible={listingdrawerVisible}
+        onSelectListing = {onSelectListing}
+        onClose={onRegisterClose}
+      ></ListingInfoDrawer>
     </>
   );
 }
