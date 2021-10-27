@@ -4,14 +4,14 @@ type User {
   userStreet: String @fake(type: streetAddress)
   userCity: String @fake(type: city)
   userState: String @fake(type: state)
-  userPostCode: Int @fake(type: zipCode)
+  userPostcode: Int @fake(type: zipCode)
   userEmail: String @examples(values: ["email@email.email"])
   userVerified: Boolean @examples(values: [false])
 }
 
 type Listing {
   listingID: String @fake(type: number)
-  listingPostCode: String @fake(type: number)
+  listingPostcode: String @fake(type: number)
   listingType: String @examples(values: ["product" "service"])
   listingTitle: String @fake(type: word)
   listingCategory: String @fake(type: productCategory)
@@ -37,7 +37,25 @@ type Listing {
     )
 }
 
+type Verification {
+  userEmail: String @examples(values: ["email@email.email"])
+  veriCodeInit: Int @fake(type: number)
+	veriCodeMatch: Int @fake(type: number)
+}
+
+
+
 type Query {
   userByEmail(email: String, password: String): User
-  listingsByFilter(listingPostCode: Int,listingType: String,listingCategory: String): [Listing]@listLength(min: 10, max: 30)
+  listingsByFilter(listingPostcode: Int,listingType: String,listingCategory: String): [Listing]@listLength(min: 10, max: 30)
+  getVeriCode(email: String):Verification
+}
+
+type Mutation{
+  setVeriCodeMatch(email:String, veriCodeMatch:String):Verification
+  setUserDetails(email:String, userFirstName:String, userLastName:String, userStreet:String, userCity:String, userPostcode:Int, userVerified:Boolean):User
+  modifyUserDetails(email:String, userFirstName:String, userLastName:String, userStreet:String, userCity:String, userPostcode:Int, userVerified:Boolean):User
+  setUserPassword(email:String, password:String):User
+  setListingDetials(listingID: String, listingPostcode: String, listingType: String, listingTitle: String, listingCategory: String, listingCondition: String, listingAvailibility: String, listingPrice: String, listingDescription: String, listingImageURL: String):Listing
+  modifyListingDetials(listingID: String, listingPostcode: String, listingType: String, listingTitle: String, listingCategory: String, listingCondition: String, listingAvailibility: String, listingPrice: String, listingDescription: String, listingImageURL: String):Listing
 }
