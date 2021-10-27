@@ -24,7 +24,7 @@ namespace API.Extensions
 
             message.Subject ="Confirmation Code";
 
-            message.Body = String.Concat("Welcome to Zip It Online!", "\n\n", "Please enter the confirmation code below to confirm your account: ", confirmationCode.ToString());
+            message.Body = String.Concat("Welcome to Zip It Online!", "\n\n", "Please enter the following confirmation code in the login screen to activate your account: ", confirmationCode.ToString());
             message.BodyEncoding =  System.Text.Encoding.UTF8;
             message.Subject = "Zip It Online Confirmation";
             message.SubjectEncoding = System.Text.Encoding.UTF8;

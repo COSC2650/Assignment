@@ -5,7 +5,7 @@ const mutation = (props) => {
     return {
         mutation: gql`
                 mutation {
-                    createUser(input: { userFirstName: "${props.data.userFirstName}", userLastName: "${props.data.userLastName}", userEmail: "${props.data.userEmail}", userPassword: "${props.data.userPassword}", userStreet: "${props.data.userStreet}", userCity: "${props.data.userCity}", userState: "${props.data.userState}", userPostCode: ${props.data.userPostCode} }) {
+                    createUser(input: { userFirstName: "${props.userFirstName}", userLastName: "${props.userLastName}", userEmail: "${props.userEmail}", userPassword: "${props.userPassword}", userStreet: "${props.userStreet}", userCity: "${props.userCity}", userState: "${props.userState}", userPostCode: ${props.userPostCode} }) {
                         userID
                     }
                 }
