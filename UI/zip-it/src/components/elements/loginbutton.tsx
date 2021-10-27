@@ -2,7 +2,7 @@ import React from 'react';
 import { IconButton, Button, Icon, useColorModeValue } from '@chakra-ui/react';
 import { FaUser } from 'react-icons/fa';
 
-interface LogInProps {
+export interface LogInProps {
   toggleLogIn(): void;
 }
 

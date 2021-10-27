@@ -21,19 +21,43 @@ type Role {
 }
 
 type Listing {
-    listingID: String @fake(type: number)
-    listingPostCode: String @fake(type: number)
-    listingType: String @examples(values: ["product", "service"])
-    listingTitle: String @fake(type: word)
-    listingCategory: String @fake(type: productCategory)
-    listingCondition: String @fake(type: word)
-    listingAvailibility: String @fake(type: date)
-    listingPrice: String @fake(type: number)
-    listingDescription: String @examples(values: ["Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "])
-    listingImageURL: String @examples(values: ["https://picsum.photos/100?random=1", "https://picsum.photos/100?random=2", "https://picsum.photos/100?random=3", "https://picsum.photos/100?random=4", "https://picsum.photos/100?random=5", "https://picsum.photos/100?random=6"])
+  listingID: String @fake(type: number)
+  listingPostCode: Int @fake(type: number)
+  listingType: String @examples(values: ["product" "service"])
+  listingTitle: String @fake(type: word)
+  listingCategory: String @fake(type: productCategory)
+  listingCondition: String @fake(type: word)
+  listingAvailibility: String @fake(type: date)
+  listingPrice: String @fake(type: number)
+  listingDescription: String
+    @examples(
+      values: [
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
+      ] 
+    )
+  listingImageURL: String
+    @examples(
+      values: [
+        "https://picsum.photos/100?random=1"
+        "https://picsum.photos/100?random=2"
+        "https://picsum.photos/100?random=3"
+        "https://picsum.photos/100?random=4"
+        "https://picsum.photos/100?random=5"
+        "https://picsum.photos/100?random=6"
+      ]
+    )
 }
 
+type Verification {
+  userEmail: String @examples(values: ["email@email.email"])
+  veriCodeInit: Int @fake(type: number)
+	verified: Boolean @examples(values: [false])
+}
+
+
+
 type Query {
+<<<<<<< HEAD
     userByEmail(email: String, password: String): User
     listingsByFilter(listingPostCode: Int, listingType: String, listingCategory: String): [Listing] @listLength(min: 10, max: 30)
 }
@@ -52,4 +76,18 @@ input AddUserInput {
 type Mutation {
     createUser(input: AddUserInput): User
     deleteUser(userID: Int!): Boolean!
+=======
+  userByEmail(email: String, password: String): User
+  listingsByFilter(listingPostCode: Int,listingType: String,listingCategory: String): [Listing]@listLength(min: 10, max: 30)
+  getVeriCode(email: String):Verification
+}
+
+type Mutation{
+  setVeriCodeMatch(email:String):User
+  setUserDetails(email:String, userFirstName:String, userLastName:String, userStreet:String, userCity:String, userPostCode:Int, userVerified:Boolean, password:String):User
+  modifyUserDetails(email:String, userFirstName:String, userLastName:String, userStreet:String, userCity:String, userPostCode:Int, userVerified:Boolean):User
+  setUserPassword(email:String, password:String, oldPassword:String):User
+  setListingDetials(userID: String, listingID: String, listingPostCode: String, listingType: String, listingTitle: String, listingCategory: String, listingCondition: String, listingAvailibility: String, listingPrice: String, listingDescription: String, listingImageURL: String):Listing
+  modifyListingDetials(userID: String, listingID: String, listingPostCode: String, listingType: String, listingTitle: String, listingCategory: String, listingCondition: String, listingAvailibility: String, listingPrice: String, listingDescription: String, listingImageURL: String):Listing
+>>>>>>> origin/main
 }
