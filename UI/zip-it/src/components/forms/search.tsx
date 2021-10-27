@@ -1,6 +1,6 @@
-import { Input, Select, Stack, Button, Icon } from "@chakra-ui/react";
-import { FaSearch } from "react-icons/fa";
-import { useState } from "react";
+import { Input, Select, Stack, Button, Icon } from '@chakra-ui/react';
+import { FaSearch } from 'react-icons/fa';
+import { useState } from 'react';
 
 //SearchDetails constructor
 export interface SearchDetails {
@@ -17,8 +17,8 @@ export interface SearchProps {
 export function Search(props: SearchProps) {
   //defines Search Type and creates setter
   const [listingPostCode, setPostCode] = useState(0o0);
-  const [listingType, setType] = useState("");
-  const [listingCategory, setCategory] = useState("");
+  const [listingType, setType] = useState('');
+  const [listingCategory, setCategory] = useState('');
 
   //on change calls setSearchType
   const postcodeOnChange = (event) => setPostCode(event.target.value);
@@ -32,19 +32,25 @@ export function Search(props: SearchProps) {
       listingType: listingType,
       listingCategory: listingCategory,
     };
+
+    // Email regex
+    var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
+
     //sets details in interface
-    props.onSearchInterface(searchDetails);
+    if (!regexp.test('{listingPostCode}')) {
+      props.onSearchInterface(searchDetails);
+    }
   };
 
   //search menu logic
   function CategorySelection() {
-    if (listingType === "product") {
+    if (listingType === 'product') {
       return (
         <>
           <Select
             placeholder="Condition"
             type="condition"
-            id="condition"
+            id="listingCondition"
             onChange={categoryOnChange}
           >
             <option value="goodcondition">Good Condition</option>
@@ -55,7 +61,7 @@ export function Search(props: SearchProps) {
         </>
       );
     }
-    if (listingType === "service") {
+    if (listingType === 'service') {
       return (
         <>
           <Select
@@ -85,20 +91,20 @@ export function Search(props: SearchProps) {
     }
   }
 
-//search menu component
+  //search menu component
   return (
-    <Stack direction={["column"]} w={["100%", "300px"]}>
+    <Stack direction={['column']} w={['100%', '300px']}>
       <Input
         placeholder="Post Code"
         variant="filled"
         type="number"
-        id="postCode"
+        id="listingPostcode"
         onChange={postcodeOnChange}
       />
       <Select
         placeholder="Products or Services"
         type="type"
-        id="type"
+        id="listingType"
         onChange={typeOnChange}
       >
         <option value="product">Product</option>
