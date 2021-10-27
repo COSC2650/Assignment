@@ -3,14 +3,14 @@ import { Flex, Spacer } from "@chakra-ui/layout";
 import { useState } from "react";
 
 export interface RestrationDetails {
-    email: string;
-    firstName: string;
-    lastName: string;
-    password: string;
-    street: string;
-    city: string;
-    state: string;
-    postCode: number;
+    userEmail: string;
+    userFirstName: string;
+    userLastName: string;
+    userPassword: string;
+    userStreet: string;
+    userCity: string;
+    userState: string;
+    userPostCode: number;
 }
 
 export interface RegisterProps {
@@ -46,14 +46,14 @@ export function Register(props: RegisterProps) {
 
     const onRegister = () => {
         const registrationDetails: RestrationDetails = {
-            email: email,
-            firstName: firstName,
-            lastName: lastName,
-            password: password,
-            street: street,
-            city: city,
-            state: state,
-            postCode: postCode,
+            userEmail: email,
+            userFirstName: firstName,
+            userLastName: lastName,
+            userPassword: password,
+            userStreet: street,
+            userCity: city,
+            userState: state,
+            userPostCode: postCode,
         };
 
         // Email regex
