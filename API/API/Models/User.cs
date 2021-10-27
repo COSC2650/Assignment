@@ -35,7 +35,7 @@ namespace API.Models
         public string UserPasswordHash { get; set; }
 
         [Required]
-        public Boolean UserEmailVerfied { get; set; }
+        public Boolean UserEmailVerified { get; set; }
 
         [Required]
         public int RoleID {get; set; }
