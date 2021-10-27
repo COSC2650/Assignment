@@ -82,9 +82,9 @@ namespace API.Services
             return result;
         }
 
-        public async Task<bool> DeleteUser(int UserID)
+        public async Task<bool> DeleteUser(int userID)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(c => c.UserID == UserID);
+            var user = await _context.Users.FirstOrDefaultAsync(c => c.UserID == userID);
             var response = false;
 
             if (user is not null)
