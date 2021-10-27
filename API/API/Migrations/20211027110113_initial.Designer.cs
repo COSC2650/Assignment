@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(ZipitContext))]
-    [Migration("20211025213235_initial")]
+    [Migration("20211027110113_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -129,7 +129,7 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(767)");
 
-                    b.Property<bool>("UserEmailVerfied")
+                    b.Property<bool>("UserEmailVerified")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("UserFirstName")
