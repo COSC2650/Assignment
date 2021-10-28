@@ -1,12 +1,23 @@
 type User {
-  userFirstName: String @fake(type: firstName)
-  userLastName: String @fake(type: lastName)
-  userStreet: String @fake(type: streetAddress)
-  userCity: String @fake(type: city)
-  userState: String @fake(type: state)
-  userPostCode: Int @fake(type: zipCode)
-  userEmail: String @examples(values: ["email@email.email"])
-  userVerified: Boolean @examples(values: [false])
+    userID: Int! @fake(type: number)
+    userFirstName: String @fake(type: firstName)
+    userLastName: String @fake(type: lastName)
+    userStreet: String @fake(type: streetAddress)
+    userCity: String @fake(type: city)
+    userState: String @fake(type: state)
+    userPostCode: Int @fake(type: zipCode)
+    userEmail: String!
+    userPasswordHash: String!
+    userEmailVerfied: Boolean! @examples(values: [true, false])
+    roleID: Int!
+    role: Role
+    listings: [Listing]
+}
+
+type Role {
+    roleID: Int! @fake(type: number)
+    roleName: String! @fake(type: lorem)
+    users: [User]
 }
 
 type Listing {
@@ -46,6 +57,26 @@ type Verification {
 
 
 type Query {
+<<<<<<< HEAD
+    userByEmail(email: String, password: String): User
+    listingsByFilter(listingPostCode: Int, listingType: String, listingCategory: String): [Listing] @listLength(min: 10, max: 30)
+}
+
+input AddUserInput {
+    userFirstName: String
+    userLastName: String
+    userStreet: String
+    userCity: String
+    userState: String
+    userPostCode: Int!
+    userEmail: String
+    userPassword: String
+}
+
+type Mutation {
+    createUser(input: AddUserInput): User
+    deleteUser(userID: Int!): Boolean!
+=======
   userByEmail(email: String, password: String): User
   listingsByFilter(listingPostCode: Int,listingType: String,listingCategory: String): [Listing]@listLength(min: 10, max: 30)
   getVeriCode(email: String):Verification
@@ -58,4 +89,5 @@ type Mutation{
   setUserPassword(email:String, password:String, oldPassword:String):User
   setListingDetials(userID: String, listingID: String, listingPostCode: String, listingType: String, listingTitle: String, listingCategory: String, listingCondition: String, listingAvailibility: String, listingPrice: String, listingDescription: String, listingImageURL: String):Listing
   modifyListingDetials(userID: String, listingID: String, listingPostCode: String, listingType: String, listingTitle: String, listingCategory: String, listingCondition: String, listingAvailibility: String, listingPrice: String, listingDescription: String, listingImageURL: String):Listing
+>>>>>>> origin/main
 }
