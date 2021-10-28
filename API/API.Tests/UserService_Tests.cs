@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using API.GraphQL.Users;
 using API.Extensions;
 using Moq;
+using System;
 
 namespace Tests
 {
@@ -71,6 +72,34 @@ namespace Tests
 
             // Assert that the generated list is equal to the returned
             Assert.Equal(userToAssert, user);
+        }
+
+        [Fact]
+        public async Task UserService_Create_AlredyExists()
+        {
+            // Create sample users
+            User user;
+            AddUserInput input = GenerateUserInput();
+
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                  .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                  .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the UserService with the mocked context
+            UserService userService = new(context);
+
+            // Create a user
+            await userService.CreateUser(input, mockedSMTPClient.Object);
+
+            // Try to create the user again
+            user = await userService.CreateUser(input, mockedSMTPClient.Object);
+
+            // Assert that the generated list is equal to the returned
+            Assert.Equal(0, user.UserID);
         }
 
         [Fact]
@@ -200,6 +229,35 @@ namespace Tests
              // Check we have successfully delete the user
              Assert.Equal(0, userService.GetAll().Count());
          }
+
+        [Fact]
+        public async Task UserService_ConfirmUser()
+        {
+            // Create sample users
+            User user;
+            AddUserInput input = GenerateUserInput();
+
+             // Change the context options to use an inmemory database
+             var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                   .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                   .Options;
+
+             // Create a new instance of the ZipitContext
+             var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the UserService with the mocked context
+            UserService userService = new(context);
+
+            // Create a user
+            user = await userService.CreateUser(input, mockedSMTPClient.Object);
+
+            // Retrieve the confirmation code
+            int code = context.ConfirmCodes.Where(x => x.Email == user.UserEmail).First().Code;
+
+            // Confirm the user
+            Assert.Equal((await userService.ConfirmUser(user.UserEmail, code)).UserID, user.UserID);
+        }
+
         private static IList<AddUserInput> GenerateUsers()
         {
             // Create a new instance on the fixture
@@ -214,12 +272,11 @@ namespace Tests
             // Create a new instance on the fixture
             Fixture fixture = new();
 
-            // Generte and return the list
+            // Customise the email address and return
             AddUserInput addUserInput = fixture.Build<AddUserInput>()
-                .With(x => x.UserEmail, string.Format("{0}@{1}.com", fixture.Create<string>(), fixture.Create<string>()))
-                .Create();
+            .With(x => x.UserEmail, string.Format("{0}@{1}.com", fixture.Create<string>(), fixture.Create<string>()))
+            .Create();
 
-            // Return the fixture
             return addUserInput;
         }
     }
