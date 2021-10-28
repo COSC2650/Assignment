@@ -7,10 +7,15 @@ using System.Collections.Generic;
 using AutoFixture;
 using System.Threading.Tasks;
 using API.GraphQL.Users;
+using API.Extensions;
+using Moq;
 
 namespace Tests
 {
     public class UserService_Tests {
+
+        // Mock an instance of the SMTP client
+        readonly Mock<ISmtpClient> mockedSMTPClient = new();
 
         [Fact]
         public async Task UserService_GetAll()
@@ -30,9 +35,8 @@ namespace Tests
             UserService userService = new(context);
 
             // Add the users
-            foreach (AddUserInput input in users) {
-                await userService.CreateUser(input);
-            }
+            foreach (AddUserInput input in users)
+                await userService.CreateUser(input, new API.Extensions.SmtpClient());
 
             // Get all users
             var usersToAssert = userService.GetAll();
@@ -60,7 +64,7 @@ namespace Tests
             UserService userService = new(context);
 
             // Create a user
-            user = await userService.CreateUser(input);
+            user = await userService.CreateUser(input, mockedSMTPClient.Object);
 
             // Get all users
             var userToAssert = userService.GetAll().FirstOrDefault();
@@ -94,7 +98,7 @@ namespace Tests
             UserService userService = new(context);
 
             // Create a user
-            await userService.CreateUser(input);
+            await userService.CreateUser(input, mockedSMTPClient.Object);
 
             Assert.NotNull(await userService.GetUserByEmail(input.UserEmail, input.UserPassword));
         }
@@ -124,7 +128,7 @@ namespace Tests
             UserService userService = new(context);
 
             // Create a user
-            await userService.CreateUser(input);
+            await userService.CreateUser(input, mockedSMTPClient.Object);
 
             Assert.Null(await userService.GetUserByEmail("bad@email.com", input.UserPassword));
         }
@@ -154,7 +158,7 @@ namespace Tests
             UserService userService = new(context);
 
             // Create a user
-            await userService.CreateUser(input);
+            await userService.CreateUser(input, mockedSMTPClient.Object);
 
             Assert.Null(await userService.GetUserByEmail(input.UserEmail, "badPassword"));
         }
@@ -185,7 +189,7 @@ namespace Tests
              UserService userService = new(context);
 
              // Create a user
-             var genInput = await userService.CreateUser(input);
+             var genInput = await userService.CreateUser(input, mockedSMTPClient.Object);
 
              // Check we've added a user
              Assert.Equal(1, userService.GetAll().Count());

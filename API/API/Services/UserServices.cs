@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using API.Data;
 using API.Models;
 using API.Extensions;
-using System;
 using API.GraphQL.Users;
 
 namespace API.Services
@@ -18,7 +17,7 @@ namespace API.Services
             _context = context;
         }
 
-        public async Task<User> CreateUser(AddUserInput input)
+        public async Task<User> CreateUser(AddUserInput input, ISmtpClient smtpClient)
         {
             // Create a return object
             User result;
@@ -68,7 +67,7 @@ namespace API.Services
                 _context.ConfirmCodes.Add(confirmCode);
 
                 // Send the confirmation mailer
-                Mailer mailer = new(new SmtpClient());
+                Mailer mailer = new(smtpClient);
                 mailer.SendRegistrationMail(input.UserEmail, confirmationCode);
 
                 // Save the changes to the data store
