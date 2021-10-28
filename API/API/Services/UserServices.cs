@@ -50,7 +50,7 @@ namespace API.Services
                     UserPostCode = input.UserPostCode,
                     UserEmail = input.UserEmail,
                     UserPasswordHash = hash,
-                    UserEmailVerfied = false,
+                    UserEmailVerified = false,
                     RoleID = 2
                 };
 
