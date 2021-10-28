@@ -7,6 +7,7 @@ import Register, { RestrationDetails } from './components/forms/register';
 import query from './data/queries';
 import clientConnection from './data/client';
 import { Listings } from "./components/display/itemlist";
+import NewListing from './components/forms/newListing';
 
 function App() {
   const [userTitle, setUserTitle] = useState('Welcome');
@@ -15,25 +16,39 @@ function App() {
   const [loginVisible, setLoginVisible] = useState(false);
   const [logoutVisible, setLogoutVisible] = useState(false);
   const [registerVisible, setRegisterVisible] = useState(false);
+  const [newListingVisible, setNewListingVisible] = useState(false);
   const { toggleColorMode } = useColorMode();
   const onShowLogin = () => {
+    setNewListingVisible(false);
     setLoginVisible(true);
     setLogoutVisible(false);
     setRegisterVisible(false);
   };
   const onShowRegister = () => {
+    setNewListingVisible(false);
     setLogoutVisible(false);
     setLoginVisible(false);
     setRegisterVisible(true);
   };
   const onShowLogout = () => {
+    setNewListingVisible(false);
     setLogoutVisible(true);
     setLoginVisible(false);
     setRegisterVisible(false);
   };
+  const onShowNewListing = () => {
+    setNewListingVisible(true);
+    setLogoutVisible(false);
+    setLoginVisible(false);
+    setRegisterVisible(false);
+}
+
+
   const onLogInClose = () => setLoginVisible(false);
   const onLogoutClose = () => setLogoutVisible(false);
   const onRegisterClose = () => setRegisterVisible(false);
+  const onNewListingClose = () => setNewListingVisible(false);
+  //const onShowNewListing = () => setNewListingVisible(false);
   const toast = useToast();
   const validationToast = () =>
     toast({
@@ -54,7 +69,7 @@ function App() {
       position: 'top',
     });
 
-  //Logic for Login fucntion
+  //Logic for Login function
   const onLogin = (props: LoginDetails) => {
     setDisableInput(true);
 
@@ -140,6 +155,7 @@ function App() {
         toggleColorMode={toggleColorMode}
         toggleLogIn={onShowLogin}
         toggleLogout={onShowLogout}
+        toggleNewListing={onShowNewListing}
         userTitle={userTitle}
         authenticated={authenticated}
       ></Header>
@@ -161,6 +177,11 @@ function App() {
         onRegister={onRegister}
         onClose={onRegisterClose}
       ></Register>
+      <NewListing
+        visible={newListingVisible}
+        onNewListing={onShowNewListing}
+        onClose={onNewListingClose}
+      ></NewListing>
       <Listings />
     </>
   );

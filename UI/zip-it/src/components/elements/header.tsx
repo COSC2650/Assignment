@@ -19,12 +19,13 @@ import {
 import LogOutButton from './logoutbutton';
 import LogInButton from './loginbutton';
 import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
-import newListing, { newListingDetails } from '../forms/newListing';
+import NewListing, { newListingDetails } from '../forms/newListing';
 
 interface HeaderProps {
   toggleColorMode(): void;
   toggleLogIn(): void;
   toggleLogout(): void;
+  toggleNewListing(): void;
   userTitle: string;
   authenticated: boolean;
 }
@@ -58,7 +59,7 @@ const Header = (props: HeaderProps) => {
 
     const [newListingVisible, setNewListingVisible] = useState(false);
     const onShowNewListing = (props: newListingDetails) => {
-      setNewListingVisible(true);
+      setNewListingVisible(false);
     }
 
 
@@ -74,9 +75,7 @@ const Header = (props: HeaderProps) => {
         <MenuList>
           <MenuItem
           icon={<AddIcon />}
-          newListing={newListing}
-          visible={newListingVisible}
-          onShowNewListing={onShowNewListing}>
+          visible={onShowNewListing}>
             New Listing
           </MenuItem>
           <MenuItem icon={<ExternalLinkIcon />} command="">
