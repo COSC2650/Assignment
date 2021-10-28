@@ -57,10 +57,10 @@ const Header = (props: HeaderProps) => {
 
   function BurgerMenu() {
 
-    const [newListingVisible, setNewListingVisible] = useState(false);
-    const onShowNewListing = (props: newListingDetails) => {
-      setNewListingVisible(false);
-    }
+  //  const [newListingVisible, setNewListingVisible] = useState(false);
+  //  const onShowNewListing = (props: newListingDetails) => {
+  //    setNewListingVisible(false);
+  //  }
 
 
     return (
@@ -75,7 +75,7 @@ const Header = (props: HeaderProps) => {
         <MenuList>
           <MenuItem
           icon={<AddIcon />}
-          visible={onShowNewListing}>
+          onClick={props.toggleNewListing}>
             New Listing
           </MenuItem>
           <MenuItem icon={<ExternalLinkIcon />} command="">
