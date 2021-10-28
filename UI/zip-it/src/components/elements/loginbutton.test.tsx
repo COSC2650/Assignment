@@ -2,7 +2,7 @@ import { configure, render } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 //import { expect } from '@jest/globals';
 import { Button } from '@chakra-ui/react';
-import IconButton, { LogInProps } from '../elements/loginbutton';
+import { IconButton} from '@chakra-ui/react';
 
 jest.useFakeTimers();
 
@@ -15,16 +15,12 @@ jest.mock('react', () => ({
 
 describe('LoginButton', () => {
   it('Should render correctly', () => {
-    const props: LogInProps = {
-      toggleLogIn: () => {
-        //Intentional
-      },
-    };
+    
 
     const component = render(
       <>
-        <IconButton {...props} />
-        <Button {...props} />
+        <IconButton aria-label="Log in" />
+        <Button />
       </>
     );
     expect(component).toMatchSnapshot();
