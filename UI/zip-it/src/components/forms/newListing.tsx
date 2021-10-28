@@ -106,11 +106,11 @@ import { DiagnosticCategory, Type } from 'typescript';
               <AlertDescription>{formValidationMessage}</AlertDescription>
             </Alert>
             <Input onChange={titleOnChange} placeholder="Listing Title" variant="filled" mb={3} type="title" id="title"/>
-            <Input onChange={priceOnChange} placeholder="Listing Price" variant="filled" mb={3} type="title" id="title"/>
-            <Input onChange={typeOnChange} placeholder="Listing Type" variant="filled" mb={3} type="title" id="title"/>
-            <Input onChange={descriptionOnChange} placeholder="Listing Description" variant="filled" mb={3} type="title" id="title"/>
-            <Input onChange={conditionOnChange} placeholder="Listing Condition" variant="filled" mb={3} type="title" id="title"/>
-            <Input onChange={availabilityOnChange} placeholder="Listing Availability" variant="filled" mb={3} type="title" id="title"/>
+            <Input onChange={priceOnChange} placeholder="Listing Price" variant="filled" mb={3} type="price" id="price"/>
+            <Input onChange={typeOnChange} placeholder="Listing Type" variant="filled" mb={3} type="type" id="type"/>
+            <Input onChange={descriptionOnChange} placeholder="Listing Description" variant="filled" mb={3} type="description" id="description"/>
+            <Input onChange={conditionOnChange} placeholder="Listing Condition" variant="filled" mb={3} type="condition" id="condition"/>
+            <Input onChange={availabilityOnChange} placeholder="Listing Availability" variant="filled" mb={3} type="availability" id="availability"/>
             <Input onChange={imageOnChange} placeholder="Image URL" variant="filled" mb={3} type="title" id="title"/>
           </ModalBody>
 

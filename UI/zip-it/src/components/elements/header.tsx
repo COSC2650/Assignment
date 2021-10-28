@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Flex, Spacer } from '@chakra-ui/layout';
 import {
   IconButton,
@@ -18,6 +19,7 @@ import {
 import LogOutButton from './logoutbutton';
 import LogInButton from './loginbutton';
 import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
+import newListing, { newListingDetails } from '../forms/newListing';
 
 interface HeaderProps {
   toggleColorMode(): void;
@@ -53,6 +55,13 @@ const Header = (props: HeaderProps) => {
   };
 
   function BurgerMenu() {
+
+    const [newListingVisible, setNewListingVisible] = useState(false);
+    const onShowNewListing = (props: newListingDetails) => {
+      setNewListingVisible(true);
+    }
+
+
     return (
       <Menu>
         <MenuButton
@@ -63,8 +72,11 @@ const Header = (props: HeaderProps) => {
           color = "black"
         />
         <MenuList>
-          <MenuItem icon={<AddIcon />} command=""//onClick {props.onNewListing}
-          >
+          <MenuItem
+          icon={<AddIcon />}
+          newListing={newListing}
+          visible={newListingVisible}
+          onShowNewListing={onShowNewListing}>
             New Listing
           </MenuItem>
           <MenuItem icon={<ExternalLinkIcon />} command="">
