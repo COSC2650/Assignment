@@ -7,6 +7,7 @@ import Register, { RestrationDetails } from "./components/forms/register";
 import ListingInfoDrawer, { ListingDetails } from "./components/forms/listinginfodrawer";
 import query from "./data/queries";
 import clientConnection from "./data/client";
+import { Listings } from "./components/display/itemlist";
 
 function App() {
   const [userTitle, setUserTitle] = useState("Welcome");
@@ -35,6 +36,7 @@ function App() {
   const onLogInClose = () => setLoginVisible(false);
   const onLogoutClose = () => setLogoutVisible(false);
   const onRegisterClose = () => setRegisterVisible(false);
+  const onSelectListingClose = () => setListingDrawerVisible(false);
   const toast = useToast();
   const validationToast = () =>
     toast({
@@ -138,9 +140,9 @@ function App() {
 
   const onSelectListing = (props:ListingDetails) =>{
 
-//Fill in details that need to be written to the main page here
-
-    setListingDrawerVisible(true);
+    setDisableInput(true);
+    
+    setListingDrawerVisible(false);
   }
 
   return (
@@ -176,8 +178,10 @@ function App() {
         disabled={disableInput}
         visible={listingdrawerVisible}
         onSelectListing = {onSelectListing}
-        onClose={onRegisterClose}
+        onClose={onSelectListingClose}
       ></ListingInfoDrawer>
+
+      <Listings />
     </>
   );
 }

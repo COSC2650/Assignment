@@ -8,7 +8,11 @@ import {
   DrawerCloseButton,
   useDisclosure,
   Input,
-  Button } from "@chakra-ui/react";
+  Button,
+  RadioGroup,
+  Radio,
+  Stack } from "@chakra-ui/react";
+  import { useState } from 'react';
 
 export interface ListingDetails {
     listingImageURL: string;
@@ -35,13 +39,26 @@ export interface ListingProps {
 export function ListingInfoDrawer(props: ListingProps) {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const [placement, setPlacement] = useState("right")
   
 
   return (
     <>
-    <Button  colorScheme="teal" onClick={onOpen}>
+
+    <RadioGroup defaultValue={placement} onChange={setPlacement}>
+      <Stack direction="row" mb="4">
+        <Radio value="top">Top</Radio>
+        <Radio value="right">Right</Radio>
+        <Radio value="bottom">Bottom</Radio>
+        <Radio value="left">Left</Radio>
+      </Stack>
+    </RadioGroup>
+
+    <Button colorScheme="teal" onClick={onOpen}>
         Open
     </Button>
+    
+    
     <Drawer
         isOpen={isOpen}
         placement="left"
