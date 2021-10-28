@@ -57,12 +57,6 @@ const Header = (props: HeaderProps) => {
 
   function BurgerMenu() {
 
-  //  const [newListingVisible, setNewListingVisible] = useState(false);
-  //  const onShowNewListing = (props: newListingDetails) => {
-  //    setNewListingVisible(false);
-  //  }
-
-
     return (
       <Menu>
         <MenuButton
