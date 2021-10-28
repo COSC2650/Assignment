@@ -211,8 +211,12 @@ namespace Tests
             Fixture fixture = new();
 
             // Generte and return the list
-            return fixture.Build<AddUserInput>().Create();
-          
+            AddUserInput addUserInput = fixture.Build<AddUserInput>()
+                .With(x => x.UserEmail, string.Format("{0}@{1}.com", fixture.Create<string>(), fixture.Create<string>()))
+                .Create();
+
+            // Return the fixture
+            return addUserInput;
         }
     }
 }
