@@ -18,6 +18,7 @@ export interface RegisterProps {
     onRegister(props: RestrationDetails): void;
     onClose(): void;
     visible: boolean;
+    disabled: boolean;
 }
 
 //register component
@@ -96,14 +97,14 @@ export function Register(props: RegisterProps) {
                         <AlertIcon />
                         <AlertDescription>{formValidationMessage}</AlertDescription>
                     </Alert>
-                    <Input onChange={emailOnChange} placeholder="your@email.com" variant="filled" mb={3} type="email" id="email" />
-                    <Input onChange={firstNameOnChange} placeholder="First Name" variant="filled" mb={3} type="name" id="firstName" />
-                    <Input onChange={lastNameOnChange} placeholder="Last Name" variant="filled" mb={3} type="name" id="lastName" />
-                    <Input onChange={passwordOnChange} placeholder="Password" variant="filled" mb={3} type="password" id="password" />
-                    <Input onChange={passwordConfirmOnChange} placeholder="Confirm Password" mb={3} variant="filled" type="password" id="passwordConfirm" />
-                    <Input onChange={streetOnChange} placeholder="Street" mb={3} variant="filled" type="text" id="street" />
-                    <Input onChange={cityOnChange} placeholder="City" mb={3} variant="filled" type="text" id="city" />
-                    <Select onChange={stateOnChange} mb={3} variant="filled" id="state">
+                    <Input disabled={props.disabled} onChange={emailOnChange} placeholder="your@email.com" variant="filled" mb={3} type="email" id="email" />
+                    <Input disabled={props.disabled} onChange={firstNameOnChange} placeholder="First Name" variant="filled" mb={3} type="name" id="firstName" />
+                    <Input disabled={props.disabled} onChange={lastNameOnChange} placeholder="Last Name" variant="filled" mb={3} type="name" id="lastName" />
+                    <Input disabled={props.disabled} onChange={passwordOnChange} placeholder="Password" variant="filled" mb={3} type="password" id="password" />
+                    <Input disabled={props.disabled} onChange={passwordConfirmOnChange} placeholder="Confirm Password" mb={3} variant="filled" type="password" id="passwordConfirm" />
+                    <Input disabled={props.disabled} onChange={streetOnChange} placeholder="Street" mb={3} variant="filled" type="text" id="street" />
+                    <Input disabled={props.disabled} onChange={cityOnChange} placeholder="City" mb={3} variant="filled" type="text" id="city" />
+                    <Select disabled={props.disabled} onChange={stateOnChange} mb={3} variant="filled" id="state">
                         <option value="ACT">ACT</option>
                         <option value="NSW">NSW</option>
                         <option value="NT">NT</option>
@@ -113,16 +114,16 @@ export function Register(props: RegisterProps) {
                         <option value="VIC">VIC</option>
                         <option value="WA">WA</option>
                     </Select>
-                    <Input onChange={postCodeOnChange} placeholder="Post Code" variant="filled" type="number" id="postcode" />
+                    <Input disabled={props.disabled} onChange={postCodeOnChange} placeholder="Post Code" variant="filled" type="number" id="postcode" />
                 </ModalBody>
 
                 <ModalFooter>
                     <Flex width="100%">
-                        <Button onClick={props.onOpenLogin} id="login">
+                        <Button disabled={props.disabled} onClick={props.onOpenLogin} id="login">
                             Log In
                         </Button>
                         <Spacer></Spacer>
-                        <Button onClick={onRegister} id="register">
+                        <Button disabled={props.disabled} onClick={onRegister} id="register">
                             Register
                         </Button>
                     </Flex>

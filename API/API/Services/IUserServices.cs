@@ -14,6 +14,7 @@ namespace API.Services
         Task<bool> DeleteUser(int userID);  
         IQueryable<User> GetAll(); 
         Task<User> GetUserByEmail(string email, string password);
-        Boolean ValidatePassword(User user, string password);
+        bool ValidatePassword(User user, string password);
+        Task<User> ConfirmUser(string userEmail, int confirmationCode);
     }  
 }  

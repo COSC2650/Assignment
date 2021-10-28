@@ -1,5 +1,5 @@
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Input, Button, Alert, AlertIcon, AlertDescription, FormControl } from "@chakra-ui/react";
-import { Flex, Spacer } from "@chakra-ui/layout";
+import { Flex, Spacer, Text } from "@chakra-ui/layout";
 import { useState } from "react";
 
 export interface ConfirmationDetails {
@@ -48,6 +48,7 @@ export function Confirmation(props: ConfirmationProps) {
                             <AlertIcon />
                             <AlertDescription>{formValidationMessage}</AlertDescription>
                         </Alert>
+                        <Text mb={3}>A validation email has been sent to your address, please copy the code and enter it below to validate your account.</Text>
                         <Input disabled={props.disabled} onChange={confirmationCodeOnChange} placeholder="Validation code" variant="filled" type="number" id="confirmationcode" />
                     </ModalBody>
 

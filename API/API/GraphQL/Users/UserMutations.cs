@@ -17,5 +17,6 @@ namespace API.GraphQL.Users
 
         public async Task<User> CreateUser(AddUserInput input) => await _userService.CreateUser(input);
         public async Task<bool> DeleteUser(int userID) => await _userService.DeleteUser(userID);
+        public async Task<User> ConfirmUser(string userEmail, int confirmationCode) => await _userService.ConfirmUser(userEmail, confirmationCode);
     }  
 }  

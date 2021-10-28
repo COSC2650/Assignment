@@ -110,6 +110,7 @@ namespace API.Services
         public async Task<User> GetUserByEmail(string email, string password)
         {
             var user = await _context.Users.FirstOrDefaultAsync(c => c.UserEmail == email);
+
             if (user is null)
                 return null;
 
@@ -121,9 +122,35 @@ namespace API.Services
             return user;
         }
 
-        public Boolean ValidatePassword(User user, string password)
+        public bool ValidatePassword(User user, string password)
         {
             return Hashbrowns.ValidatePassword(password, user.UserPasswordHash);
+        }
+
+        public async Task<User> ConfirmUser(string userEmail, int confirmationCode) {
+            // Retrieve the confirmation code
+            ConfirmCode confirmCode = _context.ConfirmCodes.Where(c => c.Email == userEmail && c.Code == confirmationCode).First();
+            User user = null;
+
+            if (confirmCode != null) {
+                // Retrieve the user
+                user = await _context.Users.FirstOrDefaultAsync(c => c.UserEmail == userEmail);
+
+                // Update the user to say that the email is verified
+                user.UserEmailVerified = true;
+
+                // Remove the validation code
+                _context.Remove(confirmCode);
+
+                // Update the user
+                _context.Update(user);
+
+                // Send the changes to the DB
+                await _context.SaveChangesAsync();
+            }
+
+            // Return the user
+            return user;
         }
     }
 }
