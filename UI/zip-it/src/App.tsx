@@ -7,10 +7,12 @@ import Register, { RestrationDetails } from './components/forms/register';
 import query from './data/queries';
 import clientConnection from './data/client';
 import { Listings } from "./components/display/itemlist";
-import NewListing from './components/forms/newListing';
+import NewListing, { newListingDetails } from './components/forms/newListing';
 
 function App() {
   const [userTitle, setUserTitle] = useState('Welcome');
+  const [userID, grabUserID] = useState(false);
+  const [userPostcode, grabUserPostcode] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
   const [disableInput, setDisableInput] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
@@ -48,7 +50,7 @@ function App() {
   const onLogoutClose = () => setLogoutVisible(false);
   const onRegisterClose = () => setRegisterVisible(false);
   const onNewListingClose = () => setNewListingVisible(false);
-  //const onShowNewListing = () => setNewListingVisible(false);
+
   const toast = useToast();
   const validationToast = () =>
     toast({
@@ -84,6 +86,8 @@ function App() {
         if (queryResult != null) {
           //set user data
           setUserTitle('Welcome back ' + queryResult.firstName);
+          grabUserID(queryResult.userID);
+          grabUserPostcode(queryResult.userPostcode);
           setAuthenticated(true);
 
           //login confirmation
@@ -149,6 +153,23 @@ function App() {
     setRegisterVisible(false);
   };
 
+  const onNewListing = (props: newListingDetails) => {
+    if (true) {
+      toast({
+        title: 'New Listing Created',
+        description: 'Your new listing has been created.',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position: 'top',
+      });
+    } else {
+      errorToast();
+    }
+
+    setNewListingVisible(false);
+  };
+
   return (
     <>
       <Header
@@ -179,7 +200,7 @@ function App() {
       ></Register>
       <NewListing
         visible={newListingVisible}
-        onNewListing={onShowNewListing}
+        onNewListing={onNewListing}
         onClose={onNewListingClose}
       ></NewListing>
       <Listings />

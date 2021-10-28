@@ -19,7 +19,6 @@ import {
 import LogOutButton from './logoutbutton';
 import LogInButton from './loginbutton';
 import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
-import NewListing, { newListingDetails } from '../forms/newListing';
 
 interface HeaderProps {
   toggleColorMode(): void;
