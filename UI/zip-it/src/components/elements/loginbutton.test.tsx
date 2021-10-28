@@ -1,6 +1,6 @@
 import { configure, render } from "enzyme";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
-import { IconButton, Button, Icon, useColorModeValue } from "@chakra-ui/react";
+import { IconButton, Button, Icon } from "@chakra-ui/react";
 import { FaUser } from "react-icons/fa";
 
 jest.useFakeTimers();
