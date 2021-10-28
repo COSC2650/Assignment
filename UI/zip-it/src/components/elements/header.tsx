@@ -63,7 +63,8 @@ const Header = (props: HeaderProps) => {
           color = "black"
         />
         <MenuList>
-          <MenuItem icon={<AddIcon />} command="">
+          <MenuItem icon={<AddIcon />} command=""//onClick {props.onNewListing}
+          >
             New Listing
           </MenuItem>
           <MenuItem icon={<ExternalLinkIcon />} command="">
