@@ -27,6 +27,7 @@ const query = (props) => {
                   listingDescription
                   listingImageURL
                   listingType
+                  listingPostCode
                 }
               }
               `,

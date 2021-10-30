@@ -11,10 +11,9 @@ interface UserDetails {
 
 export function Listings(props: UserDetails) {
   let [listings, setListings] = useState([]);
-  
+
   //default query parameters
   var SearchDetails = {
-    
     listingPostCode: props.userPostCode,
     listingType: "",
     listingCategory: "",
@@ -23,10 +22,16 @@ export function Listings(props: UserDetails) {
   const queryAPI = (props: SearchDetails) => {
     //invoke client
     const client = clientConnection();
+    console.log(
+      "itemlist.tsx ln27 query end endpoint passing in SearchDetails.lstingPostCode: " +
+        props.listingPostCode
+    );
     client
+
       .query(query(props))
       .then((result) => {
-
+        console.log("itemlist ln33 returned object below");
+        console.log(result);
         //create constant from result
         listings = result.data.listingsByFilter;
         setListings(listings);
