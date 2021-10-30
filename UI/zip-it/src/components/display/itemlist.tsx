@@ -22,6 +22,7 @@ export function Listings(props: UserDetails) {
   const queryAPI = (props: SearchDetails) => {
     //invoke client
     const client = clientConnection();
+
     console.log(
       "itemlist.tsx ln27 query end endpoint passing in SearchDetails.lstingPostCode: " +
         props.listingPostCode
