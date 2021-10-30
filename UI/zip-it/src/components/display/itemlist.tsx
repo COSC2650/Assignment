@@ -5,13 +5,17 @@ import query from "../../data/queries";
 import clientConnection from "../../data/client";
 import React, { useState, useEffect } from "react";
 
-export function Listings() {
-  let [listings, setListings] = useState([]);
+interface UserDetails {
+  userPostCode: number;
+}
 
+export function Listings(props: UserDetails) {
+  let [listings, setListings] = useState([]);
+  
   //default query parameters
   var SearchDetails = {
-    // need this to be 0 for default searches for it to work (MP)
-    listingPostCode: 0,
+    
+    listingPostCode: props.userPostCode,
     listingType: "",
     listingCategory: "",
   };
@@ -22,10 +26,12 @@ export function Listings() {
     client
       .query(query(props))
       .then((result) => {
+
         //create constant from result
         listings = result.data.listingsByFilter;
         setListings(listings);
       })
+
       //catch apollo/graphQL failure
       .catch((result) => {
         console.log("Apollo/GraphQL failure - Zip-It");
