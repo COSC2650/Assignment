@@ -118,7 +118,7 @@ function App() {
 
           setAuthenticated(logInDetails);
 
-          if (authenticated?.userEmailVerified) {
+          if (logInDetails.userEmailVerified) {
             //login confirmation
             toast({
               title: "Logged In",
