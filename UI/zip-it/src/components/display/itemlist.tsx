@@ -5,13 +5,16 @@ import query from "../../data/queries";
 import clientConnection from "../../data/client";
 import React, { useState, useEffect } from "react";
 
-export function Listings() {
+interface UserDetails {
+  userPostCode: number;
+}
+
+export function Listings(props: UserDetails) {
   let [listings, setListings] = useState([]);
 
   //default query parameters
   var SearchDetails = {
-    // need this to be 0 for default searches for it to work (MP)
-    listingPostCode: 0,
+    listingPostCode: props.userPostCode,
     listingType: "",
     listingCategory: "",
   };
@@ -19,13 +22,22 @@ export function Listings() {
   const queryAPI = (props: SearchDetails) => {
     //invoke client
     const client = clientConnection();
+
+    console.log(
+      "itemlist.tsx ln27 query end endpoint passing in SearchDetails.lstingPostCode: " +
+        props.listingPostCode
+    );
     client
+
       .query(query(props))
       .then((result) => {
+        console.log("itemlist ln33 returned object below");
+        console.log(result);
         //create constant from result
         listings = result.data.listingsByFilter;
         setListings(listings);
       })
+
       //catch apollo/graphQL failure
       .catch((result) => {
         console.log("Apollo/GraphQL failure - Zip-It");

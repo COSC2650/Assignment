@@ -1,30 +1,37 @@
-import { configure, render } from 'enzyme';
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-//import { expect } from '@jest/globals';
-import { Button } from '@chakra-ui/react';
-import IconButton, { LogInProps } from '../elements/loginbutton';
+import { configure, render } from "enzyme";
+import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
+import { IconButton, Button, Icon } from "@chakra-ui/react";
+import { FaUser } from "react-icons/fa";
 
 jest.useFakeTimers();
 
 configure({ adapter: new Adapter() });
 
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
-  useLayoutEffect: jest.requireActual('react').useEffect,
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  useLayoutEffect: jest.requireActual("react").useEffect,
 }));
 
-describe('LoginButton', () => {
-  it('Should render correctly', () => {
-    const props: LogInProps = {
-      toggleLogIn: () => {
-        //Intentional
-      },
-    };
-
+describe("LoginButton", () => {
+  it("Should render correctly", () => {
     const component = render(
       <>
-        <IconButton {...props} />
-        <Button {...props} />
+        <IconButton
+          display={["block", "none"]}
+          marginLeft="5px"
+          borderWidth="1px"
+          aria-label="Log in"
+          icon={<Icon as={FaUser} />}
+        />
+        <Button
+          display={["none", "block"]}
+          leftIcon={<Icon as={FaUser} />}
+          marginLeft="5px"
+          borderWidth="1px"
+          aria-label="Log in"
+        >
+          {"Log In"}
+        </Button>
       </>
     );
     expect(component).toMatchSnapshot();

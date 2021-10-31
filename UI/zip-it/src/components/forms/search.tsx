@@ -16,12 +16,14 @@ export interface SearchProps {
 
 export function Search(props: SearchProps) {
   //defines Search Type and creates setter
-  const [listingPostCode, setPostCode] = useState(0o0);
+  const [listingPostCode, setPostCode] = useState(0);
   const [listingType, setType] = useState('');
   const [listingCategory, setCategory] = useState('');
 
   //on change calls setSearchType
-  const postcodeOnChange = (event) => setPostCode(event.target.value);
+  const postcodeOnChange = (event) => {if(event.target.value>9){setPostCode(event.target.value)}else{
+    setPostCode(0);
+  }};
   const typeOnChange = (event) => setType(event.target.value);
   const categoryOnChange = (event) => setCategory(event.target.value);
 

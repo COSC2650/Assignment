@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
@@ -33,11 +34,15 @@ namespace API.Services
             bool postCodeQuery = false;
             bool listingTypeQuery = false;
             bool categoryQuery = false;
+            var postCodes = new List<int>{};
 
             // 4 digit check
             // is postcode queried
             if(postCode > 999)
-                postCodeQuery = true;
+            {
+               postCodeQuery = true;
+               postCodes = new List<int>{postCode, postCode+1, postCode+2, postCode+3, postCode+4, postCode+5, postCode-1, postCode-2, postCode-3, postCode-4, postCode-5};
+            }
 
             // is listingtype queried
             if(listingType.Length > 0)
@@ -53,7 +58,7 @@ namespace API.Services
 
             // only postcode queried
             if(postCodeQuery && !listingTypeQuery && !categoryQuery)
-                return _context.Listings.Where(x => x.ListingPostCode == postCode).AsQueryable();
+                return _context.Listings.Where(x => postCodes.Contains(x.ListingPostCode)).AsQueryable();
             
             // only listingtype queried
             if(!postCodeQuery && listingTypeQuery && !categoryQuery)
@@ -66,7 +71,7 @@ namespace API.Services
             // postcode & listingtype are queried
             if(postCodeQuery && listingTypeQuery && !categoryQuery)
             {
-                return _context.Listings.Where(x => x.ListingPostCode == postCode)
+                return _context.Listings.Where(x => postCodes.Contains(x.ListingPostCode))
                     .Where(x => x.ListingType == listingType)
                     .AsQueryable();
             }
@@ -74,7 +79,7 @@ namespace API.Services
             // postcode & category are queried
             if(!listingTypeQuery && postCodeQuery && categoryQuery)
             {
-                return _context.Listings.Where(x => x.ListingPostCode == postCode)
+                return _context.Listings.Where(x => postCodes.Contains(x.ListingPostCode))
                     .Where(x => x.ListingCategory == category)
                     .AsQueryable();
             }
@@ -88,7 +93,7 @@ namespace API.Services
             }
             
             // all 3 fields are queried
-            return _context.Listings.Where(x => x.ListingPostCode == postCode)
+            return _context.Listings.Where(x => postCodes.Contains(x.ListingPostCode))
                 .Where(x => x.ListingType == listingType)
                 .Where(x => x.ListingCategory == category)
                 .AsQueryable();

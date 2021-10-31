@@ -20,7 +20,7 @@ describe('ListItem', () => {
     listingPrice: 100.0,
     listingQuantity: 10,
     listingID: '',
-    listingPostcode: 0,
+    listingPostCode: 0,
     listingCategory: '',
     listingCondition: '',
     listingAvailibility: '',
