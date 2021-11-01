@@ -17,15 +17,21 @@ export interface SearchProps {
 
 export function Search(props: SearchProps) {
   //defines Search Type and creates setter
-  const [listingPostCode, setPostCode] = useState(0);
+  const [listingPostCode, setPostCode] = useState(props.userPostCode);
   const [listingType, setType] = useState('');
   const [listingCategory, setCategory] = useState('');
 
   //on change calls setSearchType
   const postcodeOnChange = (event) => {
-    if (event.target.value > 9) {
+    console.log(props.userPostCode)
+    if (event.target.value > 800) {
+      console.log("setPostCodeField")
       setPostCode(event.target.value);
-    } else {
+    }if(event.target.value<800 && props.userPostCode > 800){
+      console.log("setPostCodeUser")
+      setPostCode(props.userPostCode);
+    }if(event.target.value<800&& props.userPostCode < 800) {
+      console.log("setPostCodeDefault")
       setPostCode(0);
     }
   };
@@ -35,14 +41,14 @@ export function Search(props: SearchProps) {
   const onSearch = () => {
     //sets search setails
     const searchDetails: SearchDetails = {
-      listingPostCode: props.userPostCode,
+      listingPostCode: listingPostCode,
       listingType: listingType,
       listingCategory: listingCategory,
     };
 
     // Email regex
     var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
-
+    console.log(searchDetails.listingPostCode)
     //sets details in interface
     if (!regexp.test('{listingPostCode}')) {
       props.onSearchInterface(searchDetails);
