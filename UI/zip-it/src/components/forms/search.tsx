@@ -29,7 +29,7 @@ export function Search(props: SearchProps) {
         console.log('setPostCodeField');
         return postCodeInput;
       }
-      if ((postCodeInput < 800) && props.userPostCode > 800) {
+      if ((isNaN(postCodeInput)||postCodeInput < 800) && props.userPostCode > 800) {
         console.log('setPostCodeUser');
         return props.userPostCode;
       }
@@ -37,10 +37,6 @@ export function Search(props: SearchProps) {
         console.log('setPostCodeDefault');
         return 4;
       }
-      if (isNaN(postCodeInput) && props.userPostCode > 800) {
-          console.log('setPostCodeUser');
-          return props.userPostCode;
-        }
         else{
           console.log(props.userPostCode)
           return 5;
