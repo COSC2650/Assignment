@@ -89,6 +89,54 @@ export function NewListing(props: newListingProps) {
     }
   };
 
+  function CategorySelection() {
+    if (type === 'product') {
+      return (
+        <>
+          <Select
+            placeholder="Condition"
+            type="condition"
+            id="listingCondition"
+            onChange={categoryOnChange}
+          >
+            <option value="goodcondition">Good Condition</option>
+            <option value="wellused">Well used</option>
+            <option value="barelyused">Barely Used</option>
+            <option value="unused">Unused</option>
+          </Select>
+        </>
+      );
+    }
+    if (type === 'service') {
+      return (
+        <>
+          <Select
+            placeholder="Qualification"
+            type="qualificaiton"
+            id="qualification"
+            onChange={categoryOnChange}
+          >
+            <option value="qualified">Qualified</option>
+            <option value="licenced">Qualified and Certified</option>
+            <option value="unqualified">Unqualified and Uncertified</option>
+          </Select>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Select
+            placeholder="Category"
+            type="category"
+            id="category"
+            onChange={categoryOnChange}
+            disabled
+          ></Select>
+        </>
+      );
+    }
+  }
+
   return (
     <FormControl>
       <Modal isOpen={props.visible} onClose={props.onClose} id="newListing">
@@ -112,18 +160,7 @@ export function NewListing(props: newListingProps) {
               <option value="service">Service</option>
             </Select>
             Listing Category:
-            <Select placeholder="Category"
-              type="category"
-              id="category"
-              onChange={categoryOnChange}>
-              <option value="option1">Good Condition</option>
-              <option value="option2">Well used</option>
-              <option value="option3">Barely Used</option>
-              <option value="option1">Unused</option>
-              <option value="option2">Qualified</option>
-              <option value="option3">Qualified and Certified</option>
-              <option value="option1">Unqualified and Uncertified</option>
-            </Select>
+            <CategorySelection />
             Listing Description:
             <Input onChange={descriptionOnChange} placeholder="Create a listing description here" variant="filled" mb={3} type="description" id="description" />
             Listing Availability:
