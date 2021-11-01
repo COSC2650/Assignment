@@ -19,7 +19,7 @@ interface LogInDetails {
 }
 
 function App() {
-  const [userPostCode, setUserPostCode] = useState(88);
+  const [userPostCode, setUserPostCode] = useState(1);
   const [userTitle, setUserTitle] = useState('Welcome');
   const [authenticated, setAuthenticated] = useState<LogInDetails>();
   const [logInDisabled, setLogInDisabled] = useState(false);

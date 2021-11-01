@@ -1,6 +1,6 @@
 import { Input, Select, Stack, Button, Icon } from '@chakra-ui/react';
 import { FaSearch } from 'react-icons/fa';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 //SearchDetails constructor
 export interface SearchDetails {
@@ -17,28 +17,37 @@ export interface SearchProps {
 
 export function Search(props: SearchProps) {
   //defines Search Type and creates setter
-  const [listingPostCode, setPostCode] = useState(props.userPostCode);
+  const [listingPostCode, setPostCode] = useState(96);
   const [listingType, setType] = useState('');
   const [listingCategory, setCategory] = useState('');
+  const [test, setTest] = useState<number>();
+
+React.useEffect(()=>{
+  setTest(props.userPostCode);
+  postcodeOnChange(props.userPostCode);
+},[props])
 
   //on change calls setSearchType
-  const postcodeOnChange = (event) => {
-    console.log(props.userPostCode)
-    if (event.target.value > 800) {
-      console.log("setPostCodeField")
-      setPostCode(event.target.value);
-    }if(event.target.value<800 && props.userPostCode > 800){
-      console.log("setPostCodeUser")
+  const postcodeOnChange = (postcodeValue:number) => {
+    console.log(props.userPostCode);
+    if (postcodeValue > 800) {
+      console.log('setPostCodeField');
+      setPostCode(postcodeValue);
+    }
+    if (postcodeValue < 800 && props.userPostCode > 800) {
+      console.log('setPostCodeUser');
       setPostCode(props.userPostCode);
-    }if(event.target.value<800&& props.userPostCode < 800) {
-      console.log("setPostCodeDefault")
-      setPostCode(0);
+    }
+    if (postcodeValue < 800 && props.userPostCode < 800) {
+      console.log('setPostCodeDefault');
+      setPostCode(95);
     }
   };
   const typeOnChange = (event) => setType(event.target.value);
   const categoryOnChange = (event) => setCategory(event.target.value);
 
   const onSearch = () => {
+    
     //sets search setails
     const searchDetails: SearchDetails = {
       listingPostCode: listingPostCode,
@@ -48,7 +57,7 @@ export function Search(props: SearchProps) {
 
     // Email regex
     var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
-    console.log(searchDetails.listingPostCode)
+    console.log(searchDetails.listingPostCode);
     //sets details in interface
     if (!regexp.test('{listingPostCode}')) {
       props.onSearchInterface(searchDetails);
@@ -112,7 +121,8 @@ export function Search(props: SearchProps) {
         variant="filled"
         type="number"
         id="listingPostcode"
-        onChange={postcodeOnChange}
+        onChange={(event)=>{setTest(parseInt(event.target.value));console.log(event.target.value)}}
+        value={test}
       />
       <Select
         placeholder="Products or Services"
