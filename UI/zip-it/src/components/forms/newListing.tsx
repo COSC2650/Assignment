@@ -16,14 +16,12 @@ import {
 } from '@chakra-ui/react';
 import { Flex, Spacer } from '@chakra-ui/layout';
 import { useState } from 'react';
-import { resultKeyNameFromField } from '@apollo/client/utilities';
-import { QueryResult } from '@apollo/client';
 
 export interface newListingDetails {
   userID: string;
   postcode: number;
   title: string;
-  date: Date;
+  date: string;
   category: string;
   price: number;
   type: string;
@@ -42,15 +40,15 @@ export interface newListingProps {
 export function NewListing(props: newListingProps) {
   const [formValidationMessage, setFormValidationMessage] = useState('');
   const [formValidationHidden, setFormValidationHidden] = useState(true);
-  const [userID, setUserID] = useState('');
+  //const [userID, setUserID] = useState('');
   const [postcode, setPostcode] = useState(0o0);
   const [title, setTitle] = useState('');
-  const [date, setDate] = useState(new Date());
+  //const [date, setDate] = useState(new Date());
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState(0);
   const [type, setType] = useState('');
   const [description, setDescription] = useState('');
-  const [condition, setCondition] = useState('');
+  //const [condition, setCondition] = useState('');
   const [availability, setAvailability] = useState('');
   const [image, setImage] = useState('');
 
@@ -64,17 +62,17 @@ export function NewListing(props: newListingProps) {
 
   const onNewListing = () => {
     const newListingDetails: newListingDetails = {
-      userID: userID,
+      userID: '',
       postcode: postcode,
       title: title,
-      date: date,
       category: category,
       price: price,
       type: type,
       description: description,
-      condition: condition,
       availability: availability,
       image: image,
+      condition: '',
+      date: ''
     };
 
     setFormValidationHidden(false);

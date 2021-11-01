@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Flex, Spacer } from '@chakra-ui/layout';
 import {
   IconButton,
