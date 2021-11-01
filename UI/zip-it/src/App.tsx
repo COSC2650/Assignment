@@ -1,16 +1,16 @@
-import { useState } from "react";
-import Header from "./components/elements/header";
-import { useColorMode, useToast } from "@chakra-ui/react";
-import Login, { LoginDetails } from "./components/forms/login";
-import Logout from "./components/forms/logout";
-import Register, { RestrationDetails } from "./components/forms/register";
-import query from "./data/queries";
-import mutation from "./data/mutations";
-import clientConnection from "./data/client";
-import { Listings } from "./components/display/itemlist";
+import { useState } from 'react';
+import Header from './components/elements/header';
+import { useColorMode, useToast } from '@chakra-ui/react';
+import Login, { LoginDetails } from './components/forms/login';
+import Logout from './components/forms/logout';
+import Register, { RestrationDetails } from './components/forms/register';
+import query from './data/queries';
+import mutation from './data/mutations';
+import clientConnection from './data/client';
+import { Listings } from './components/display/itemlist';
 import Confirmation, {
   ConfirmationDetails,
-} from "./components/forms/confirmation";
+} from './components/forms/confirmation';
 
 interface LogInDetails {
   userID: number;
@@ -19,8 +19,8 @@ interface LogInDetails {
 }
 
 function App() {
-  const [userPostCode, setUserPostCode] = useState(0);
-  const [userTitle, setUserTitle] = useState("Welcome");
+  const [userPostCode, setUserPostCode] = useState(88);
+  const [userTitle, setUserTitle] = useState('Welcome');
   const [authenticated, setAuthenticated] = useState<LogInDetails>();
   const [logInDisabled, setLogInDisabled] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
@@ -51,7 +51,7 @@ function App() {
   const onLogoutClose = () => setLogoutVisible(false);
   const onRegisterClose = () => setRegisterVisible(false);
   const onConfirmationClose = () => {
-    setUserTitle("Welcome");
+    setUserTitle('Welcome');
     setAuthenticated(undefined);
 
     setConfirmationVisible(false);
@@ -60,33 +60,33 @@ function App() {
 
   const registrationErrorToast = () =>
     toast({
-      title: "Email already registered",
+      title: 'Email already registered',
       description:
-        "The email address you entered is already contained in the system, please either log in or register another email address.",
-      status: "error",
+        'The email address you entered is already contained in the system, please either log in or register another email address.',
+      status: 'error',
       duration: 2000,
       isClosable: true,
-      position: "top",
+      position: 'top',
     });
 
   const validationToast = () =>
     toast({
-      title: "Sorry invalid - Try again?",
-      description: "Invalid credentials.",
-      status: "error",
+      title: 'Sorry invalid - Try again?',
+      description: 'Invalid credentials.',
+      status: 'error',
       duration: 2000,
       isClosable: true,
-      position: "top",
+      position: 'top',
     });
 
   const errorToast = () =>
     toast({
-      title: "Sorry the system is down - Try later",
-      description: "Invalid credentials.",
-      status: "error",
+      title: 'Sorry the system is down - Try later',
+      description: 'Invalid credentials.',
+      status: 'error',
       duration: 2000,
       isClosable: true,
-      position: "top",
+      position: 'top',
     });
 
   //Logic for Login fucntion
@@ -104,8 +104,9 @@ function App() {
 
         if (queryResult != null) {
           //set user data
-          setUserTitle("Welcome back " + queryResult.userFirstName);
+          setUserTitle('Welcome back ' + queryResult.userFirstName);
           setUserPostCode(queryResult.userPostCode);
+          console.log(queryResult.userPostCode);
           console.log('App.tsx ln109 returned userPostCode = ' + userPostCode);
 
           //hide login
@@ -121,12 +122,12 @@ function App() {
           if (logInDetails.userEmailVerified) {
             //login confirmation
             toast({
-              title: "Logged In",
-              description: "You have been successfully logged in.",
-              status: "success",
+              title: 'Logged In',
+              description: 'You have been successfully logged in.',
+              status: 'success',
               duration: 2000,
               isClosable: true,
-              position: "top",
+              position: 'top',
             });
           } else {
             // Show the confirmation page
@@ -151,16 +152,16 @@ function App() {
   const onLogout = () => {
     //log out confirmation
     toast({
-      title: "Logged out",
-      description: "You have been successfully logged out.",
-      status: "success",
+      title: 'Logged out',
+      description: 'You have been successfully logged out.',
+      status: 'success',
       duration: 2000,
       isClosable: true,
-      position: "top",
+      position: 'top',
     });
 
     //setheader title and authentication status
-    setUserTitle("Welcome");
+    setUserTitle('Welcome');
     setAuthenticated(undefined);
     setLogInDisabled(false);
 
@@ -172,7 +173,7 @@ function App() {
     //invoke client
     const client = clientConnection();
     const regProps = {
-      type: "register",
+      type: 'register',
       data: props,
     };
 
@@ -219,7 +220,7 @@ function App() {
     //invoke client
     const client = clientConnection();
     const confProps = {
-      type: "confirm",
+      type: 'confirm',
       data: {
         userEmail: authenticated?.userEmail,
         confirmationCode: props.confirmationCode,
@@ -243,12 +244,12 @@ function App() {
 
           // Show the account created toast
           toast({
-            title: "Account Created",
-            description: "Your account has been successfully verified.",
-            status: "success",
+            title: 'Account Created',
+            description: 'Your account has been successfully verified.',
+            status: 'success',
             duration: 2000,
             isClosable: true,
-            position: "top",
+            position: 'top',
           });
 
           // Hide the confirmation dialog
@@ -305,8 +306,7 @@ function App() {
         onRegister={onRegister}
         onClose={onRegisterClose}
       />
-      <Listings 
-      userPostCode={userPostCode}/>
+      <Listings userPostCode={userPostCode} />
     </>
   );
 }

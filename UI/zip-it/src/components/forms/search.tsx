@@ -12,6 +12,7 @@ export interface SearchDetails {
 //interface to caller
 export interface SearchProps {
   onSearchInterface(props: SearchDetails): void;
+  userPostCode: number;
 }
 
 export function Search(props: SearchProps) {
@@ -21,16 +22,20 @@ export function Search(props: SearchProps) {
   const [listingCategory, setCategory] = useState('');
 
   //on change calls setSearchType
-  const postcodeOnChange = (event) => {if(event.target.value>9){setPostCode(event.target.value)}else{
-    setPostCode(0);
-  }};
+  const postcodeOnChange = (event) => {
+    if (event.target.value > 9) {
+      setPostCode(event.target.value);
+    } else {
+      setPostCode(0);
+    }
+  };
   const typeOnChange = (event) => setType(event.target.value);
   const categoryOnChange = (event) => setCategory(event.target.value);
 
   const onSearch = () => {
     //sets search setails
     const searchDetails: SearchDetails = {
-      listingPostCode: listingPostCode,
+      listingPostCode: props.userPostCode,
       listingType: listingType,
       listingCategory: listingCategory,
     };
