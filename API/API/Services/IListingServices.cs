@@ -11,5 +11,6 @@ namespace API.Services
         Task<Listing> CreateListing(AddListingInput input);
         IQueryable<Listing> GetAll();
         IQueryable<Listing> ListingByFilter(int postCode, string listingType, string category);
+        IList<Listing> FilterPostCodes(List<int> postCodes, List<Listing> filteredPostCodes);
     }  
 }  

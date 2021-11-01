@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,13 +51,14 @@ namespace API.Services
             bool listingTypeQuery = false;
             bool categoryQuery = false;
             var postCodes = new List<int>{};
+            var filteredPostCodes = new List<Listing>{};
 
             // 4 digit check
             // is postcode queried
             if(postCode > 999)
             {
                postCodeQuery = true;
-               postCodes = new List<int>{postCode, postCode+1, postCode+2, postCode+3, postCode+4, postCode+5, postCode-1, postCode-2, postCode-3, postCode-4, postCode-5};
+               postCodes = new List<int>{postCode, postCode+1, postCode-1, postCode+2, postCode-2, postCode+3, postCode-3};
             }
 
             // is listingtype queried
@@ -73,7 +75,10 @@ namespace API.Services
 
             // only postcode queried
             if(postCodeQuery && !listingTypeQuery && !categoryQuery)
-                return _context.Listings.Where(x => postCodes.Contains(x.ListingPostCode)).AsQueryable();
+            {
+                var results = FilterPostCodes(postCodes, filteredPostCodes);
+                return results.AsQueryable();
+            } 
             
             // only listingtype queried
             if(!postCodeQuery && listingTypeQuery && !categoryQuery)
@@ -112,6 +117,22 @@ namespace API.Services
                 .Where(x => x.ListingType == listingType)
                 .Where(x => x.ListingCategory == category)
                 .AsQueryable();
+        }
+
+        public IList<Listing> FilterPostCodes(List<int> postCodes, List<Listing> filteredPostCodes)
+        {
+                foreach(int postcode in postCodes) 
+                {
+                    var postCodeMatch = _context.Listings.Where(x => x.ListingPostCode == postcode).ToList();
+                    if (postCodeMatch.Count > 0)
+                    {
+                        foreach(Listing listing in postCodeMatch)
+                        {
+                            filteredPostCodes.Add(listing);
+                        }
+                    }
+                }
+                return filteredPostCodes;
         }
     }
 }
