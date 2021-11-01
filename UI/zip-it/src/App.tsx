@@ -21,8 +21,8 @@ interface LogInDetails {
 
 function App() {
   const [userTitle, setUserTitle] = useState("Welcome");
-  const [userID, setUserID] = useState(0);
-  const [userEmail, setUserEmail] = useState('');
+  //const [userID, setUserID] = useState(0);
+  //const [userEmail, setUserEmail] = useState('');
   const [userPostCode, setUserPostCode] = useState(0);
   const [userFirstName, setUserFirstName] = useState('');
   const [userEmailVerified, setUserEmailVerified] = useState(false);
@@ -131,10 +131,10 @@ function App() {
           setAuthenticated(logInDetails);
 
           // makeshift state variables since authenticated was not saving
-          setUserID(logInDetails.userID);
+          //setUserID(logInDetails.userID);
           setUserFirstName(logInDetails.userFirstName);
           setUserPostCode(logInDetails.userPostCode);
-          setUserEmail(logInDetails.userEmail);
+          //setUserEmail(logInDetails.userEmail);
           setUserEmailVerified(logInDetails.userEmailVerified);
 
           setUserTitle("Welcome back " + userFirstName);
