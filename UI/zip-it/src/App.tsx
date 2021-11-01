@@ -306,11 +306,7 @@ function App() {
 
     client
       .mutate({ mutation: mutation(listingProps) })
-      .then((result) => {
-
-          const newListingDetails: newListingDetails = {
-            ...result.data.newListing,
-          };
+      .then(() => {
 
           setNewListingVisible(false);
 
@@ -323,7 +319,7 @@ function App() {
             position: "top",
           });
       })
-      .catch((result) => {
+      .catch(() => {
 
         errorToast();
 
