@@ -1,10 +1,10 @@
 import { Input, Select, Stack, Button, Icon } from '@chakra-ui/react';
 import { FaSearch } from 'react-icons/fa';
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 
 //SearchDetails constructor
 export interface SearchDetails {
-  listingPostCode: number;
+  listingPostCode?: number;
   listingType: string;
   listingCategory: string;
 }
@@ -17,40 +17,38 @@ export interface SearchProps {
 
 export function Search(props: SearchProps) {
   //defines Search Type and creates setter
-  const [listingPostCode, setPostCode] = useState(96);
   const [listingType, setType] = useState('');
   const [listingCategory, setCategory] = useState('');
-  const [test, setTest] = useState<number>();
-
-React.useEffect(()=>{
-  setTest(props.userPostCode);
-  postcodeOnChange(props.userPostCode);
-},[props])
+  const [currentUserPostCode, setCurrentUserPostCode] = useState<number>();
 
   //on change calls setSearchType
-  const postcodeOnChange = (postcodeValue:number) => {
-    console.log(props.userPostCode);
-    if (postcodeValue > 800) {
+  function postcodeOnChange(postCodeInput?: number): number | undefined {
+    console.log(postCodeInput);
+    if (postCodeInput !== undefined && postCodeInput > 800) {
       console.log('setPostCodeField');
-      setPostCode(postcodeValue);
+      return postCodeInput;
     }
-    if (postcodeValue < 800 && props.userPostCode > 800) {
+    if (
+      postCodeInput !== undefined &&
+      postCodeInput < 800 &&
+      props.userPostCode > 800
+    ) {
       console.log('setPostCodeUser');
-      setPostCode(props.userPostCode);
+      return props.userPostCode;
     }
-    if (postcodeValue < 800 && props.userPostCode < 800) {
+    if (postCodeInput !== undefined && postCodeInput < 800) {
       console.log('setPostCodeDefault');
-      setPostCode(95);
+      return 95;
     }
-  };
+    
+  }
   const typeOnChange = (event) => setType(event.target.value);
   const categoryOnChange = (event) => setCategory(event.target.value);
 
-  const onSearch = () => {
-    
+  const onSearch = (postcode?: number) => {
     //sets search setails
     const searchDetails: SearchDetails = {
-      listingPostCode: listingPostCode,
+      listingPostCode: postcodeOnChange(postcode),
       listingType: listingType,
       listingCategory: listingCategory,
     };
@@ -63,6 +61,12 @@ React.useEffect(()=>{
       props.onSearchInterface(searchDetails);
     }
   };
+
+  React.useEffect(() => {
+    setCurrentUserPostCode(props.userPostCode);
+    onSearch(props.userPostCode);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.userPostCode]);
 
   //search menu logic
   function CategorySelection() {
@@ -121,8 +125,11 @@ React.useEffect(()=>{
         variant="filled"
         type="number"
         id="listingPostcode"
-        onChange={(event)=>{setTest(parseInt(event.target.value));console.log(event.target.value)}}
-        value={test}
+        onChange={(event) => {
+          setCurrentUserPostCode(parseInt(event.target.value));
+          postcodeOnChange(parseInt(event.target.value));
+        }}
+        value={currentUserPostCode}
       />
       <Select
         placeholder="Products or Services"
@@ -139,7 +146,10 @@ React.useEffect(()=>{
         <option value="option2">Then</option>
         <option value="option3">Booked Out</option>
       </Select>
-      <Button leftIcon={<Icon as={FaSearch} />} onClick={onSearch}>
+      <Button
+        leftIcon={<Icon as={FaSearch} />}
+        onClick={() => onSearch(currentUserPostCode)}
+      >
         Search
       </Button>
     </Stack>
