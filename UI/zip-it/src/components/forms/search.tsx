@@ -1,6 +1,6 @@
 import { Input, Select, Stack, Button, Icon } from '@chakra-ui/react';
 import { FaSearch } from 'react-icons/fa';
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 
 //SearchDetails constructor
 export interface SearchDetails {
@@ -19,28 +19,33 @@ export function Search(props: SearchProps) {
   //defines Search Type and creates setter
   const [listingType, setType] = useState('');
   const [listingCategory, setCategory] = useState('');
-  const [currentUserPostCode, setCurrentUserPostCode] = useState<number>();
+  const [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3);
 
   //on change calls setSearchType
   function postcodeOnChange(postCodeInput?: number): number | undefined {
     console.log(postCodeInput);
-    if (postCodeInput !== undefined && postCodeInput > 800) {
-      console.log('setPostCodeField');
-      return postCodeInput;
-    }
-    if (
-      postCodeInput !== undefined &&
-      postCodeInput < 800 &&
-      props.userPostCode > 800
-    ) {
-      console.log('setPostCodeUser');
-      return props.userPostCode;
-    }
-    if (postCodeInput !== undefined && postCodeInput < 800) {
-      console.log('setPostCodeDefault');
-      return 95;
-    }
-    
+    if (postCodeInput !== undefined) {
+      if (postCodeInput > 800) {
+        console.log('setPostCodeField');
+        return postCodeInput;
+      }
+      if ((postCodeInput < 800) && props.userPostCode > 800) {
+        console.log('setPostCodeUser');
+        return props.userPostCode;
+      }
+      if (postCodeInput < 800) {
+        console.log('setPostCodeDefault');
+        return 4;
+      }
+      if (isNaN(postCodeInput) && props.userPostCode > 800) {
+          console.log('setPostCodeUser');
+          return props.userPostCode;
+        }
+        else{
+          console.log(props.userPostCode)
+          return 5;
+        }
+      }
   }
   const typeOnChange = (event) => setType(event.target.value);
   const categoryOnChange = (event) => setCategory(event.target.value);
