@@ -30,7 +30,7 @@ function mutation(props): DocumentNode {
 } else if (props.type === "newlisting") {
     result = gql`
             mutation {
-                createListing(input: { listingID: "${props.data.listingID}", listingUserID: ${props.data.listingUserID}, listingPostcode: "${props.data.listingPostcode}", listingTitle: "${props.data.listingTitle}", listingDate: "${props.data.listingDate}", listingPrice: "${props.data.listingPrice}" listingType: "${props.data.listingType}", listingDescription: "${props.data.listingDescription}", listingCondition: "${props.data.listingCondition}", listingAvailability: "${props.data.listingAvailability}", listingImageURL: "${props.data.listingImageURL}",) {
+                createListing(input: { listingUserID: ${props.data.listingUserID}, listingPostcode: "${props.data.listingPostcode}", listingTitle: "${props.data.listingTitle}", listingDate: "${props.data.listingDate}", listingPrice: "${props.data.listingPrice}" listingType: "${props.data.listingType}", listingDescription: "${props.data.listingDescription}", listingCondition: "${props.data.listingCondition}", listingAvailability: "${props.data.listingAvailability}", listingImageURL: "${props.data.listingImageURL}",) {
                     listingID
                     listingTitle
                     listingDescription

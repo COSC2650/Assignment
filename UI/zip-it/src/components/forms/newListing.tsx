@@ -18,16 +18,13 @@ import { Flex, Spacer } from '@chakra-ui/layout';
 import { useState } from 'react';
 
 export interface newListingDetails {
-  userID: string;
-  postcode: number;
-  title: string;
-  date: string;
-  category: string;
-  price: number;
   type: string;
-  description: string;
+  title: string;
+  category: string;
   condition: string;
   availability: string;
+  price: number;
+  description: string;
   image: string;
 }
 
@@ -35,35 +32,32 @@ export interface newListingProps {
   onNewListing(props: newListingDetails): void;
   onClose(): void;
   visible: boolean;
+  disabled: boolean;
 }
 
 export function NewListing(props: newListingProps) {
-  const [formValidationMessage, setFormValidationMessage] = useState('');
-  const [formValidationHidden, setFormValidationHidden] = useState(true);
-  //const [userID, setUserID] = useState('');
-  //const [postcode, setPostcode] = useState(0o0);
-  const [title, setTitle] = useState('');
-  //const [date, setDate] = useState(new Date());
-  const [category, setCategory] = useState('');
-  const [price, setPrice] = useState(0);
-  const [type, setType] = useState('');
-  const [description, setDescription] = useState('');
-  //const [condition, setCondition] = useState('');
-  const [availability, setAvailability] = useState('');
-  const [image, setImage] = useState('');
+  const [formValidationMessage, setFormValidationMessage] = useState('')
+  const [formValidationHidden, setFormValidationHidden] = useState(true)
+  const [title, setTitle] = useState('')
+  const [category, setCategory] = useState('')
+  const [price, setPrice] = useState(0)
+  const [type, setType] = useState('')
+  const [description, setDescription] = useState('')
+  const [availability, setAvailability] = useState('')
+  const [image, setImage] = useState('')
+  const [condition, setCondition] = useState('')
 
-  const titleOnChange = (event) => setTitle(event.target.value);
-  const categoryOnChange = (event) => setCategory(event.target.value);
-  const priceOnChange = (event) => setPrice(event.target.value);
-  const typeOnChange = (event) => setType(event.target.value);
-  const descriptionOnChange = (event) => setDescription(event.target.value);
-  const availabilityOnChange = (event) => setAvailability(event.target.value);
-  const imageOnChange = (event) => setImage(event.target.value);
+  const titleOnChange = (event) => setTitle(event.target.value)
+  const categoryOnChange = (event) => setCategory(event.target.value)
+  const priceOnChange = (event) => setPrice(event.target.value)
+  const typeOnChange = (event) => setType(event.target.value)
+  const descriptionOnChange = (event) => setDescription(event.target.value)
+  const availabilityOnChange = (event) => setAvailability(event.target.value)
+  const imageOnChange = (event) => setImage(event.target.value)
+  const conditionOnChange = (event) => setCondition(event.target.value)
 
   const onNewListing = () => {
     const newListingDetails: newListingDetails = {
-      userID: '',
-      postcode: 0,
       title: title,
       category: category,
       price: price,
@@ -71,8 +65,7 @@ export function NewListing(props: newListingProps) {
       description: description,
       availability: availability,
       image: image,
-      condition: '',
-      date: ''
+      condition: condition,
     };
 
     setFormValidationHidden(false);
@@ -97,7 +90,7 @@ export function NewListing(props: newListingProps) {
             placeholder="Condition"
             type="condition"
             id="listingCondition"
-            onChange={categoryOnChange}
+            onChange={conditionOnChange}
           >
             <option value="goodcondition">Good Condition</option>
             <option value="wellused">Well used</option>

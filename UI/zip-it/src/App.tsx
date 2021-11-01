@@ -21,8 +21,6 @@ interface LogInDetails {
 
 function App() {
   const [userTitle, setUserTitle] = useState("Welcome");
-  //const [userID, setUserID] = useState(0);
-  //const [userEmail, setUserEmail] = useState('');
   const [userPostCode, setUserPostCode] = useState(0);
   const [userFirstName, setUserFirstName] = useState('');
   const [userEmailVerified, setUserEmailVerified] = useState(false);
@@ -35,6 +33,7 @@ function App() {
   const [confirmationVisible, setConfirmationVisible] = useState(false);
   const [confirmationDisabled, setConfirmationDisabled] = useState(false);
   const [newListingVisible, setNewListingVisible] = useState(false);
+  const [newListingDisabled, setNewListingDisabled] = useState(false);
   const { toggleColorMode } = useColorMode();
   const onShowLogin = () => {
     setNewListingVisible(false);
@@ -61,6 +60,7 @@ function App() {
     setLogoutVisible(false);
     setLoginVisible(false);
     setRegisterVisible(false);
+    setNewListingDisabled(false)
 }
 
 
@@ -297,20 +297,38 @@ function App() {
   };
 
   const onNewListing = (props: newListingDetails) => {
-    if (true) {
-      toast({
-        title: 'New Listing Created',
-        description: 'Your new listing has been created.',
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
-        position: 'top',
-      });
-    } else {
-      errorToast();
-    }
 
-    setNewListingVisible(false);
+    const client = clientConnection();
+    const listingProps = {
+      type: "newListing",
+      data: props,
+    };
+
+    client
+      .mutate({ mutation: mutation(listingProps) })
+      .then((result) => {
+
+          const newListingDetails: newListingDetails = {
+            ...result.data.newListing,
+          };
+
+          setNewListingVisible(false);
+
+          toast({
+            title: "New Listing Created",
+            description: "Your listing has been successfully created!",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+            position: "top",
+          });
+      })
+      .catch((result) => {
+
+        errorToast();
+
+        setNewListingDisabled(false);
+      });
   };
 
   return (
@@ -349,6 +367,7 @@ function App() {
         onClose={onRegisterClose}
       ></Register>
       <NewListing
+        disabled={newListingDisabled}
         visible={newListingVisible}
         onNewListing={onNewListing}
         onClose={onNewListingClose}
