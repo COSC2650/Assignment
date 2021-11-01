@@ -18,14 +18,14 @@ import { Flex, Spacer } from '@chakra-ui/layout';
 import { useState } from 'react';
 
 export interface newListingDetails {
-  type: string;
-  title: string;
-  category: string;
-  condition: string;
-  availability: string;
-  price: number;
-  description: string;
-  image: string;
+  listingType: string;
+  listingTitle: string;
+  listingCategory: string;
+  listingCondition: string;
+  listingAvailability: string;
+  listingPrice: number;
+  listingDescription: string;
+  listingImageURL: string;
 }
 
 export interface newListingProps {
@@ -38,14 +38,14 @@ export interface newListingProps {
 export function NewListing(props: newListingProps) {
   const [formValidationMessage, setFormValidationMessage] = useState('')
   const [formValidationHidden, setFormValidationHidden] = useState(true)
-  const [title, setTitle] = useState('')
-  const [category, setCategory] = useState('')
-  const [price, setPrice] = useState(0)
-  const [type, setType] = useState('')
-  const [description, setDescription] = useState('')
-  const [availability, setAvailability] = useState('')
-  const [image, setImage] = useState('')
-  const [condition, setCondition] = useState('')
+  const [listingTitle, setTitle] = useState('')
+  const [listingCategory, setCategory] = useState('')
+  const [listingPrice, setPrice] = useState(0)
+  const [listingType, setType] = useState('')
+  const [listingDescription, setDescription] = useState('')
+  const [listingAvailability, setAvailability] = useState('')
+  const [listingImageURL, setImage] = useState('')
+  const [listingCondition, setCondition] = useState('')
 
   const titleOnChange = (event) => setTitle(event.target.value)
   const categoryOnChange = (event) => setCategory(event.target.value)
@@ -58,23 +58,23 @@ export function NewListing(props: newListingProps) {
 
   const onNewListing = () => {
     const newListingDetails: newListingDetails = {
-      title: title,
-      category: category,
-      price: price,
-      type: type,
-      description: description,
-      availability: availability,
-      image: image,
-      condition: condition,
+      listingTitle: listingTitle,
+      listingCategory: listingCategory,
+      listingPrice: listingPrice,
+      listingType: listingType,
+      listingDescription: listingDescription,
+      listingAvailability: listingAvailability,
+      listingImageURL: listingImageURL,
+      listingCondition: listingCondition,
     };
 
     setFormValidationHidden(false);
 
-    if (title === "") {
+    if (listingTitle === "") {
       setFormValidationMessage("Your listing title is empty");
-    } else if (price === null) {
+    } else if (listingPrice === null) {
       setFormValidationMessage("Your listing price is empty");
-    } else if (description === "") {
+    } else if (listingDescription === "") {
       setFormValidationMessage("Your description is empty");
     } else {
       setFormValidationHidden(true);
@@ -83,7 +83,7 @@ export function NewListing(props: newListingProps) {
   };
 
   function CategorySelection() {
-    if (type === 'product') {
+    if (listingType === 'product') {
       return (
         <>
           <Select
@@ -100,7 +100,7 @@ export function NewListing(props: newListingProps) {
         </>
       );
     }
-    if (type === 'service') {
+    if (listingType === 'service') {
       return (
         <>
           <Select
