@@ -3,7 +3,7 @@ using API.Models;
 using API.Services;
 using HotChocolate.Types;
 
-namespace API.GraphQL.Users
+namespace API.GraphQL.Listings
 {
     [ExtendObjectType("Mutation")]  
     public class ListingMutations  
@@ -15,6 +15,6 @@ namespace API.GraphQL.Users
             _listingService = listingService;  
         }  
 
-        public async Task<User> CreateListing(AddListingInput input) => await _listingService.CreateListing(input);
+        public async Task<Listing> CreateListing(AddListingInput input) => await _listingService.CreateListing(input);
     }  
 }  
