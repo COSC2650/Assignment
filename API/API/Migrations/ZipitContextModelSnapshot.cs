@@ -17,44 +17,57 @@ namespace API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.11");
 
+            modelBuilder.Entity("API.Models.ConfirmCode", b =>
+                {
+                    b.Property<string>("Email")
+                        .HasColumnType("varchar(767)");
+
+                    b.Property<int>("Code")
+                        .HasColumnType("int");
+
+                    b.HasKey("Email");
+
+                    b.ToTable("ConfirmCodes");
+                });
+
             modelBuilder.Entity("API.Models.Listing", b =>
                 {
                     b.Property<int>("ListingID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("DateListed")
+                    b.Property<DateTime>("ListingAvailability")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("ListingCategory")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("ImageURL")
+                    b.Property<string>("ListingCondition")
                         .HasColumnType("text");
 
-                    b.Property<string>("ListingType")
+                    b.Property<DateTime>("ListingDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("ListingDescription")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("PostCode")
+                    b.Property<string>("ListingImageURL")
+                        .HasColumnType("text");
+
+                    b.Property<int>("ListingPostCode")
                         .HasMaxLength(4)
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Price")
+                    b.Property<decimal>("ListingPrice")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<string>("ProdCondition")
+                    b.Property<string>("ListingTitle")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("ServAvailability")
-                        .HasColumnType("datetime");
-
-                    b.Property<string>("Title")
+                    b.Property<string>("ListingType")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -66,153 +79,6 @@ namespace API.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("Listings");
-
-                    b.HasData(
-                        new
-                        {
-                            ListingID = 1001,
-                            Category = "Test Products",
-                            DateListed = new DateTime(2021, 10, 21, 9, 9, 3, 48, DateTimeKind.Utc).AddTicks(7460),
-                            Description = "This is a test description for a test product 1.",
-                            ImageURL = "https://picsum.photos/100?random=1",
-                            ListingType = "Product",
-                            PostCode = 2650,
-                            Price = 1.00m,
-                            ProdCondition = "Good",
-                            ServAvailability = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Test Product 1",
-                            UserID = 1
-                        },
-                        new
-                        {
-                            ListingID = 1002,
-                            Category = "Test Products",
-                            DateListed = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1112),
-                            Description = "This is a test description for a test product 2.",
-                            ImageURL = "https://picsum.photos/100?random=2",
-                            ListingType = "Product",
-                            PostCode = 4000,
-                            Price = 2.00m,
-                            ProdCondition = "Fair",
-                            ServAvailability = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Test Product 2",
-                            UserID = 1
-                        },
-                        new
-                        {
-                            ListingID = 1003,
-                            Category = "Test Products",
-                            DateListed = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1117),
-                            Description = "This is a test description for test product 3.",
-                            ImageURL = "https://picsum.photos/100?random=3",
-                            ListingType = "Product",
-                            PostCode = 2222,
-                            Price = 3.00m,
-                            ProdCondition = "Needs Repair",
-                            ServAvailability = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Test Product 3",
-                            UserID = 3
-                        },
-                        new
-                        {
-                            ListingID = 1004,
-                            Category = "Test Products",
-                            DateListed = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1120),
-                            Description = "This is a test description for a test product 4.",
-                            ImageURL = "https://picsum.photos/100?random=4",
-                            ListingType = "Product",
-                            PostCode = 3232,
-                            Price = 4.44m,
-                            ProdCondition = "Fair",
-                            ServAvailability = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Test Product 4",
-                            UserID = 3
-                        },
-                        new
-                        {
-                            ListingID = 1005,
-                            Category = "Test Products",
-                            DateListed = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1122),
-                            Description = "This is a test description for a test product 5.",
-                            ImageURL = "https://picsum.photos/100?random=5",
-                            ListingType = "Product",
-                            PostCode = 4154,
-                            Price = 5.0m,
-                            ProdCondition = "Excellent",
-                            ServAvailability = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Test Product 5",
-                            UserID = 3
-                        },
-                        new
-                        {
-                            ListingID = 1006,
-                            Category = "Test Services",
-                            DateListed = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1124),
-                            Description = "This is a test description for a test service 1.",
-                            ImageURL = "https://picsum.photos/100?random=1",
-                            ListingType = "Service",
-                            PostCode = 4000,
-                            Price = 6.0m,
-                            ServAvailability = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1124),
-                            Title = "Test Service 1",
-                            UserID = 1
-                        },
-                        new
-                        {
-                            ListingID = 1007,
-                            Category = "Test Services",
-                            DateListed = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1717),
-                            Description = "This is a test description for a test service 2.",
-                            ImageURL = "https://picsum.photos/100?random=2",
-                            ListingType = "Service",
-                            PostCode = 3456,
-                            Price = 7.0m,
-                            ServAvailability = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1718),
-                            Title = "Test Service 2",
-                            UserID = 1
-                        },
-                        new
-                        {
-                            ListingID = 1008,
-                            Category = "Test Services",
-                            DateListed = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1720),
-                            Description = "This is a test description for a test service 3.",
-                            ImageURL = "https://picsum.photos/100?random=3",
-                            ListingType = "Service",
-                            PostCode = 2560,
-                            Price = 8.89m,
-                            ServAvailability = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1720),
-                            Title = "Test Service 3",
-                            UserID = 1
-                        },
-                        new
-                        {
-                            ListingID = 1009,
-                            Category = "Test Services",
-                            DateListed = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1722),
-                            Description = "This is a test description for a test service 4.",
-                            ImageURL = "https://picsum.photos/100?random=4",
-                            ListingType = "Service",
-                            PostCode = 3000,
-                            Price = 8.89m,
-                            ServAvailability = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1722),
-                            Title = "Test Service 4",
-                            UserID = 3
-                        },
-                        new
-                        {
-                            ListingID = 1010,
-                            Category = "Test Services",
-                            DateListed = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1724),
-                            Description = "This is a test description for a test service 5.",
-                            ImageURL = "https://picsum.photos/100?random=5",
-                            ListingType = "Service",
-                            PostCode = 4000,
-                            Price = 10.99m,
-                            ServAvailability = new DateTime(2021, 10, 21, 9, 9, 3, 49, DateTimeKind.Utc).AddTicks(1724),
-                            Title = "Test Service 5",
-                            UserID = 3
-                        });
                 });
 
             modelBuilder.Entity("API.Models.Role", b =>
@@ -249,55 +115,55 @@ namespace API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("varchar(767)");
-
-                    b.Property<bool>("EmailVerfied")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("PostCode")
-                        .HasMaxLength(4)
-                        .HasColumnType("int");
-
                     b.Property<int>("RoleID")
                         .HasColumnType("int");
 
-                    b.Property<string>("State")
+                    b.Property<string>("UserCity")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasColumnType("varchar(767)");
+
+                    b.Property<bool>("UserEmailVerified")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("UserFirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("UserLastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("UserPasswordHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("UserPostCode")
+                        .HasMaxLength(4)
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserState")
                         .IsRequired()
                         .HasMaxLength(3)
                         .HasColumnType("varchar(3)");
 
-                    b.Property<string>("Street")
+                    b.Property<string>("UserStreet")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
                     b.HasKey("UserID");
 
-                    b.HasIndex("Email")
-                        .IsUnique();
-
                     b.HasIndex("RoleID");
+
+                    b.HasIndex("UserEmail")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });

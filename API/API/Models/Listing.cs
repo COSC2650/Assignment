@@ -14,30 +14,30 @@ namespace API.Models
         public virtual User User { get; set; }
 
         [Required, MinLength(4), MaxLength(4)]
-        public int PostCode { get; set; }
+        public int ListingPostCode { get; set; }
 
         [Required, MinLength(3)]
-        public string Title { get; set; }
+        public string ListingTitle { get; set; }
 
         [Required]
-        public DateTime DateListed { get; set; }
+        public DateTime ListingDate { get; set; }
 
         [Required, MinLength(3)]
-        public string Category { get; set; }
+        public string ListingCategory { get; set; }
 
         [Required]
-        public Decimal Price { get; set; }
+        public Decimal ListingPrice { get; set; }
 
         [Required, MinLength(3)]
         public string ListingType { get; set; }
 
         [Required, MinLength(3)]
-        public string Description { get; set; }
+        public string ListingDescription { get; set; }
 
-        public string ProdCondition { get; set; }
+        public string ListingCondition { get; set; }
 
-        public DateTime ServAvailability { get; set; }
+        public DateTime ListingAvailability { get; set; }
 
-        public string ImageURL { get; set; }
+        public string ListingImageURL { get; set; }
     }
 }

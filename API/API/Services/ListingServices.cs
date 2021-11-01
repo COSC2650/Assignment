@@ -1,12 +1,11 @@
-using System.Linq;  
-using System.Threading.Tasks;  
-using Microsoft.EntityFrameworkCore;  
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using API.Data;
 using API.Models;
-using System;
 
 namespace API.Services
-{  
+{
     public class ListingService : IListingService  
     {  
         private readonly ZipitContext _context;
@@ -28,6 +27,76 @@ namespace API.Services
         public IQueryable<Listing> GetAll()
         {
             return _context.Listings.AsQueryable();
+        }
+
+        public IQueryable<Listing> ListingByFilter(int postCode, string listingType, string category)
+        {
+            bool postCodeQuery = false;
+            bool listingTypeQuery = false;
+            bool categoryQuery = false;
+            var postCodes = new List<int>{};
+
+            // 4 digit check
+            // is postcode queried
+            if(postCode > 999)
+            {
+               postCodeQuery = true;
+               postCodes = new List<int>{postCode, postCode+1, postCode+2, postCode+3, postCode+4, postCode+5, postCode-1, postCode-2, postCode-3, postCode-4, postCode-5};
+            }
+
+            // is listingtype queried
+            if(listingType.Length > 0)
+                listingTypeQuery = true;
+            
+            // is category queried
+            if(category.Length > 0)
+                categoryQuery = true;
+
+            // nothing is queried
+            if(!postCodeQuery && !listingTypeQuery && !categoryQuery)
+                return _context.Listings.AsQueryable();
+
+            // only postcode queried
+            if(postCodeQuery && !listingTypeQuery && !categoryQuery)
+                return _context.Listings.Where(x => postCodes.Contains(x.ListingPostCode)).AsQueryable();
+            
+            // only listingtype queried
+            if(!postCodeQuery && listingTypeQuery && !categoryQuery)
+                return _context.Listings.Where(x => x.ListingType == listingType).AsQueryable();
+
+            // only category queried
+            if(!postCodeQuery && !listingTypeQuery && categoryQuery)
+                return _context.Listings.Where(x => x.ListingCategory == category).AsQueryable();
+
+            // postcode & listingtype are queried
+            if(postCodeQuery && listingTypeQuery && !categoryQuery)
+            {
+                return _context.Listings.Where(x => postCodes.Contains(x.ListingPostCode))
+                    .Where(x => x.ListingType == listingType)
+                    .AsQueryable();
+            }
+            
+            // postcode & category are queried
+            if(!listingTypeQuery && postCodeQuery && categoryQuery)
+            {
+                return _context.Listings.Where(x => postCodes.Contains(x.ListingPostCode))
+                    .Where(x => x.ListingCategory == category)
+                    .AsQueryable();
+            }
+
+            // listingtype & category are queried
+            if(!postCodeQuery && listingTypeQuery && categoryQuery)
+            {
+                return _context.Listings.Where(x => x.ListingType == listingType)
+                    .Where(x => x.ListingCategory == category)
+                    .AsQueryable();
+            }
+            
+            // all 3 fields are queried
+            return _context.Listings.Where(x => postCodes.Contains(x.ListingPostCode))
+                .Where(x => x.ListingType == listingType)
+                .Where(x => x.ListingCategory == category)
+                .AsQueryable();
         }
     }
 }

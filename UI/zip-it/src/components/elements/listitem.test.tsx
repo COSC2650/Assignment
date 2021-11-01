@@ -14,11 +14,17 @@ jest.mock('react', () => ({
 
 describe('ListItem', () => {
   const props: ListItemProp = {
-    imageUrl: 'https://picsum.photos/100?random=1',
-    title: 'Test Title',
-    description: 'Test Description',
-    price: 100.0,
-    quantity: 10,
+    listingImageURL: 'https://picsum.photos/100?random=1',
+    listingTitle: 'Test Title',
+    listingDescription: 'Test Description',
+    listingPrice: 100.0,
+    listingQuantity: 10,
+    listingID: '',
+    listingPostCode: 0,
+    listingCategory: '',
+    listingCondition: '',
+    listingAvailibility: '',
+    listingType: ''
   };
 
   it('Should render correctly', () => {
@@ -28,11 +34,11 @@ describe('ListItem', () => {
 
   it('Title should be correct', () => {
     const wrapper = render(<ListItem {...props} />);
-    expect(wrapper.find('h1#heading').text()).toEqual(props.title);
+    expect(wrapper.find('h1#heading').text()).toEqual(props.listingTitle);
   });
 
   it('Description should be correct', () => {
     const wrapper = render(<ListItem {...props} />);
-    expect(wrapper.find('#contents').text()).toEqual(props.description);
+    expect(wrapper.find('#contents').text()).toEqual(props.listingDescription);
   });
 });

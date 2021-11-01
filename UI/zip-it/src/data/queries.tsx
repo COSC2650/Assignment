@@ -1,91 +1,36 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
+//fetches user authentication information
 const query = (props) => {
   if (props.email != null) {
-    console.log('userQuery--------------------------------------');
     return {
       query: gql`
-    {
-      userByEmail(email: "${props.email}", password: "${props.password}") {
-        email
-        firstName
-      }
-    }
-  `,
-    };
-  }
-  if (props.postcode > 0) {
-    console.log('postcode query -------------------------------------');
-    return {
-      query: gql`
-        {
-          ads {
-            listingID
-            title
-            description
-            imageURL
-          }
-        }
-      `,
-    };
-  }
-  if (props.type === 'product') {
-    console.log('product query --------------------------------------');
-    return {
-      query: gql`
-        {
-          ads {
-            listingID
-            title
-            description
-            imageURL
-          }
-        }
-      `,
-    };
-  }
-  if (props.type === 'service') {
-    console.log('service query --------------------------------------');
-    return {
-      query: gql`
-        {
-          ads {
-            listingID
-            title
-            description
-            imageURL
-          }
-        }
-      `,
-    };
-  }
-  if (props.type === 'onLoad') {
-    console.log('query on load --------------------------------------');
-    return {
-      query: gql`
-        {
-          ads {
-            listingID
-            title
-            description
-            imageURL
-          }
-        }
-      `,
+              {
+                userByEmail(email: "${props.email}", password: "${props.password}") {
+                  userID
+                  userEmail
+                  userFirstName
+                  userEmailVerified
+                  userPostCode
+                }
+              }
+            `,
     };
   } else {
-    console.log('Query Undefined -- Zip-It---------------------------');
+    //fetches listings according to passed params
     return {
       query: gql`
-        {
-          ads {
-            listingID
-            title
-            description
-            imageURL
-          }
-        }
-      `,
+              {
+                listingsByFilter(listingPostCode:${props.listingPostCode},listingType:"${props.listingType}",listingCategory:"${props.listingCategory}") {
+                  listingID
+                  listingTitle
+                  listingDescription
+                  listingImageURL
+                  listingType
+                  listingPostCode
+                }
+              }
+              `,
     };
   }
 };

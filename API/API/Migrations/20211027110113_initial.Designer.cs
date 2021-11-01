@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(ZipitContext))]
-    [Migration("20211020083200_listing_model")]
-    partial class listing_model
+    [Migration("20211027110113_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,41 +19,57 @@ namespace API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.11");
 
+            modelBuilder.Entity("API.Models.ConfirmCode", b =>
+                {
+                    b.Property<string>("Email")
+                        .HasColumnType("varchar(767)");
+
+                    b.Property<int>("Code")
+                        .HasColumnType("int");
+
+                    b.HasKey("Email");
+
+                    b.ToTable("ConfirmCodes");
+                });
+
             modelBuilder.Entity("API.Models.Listing", b =>
                 {
                     b.Property<int>("ListingID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Category")
+                    b.Property<DateTime>("ListingAvailability")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("ListingCategory")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("DateListed")
+                    b.Property<string>("ListingCondition")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("ListingDate")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("ListingDescription")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ListingImageURL")
+                        .HasColumnType("text");
+
+                    b.Property<int>("ListingPostCode")
+                        .HasMaxLength(4)
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("ListingPrice")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<string>("ListingTitle")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ListingType")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("PostCode")
-                        .HasMaxLength(4)
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<string>("ProdCondition")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("ServAvailability")
-                        .HasColumnType("datetime");
-
-                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -101,55 +117,55 @@ namespace API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("varchar(767)");
-
-                    b.Property<bool>("EmailVerfied")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("PostCode")
-                        .HasMaxLength(4)
-                        .HasColumnType("int");
-
                     b.Property<int>("RoleID")
                         .HasColumnType("int");
 
-                    b.Property<string>("State")
+                    b.Property<string>("UserCity")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasColumnType("varchar(767)");
+
+                    b.Property<bool>("UserEmailVerified")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("UserFirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("UserLastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("UserPasswordHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("UserPostCode")
+                        .HasMaxLength(4)
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserState")
                         .IsRequired()
                         .HasMaxLength(3)
                         .HasColumnType("varchar(3)");
 
-                    b.Property<string>("Street")
+                    b.Property<string>("UserStreet")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
                     b.HasKey("UserID");
 
-                    b.HasIndex("Email")
-                        .IsUnique();
-
                     b.HasIndex("RoleID");
+
+                    b.HasIndex("UserEmail")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });
@@ -168,7 +184,7 @@ namespace API.Migrations
             modelBuilder.Entity("API.Models.User", b =>
                 {
                     b.HasOne("API.Models.Role", "Role")
-                        .WithMany("UserID")
+                        .WithMany("Users")
                         .HasForeignKey("RoleID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -178,7 +194,7 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.Role", b =>
                 {
-                    b.Navigation("UserID");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("API.Models.User", b =>
