@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
+using API.GraphQL.Listings;
 using API.Models;
 
 namespace API.Services
@@ -16,8 +17,22 @@ namespace API.Services
         }
 
         // makeshift for now, edit when we get here
-        public async Task<Listing> CreateListing(Listing listing)
+        public async Task<Listing> CreateListing(AddListingInput input)
         {
+            var listing = new Listing();
+
+            listing.UserID = input.UserID;
+            listing.ListingType = input.ListingType;
+            listing.ListingTitle = input.Title;
+            listing.ListingPrice = (decimal)input.Price;
+            listing.ListingPostCode = input.PostCode;
+            listing.ListingImageURL = input.ImageURL;
+            listing.ListingDescription = input.Description;
+            listing.ListingDate = System.DateTime.UtcNow;
+            listing.ListingCategory = input.Category;
+            listing.ListingAvailability = System.DateTime.UtcNow;
+            listing.ListingCondition = input.ProdCondition;
+
             _context.Listings.Add(listing);
             await _context.SaveChangesAsync();
 

@@ -15,7 +15,7 @@ function mutation(props): DocumentNode {
                     }
                 }
             `;
-    } else if (props.type === "confirm") {
+    } if (props.type === "confirm") {
         result = gql`
                 mutation {
                     confirmUser(userEmail: "${props.data.userEmail}", confirmationCode: ${props.data.confirmationCode}) {
@@ -26,9 +26,22 @@ function mutation(props): DocumentNode {
                     }
                 }
             `;
-    }
 
-    return result;
+} else if (props.type === "newlisting") {
+    result = gql`
+            mutation {
+                createListing(input: { listingID: "${props.data.listingID}", listingUserID: ${props.data.listingUserID}, listingPostcode: "${props.data.listingPostcode}", listingTitle: "${props.data.listingTitle}", listingDate: "${props.data.listingDate}", listingPrice: "${props.data.listingPrice}" listingType: "${props.data.listingType}", listingDescription: "${props.data.listingDescription}", listingCondition: "${props.data.listingCondition}", listingAvailability: "${props.data.listingAvailability}", listingImageURL: "${props.data.listingImageURL}",) {
+                    listingID
+                    listingTitle
+                    listingDescription
+                    listingImageURL
+                    listingType
+                    listingPostCode
+                }
+            }
+        `;
 }
 
+return result;
+}
 export default mutation;
