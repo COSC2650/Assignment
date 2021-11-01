@@ -23,25 +23,20 @@ export function Search(props: SearchProps) {
 
   //on change calls setSearchType
   function postcodeOnChange(postCodeInput?: number): number | undefined {
-    console.log(postCodeInput);
-    if (postCodeInput !== undefined) {
-      if (postCodeInput > 800) {
-        console.log('setPostCodeField');
-        return postCodeInput;
-      }
-      if ((isNaN(postCodeInput)||postCodeInput < 800) && props.userPostCode > 800) {
+    if ((postCodeInput !== undefined && postCodeInput > 800)||(postCodeInput !== undefined && props.userPostCode > 800)) {
+      if (
+        (isNaN(postCodeInput) || postCodeInput < 800) &&
+        props.userPostCode > 800
+      ) {
         console.log('setPostCodeUser');
         return props.userPostCode;
+      } else {
+        return postCodeInput;
       }
-      if (postCodeInput < 800) {
-        console.log('setPostCodeDefault');
-        return 4;
-      }
-        else{
-          console.log(props.userPostCode)
-          return 5;
-        }
-      }
+    } else {
+      console.log(props.userPostCode);
+      return 5;
+    }
   }
   const typeOnChange = (event) => setType(event.target.value);
   const categoryOnChange = (event) => setCategory(event.target.value);
