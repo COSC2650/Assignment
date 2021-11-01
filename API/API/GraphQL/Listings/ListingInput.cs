@@ -4,13 +4,11 @@ namespace API.GraphQL.Listings
         int UserID,
         int PostCode,
         string Title,
-        DateTime DateListed,
         string Category,
-        Decimal Price,
+        float Price,
         string ListingType,
         string Description,
         string ProdCondition,
-        DateTime ServAvailability,
         string ImageURL
         );
 }
