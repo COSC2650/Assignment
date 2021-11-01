@@ -61,7 +61,7 @@ function App() {
     setLoginVisible(false);
     setRegisterVisible(false);
     setNewListingDisabled(false)
-}
+  }
 
 
   const onLogInClose = () => setLoginVisible(false);
@@ -307,21 +307,33 @@ function App() {
     client
       .mutate({ mutation: mutation(listingProps) })
       .then((result) => {
-
-          setNewListingVisible(false);
-
-          toast({
-            title: "New Listing Created",
-            description: "Your listing has been successfully created!",
-            status: "success",
-            duration: 2000,
-            isClosable: true,
-            position: "top",
-          });
+        console.log(result);
+        toast({
+          title: "Account Created",
+          description: "Your account has been successfully verified.",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        });
+        setNewListingVisible(false);
       })
+
       .catch((result) => {
 
-        errorToast();
+        toast({
+          title: "Catch Error",
+          description: "Listing has hit catch.",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        });
+        
+        console.log("Apollo/GraphQL failure - Zip-It");
+        console.log("check relevant query in queries.tsx");
+        console.log(props);
+        console.log(result);
 
         setNewListingDisabled(false);
       });
@@ -368,8 +380,8 @@ function App() {
         onNewListing={onNewListing}
         onClose={onNewListingClose}
       ></NewListing>
-      <Listings 
-      userPostCode={userPostCode}/>
+      <Listings
+        userPostCode={userPostCode} />
     </>
   );
 }
