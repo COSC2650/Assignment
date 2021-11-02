@@ -23,7 +23,10 @@ export function Search(props: SearchProps) {
 
   //on change calls setSearchType
   function postcodeOnChange(postCodeInput?: number): number | undefined {
-    if ((postCodeInput !== undefined && postCodeInput > 800)||(postCodeInput !== undefined && props.userPostCode > 800)) {
+    if (
+      (postCodeInput !== undefined && postCodeInput > 800) ||
+      (postCodeInput !== undefined && props.userPostCode > 800)
+    ) {
       if (
         (isNaN(postCodeInput) || postCodeInput < 800) &&
         props.userPostCode > 800
@@ -80,6 +83,11 @@ export function Search(props: SearchProps) {
             <option value="barelyused">Barely Used</option>
             <option value="unused">Unused</option>
           </Select>
+          <Select placeholder="Availibility" disabled={false}>
+            <option value="option1">Now</option>
+            <option value="option2">Date and Time</option>
+            <option value="option3">Pre Order</option>
+          </Select>
         </>
       );
     }
@@ -96,6 +104,10 @@ export function Search(props: SearchProps) {
             <option value="licenced">Qualified and Certified</option>
             <option value="unqualified">Unqualified and Uncertified</option>
           </Select>
+          <Select placeholder="Availibility" disabled={false}>
+            <option value="option1">Now</option>
+            <option value="option2">Date</option>
+          </Select>
         </>
       );
     } else {
@@ -108,6 +120,7 @@ export function Search(props: SearchProps) {
             onChange={categoryOnChange}
             disabled
           ></Select>
+          <Select placeholder="Availibility" disabled></Select>
         </>
       );
     }
@@ -125,7 +138,6 @@ export function Search(props: SearchProps) {
           setCurrentUserPostCode(parseInt(event.target.value));
           postcodeOnChange(parseInt(event.target.value));
         }}
-        value={currentUserPostCode}
       />
       <Select
         placeholder="Products or Services"
@@ -137,11 +149,6 @@ export function Search(props: SearchProps) {
         <option value="service">Service</option>
       </Select>
       <CategorySelection />
-      <Select placeholder="Availibility">
-        <option value="option1">Now</option>
-        <option value="option2">Then</option>
-        <option value="option3">Booked Out</option>
-      </Select>
       <Button
         leftIcon={<Icon as={FaSearch} />}
         onClick={() => onSearch(currentUserPostCode)}
