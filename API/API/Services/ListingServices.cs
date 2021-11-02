@@ -83,13 +83,14 @@ namespace API.Services
             // one field queried
             if(queryArgs==1)
             {
-                var results = OneFieldListingQuery(postCode, listingType, category, postCodeQuery, listingTypeQuery, categoryQuery, postCodes, sortedList);
+                var results = OneFieldListingQuery(postCode, listingType, category, postCodeQuery, listingTypeQuery, categoryQuery, postCodes);
                 return results;
             }
 
+            // two fields queried
             if(queryArgs==2)
             {
-                var results = TwoFieldListingQuery(postCode, listingType, category, postCodeQuery, listingTypeQuery, categoryQuery, postCodes, sortedList);
+                var results = TwoFieldListingQuery(postCode, listingType, category, postCodeQuery, listingTypeQuery, categoryQuery, postCodes);
                 return results;
             }
             
@@ -107,8 +108,10 @@ namespace API.Services
         }
 
         public IQueryable<Listing> OneFieldListingQuery(int postCode, string listingType, string category, 
-            bool postCodeQuery, bool listingTypeQuery, bool categoryQuery, List<int> postCodes, List<Listing> sortedList)
+            bool postCodeQuery, bool listingTypeQuery, bool categoryQuery, List<int> postCodes)
         {
+            var sortedList = new List<Listing>{};
+
             if(postCodeQuery && !listingTypeQuery && !categoryQuery)
             {
                 var results = _context.Listings.Where(x => postCodes.Contains(x.ListingPostCode)).ToList();
@@ -129,8 +132,10 @@ namespace API.Services
         }
 
         public IQueryable<Listing> TwoFieldListingQuery(int postCode, string listingType, string category, 
-            bool postCodeQuery, bool listingTypeQuery, bool categoryQuery, List<int> postCodes, List<Listing> sortedList)
+            bool postCodeQuery, bool listingTypeQuery, bool categoryQuery, List<int> postCodes)
         {
+            var sortedList = new List<Listing>{};
+
             // postcode & listingtype are queried
             if(postCodeQuery && listingTypeQuery && !categoryQuery)
             {
