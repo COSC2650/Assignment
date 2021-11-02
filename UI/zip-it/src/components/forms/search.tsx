@@ -77,7 +77,6 @@ export function Search(props: SearchProps) {
             placeholder="Condition"
             type="condition"
             id="listingCondition"
-            onChange={categoryOnChange}
           >
             <option value="goodcondition">Good Condition</option>
             <option value="wellused">Well used</option>
@@ -99,7 +98,6 @@ export function Search(props: SearchProps) {
             placeholder="Qualification"
             type="qualificaiton"
             id="qualification"
-            onChange={categoryOnChange}
           >
             <option value="qualified">Qualified</option>
             <option value="licenced">Qualified and Certified</option>
@@ -118,7 +116,6 @@ export function Search(props: SearchProps) {
             placeholder="Category"
             type="category"
             id="category"
-            onChange={categoryOnChange}
             disabled
           ></Select>
           <Select placeholder="Availibility" disabled></Select>
