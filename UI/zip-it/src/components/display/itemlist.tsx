@@ -39,6 +39,7 @@ export function Listings(props: userDetails) {
       });
   };
 
+  //passes data returned to listItem to be rendered
   function ListingsFragment() {
     return (
       <>
@@ -53,6 +54,7 @@ export function Listings(props: userDetails) {
     );
   }
 
+  //query on render useEffect to overcome re renders
   useEffect(() => {
     queryAPI(SearchDetails);
     // eslint-disable-next-line react-hooks/exhaustive-deps
