@@ -21,11 +21,7 @@ interface LogInDetails {
 
 function App() {
   const [userTitle, setUserTitle] = useState("Welcome");
-  //const [userID, setUserID] = useState(0);
-  //const [userEmail, setUserEmail] = useState('');
   const [userPostCode, setUserPostCode] = useState(0);
-  const [userFirstName, setUserFirstName] = useState('');
-  const [userEmailVerified, setUserEmailVerified] = useState(false);
   const [authenticated, setAuthenticated] = useState<LogInDetails>();
   const [logInDisabled, setLogInDisabled] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
@@ -70,7 +66,7 @@ function App() {
   const onNewListingClose = () => setNewListingVisible(false);
 
   const onConfirmationClose = () => {
-    setUserTitle("Welcome");
+    setUserTitle('Welcome');
     setAuthenticated(undefined);
 
     setConfirmationVisible(false);
@@ -79,36 +75,36 @@ function App() {
 
   const registrationErrorToast = () =>
     toast({
-      title: "Email already registered",
+      title: 'Email already registered',
       description:
-        "The email address you entered is already contained in the system, please either log in or register another email address.",
-      status: "error",
+        'The email address you entered is already contained in the system, please either log in or register another email address.',
+      status: 'error',
       duration: 2000,
       isClosable: true,
-      position: "top",
+      position: 'top',
     });
 
   const validationToast = () =>
     toast({
-      title: "Sorry invalid - Try again?",
-      description: "Invalid credentials.",
-      status: "error",
+      title: 'Sorry invalid - Try again?',
+      description: 'Invalid credentials.',
+      status: 'error',
       duration: 2000,
       isClosable: true,
-      position: "top",
+      position: 'top',
     });
 
   const errorToast = () =>
     toast({
-      title: "Sorry the system is down - Try later",
-      description: "Invalid credentials.",
-      status: "error",
+      title: 'Sorry the system is down - Try later',
+      description: 'Invalid credentials.',
+      status: 'error',
       duration: 2000,
       isClosable: true,
-      position: "top",
+      position: 'top',
     });
 
-  //Logic for Login function
+  //Logic for Login fucntion
   const onLogin = (props: LoginDetails) => {
     setLogInDisabled(true);
 
@@ -123,35 +119,29 @@ function App() {
 
         if (queryResult != null) {
           //set user data
+          setUserTitle('Welcome back ' + queryResult.userFirstName);
+          setUserPostCode(queryResult.userPostCode);
+
+          //hide login
+          setLoginVisible(false);
+
           // Set the authenticated data
           const logInDetails: LogInDetails = {
             ...result.data.userByEmail,
           };
 
+          //sets authenticated state
           setAuthenticated(logInDetails);
 
-          // makeshift state variables since authenticated was not saving
-          //setUserID(logInDetails.userID);
-          setUserFirstName(logInDetails.userFirstName);
-          setUserPostCode(logInDetails.userPostCode);
-          //setUserEmail(logInDetails.userEmail);
-          setUserEmailVerified(logInDetails.userEmailVerified);
-
-          setUserTitle("Welcome back " + userFirstName);
-          console.log('App.tsx ln109 returned userPostCode = ' + userPostCode);
-
-          //hide login
-          setLoginVisible(false);
-
-          if (userEmailVerified) {
+          if (logInDetails.userEmailVerified) {
             //login confirmation
             toast({
-              title: "Logged In",
-              description: "You have been successfully logged in.",
-              status: "success",
+              title: 'Logged In',
+              description: 'You have been successfully logged in.',
+              status: 'success',
               duration: 2000,
               isClosable: true,
-              position: "top",
+              position: 'top',
             });
           } else {
             // Show the confirmation page
@@ -176,16 +166,16 @@ function App() {
   const onLogout = () => {
     //log out confirmation
     toast({
-      title: "Logged out",
-      description: "You have been successfully logged out.",
-      status: "success",
+      title: 'Logged out',
+      description: 'You have been successfully logged out.',
+      status: 'success',
       duration: 2000,
       isClosable: true,
-      position: "top",
+      position: 'top',
     });
 
     //setheader title and authentication status
-    setUserTitle("Welcome");
+    setUserTitle('Welcome');
     setAuthenticated(undefined);
     setLogInDisabled(false);
 
@@ -197,7 +187,7 @@ function App() {
     //invoke client
     const client = clientConnection();
     const regProps = {
-      type: "register",
+      type: 'register',
       data: props,
     };
 
@@ -244,7 +234,7 @@ function App() {
     //invoke client
     const client = clientConnection();
     const confProps = {
-      type: "confirm",
+      type: 'confirm',
       data: {
         userEmail: authenticated?.userEmail,
         confirmationCode: props.confirmationCode,
@@ -268,12 +258,12 @@ function App() {
 
           // Show the account created toast
           toast({
-            title: "Account Created",
-            description: "Your account has been successfully verified.",
-            status: "success",
+            title: 'Account Created',
+            description: 'Your account has been successfully verified.',
+            status: 'success',
             duration: 2000,
             isClosable: true,
-            position: "top",
+            position: 'top',
           });
 
           // Hide the confirmation dialog

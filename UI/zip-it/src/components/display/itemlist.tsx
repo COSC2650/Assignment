@@ -1,52 +1,45 @@
-import { VStack, StackDivider, Stack } from "@chakra-ui/layout";
-import ListItem, { ListItemProp } from "../../components/elements/listitem";
-import Search, { SearchDetails } from "../forms/search";
-import query from "../../data/queries";
-import clientConnection from "../../data/client";
-import React, { useState, useEffect } from "react";
+import { VStack, StackDivider, Stack } from '@chakra-ui/layout';
+import ListItem, { ListItemProp } from '../../components/elements/listitem';
+import Search, { SearchDetails } from '../forms/search';
+import query from '../../data/queries';
+import clientConnection from '../../data/client';
+import React, { useState, useEffect } from 'react';
 
-interface UserDetails {
+interface userDetails {
   userPostCode: number;
 }
 
-export function Listings(props: UserDetails) {
+export function Listings(props: userDetails) {
   let [listings, setListings] = useState([]);
 
   //default query parameters
   var SearchDetails = {
-    listingPostCode: props.userPostCode,
-    listingType: "",
-    listingCategory: "",
+    // need this to be 0 for default searches for it to work (MP)
+    listingPostCode: 2,
+    listingType: '',
+    listingCategory: '',
   };
 
   const queryAPI = (props: SearchDetails) => {
     //invoke client
     const client = clientConnection();
-
-    console.log(
-      "itemlist.tsx ln27 query end endpoint passing in SearchDetails.lstingPostCode: " +
-        props.listingPostCode
-    );
     client
-
       .query(query(props))
       .then((result) => {
-        console.log("itemlist ln33 returned object below");
-        console.log(result);
         //create constant from result
         listings = result.data.listingsByFilter;
         setListings(listings);
       })
-
       //catch apollo/graphQL failure
       .catch((result) => {
-        console.log("Apollo/GraphQL failure - Zip-It");
-        console.log("check relevant query in queries.tsx");
+        console.log('Apollo/GraphQL failure - Zip-It');
+        console.log('check relevant query in queries.tsx');
         console.log(props);
         console.log(result);
       });
   };
 
+  //passes data returned to listItem to be rendered
   function ListingsFragment() {
     return (
       <>
@@ -61,6 +54,7 @@ export function Listings(props: UserDetails) {
     );
   }
 
+  //query on render useEffect to overcome re renders
   useEffect(() => {
     queryAPI(SearchDetails);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,12 +64,12 @@ export function Listings(props: UserDetails) {
   return (
     <>
       <Stack
-        direction={["column", "row"]}
+        direction={['column', 'row']}
         margin="60px 5px 5px 5px"
         divider={<StackDivider />}
         spacing={2}
       >
-        <Search onSearchInterface={queryAPI}></Search>
+        <Search onSearchInterface={queryAPI} userPostCode={props.userPostCode}></Search>
         <VStack divider={<StackDivider />} spacing={2} width="100%">
           <ListingsFragment />
         </VStack>
