@@ -75,15 +75,14 @@ export function NewListing(props: newListingProps) {
       return (
         <>
           <Select
-            placeholder="Condition"
-            type="condition"
-            id="listingCondition"
-            onChange={conditionOnChange}
-          >
-            <option value="goodcondition">Good Condition</option>
-            <option value="wellused">Well used</option>
-            <option value="barelyused">Barely Used</option>
-            <option value="unused">Unused</option>
+            placeholder="Category"
+            type="category"
+            id="category"
+            onChange={categoryOnChange}>
+            <option value="carparts">Car Parts</option>
+            <option value="shoes">Shoes</option>
+            <option value="computerparts">Computer Parts</option>
+            <option value="cards">Collector Cards</option>
           </Select>
         </>
       );
@@ -93,10 +92,9 @@ export function NewListing(props: newListingProps) {
         <>
           <Select
             placeholder="Qualification"
-            type="qualificaiton"
-            id="qualification"
-            onChange={categoryOnChange}
-          >
+            type="category"
+            id="category"
+            onChange={categoryOnChange}>
             <option value="qualified">Qualified</option>
             <option value="licenced">Qualified and Certified</option>
             <option value="unqualified">Unqualified and Uncertified</option>
@@ -122,12 +120,13 @@ export function NewListing(props: newListingProps) {
     if (listingType === 'service') {
       return (
         <>
-          <Select placeholder="Availibility"
-            type="availibility"
+          <Select 
+            placeholder="Availibile Until"
+            type="availability"
             id="availibility"
-            onChange={availabilityOnChange}>
-            <option value="Now">Now</option>
-            <option value="Coming Soon">Coming Soon</option>
+            onChange={availabilityOnChange}
+          >
+            <option value="tbd">TBD(Date Entry)</option>
           </Select>
         </>
       );
@@ -136,7 +135,7 @@ export function NewListing(props: newListingProps) {
         <>
           <Select
             placeholder="Availability"
-            type='Availability'
+            type='availability'
             id='availability'
             onChange={availabilityOnChange}
             disabled
@@ -145,6 +144,40 @@ export function NewListing(props: newListingProps) {
       );
     }
   }
+  
+
+  function ConditionSelection() {
+    if (listingType === 'product') {
+      return (
+        <>
+          <Select 
+            placeholder="Condition"
+            type='condition'
+            id='condition'
+            onChange={conditionOnChange}
+          >
+            <option value="likenew">Like New</option>
+            <option value="barelyused">Barely Used</option>
+            <option value="goodcondition">Good Condition</option>
+            <option value="wellused">Well used</option>
+          </Select>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Select
+            placeholder="Condition"
+            type='condition'
+            id='condition'
+            onChange={conditionOnChange}
+            disabled
+          ></Select>
+        </>
+      );
+    }
+  }
+
   return (
     <FormControl>
       <Modal isOpen={props.visible} onClose={props.onClose} id="newListing">
@@ -171,10 +204,12 @@ export function NewListing(props: newListingProps) {
             <CategorySelection />
             Listing Description:
             <Input onChange={descriptionOnChange} placeholder="Create a listing description here" variant="filled" mb={3} type="description" id="description" />
+            Listing Condition:
+            <ConditionSelection />
             Listing Availability:
             <AvailabilitySelection />
             Image:
-            <Input onChange={imageOnChange} placeholder="Place an image URL here" variant="filled" mb={3} type="title" id="title" />
+            <Input onChange={imageOnChange} placeholder="Place an image URL here" variant="filled" mb={3} type="imageurl" id="imageurl" />
           </ModalBody>
 
           <ModalFooter>
