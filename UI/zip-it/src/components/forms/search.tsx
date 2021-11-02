@@ -42,8 +42,7 @@ export function Search(props: SearchProps) {
 
   //dropdown onchange
   const typeOnChange = (event) => setType(event.target.value);
-  const categoryOnChange = (event) => setCategory(event.target.value);
-
+  
   const onSearch = (postcode?: number) => {
     //sets search setails
     const searchDetails: SearchDetails = {
