@@ -1,18 +1,6 @@
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Input,
-  Select,
-  Button,
-  Alert,
-  AlertIcon,
-  AlertDescription,
-  FormControl,
+  Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Input, Select,
+  Button, Alert, AlertIcon, AlertDescription, FormControl
 } from '@chakra-ui/react';
 import { Flex, Spacer } from '@chakra-ui/layout';
 import { useState } from 'react';
@@ -138,9 +126,8 @@ export function NewListing(props: newListingProps) {
             type="availibility"
             id="availibility"
             onChange={availabilityOnChange}>
-            <option value="option1">Now</option>
-            <option value="option2">Then</option>
-            <option value="option3">Booked Out</option>
+            <option value="Now">Now</option>
+            <option value="Coming Soon">Coming Soon</option>
           </Select>
         </>
       );

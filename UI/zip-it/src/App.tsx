@@ -304,7 +304,7 @@ function App() {
         console.log(result);
         toast({
           title: "Account Created",
-          description: "Your account has been successfully verified.",
+          description: "Your listing has been successfully created.",
           status: "success",
           duration: 2000,
           isClosable: true,
@@ -317,13 +317,13 @@ function App() {
 
         toast({
           title: "Catch Error",
-          description: "Listing has hit catch.",
+          description: "Listing has encountered an error.",
           status: "error",
           duration: 2000,
           isClosable: true,
           position: "top",
         });
-        
+
         console.log("Apollo/GraphQL failure - Zip-It");
         console.log("check relevant query in queries.tsx");
         console.log(props);
