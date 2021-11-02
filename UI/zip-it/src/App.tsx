@@ -106,8 +106,6 @@ function App() {
           //set user data
           setUserTitle('Welcome back ' + queryResult.userFirstName);
           setUserPostCode(queryResult.userPostCode);
-          console.log(queryResult.userPostCode);
-          console.log('App.tsx ln109 returned userPostCode = ' + userPostCode);
 
           //hide login
           setLoginVisible(false);

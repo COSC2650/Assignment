@@ -21,26 +21,26 @@ export function Search(props: SearchProps) {
   const [listingCategory, setCategory] = useState('');
   const [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3);
 
-  //on change calls setSearchType
+  //on change validation and default value set
   function postcodeOnChange(postCodeInput?: number): number | undefined {
     if (
-      (postCodeInput !== undefined && postCodeInput > 800) ||
-      (postCodeInput !== undefined && props.userPostCode > 800)
+      postCodeInput !== undefined &&
+      (postCodeInput > 800 || props.userPostCode > 800)
     ) {
       if (
         (isNaN(postCodeInput) || postCodeInput < 800) &&
         props.userPostCode > 800
       ) {
-        console.log('setPostCodeUser');
         return props.userPostCode;
       } else {
         return postCodeInput;
       }
     } else {
-      console.log(props.userPostCode);
       return 5;
     }
   }
+
+  //dropdown onchange
   const typeOnChange = (event) => setType(event.target.value);
   const categoryOnChange = (event) => setCategory(event.target.value);
 
@@ -54,13 +54,14 @@ export function Search(props: SearchProps) {
 
     // Email regex
     var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
-    console.log(searchDetails.listingPostCode);
+
     //sets details in interface
     if (!regexp.test('{listingPostCode}')) {
       props.onSearchInterface(searchDetails);
     }
   };
 
+  //used to overcome async state change
   React.useEffect(() => {
     setCurrentUserPostCode(props.userPostCode);
     onSearch(props.userPostCode);
