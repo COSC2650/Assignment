@@ -6,7 +6,6 @@ import React, { useState } from 'react';
 export interface SearchDetails {
   listingPostCode?: number;
   listingType: string;
-  listingCategory: string;
 }
 
 //interface to caller
@@ -18,7 +17,7 @@ export interface SearchProps {
 export function Search(props: SearchProps) {
   //defines Search Type and creates setter
   const [listingType, setType] = useState('');
-  const [listingCategory, setCategory] = useState('');
+  
   const [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3);
 
   //on change validation and default value set
@@ -48,7 +47,6 @@ export function Search(props: SearchProps) {
     const searchDetails: SearchDetails = {
       listingPostCode: postcodeOnChange(postcode),
       listingType: listingType,
-      listingCategory: listingCategory,
     };
 
     // Email regex
