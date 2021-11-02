@@ -17,6 +17,7 @@ describe('Search Component', () => {
       onSearchInterface: (ldprops: SearchDetails) => {
         // Intentional
       },
+      userPostCode:3000,
     };
     const component = render(<Search {...props} />);
     expect(component).toMatchSnapshot();
@@ -29,6 +30,7 @@ describe('Search Component', () => {
     //apply it to the onSearch interface
     const props: SearchProps = {
       onSearchInterface: mockOnSearchCallBack,
+      userPostCode:3000,
     };
 
     // Render the component
@@ -48,7 +50,7 @@ describe('Search Component', () => {
     wrapper.find('Button').simulate('click');
 
     //check that the callback was called
-    expect(mockOnSearchCallBack.mock.calls.length).toEqual(1);
+    expect(mockOnSearchCallBack.mock.calls.length).toEqual(2);
 
     //check that results were returned
   });
