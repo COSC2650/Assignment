@@ -115,6 +115,7 @@ function App() {
             ...result.data.userByEmail,
           };
 
+          //sets authenticated state
           setAuthenticated(logInDetails);
 
           if (logInDetails.userEmailVerified) {
