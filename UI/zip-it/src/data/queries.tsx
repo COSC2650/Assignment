@@ -21,7 +21,7 @@ const query = (props) => {
     return {
       query: gql`
               {
-                listingsByFilter(listingPostCode:${props.listingPostCode},listingType:"${props.listingType}",listingCategory:"${props.listingCategory}") {
+                listingsByFilter(listingPostCode:${props.listingPostCode===undefined?0:props.listingPostCode},listingType:"${props.listingType}",listingCategory:"${props.listingCategory}") {
                   listingID
                   listingTitle
                   listingDescription
