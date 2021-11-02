@@ -23,6 +23,7 @@ interface HeaderProps {
   toggleColorMode(): void;
   toggleLogIn(): void;
   toggleLogout(): void;
+  toggleNewListing(): void;
   userTitle: string;
   authenticated: boolean;
 }
@@ -53,6 +54,7 @@ const Header = (props: HeaderProps) => {
   };
 
   function BurgerMenu() {
+
     return (
       <Menu>
         <MenuButton
@@ -63,7 +65,9 @@ const Header = (props: HeaderProps) => {
           color = "black"
         />
         <MenuList>
-          <MenuItem icon={<AddIcon />} command="">
+          <MenuItem
+          icon={<AddIcon />}
+          onClick={props.toggleNewListing}>
             New Listing
           </MenuItem>
           <MenuItem icon={<ExternalLinkIcon />} command="">

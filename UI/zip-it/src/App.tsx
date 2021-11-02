@@ -1,26 +1,31 @@
-import { useState } from 'react';
-import Header from './components/elements/header';
-import { useColorMode, useToast } from '@chakra-ui/react';
-import Login, { LoginDetails } from './components/forms/login';
-import Logout from './components/forms/logout';
-import Register, { RestrationDetails } from './components/forms/register';
-import query from './data/queries';
-import mutation from './data/mutations';
-import clientConnection from './data/client';
-import { Listings } from './components/display/itemlist';
-import Confirmation, {
-  ConfirmationDetails,
-} from './components/forms/confirmation';
+import { useState } from "react";
+import Header from "./components/elements/header";
+import { useColorMode, useToast } from "@chakra-ui/react";
+import Login, { LoginDetails } from "./components/forms/login";
+import Logout from "./components/forms/logout";
+import Register, { RestrationDetails } from "./components/forms/register";
+import query from "./data/queries";
+import mutation from "./data/mutations";
+import clientConnection from "./data/client";
+import { Listings } from "./components/display/itemlist";
+import NewListing, { newListingDetails } from './components/forms/newListing';
+import Confirmation, { ConfirmationDetails } from "./components/forms/confirmation";
 
 interface LogInDetails {
   userID: number;
   userEmail: string;
+  userFirstName: string;
   userEmailVerified: boolean;
+  userPostCode: number;
 }
 
 function App() {
-  const [userPostCode, setUserPostCode] = useState(1);
-  const [userTitle, setUserTitle] = useState('Welcome');
+  const [userTitle, setUserTitle] = useState("Welcome");
+  const [userID, setUserID] = useState(0);
+  const [userEmail, setUserEmail] = useState('');
+  const [userPostCode, setUserPostCode] = useState(0);
+  const [userFirstName, setUserFirstName] = useState('');
+  const [userEmailVerified, setUserEmailVerified] = useState(false);
   const [authenticated, setAuthenticated] = useState<LogInDetails>();
   const [logInDisabled, setLogInDisabled] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
@@ -29,27 +34,41 @@ function App() {
   const [registerDisabled, setRegisterDisabled] = useState(false);
   const [confirmationVisible, setConfirmationVisible] = useState(false);
   const [confirmationDisabled, setConfirmationDisabled] = useState(false);
+  const [newListingVisible, setNewListingVisible] = useState(false);
   const { toggleColorMode } = useColorMode();
   const onShowLogin = () => {
+    setNewListingVisible(false);
     setLoginVisible(true);
     setLogInDisabled(false);
     setLogoutVisible(false);
     setRegisterVisible(false);
   };
   const onShowRegister = () => {
+    setNewListingVisible(false);
     setLogoutVisible(false);
     setLoginVisible(false);
     setRegisterVisible(true);
     setRegisterDisabled(false);
   };
   const onShowLogout = () => {
+    setNewListingVisible(false);
     setLogoutVisible(true);
     setLoginVisible(false);
     setRegisterVisible(false);
   };
+  const onShowNewListing = () => {
+    setNewListingVisible(true);
+    setLogoutVisible(false);
+    setLoginVisible(false);
+    setRegisterVisible(false);
+}
+
+
   const onLogInClose = () => setLoginVisible(false);
   const onLogoutClose = () => setLogoutVisible(false);
   const onRegisterClose = () => setRegisterVisible(false);
+  const onNewListingClose = () => setNewListingVisible(false);
+
   const onConfirmationClose = () => {
     setUserTitle('Welcome');
     setAuthenticated(undefined);
@@ -271,12 +290,30 @@ function App() {
       });
   };
 
+  const onNewListing = (props: newListingDetails) => {
+    if (true) {
+      toast({
+        title: 'New Listing Created',
+        description: 'Your new listing has been created.',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position: 'top',
+      });
+    } else {
+      errorToast();
+    }
+
+    setNewListingVisible(false);
+  };
+
   return (
     <>
       <Header
         toggleColorMode={toggleColorMode}
         toggleLogIn={onShowLogin}
         toggleLogout={onShowLogout}
+        toggleNewListing={onShowNewListing}
         userTitle={userTitle}
         authenticated={authenticated !== undefined}
       />
@@ -304,8 +341,14 @@ function App() {
         onOpenLogin={onShowLogin}
         onRegister={onRegister}
         onClose={onRegisterClose}
-      />
-      <Listings userPostCode={userPostCode} />
+      ></Register>
+      <NewListing
+        visible={newListingVisible}
+        onNewListing={onNewListing}
+        onClose={onNewListingClose}
+      ></NewListing>
+      <Listings 
+      userPostCode={userPostCode}/>
     </>
   );
 }
