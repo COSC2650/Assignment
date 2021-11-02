@@ -21,11 +21,7 @@ interface LogInDetails {
 
 function App() {
   const [userTitle, setUserTitle] = useState("Welcome");
-  const [userID, setUserID] = useState(0);
-  const [userEmail, setUserEmail] = useState('');
   const [userPostCode, setUserPostCode] = useState(0);
-  const [userFirstName, setUserFirstName] = useState('');
-  const [userEmailVerified, setUserEmailVerified] = useState(false);
   const [authenticated, setAuthenticated] = useState<LogInDetails>();
   const [logInDisabled, setLogInDisabled] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
