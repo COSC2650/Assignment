@@ -26,11 +26,11 @@ function mutation(props): DocumentNode {
                     }
                 }
             `;
-
+// matching current input, will be changed in the future
 } else if (props.type === "newListing") {
     result = gql`
             mutation {
-                createListing(input: { UserID: ${props.data.listingUserID}, ListingPostCode: "${props.data.listingPostcode}", ListingTitle: "${props.data.listingTitle}", listingPrice: "${props.data.listingPrice}" ListingType: "${props.data.listingType}", ListingCategory: "${props.data.listingCategory}", ListingDescription: "${props.data.listingDescription}", ListingCondition: "${props.data.listingCondition}", ListingAvailability: "${props.data.listingAvailability}", ListingImageURL: "${props.data.listingImageURL}",}) {
+                createListing(input: { userID: ${props.data.listingUserID}, postCode: "${props.data.listingPostcode}", title: "${props.data.listingTitle}", category: "${props.data.listingCategory}", price: "${props.data.listingPrice}" listingType: "${props.data.listingType}",  description: "${props.data.listingDescription}", prodCondition: "${props.data.listingCondition}", imageURL: "${props.data.listingImageURL}",}) {
                     listingID
                 }
             }
