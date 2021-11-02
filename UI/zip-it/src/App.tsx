@@ -22,8 +22,6 @@ interface LogInDetails {
 function App() {
   const [userTitle, setUserTitle] = useState("Welcome");
   const [userPostCode, setUserPostCode] = useState(0);
-  const [userFirstName, setUserFirstName] = useState('');
-  const [userEmailVerified, setUserEmailVerified] = useState(false);
   const [authenticated, setAuthenticated] = useState<LogInDetails>();
   const [logInDisabled, setLogInDisabled] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
@@ -131,19 +129,15 @@ function App() {
           setAuthenticated(logInDetails);
 
           // makeshift state variables since authenticated was not saving
-          //setUserID(logInDetails.userID);
-          setUserFirstName(logInDetails.userFirstName);
           setUserPostCode(logInDetails.userPostCode);
-          //setUserEmail(logInDetails.userEmail);
-          setUserEmailVerified(logInDetails.userEmailVerified);
 
-          setUserTitle("Welcome back " + userFirstName);
-          console.log('App.tsx ln109 returned userPostCode = ' + userPostCode);
+          setUserTitle("Welcome back " + logInDetails.userFirstName);
+          console.log('App.tsx ln109 returned userPostCode = ' + logInDetails.userPostCode);
 
           //hide login
           setLoginVisible(false);
 
-          if (userEmailVerified) {
+          if (logInDetails.userEmailVerified) {
             //login confirmation
             toast({
               title: "Logged In",
