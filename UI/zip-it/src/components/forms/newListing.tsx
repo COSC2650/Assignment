@@ -130,6 +130,34 @@ export function NewListing(props: newListingProps) {
     }
   }
 
+  function AvailabilitySelection() {
+    if (listingType === 'service') {
+      return (
+        <>
+          <Select placeholder="Availibility"
+            type="availibility"
+            id="availibility"
+            onChange={availabilityOnChange}>
+            <option value="option1">Now</option>
+            <option value="option2">Then</option>
+            <option value="option3">Booked Out</option>
+          </Select>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Select
+            placeholder="Availability"
+            type='Availability'
+            id='availability'
+            onChange={availabilityOnChange}
+            disabled
+          ></Select>
+        </>
+      );
+    }
+  }
   return (
     <FormControl>
       <Modal isOpen={props.visible} onClose={props.onClose} id="newListing">
@@ -157,14 +185,7 @@ export function NewListing(props: newListingProps) {
             Listing Description:
             <Input onChange={descriptionOnChange} placeholder="Create a listing description here" variant="filled" mb={3} type="description" id="description" />
             Listing Availability:
-            <Select placeholder="Availibility"
-              type="availibility"
-              id="availibility"
-              onChange={availabilityOnChange}>
-              <option value="option1">Now</option>
-              <option value="option2">Then</option>
-              <option value="option3">Booked Out</option>
-            </Select>
+            <AvailabilitySelection />
             Image:
             <Input onChange={imageOnChange} placeholder="Place an image URL here" variant="filled" mb={3} type="title" id="title" />
           </ModalBody>
