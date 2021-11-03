@@ -4,7 +4,6 @@ import {
 } from '@chakra-ui/react';
 import { Flex, Spacer } from '@chakra-ui/layout';
 import { useState } from 'react';
-import { LoginDetails } from './login';
 
 export interface newListingDetails {
   listingUserID: number;
