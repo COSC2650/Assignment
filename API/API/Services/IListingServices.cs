@@ -11,5 +11,10 @@ namespace API.Services
         Task<Listing> CreateListing(AddListingInput input);
         IQueryable<Listing> GetAll();
         IQueryable<Listing> ListingByFilter(int postCode, string listingType, string category);
+        IQueryable<Listing> OneFieldListingQuery(int postCode, string listingType, string category, 
+            bool postCodeQuery, bool listingTypeQuery, List<int> postCodes, List<Listing> sortedList);
+        IQueryable<Listing> TwoFieldListingQuery(int postCode, string listingType, string category, 
+            bool postCodeQuery, bool listingTypeQuery, List<int> postCodes, List<Listing> sortedList);
+        IList<Listing> SortListByPostCode(List<Listing> results, List<int> postCodes, List<Listing> sortedList);
     }  
 }  
