@@ -19,6 +19,7 @@ export interface RegisterProps {
     onClose(): void;
     visible: boolean;
     disabled: boolean;
+    onresetPwd(): void;
 }
 
 //register component

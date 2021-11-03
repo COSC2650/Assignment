@@ -10,6 +10,7 @@ import clientConnection from "./data/client";
 import { Listings } from "./components/display/itemlist";
 import NewListing, { newListingDetails } from './components/forms/newListing';
 import Confirmation, { ConfirmationDetails } from "./components/forms/confirmation";
+import Reset, { ResetPwd } from "./components/forms/resetPwd";
 
 interface LogInDetails {
   userID: number;
@@ -33,6 +34,7 @@ function App() {
   const [confirmationDisabled, setConfirmationDisabled] = useState(false);
   const [newListingVisible, setNewListingVisible] = useState(false);
   const [newListingDisabled, setNewListingDisabled] = useState(false);
+  const [resetVisible, setResetVisible] = useState(false);
   const { toggleColorMode } = useColorMode();
   const onShowLogin = () => {
     setNewListingVisible(false);
@@ -40,6 +42,7 @@ function App() {
     setLogInDisabled(false);
     setLogoutVisible(false);
     setRegisterVisible(false);
+    setResetVisible(false);
   };
   const onShowRegister = () => {
     setNewListingVisible(false);
@@ -47,12 +50,20 @@ function App() {
     setLoginVisible(false);
     setRegisterVisible(true);
     setRegisterDisabled(false);
+    setResetVisible(false);
   };
+  const onResetPwd = () => {
+    setLogoutVisible(false);
+    setLoginVisible(false);
+    setRegisterVisible(false);
+    setResetVisible(true);
+};
   const onShowLogout = () => {
     setNewListingVisible(false);
     setLogoutVisible(true);
     setLoginVisible(false);
     setRegisterVisible(false);
+    setResetVisible(true);
   };
   const onShowNewListing = () => {
     setNewListingVisible(true);
@@ -60,11 +71,13 @@ function App() {
     setLoginVisible(false);
     setRegisterVisible(false);
     setNewListingDisabled(false)
+    setResetVisible(false);
   };
 
   const onLogInClose = () => setLoginVisible(false);
   const onLogoutClose = () => setLogoutVisible(false);
   const onRegisterClose = () => setRegisterVisible(false);
+  const onResetClose = () => setResetVisible(false);
   const onNewListingClose = () => setNewListingVisible(false);
 
   const onConfirmationClose = () => {
@@ -193,6 +206,23 @@ function App() {
       type: 'register',
       data: props,
     };
+
+    const onesetPwd = (props: ResetPwd) => {
+      if (true) {
+          toast({
+              title: "Email sent",
+              description: "Please check your email for instructions on how to reset your password",
+              status: "success",
+              duration: 3000,
+              isClosable: true,
+              position: "top",
+          });
+      } else {
+          errorToast();
+      }
+
+      setResetVisible(false);
+  };
 
     //query database + pass result to
     client
@@ -348,6 +378,7 @@ function App() {
         onOpenRegister={onShowRegister}
         onLogin={onLogin}
         onClose={onLogInClose}
+        onresetPwd={onResetPwd}
       />
       <Confirmation
         disabled={confirmationDisabled}
@@ -365,6 +396,7 @@ function App() {
         visible={registerVisible}
         onOpenLogin={onShowLogin}
         onRegister={onRegister}
+        onresetPwd={onResetPwd}
         onClose={onRegisterClose}
       ></Register>
       <NewListing
@@ -375,6 +407,13 @@ function App() {
         listingUserID={userID}
         listingPostCode={userPostCode}
       ></NewListing>
+      <Reset
+        visible={resetVisible}
+        onOpenLogin={onShowLogin}
+        onRegister={onRegister}
+        onClose={onResetClose}
+        onresetPwd={onResetPwd}
+      ></Reset>
       <Listings
         userPostCode={userPostCode} />
     </>

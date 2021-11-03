@@ -13,7 +13,7 @@ import {
   AlertDescription,
   FormControl,
 } from '@chakra-ui/react';
-import { Flex, Spacer } from '@chakra-ui/layout';
+import { Flex, Link, Spacer } from '@chakra-ui/layout';
 import { useState } from 'react';
 
 export interface LoginDetails {
@@ -25,6 +25,7 @@ export interface LoginProps {
   disabled: boolean;
   onLogin(props: LoginDetails): void;
   onOpenRegister(): void;
+  onresetPwd(): void;
   onClose(): void;
   visible: boolean;
 }
@@ -105,6 +106,14 @@ export function Login(props: LoginProps) {
                 Log In
               </Button>
             </Flex>
+          </ModalFooter>
+          <ModalFooter>
+            <Link
+              onClick={props.onresetPwd}
+              id="resetPwd"
+              disabled={props.disabled}
+              >Forgot password?
+            </Link>
           </ModalFooter>
         </ModalContent>
       </Modal>
