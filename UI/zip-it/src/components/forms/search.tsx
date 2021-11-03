@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 export interface SearchDetails {
   listingPostCode?: number;
   listingType: string;
+  listingCategory: string;
 }
 
 //interface to caller
@@ -17,11 +18,14 @@ export interface SearchProps {
 export function Search(props: SearchProps) {
   //defines Search Type and creates setter
   const [listingType, setType] = useState('');
-  
+  const [listingCategory, setCategory] = useState('');
   const [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3);
 
   //on change validation and default value set
   function postcodeOnChange(postCodeInput?: number): number | undefined {
+    if(postCodeInput === 0){
+      return 0;
+    }
     if (
       postCodeInput !== undefined &&
       (postCodeInput > 800 || props.userPostCode > 800)
@@ -41,12 +45,14 @@ export function Search(props: SearchProps) {
 
   //dropdown onchange
   const typeOnChange = (event) => setType(event.target.value);
+  const categoryOnChange = (event) => setCategory(event.target.value);
   
   const onSearch = (postcode?: number) => {
     //sets search setails
     const searchDetails: SearchDetails = {
       listingPostCode: postcodeOnChange(postcode),
       listingType: listingType,
+      listingCategory:listingCategory,
     };
 
     // Email regex
@@ -71,19 +77,15 @@ export function Search(props: SearchProps) {
       return (
         <>
           <Select
-            placeholder="Condition"
-            type="condition"
-            id="listingCondition"
+            placeholder="Product Category"
+            type="productcategory"
+            id="productategory"
+            onChange={categoryOnChange}
           >
-            <option value="goodcondition">Good Condition</option>
-            <option value="wellused">Well used</option>
-            <option value="barelyused">Barely Used</option>
-            <option value="unused">Unused</option>
-          </Select>
-          <Select placeholder="Availibility" disabled={false}>
-            <option value="option1">Now</option>
-            <option value="option2">Date and Time</option>
-            <option value="option3">Pre Order</option>
+            <option value="clothes">Clothes</option>
+            <option value="automotive">Automotive</option>
+            <option value="industrial">Industrial</option>
+            <option value="handcrafted">HandCrafted</option>
           </Select>
         </>
       );
@@ -92,17 +94,14 @@ export function Search(props: SearchProps) {
       return (
         <>
           <Select
-            placeholder="Qualification"
-            type="qualificaiton"
-            id="qualification"
+            placeholder="Service Category"
+            type="servicecagegory"
+            id="servicecategory"
+            onChange={categoryOnChange}
           >
-            <option value="qualified">Qualified</option>
-            <option value="licenced">Qualified and Certified</option>
-            <option value="unqualified">Unqualified and Uncertified</option>
-          </Select>
-          <Select placeholder="Availibility" disabled={false}>
-            <option value="option1">Now</option>
-            <option value="option2">Date</option>
+            <option value="landscaping">Qualified</option>
+            <option value="plumbing">Qualified and Certified</option>
+            <option value="equipmentrepair">Unqualified and Uncertified</option>
           </Select>
         </>
       );
@@ -115,10 +114,63 @@ export function Search(props: SearchProps) {
             id="category"
             disabled
           ></Select>
-          <Select placeholder="Availibility" disabled></Select>
         </>
       );
     }
+  }
+    function QualitySelection() {
+      if (listingType === 'product') {
+        return (
+          <>
+            <Select
+              placeholder="Condition"
+              type="condition"
+              id="listingCondition"
+            >
+              <option value="">Good Condition</option>
+              <option value="">Well used</option>
+              <option value="">Barely Used</option>
+              <option value="">Unused</option>
+            </Select>
+            <Select placeholder="Availibility" disabled={false}>
+              <option value="">Now</option>
+              <option value="">Date and Time</option>
+              <option value="">Pre Order</option>
+            </Select>
+          </>
+        );
+      }
+      if (listingType === 'service') {
+        return (
+          <>
+            <Select
+              placeholder="Qualification"
+              type="qualificaiton"
+              id="qualification"
+            >
+              <option value="">Qualified</option>
+              <option value="">Qualified and Certified</option>
+              <option value="">Unqualified and Uncertified</option>
+            </Select>
+            <Select placeholder="Availibility" disabled={false}>
+              <option value="">Now</option>
+              <option value="">Date</option>
+            </Select>
+          </>
+        );
+      } else {
+        return (
+          <>
+            <Select
+              placeholder="Conditions"
+              type="category"
+              id="category"
+              disabled
+            ></Select>
+            <Select placeholder="Availibility" disabled></Select>
+          </>
+        );
+      }
   }
 
   //search menu component
@@ -144,6 +196,7 @@ export function Search(props: SearchProps) {
         <option value="service">Service</option>
       </Select>
       <CategorySelection />
+      <QualitySelection />
       <Button
         leftIcon={<Icon as={FaSearch} />}
         onClick={() => onSearch(currentUserPostCode)}
