@@ -31,7 +31,7 @@ namespace API.Services
             listing.ListingDate = System.DateTime.UtcNow;
             listing.ListingCategory = input.Category;
             listing.ListingAvailability = System.DateTime.UtcNow;
-            listing.ListingCondition = input.ProdCondition;
+            listing.ListingCondition = input.Condition;
 
             _context.Listings.Add(listing);
             await _context.SaveChangesAsync();

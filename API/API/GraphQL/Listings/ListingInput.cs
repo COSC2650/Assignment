@@ -8,7 +8,7 @@ namespace API.GraphQL.Listings
         float Price,
         string ListingType,
         string Description,
-        string ProdCondition,
+        string Condition,
         string ImageURL
         );
 }
