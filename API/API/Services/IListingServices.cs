@@ -12,9 +12,9 @@ namespace API.Services
         IQueryable<Listing> GetAll();
         IQueryable<Listing> ListingByFilter(int postCode, string listingType, string category);
         IQueryable<Listing> OneFieldListingQuery(int postCode, string listingType, string category, 
-            bool postCodeQuery, bool listingTypeQuery, bool categoryQuery, List<int> postCodes);
+            bool postCodeQuery, bool listingTypeQuery, List<int> postCodes, List<Listing> sortedList);
         IQueryable<Listing> TwoFieldListingQuery(int postCode, string listingType, string category, 
-            bool postCodeQuery, bool listingTypeQuery, bool categoryQuery, List<int> postCodes);
+            bool postCodeQuery, bool listingTypeQuery, List<int> postCodes, List<Listing> sortedList);
         IList<Listing> SortListByPostCode(List<Listing> results, List<int> postCodes, List<Listing> sortedList);
     }  
 }  
