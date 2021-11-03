@@ -153,16 +153,46 @@ namespace Tests
             // Create a listing
             await listingService.CreateListing(Test);
 
-            // Check for single field query - alter to check each field
+            // Check for zero field query
+            postCode = 0;
+            listingType = "";
+            category = "";
+            Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
+
+            // Check for single field query - postcode
             postCode = 4000;
             listingType = "";
             category = "";
             Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
 
-            // Check for two field query - alter to check each field
+            // Check for single field query - listingtype
+            postCode = 0;
+            listingType = "Product";
+            category = "";
+            Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
+
+            // Check for single field query - category
+            postCode = 0;
+            listingType = "";
+            category = "Test Products";
+            Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
+
+            // Check for two field query - postcode and listingtype
             postCode = 4000;
             listingType = "Product";
             category = "";
+            Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
+
+            // Check for two field query - postcode and category
+            postCode = 4000;
+            listingType = "";
+            category = "Test Products";
+            Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
+
+            // Check for two field query - listingtype and category
+            postCode = 0;
+            listingType = "Product";
+            category = "Test Products";
             Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
 
             // Check for three field query - alter to check each field
