@@ -24,7 +24,7 @@ export function Search(props: SearchProps) {
   //on change validation and default value set
   function postcodeOnChange(postCodeInput?: number): number | undefined {
     if(postCodeInput === 0){
-      return 0;
+      return 5;
     }
     if (
       postCodeInput !== undefined &&
@@ -39,7 +39,7 @@ export function Search(props: SearchProps) {
         return postCodeInput;
       }
     } else {
-      return 5;
+      return 6;
     }
   }
 
