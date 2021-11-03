@@ -5,15 +5,15 @@ import {
   Button,
   Image,
   Heading,
+  Icon,
 } from '@chakra-ui/react';
 import {
   MoonIcon,
   SunIcon,
-  RepeatIcon,
   EditIcon,
   ExternalLinkIcon,
   AddIcon,
-  HamburgerIcon,
+  LockIcon,
 } from '@chakra-ui/icons';
 import LogOutButton from './logoutbutton';
 import LogInButton from './loginbutton';
@@ -53,35 +53,44 @@ const Header = (props: HeaderProps) => {
     (document.activeElement as HTMLElement).blur();
   };
 
-  function BurgerMenu() {
-
-    return (
-      <Menu>
-        <MenuButton
-          as={IconButton}
-          aria-label="Options"
-          icon={<HamburgerIcon />}
-          variant="outline"
-          color = "black"
-        />
-        <MenuList>
-          <MenuItem
-          icon={<AddIcon />}
-          onClick={props.toggleNewListing}>
-            New Listing
-          </MenuItem>
-          <MenuItem icon={<ExternalLinkIcon />} command="">
-            Current Listings
-          </MenuItem>
-          <MenuItem icon={<RepeatIcon />} command="">
-            Account Settings
-          </MenuItem>
-          <MenuItem icon={<EditIcon />} command="">
-            User Profile
-          </MenuItem>
-        </MenuList>
-      </Menu>
-    );
+  function UserMenu() {
+    if (props.authenticated) {
+      return (
+        <Menu>
+          <MenuButton
+            as={Button}
+            display={['none', 'block']}
+            leftIcon={<Icon as={LockIcon} />}
+            borderColor={textColor}
+            marginLeft="5px"
+            borderWidth="1px"
+            color={textColor}
+            backgroundColor={headerBackground}
+            aria-label="Log in"
+          >
+            {'Account Settings'}
+          </MenuButton>
+          <MenuList>
+            <MenuItem
+              icon={<AddIcon />}
+              onClick={props.toggleNewListing}>
+              New Listing
+            </MenuItem>
+            <MenuItem icon={<ExternalLinkIcon />} command="">
+              Current Listings
+            </MenuItem>
+            <MenuItem icon={<EditIcon />} command="">
+              Manage Profile
+            </MenuItem>
+          </MenuList>
+        </Menu>
+      );
+    } else {
+      return (
+        <Menu>
+        </Menu>
+      );
+    }
   }
 
   return (
@@ -97,14 +106,17 @@ const Header = (props: HeaderProps) => {
       background={headerBackground}
       id="color_mode"
     >
-      <BurgerMenu />
+
+      <UserMenu />
+
       <Heading
         as="h5"
         size="sm"
-        color="#000000"
+        color={textColor}
         display="flex"
         alignItems="center"
       >
+
         {userTitle}
       </Heading>
 

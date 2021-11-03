@@ -20,7 +20,7 @@ interface LogInDetails {
 }
 
 function App() {
-  const [userTitle, setUserTitle] = useState("Welcome");
+  const [userTitle, setUserTitle] = useState(" Welcome!");
   const [userID, setUserID] = useState(0);
   const [userPostCode, setUserPostCode] = useState(0);
   const [authenticated, setAuthenticated] = useState<LogInDetails>();
@@ -121,7 +121,7 @@ function App() {
 
         if (queryResult != null) {
           //set user data
-          setUserTitle('Welcome back ' + queryResult.userFirstName);
+          setUserTitle(' Welcome back, ' + queryResult.userFirstName + '!');
           setUserPostCode(queryResult.userPostCode);
           setUserID(queryResult.userID);
 
@@ -178,7 +178,7 @@ function App() {
     });
 
     //setheader title and authentication status
-    setUserTitle('Welcome');
+    setUserTitle(' Welcome!');
     setAuthenticated(undefined);
     setLogInDisabled(false);
 
@@ -302,7 +302,7 @@ function App() {
       .then((result) => {
         console.log(result);
         toast({
-          title: "Account Created",
+          title: "Listing Created",
           description: "Your listing has been successfully created.",
           status: "success",
           duration: 2000,
