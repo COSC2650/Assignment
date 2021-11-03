@@ -4,7 +4,6 @@ import { useColorMode, useToast } from "@chakra-ui/react";
 import Login, { LoginDetails } from "./components/forms/login";
 import Logout, { LogoutDetails } from "./components/forms/logout";
 import Register, { RestrationDetails } from "./components/forms/register";
-import ListingInfoDrawer, { ListingDetails } from "./components/forms/listinginfodrawer";
 import query from "./data/queries";
 import clientConnection from "./data/client";
 import { Listings } from "./components/display/itemlist";
@@ -16,7 +15,6 @@ function App() {
   const [loginVisible, setLoginVisible] = useState(false);
   const [logoutVisible, setLogoutVisible] = useState(false);
   const [registerVisible, setRegisterVisible] = useState(false);
-  const [listingdrawerVisible, setListingDrawerVisible] = useState(false);
   const { toggleColorMode } = useColorMode();
   const onShowLogin = () => {
     setLoginVisible(true);
@@ -36,7 +34,6 @@ function App() {
   const onLogInClose = () => setLoginVisible(false);
   const onLogoutClose = () => setLogoutVisible(false);
   const onRegisterClose = () => setRegisterVisible(false);
-  const onSelectListingClose = () => setListingDrawerVisible(false);
   const toast = useToast();
   const validationToast = () =>
     toast({
@@ -138,13 +135,6 @@ function App() {
     setRegisterVisible(false);
   };
 
-  const onSelectListing = (props:ListingDetails) =>{
-
-    setDisableInput(true);
-    
-    setListingDrawerVisible(false);
-  }
-
   return (
     <>
       <Header
@@ -173,17 +163,10 @@ function App() {
         onRegister={onRegister}
         onClose={onRegisterClose}
       ></Register>
-
-      <ListingInfoDrawer 
-        disabled={disableInput}
-        visible={listingdrawerVisible}
-        onSelectListing = {onSelectListing}
-        onClose={onSelectListingClose}
-      ></ListingInfoDrawer>
-
-      <Listings />
+      <Listings/>
     </>
   );
 }
 
 export default App;
+

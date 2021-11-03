@@ -1,5 +1,5 @@
 import { VStack, StackDivider, Stack } from "@chakra-ui/layout";
-import ListItem, { ListItemProp } from "../../components/elements/listitem";
+import ListItem, { ListingItemProps } from "../../components/elements/listitem";
 import Search, { SearchDetails } from "../forms/search";
 import query from "../../data/queries";
 import clientConnection from "../../data/client";
@@ -40,7 +40,7 @@ export function Listings() {
       <>
         {listings && (
           <>
-            {listings.map((listing: ListItemProp) => (
+            {listings.map((listing: ListingItemProps) => (
               <ListItem key={listing.listingID} {...listing}></ListItem>
             ))}
           </>
@@ -64,10 +64,14 @@ export function Listings() {
         spacing={2}
       >
         <Search onSearchInterface={queryAPI}></Search>
-        <VStack divider={<StackDivider />} spacing={2} width="100%">
+        <VStack 
+         divider={<StackDivider borderColor="gray.200"/>} 
+         spacing={4}>
           <ListingsFragment />
         </VStack>
       </Stack>
+
+      
     </>
   );
 }
