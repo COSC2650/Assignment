@@ -21,17 +21,17 @@ namespace API.Services
         {
             var listing = new Listing();
 
-            listing.UserID = input.UserID;
+            listing.ListingUserID = input.ListingUserID;
             listing.ListingType = input.ListingType;
-            listing.ListingTitle = input.Title;
-            listing.ListingPrice = (decimal)input.Price;
-            listing.ListingPostCode = input.PostCode;
-            listing.ListingImageURL = input.ImageURL;
-            listing.ListingDescription = input.Description;
+            listing.ListingTitle = input.ListingTitle;
+            listing.ListingPrice = (decimal)input.ListingPrice;
+            listing.ListingPostCode = input.ListingPostCode;
+            listing.ListingImageURL = input.ListingImageURL;
+            listing.ListingDescription = input.ListingDescription;
             listing.ListingDate = System.DateTime.UtcNow;
-            listing.ListingCategory = input.Category;
+            listing.ListingCategory = input.ListingCategory;
             listing.ListingAvailability = System.DateTime.UtcNow;
-            listing.ListingCondition = input.Condition;
+            listing.ListingCondition = input.ListingCondition;
 
             _context.Listings.Add(listing);
             await _context.SaveChangesAsync();
