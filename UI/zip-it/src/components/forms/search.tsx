@@ -6,7 +6,6 @@ import React, { useState } from 'react';
 export interface SearchDetails {
   listingPostCode?: number;
   listingType: string;
-  listingCategory: string;
 }
 
 //interface to caller
@@ -18,7 +17,7 @@ export interface SearchProps {
 export function Search(props: SearchProps) {
   //defines Search Type and creates setter
   const [listingType, setType] = useState('');
-  const [listingCategory, setCategory] = useState('');
+  
   const [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3);
 
   //on change validation and default value set
@@ -42,14 +41,12 @@ export function Search(props: SearchProps) {
 
   //dropdown onchange
   const typeOnChange = (event) => setType(event.target.value);
-  const categoryOnChange = (event) => setCategory(event.target.value);
-
+  
   const onSearch = (postcode?: number) => {
     //sets search setails
     const searchDetails: SearchDetails = {
       listingPostCode: postcodeOnChange(postcode),
       listingType: listingType,
-      listingCategory: listingCategory,
     };
 
     // Email regex
@@ -77,7 +74,6 @@ export function Search(props: SearchProps) {
             placeholder="Condition"
             type="condition"
             id="listingCondition"
-            onChange={categoryOnChange}
           >
             <option value="goodcondition">Good Condition</option>
             <option value="wellused">Well used</option>
@@ -99,7 +95,6 @@ export function Search(props: SearchProps) {
             placeholder="Qualification"
             type="qualificaiton"
             id="qualification"
-            onChange={categoryOnChange}
           >
             <option value="qualified">Qualified</option>
             <option value="licenced">Qualified and Certified</option>
@@ -118,7 +113,6 @@ export function Search(props: SearchProps) {
             placeholder="Category"
             type="category"
             id="category"
-            onChange={categoryOnChange}
             disabled
           ></Select>
           <Select placeholder="Availibility" disabled></Select>
