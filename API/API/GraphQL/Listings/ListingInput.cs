@@ -2,13 +2,13 @@ namespace API.GraphQL.Listings
 {
     public record AddListingInput(
         int UserID,
-        int PostCode,
-        string Title,
-        string Category,
-        float Price,
+        int ListingPostCode,
+        string ListingTitle,
+        string ListingCategory,
+        float ListingPrice,
         string ListingType,
-        string Description,
-        string Condition,
-        string ImageURL
+        string ListingDescription,
+        string ListingCondition,
+        string ListingImageURL
         );
 }

@@ -10,7 +10,8 @@ namespace API.Models
         public int ListingID { get; set; }
 
         [Required]
-        public int ListingUserID { get; set; }
+        public int UserID { get; set; }
+        public virtual User User { get; set; }
 
         [Required, MinLength(4), MaxLength(4)]
         public int ListingPostCode { get; set; }
