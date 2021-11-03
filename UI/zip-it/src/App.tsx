@@ -21,6 +21,7 @@ interface LogInDetails {
 
 function App() {
   const [userTitle, setUserTitle] = useState("Welcome");
+  const [userID, setUserID] = useState(0);
   const [userPostCode, setUserPostCode] = useState(0);
   const [authenticated, setAuthenticated] = useState<LogInDetails>();
   const [logInDisabled, setLogInDisabled] = useState(false);
@@ -31,6 +32,7 @@ function App() {
   const [confirmationVisible, setConfirmationVisible] = useState(false);
   const [confirmationDisabled, setConfirmationDisabled] = useState(false);
   const [newListingVisible, setNewListingVisible] = useState(false);
+  const [newListingDisabled, setNewListingDisabled] = useState(false);
   const { toggleColorMode } = useColorMode();
   const onShowLogin = () => {
     setNewListingVisible(false);
@@ -57,8 +59,8 @@ function App() {
     setLogoutVisible(false);
     setLoginVisible(false);
     setRegisterVisible(false);
-}
-
+    setNewListingDisabled(false)
+  };
 
   const onLogInClose = () => setLoginVisible(false);
   const onLogoutClose = () => setLogoutVisible(false);
@@ -121,6 +123,7 @@ function App() {
           //set user data
           setUserTitle('Welcome back ' + queryResult.userFirstName);
           setUserPostCode(queryResult.userPostCode);
+          setUserID(queryResult.userID);
 
           //hide login
           setLoginVisible(false);
@@ -287,20 +290,46 @@ function App() {
   };
 
   const onNewListing = (props: newListingDetails) => {
-    if (true) {
-      toast({
-        title: 'New Listing Created',
-        description: 'Your new listing has been created.',
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
-        position: 'top',
-      });
-    } else {
-      errorToast();
-    }
 
-    setNewListingVisible(false);
+    const client = clientConnection();
+    const listingProps = {
+      type: "newListing",
+      data: props,
+    };
+
+    client
+      .mutate({ mutation: mutation(listingProps) })
+      .then((result) => {
+        console.log(result);
+        toast({
+          title: "Account Created",
+          description: "Your listing has been successfully created.",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        });
+        setNewListingVisible(false);
+      })
+
+      .catch((result) => {
+
+        toast({
+          title: "Catch Error",
+          description: "Listing has encountered an error.",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        });
+
+        console.log("Apollo/GraphQL failure - Zip-It");
+        console.log("check relevant query in queries.tsx");
+        console.log(props);
+        console.log(result);
+
+        setNewListingDisabled(false);
+      });
   };
 
   return (
@@ -339,12 +368,15 @@ function App() {
         onClose={onRegisterClose}
       ></Register>
       <NewListing
+        disabled={newListingDisabled}
         visible={newListingVisible}
         onNewListing={onNewListing}
         onClose={onNewListingClose}
+        listingUserID={userID}
+        listingPostCode={userPostCode}
       ></NewListing>
-      <Listings 
-      userPostCode={userPostCode}/>
+      <Listings
+        userPostCode={userPostCode} />
     </>
   );
 }
