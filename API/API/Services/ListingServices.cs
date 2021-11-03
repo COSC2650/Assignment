@@ -21,7 +21,7 @@ namespace API.Services
         {
             var listing = new Listing();
 
-            listing.ListingUserID = input.ListingUserID;
+            listing.UserID = input.UserID;
             listing.ListingType = input.ListingType;
             listing.ListingTitle = input.ListingTitle;
             listing.ListingPrice = (decimal)input.ListingPrice;
