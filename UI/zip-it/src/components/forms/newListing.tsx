@@ -4,8 +4,11 @@ import {
 } from '@chakra-ui/react';
 import { Flex, Spacer } from '@chakra-ui/layout';
 import { useState } from 'react';
+import { LoginDetails } from './login';
 
 export interface newListingDetails {
+  listingUserID: number;
+  listingPostCode: number;
   listingType: string;
   listingTitle: string;
   listingCategory: string;
@@ -21,6 +24,8 @@ export interface newListingProps {
   onClose(): void;
   visible: boolean;
   disabled: boolean;
+  listingUserID: number;
+  listingPostCode: number;
 }
 
 export function NewListing(props: newListingProps) {
@@ -46,6 +51,8 @@ export function NewListing(props: newListingProps) {
 
   const onNewListing = () => {
     const newListingDetails: newListingDetails = {
+      listingUserID: props.listingUserID,
+      listingPostCode: props.listingPostCode,
       listingTitle: listingTitle,
       listingCategory: listingCategory,
       listingPrice: listingPrice,

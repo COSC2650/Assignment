@@ -21,6 +21,7 @@ interface LogInDetails {
 
 function App() {
   const [userTitle, setUserTitle] = useState("Welcome");
+  const [userID, setUserID] = useState(0);
   const [userPostCode, setUserPostCode] = useState(0);
   const [authenticated, setAuthenticated] = useState<LogInDetails>();
   const [logInDisabled, setLogInDisabled] = useState(false);
@@ -59,8 +60,7 @@ function App() {
     setLoginVisible(false);
     setRegisterVisible(false);
     setNewListingDisabled(false)
-  }
-
+  };
 
   const onLogInClose = () => setLoginVisible(false);
   const onLogoutClose = () => setLogoutVisible(false);
@@ -123,6 +123,7 @@ function App() {
           //set user data
           setUserTitle('Welcome back ' + queryResult.userFirstName);
           setUserPostCode(queryResult.userPostCode);
+          setUserID(queryResult.userID);
 
           //hide login
           setLoginVisible(false);
@@ -371,6 +372,8 @@ function App() {
         visible={newListingVisible}
         onNewListing={onNewListing}
         onClose={onNewListingClose}
+        listingUserID={userID}
+        listingPostCode={userPostCode}
       ></NewListing>
       <Listings
         userPostCode={userPostCode} />
