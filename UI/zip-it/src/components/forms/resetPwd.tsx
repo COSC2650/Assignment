@@ -1,0 +1,72 @@
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Input, Button, Alert, AlertIcon, AlertDescription } from "@chakra-ui/react";
+import { Flex, Spacer } from "@chakra-ui/layout";
+import { useState } from "react";
+
+export interface ResetPwd {
+    email: string;
+}
+
+export interface ResetProps {
+    onOpenLogin(): void;
+    onRegister(props: ResetPwd): void;
+    onresetPwd(props: ResetPwd): void;
+    onClose(): void;
+    visible: boolean;
+}
+
+//register component
+export function Reset(props: ResetProps) {
+    const [formValidationMessage, setFormValidationMessage] = useState("");
+    const [formValidationHidden, setFormValidationHidden] = useState(true);
+    const [email, setEmail] = useState("");
+
+    const emailOnChange = (event) => setEmail(event.target.value);
+
+    const onresetPwd = () => {
+        const registrationDetails: ResetPwd = {
+            email: email,
+        };
+
+        // Email regex
+        var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
+
+        setFormValidationHidden(false);
+
+        if (email === "" || !regexp.test(email)) {
+            setFormValidationMessage("Your email is empty or invalid");
+        } else {
+            setFormValidationHidden(true);
+            props.onresetPwd(registrationDetails);
+        }
+    };
+
+    return (
+        <Modal isOpen={props.visible} onClose={props.onClose} id="reset">
+            <ModalOverlay />
+            <ModalContent>
+                <ModalHeader>Reset your Zip-It password</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                    <Alert status="error" hidden={formValidationHidden} mb={3}>
+                        <AlertIcon />
+                        <AlertDescription>{formValidationMessage}</AlertDescription>
+                    </Alert>
+                    <Input onChange={emailOnChange} placeholder="your@email.com" variant="filled" mb={3} type="email" id="email" />
+                </ModalBody>
+                <ModalFooter>
+                    <Flex width="100%">
+                        <Button onClick={props.onOpenLogin} id="login">
+                            Back
+                        </Button>
+                        <Spacer></Spacer>
+                        { <Button onClick={onresetPwd} id="resetPwd">
+                            Send email
+                        </Button> }
+                    </Flex>
+                </ModalFooter>
+            </ModalContent>
+        </Modal>
+    );
+}
+
+export default Reset;
