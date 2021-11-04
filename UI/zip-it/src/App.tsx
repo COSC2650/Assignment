@@ -376,7 +376,8 @@ function App() {
         listingPostCode={userPostCode}
       ></NewListing>
       <Listings
-        userPostCode={userPostCode} />
+        userPostCode={userPostCode}
+        />
     </>
   );
 }

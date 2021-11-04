@@ -2,6 +2,7 @@ import { VStack, StackDivider, Stack } from '@chakra-ui/layout';
 import ListItem, { ListItemProp } from '../../components/elements/listitem';
 import Search, { SearchDetails } from '../forms/search';
 import query from '../../data/queries';
+import adminPortal, {PortalSearchDetails} from '../forms/adminPortal';
 import clientConnection from '../../data/client';
 import React, { useState, useEffect } from 'react';
 
@@ -20,6 +21,12 @@ export function Listings(props: userDetails) {
     listingCategory: '',
   };
 
+  var PortalSearchDetails = {
+    listingPostCode: 2,
+    listingType: '',
+    listingCategory: '',
+  };
+
   const queryAPI = (props: SearchDetails) => {
     //invoke client
     const client = clientConnection();
@@ -31,6 +38,22 @@ export function Listings(props: userDetails) {
         setListings(listings);
       })
       //catch apollo/graphQL failure
+      .catch((result) => {
+        console.log('Apollo/GraphQL failure - Zip-It');
+        console.log('check relevant query in queries.tsx');
+        console.log(props);
+        console.log(result);
+      });
+  };
+
+  const masterQueryAPI = (props: PortalSearchDetails) => {
+    const client = clientConnection();
+    client
+      .query(query(props))
+      .then((result) => {
+        listings = result.data.listingsByFilter;
+        setListings(listings);
+      })
       .catch((result) => {
         console.log('Apollo/GraphQL failure - Zip-It');
         console.log('check relevant query in queries.tsx');
@@ -60,6 +83,11 @@ export function Listings(props: userDetails) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    masterQueryAPI(PortalSearchDetails);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   //item list component
   return (
     <>
@@ -69,6 +97,7 @@ export function Listings(props: userDetails) {
         divider={<StackDivider />}
         spacing={2}
       >
+        <adminPortal onPortalSearchInterface={masterQueryAPI} userPostCode={props.userPostCode}></adminPortal>
         <Search onSearchInterface={queryAPI} userPostCode={props.userPostCode}></Search>
         <VStack divider={<StackDivider />} spacing={2} width="100%">
           <ListingsFragment />
