@@ -9,26 +9,24 @@ export interface PortalSearchDetails {
 
 export interface PortalSearchProps {
     onPortalSearchInterface(props: PortalSearchDetails): void;
-    userPostCode: number;
+    userAdminPostCode: number;
 }
 
 export function adminPortal(props: PortalSearchProps) {
-    //defines Search Type and creates setter
     const [listingType, setType] = useState('');
 
     const [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3);
 
-    //on change validation and default value set
     function postcodeOnChange(postCodeInput?: number): number | undefined {
         if (
             postCodeInput !== undefined &&
-            (postCodeInput > 800 || props.userPostCode > 800)
+            (postCodeInput > 800 || props.userAdminPostCode > 800)
         ) {
             if (
                 (isNaN(postCodeInput) || postCodeInput < 800) &&
-                props.userPostCode > 800
+                props.userAdminPostCode > 800
             ) {
-                return props.userPostCode;
+                return props.userAdminPostCode;
             } else {
                 return postCodeInput;
             }
@@ -37,33 +35,26 @@ export function adminPortal(props: PortalSearchProps) {
         }
     }
 
-    //dropdown onchange
     const typeOnChange = (event) => setType(event.target.value);
 
     const onPortalSearch = (postcode?: number) => {
-        //sets search setails
         const portalSearchDetails: PortalSearchDetails = {
             listingPostCode: postcodeOnChange(postcode),
             listingType: listingType,
         };
 
-        // Email regex
         var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
 
-        //sets details in interface
         if (!regexp.test('{listingPostCode}')) {
             props.onPortalSearchInterface(portalSearchDetails);
         }
     };
 
-    //used to overcome async state change
     React.useEffect(() => {
-        setCurrentUserPostCode(props.userPostCode);
-        onPortalSearch(props.userPostCode);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.userPostCode]);
+        setCurrentUserPostCode(props.userAdminPostCode);
+        onPortalSearch(props.userAdminPostCode);
+    }, [props.userAdminPostCode]);
 
-    //search menu logic
     function CategorySelection() {
         if (listingType === 'product') {
             return (
@@ -119,7 +110,6 @@ export function adminPortal(props: PortalSearchProps) {
         }
     }
 
-    //search menu component
     return (
         <Stack direction={['column']} w={['100%', '300px']}>
             <Input

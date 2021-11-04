@@ -23,6 +23,7 @@ function App() {
   const [userTitle, setUserTitle] = useState(" Welcome!");
   const [userID, setUserID] = useState(0);
   const [userPostCode, setUserPostCode] = useState(0);
+  const [userAdminPostCode, setAdminPostCode] = useState(0);
   const [authenticated, setAuthenticated] = useState<LogInDetails>();
   const [logInDisabled, setLogInDisabled] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
@@ -123,6 +124,7 @@ function App() {
           //set user data
           setUserTitle(' Welcome back, ' + queryResult.userFirstName + '!');
           setUserPostCode(queryResult.userPostCode);
+          setAdminPostCode(queryResult.userPostCode);
           setUserID(queryResult.userID);
 
           //hide login
@@ -377,6 +379,8 @@ function App() {
       ></NewListing>
       <Listings
         userPostCode={userPostCode}
+ //       adminPostCode={userAdminPostCode}
+
         />
     </>
   );

@@ -85,7 +85,6 @@ export function Listings(props: userDetails) {
 
   useEffect(() => {
     masterQueryAPI(PortalSearchDetails);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //item list component
@@ -97,7 +96,6 @@ export function Listings(props: userDetails) {
         divider={<StackDivider />}
         spacing={2}
       >
-        <adminPortal onPortalSearchInterface={masterQueryAPI} userPostCode={props.userPostCode}></adminPortal>
         <Search onSearchInterface={queryAPI} userPostCode={props.userPostCode}></Search>
         <VStack divider={<StackDivider />} spacing={2} width="100%">
           <ListingsFragment />
