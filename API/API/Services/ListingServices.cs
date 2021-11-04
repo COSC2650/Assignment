@@ -168,10 +168,14 @@ namespace API.Services
         {
             foreach(int postCode in postCodes)
             {
-                var match = results.Find(item => item.ListingPostCode == postCode);
-                if(match != null)
+                var match = results.FindAll(item => item.ListingPostCode == postCode);
+                if(match.Count != 0)
                 {
-                    sortedList.Add(match);
+
+                    foreach(Listing x in match)
+                    {
+                        sortedList.Add(x);
+                    }
                 }
             }
             return sortedList;
