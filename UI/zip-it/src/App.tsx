@@ -381,14 +381,13 @@ function App() {
         listingUserID={userID}
         listingPostCode={userPostCode}
       ></NewListing>
-      {(userPostCode != 2614) &&
+      {(userPostCode !== 2614) &&
         <Listings
           userPostCode={userPostCode}
         />}
       {(userPostCode === 2614) &&    
         <AdminListing
           userPostCode={userPostCode}
-          userID={userID}
         />}
     </>
   );

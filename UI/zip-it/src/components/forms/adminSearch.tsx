@@ -53,6 +53,7 @@ export function AdminSearch(props: AdminSearchProps) {
     React.useEffect(() => {
         setCurrentUserPostCode(props.userPostCode);
         onAdminSearch(props.userPostCode);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.userPostCode]);
 
     function CategorySelection() {
@@ -112,33 +113,143 @@ export function AdminSearch(props: AdminSearchProps) {
 
     return (
         <Stack direction={['column']} w={['100%', '300px']}>
-            <Input
-                placeholder="Post Code"
-                variant="filled"
-                type="number"
-                id="listingPostcode"
-                onChange={(event) => {
-                    setCurrentUserPostCode(parseInt(event.target.value));
-                    postcodeOnChange(parseInt(event.target.value));
-                }}
-            />
             <Select
-                placeholder="Products or Services"
+                placeholder="User or Listing"
                 type="type"
                 id="listingType"
                 onChange={typeOnChange}
             >
-                <option value="product">Product</option>
-                <option value="service">Service</option>
+                <option value="user">User Search</option>
+                <option value="product">Listing Search</option>
             </Select>
-            <CategorySelection />
+            {(listingType === 'product') &&
+                <>
+                    <Input
+                        placeholder="Listing ID"
+                        variant="filled"
+                        type="number"
+                        id="listingID"
+                    />
+                    <Input
+                        placeholder="User ID"
+                        variant="filled"
+                        type="number"
+                        id="userID"
+                    />
+                    <Input
+                        placeholder="Postcode"
+                        variant="filled"
+                        type="number"
+                        id="postcode"
+                    />
+                    <Input
+                        placeholder="Date"
+                        variant="filled"
+                        type="number"
+                        id="date"
+                    />
+                    <Select
+                        placeholder="Products or Services"
+                        type="type"
+                        id="listingType"
+                        onChange={typeOnChange}
+                    >
+                        <option value="product">Product</option>
+                        <option value="service">Service</option>
+                    </Select>
+                    <CategorySelection />
+                    <Input
+                        placeholder="Description"
+                        variant="filled"
+                        type="number"
+                        id="listingID"
+                    />
+                    <Input
+                        placeholder="Price"
+                        variant="filled"
+                        type="number"
+                        id="listingID"
+                    />
+                    <Button
+                        leftIcon={<Icon as={FaSearch} />}
+                        onClick={() => onAdminSearch(currentUserPostCode)}
+                    >
+                        Listing Search
+                    </Button>
+                    </>
+            }
+            {(listingType==='user') && 
+            <>
+                    <Input
+                        placeholder="User ID"
+                        variant="filled"
+                        type="number"
+                        id="userID"
+                    />
+                    <Input
+                        placeholder="Name"
+                        variant="filled"
+                        type="number"
+                        id="userID"
+                    />
+                    <Input
+                        placeholder="Address"
+                        variant="filled"
+                        type="number"
+                        id="postcode"
+                    />
+                    <Input
+                        placeholder="City"
+                        variant="filled"
+                        type="number"
+                        id="date"
+                    />
+                    <Select
+                        placeholder="State"
+                        type="type"
+                        id="listingType"
+                    >
+                        <option value="product">ACT</option>
+                        <option value="service">NSW</option>
+                    </Select>
+                    <Input
+                        placeholder="Postcode"
+                        variant="filled"
+                        type="number"
+                        id="postcode"
+                    />
+                    <Input
+                        placeholder="Email"
+                        variant="filled"
+                        type="number"
+                        id="email"
+                    />
+                    <Button
+                        leftIcon={<Icon as={FaSearch} />}
+                        onClick={() => onAdminSearch(currentUserPostCode)}
+                    >
+                        User Search
+                    </Button>
+                    </>
+}
+            <Input
+                placeholder="Ticket System"
+                variant="filled"
+                type="number"
+                id="email"
+            />
             <Button
                 leftIcon={<Icon as={FaSearch} />}
                 onClick={() => onAdminSearch(currentUserPostCode)}
             >
-                Admin Search
+                Ticket System
             </Button>
+
+
+
         </Stack>
+
+
     );
 }
 

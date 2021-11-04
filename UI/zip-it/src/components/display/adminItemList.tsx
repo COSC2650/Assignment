@@ -6,7 +6,6 @@ import clientConnection from '../../data/client';
 import React, { useState, useEffect } from 'react';
 
 interface userDetails {
-  userID: number;
   userPostCode: number;
 }
 
@@ -51,9 +50,8 @@ export function AdminListing(props: userDetails) {
 
   useEffect(() => {
     adminQueryAPI(adminSearchDetails);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-//if (props.userPostCode = 2614) { 
 
   return (
     <>
