@@ -18,13 +18,11 @@ interface LogInDetails {
   userFirstName: string;
   userEmailVerified: boolean;
   userPostCode: number;
-  userRole: number;
 }
 
 function App() {
   const [userTitle, setUserTitle] = useState(" Welcome!");
   const [userID, setUserID] = useState(0);
-  const [userRole, setUserLevel] = useState(2);
   const [userPostCode, setUserPostCode] = useState(0);
   const [authenticated, setAuthenticated] = useState<LogInDetails>();
   const [logInDisabled, setLogInDisabled] = useState(false);
@@ -130,7 +128,6 @@ function App() {
           setUserTitle(' Welcome back, ' + queryResult.userFirstName + '!');
           setUserPostCode(queryResult.userPostCode);
           setUserID(queryResult.userID);
-          setUserLevel(queryResult.userRole);
 
           //hide login
           setLoginVisible(false);
@@ -174,6 +171,7 @@ function App() {
 
   //logic for logout function
   const onLogout = () => {
+
     //log out confirmation
     toast({
       title: 'Logged out',
@@ -186,6 +184,7 @@ function App() {
 
     //setheader title and authentication status
     setUserTitle(' Welcome!');
+    setUserPostCode(0);
     setAuthenticated(undefined);
     setLogInDisabled(false);
 
@@ -382,14 +381,18 @@ function App() {
         listingUserID={userID}
         listingPostCode={userPostCode}
       ></NewListing>
-      <Listings
-        userPostCode={userPostCode}
-      />
-      <AdminListing
-        userPostCode={userPostCode}
-      />
+      {(userPostCode != 2614) &&
+        <Listings
+          userPostCode={userPostCode}
+        />}
+      {(userPostCode === 2614) &&    
+        <AdminListing
+          userPostCode={userPostCode}
+          userID={userID}
+        />}
     </>
   );
+
 }
 
 export default App;

@@ -18,12 +18,11 @@ function mutation(props): DocumentNode {
     } if (props.type === "confirm") {
         result = gql`
                 mutation {
-                    confirmUser(userEmail: "${props.data.userEmail}", confirmationCode: ${props.data.confirmationCode}, userRole: ${props.data.userRole},}) {
+                    confirmUser(userEmail: "${props.data.userEmail}", confirmationCode: ${props.data.confirmationCode}, }) {
                         userID
                         userEmail
                         userFirstName
                         userEmailVerified
-                        userRole
                     }
                 }
             `;

@@ -6,17 +6,12 @@ import clientConnection from '../../data/client';
 import React, { useState, useEffect } from 'react';
 
 interface userDetails {
+  userID: number;
   userPostCode: number;
 }
 
 export function AdminListing(props: userDetails) {
   let [listings, setListings] = useState([]);
-
-  var adminSearchDetails = {
-    listingPostCode: 2,
-    listingType: '',
-    listingCategory: '',
-  };
 
   var adminSearchDetails = {
     listingPostCode: 2,
@@ -57,6 +52,8 @@ export function AdminListing(props: userDetails) {
   useEffect(() => {
     adminQueryAPI(adminSearchDetails);
   }, []);
+
+//if (props.userPostCode = 2614) { 
 
   return (
     <>

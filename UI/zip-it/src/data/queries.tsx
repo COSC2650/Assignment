@@ -12,7 +12,6 @@ const query = (props) => {
                   userFirstName
                   userEmailVerified
                   userPostCode
-                  userRole
                 }
               }
             `,
