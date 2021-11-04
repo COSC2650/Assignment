@@ -1,6 +1,6 @@
 import { Input, Select, Stack, Button, Icon } from '@chakra-ui/react';
 import { FaSearch } from 'react-icons/fa';
-import React, { useState } from 'react';
+import React, {useState } from 'react';
 
 //SearchDetails constructor
 export interface SearchDetails {

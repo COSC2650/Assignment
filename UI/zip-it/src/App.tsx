@@ -11,6 +11,7 @@ import { Listings } from "./components/display/itemlist";
 import { AdminListing } from "./components/display/adminItemList"
 import NewListing, { newListingDetails } from './components/forms/newListing';
 import Confirmation, { ConfirmationDetails } from "./components/forms/confirmation";
+import ModifyUser from "./components/forms/userProfile";
 
 interface LogInDetails {
   userID: number;
@@ -33,6 +34,7 @@ function App() {
   const [confirmationVisible, setConfirmationVisible] = useState(false);
   const [confirmationDisabled, setConfirmationDisabled] = useState(false);
   const [newListingVisible, setNewListingVisible] = useState(false);
+  const [AccountSettingsVisible, setAccountSettingsVisible] = useState(false);
   const [newListingDisabled, setNewListingDisabled] = useState(false);
   const { toggleColorMode } = useColorMode();
 
@@ -42,6 +44,7 @@ function App() {
     setLogInDisabled(false);
     setLogoutVisible(false);
     setRegisterVisible(false);
+    setAccountSettingsVisible(false);
   };
 
   const onShowRegister = () => {
@@ -50,11 +53,21 @@ function App() {
     setLoginVisible(false);
     setRegisterVisible(true);
     setRegisterDisabled(false);
+    setAccountSettingsVisible(false);
   };
 
   const onShowLogout = () => {
     setNewListingVisible(false);
     setLogoutVisible(true);
+    setLoginVisible(false);
+    setRegisterVisible(false);
+    setAccountSettingsVisible(false);
+  };
+
+  const onShowAccountSettings = () => {
+    setNewListingVisible(false);
+    setAccountSettingsVisible(true);
+    setLogoutVisible(false);
     setLoginVisible(false);
     setRegisterVisible(false);
   };
@@ -64,13 +77,15 @@ function App() {
     setLogoutVisible(false);
     setLoginVisible(false);
     setRegisterVisible(false);
-    setNewListingDisabled(false)
+    setNewListingDisabled(false);
+    setAccountSettingsVisible(false);
   };
 
   const onLogInClose = () => setLoginVisible(false);
   const onLogoutClose = () => setLogoutVisible(false);
   const onRegisterClose = () => setRegisterVisible(false);
   const onNewListingClose = () => setNewListingVisible(false);
+  const onAccountSettingsClose = () => setAccountSettingsVisible(false);
   const onConfirmationClose = () => {
     setUserTitle('Welcome');
     setAuthenticated(undefined);
@@ -344,7 +359,8 @@ function App() {
         toggleColorMode={toggleColorMode}
         toggleLogIn={onShowLogin}
         toggleLogout={onShowLogout}
-        toggleNewListing={onShowNewListing}
+        createNewListing={onShowNewListing}
+        accountSettings={onShowAccountSettings}
         userTitle={userTitle}
         authenticated={authenticated !== undefined}
       />
@@ -385,13 +401,18 @@ function App() {
         <Listings
           userPostCode={userPostCode}
         />}
-      {(userPostCode === 2614) &&    
+      {(userPostCode === 2614) &&
         <AdminListing
           userPostCode={userPostCode}
         />}
+      <ModifyUser
+        disabled={registerDisabled}
+        visible={AccountSettingsVisible}
+        onOpen={onShowLogin}
+        onClose={onAccountSettingsClose}
+      />
     </>
   );
-
 }
 
 export default App;
