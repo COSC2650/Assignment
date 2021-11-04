@@ -3,11 +3,12 @@ import Header from "./components/elements/header";
 import { useColorMode, useToast } from "@chakra-ui/react";
 import Login, { LoginDetails } from "./components/forms/login";
 import Logout from "./components/forms/logout";
-import Register, { RestrationDetails } from "./components/forms/register";
+import Register, { RegistrationDetails } from "./components/forms/register";
 import query from "./data/queries";
 import mutation from "./data/mutations";
 import clientConnection from "./data/client";
 import { Listings } from "./components/display/itemlist";
+import { AdminListing } from "./components/display/adminItemList"
 import NewListing, { newListingDetails } from './components/forms/newListing';
 import Confirmation, { ConfirmationDetails } from "./components/forms/confirmation";
 
@@ -17,13 +18,14 @@ interface LogInDetails {
   userFirstName: string;
   userEmailVerified: boolean;
   userPostCode: number;
+  userRole: number;
 }
 
 function App() {
   const [userTitle, setUserTitle] = useState(" Welcome!");
   const [userID, setUserID] = useState(0);
+  const [userRole, setUserLevel] = useState(2);
   const [userPostCode, setUserPostCode] = useState(0);
-  const [userAdminPostCode, setAdminPostCode] = useState(0);
   const [authenticated, setAuthenticated] = useState<LogInDetails>();
   const [logInDisabled, setLogInDisabled] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
@@ -35,6 +37,7 @@ function App() {
   const [newListingVisible, setNewListingVisible] = useState(false);
   const [newListingDisabled, setNewListingDisabled] = useState(false);
   const { toggleColorMode } = useColorMode();
+
   const onShowLogin = () => {
     setNewListingVisible(false);
     setLoginVisible(true);
@@ -42,6 +45,7 @@ function App() {
     setLogoutVisible(false);
     setRegisterVisible(false);
   };
+
   const onShowRegister = () => {
     setNewListingVisible(false);
     setLogoutVisible(false);
@@ -49,12 +53,14 @@ function App() {
     setRegisterVisible(true);
     setRegisterDisabled(false);
   };
+
   const onShowLogout = () => {
     setNewListingVisible(false);
     setLogoutVisible(true);
     setLoginVisible(false);
     setRegisterVisible(false);
   };
+
   const onShowNewListing = () => {
     setNewListingVisible(true);
     setLogoutVisible(false);
@@ -67,15 +73,14 @@ function App() {
   const onLogoutClose = () => setLogoutVisible(false);
   const onRegisterClose = () => setRegisterVisible(false);
   const onNewListingClose = () => setNewListingVisible(false);
-
   const onConfirmationClose = () => {
     setUserTitle('Welcome');
     setAuthenticated(undefined);
 
     setConfirmationVisible(false);
   };
-  const toast = useToast();
 
+  const toast = useToast();
   const registrationErrorToast = () =>
     toast({
       title: 'Email already registered',
@@ -107,7 +112,7 @@ function App() {
       position: 'top',
     });
 
-  //Logic for Login fucntion
+  //Logic for Login function
   const onLogin = (props: LoginDetails) => {
     setLogInDisabled(true);
 
@@ -124,8 +129,8 @@ function App() {
           //set user data
           setUserTitle(' Welcome back, ' + queryResult.userFirstName + '!');
           setUserPostCode(queryResult.userPostCode);
-          setAdminPostCode(queryResult.userPostCode);
           setUserID(queryResult.userID);
+          setUserLevel(queryResult.userRole);
 
           //hide login
           setLoginVisible(false);
@@ -188,7 +193,7 @@ function App() {
     setLogoutVisible(false);
   };
 
-  const onRegister = (props: RestrationDetails) => {
+  const onRegister = (props: RegistrationDetails) => {
     //invoke client
     const client = clientConnection();
     const regProps = {
@@ -379,9 +384,10 @@ function App() {
       ></NewListing>
       <Listings
         userPostCode={userPostCode}
- //       adminPostCode={userAdminPostCode}
-
-        />
+      />
+      <AdminListing
+        userPostCode={userPostCode}
+      />
     </>
   );
 }

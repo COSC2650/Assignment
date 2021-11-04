@@ -2,17 +2,17 @@ import { Input, Select, Stack, Button, Icon } from '@chakra-ui/react';
 import { FaSearch } from 'react-icons/fa';
 import React, { useState } from 'react';
 
-export interface PortalSearchDetails {
+export interface AdminSearchDetails {
     listingPostCode?: number;
     listingType: string;
 }
 
-export interface PortalSearchProps {
-    onPortalSearchInterface(props: PortalSearchDetails): void;
-    userAdminPostCode: number;
+export interface AdminSearchProps {
+    onAdminSearchInterface(props: AdminSearchDetails): void;
+    userPostCode: number;
 }
 
-export function adminPortal(props: PortalSearchProps) {
+export function AdminSearch(props: AdminSearchProps) {
     const [listingType, setType] = useState('');
 
     const [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3);
@@ -20,13 +20,13 @@ export function adminPortal(props: PortalSearchProps) {
     function postcodeOnChange(postCodeInput?: number): number | undefined {
         if (
             postCodeInput !== undefined &&
-            (postCodeInput > 800 || props.userAdminPostCode > 800)
+            (postCodeInput > 800 || props.userPostCode > 800)
         ) {
             if (
                 (isNaN(postCodeInput) || postCodeInput < 800) &&
-                props.userAdminPostCode > 800
+                props.userPostCode > 800
             ) {
-                return props.userAdminPostCode;
+                return props.userPostCode;
             } else {
                 return postCodeInput;
             }
@@ -37,8 +37,8 @@ export function adminPortal(props: PortalSearchProps) {
 
     const typeOnChange = (event) => setType(event.target.value);
 
-    const onPortalSearch = (postcode?: number) => {
-        const portalSearchDetails: PortalSearchDetails = {
+    const onAdminSearch = (postcode?: number) => {
+        const adminSearchDetails: AdminSearchDetails = {
             listingPostCode: postcodeOnChange(postcode),
             listingType: listingType,
         };
@@ -46,14 +46,14 @@ export function adminPortal(props: PortalSearchProps) {
         var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
 
         if (!regexp.test('{listingPostCode}')) {
-            props.onPortalSearchInterface(portalSearchDetails);
+            props.onAdminSearchInterface(adminSearchDetails);
         }
     };
 
     React.useEffect(() => {
-        setCurrentUserPostCode(props.userAdminPostCode);
-        onPortalSearch(props.userAdminPostCode);
-    }, [props.userAdminPostCode]);
+        setCurrentUserPostCode(props.userPostCode);
+        onAdminSearch(props.userPostCode);
+    }, [props.userPostCode]);
 
     function CategorySelection() {
         if (listingType === 'product') {
@@ -134,13 +134,13 @@ export function adminPortal(props: PortalSearchProps) {
             <CategorySelection />
             <Button
                 leftIcon={<Icon as={FaSearch} />}
-                onClick={() => onPortalSearch(currentUserPostCode)}
+                onClick={() => onAdminSearch(currentUserPostCode)}
             >
-                Search
+                Admin Search
             </Button>
         </Stack>
     );
 }
 
 
-export default adminPortal;
+export default AdminSearch;
