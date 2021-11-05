@@ -13,8 +13,8 @@ export interface AdminSearchProps {
 }
 
 export function AdminSearch(props: AdminSearchProps) {
-    const [listingType, setType] = useState('');
-
+    const [listingType, setListingType] = useState('');
+const [queryFilterType, setQueryFilterType] = useState('');
     const [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3);
 
     //on change validation and default value set
@@ -39,7 +39,8 @@ export function AdminSearch(props: AdminSearchProps) {
     }
   }
 
-    const typeOnChange = (event) => setType(event.target.value);
+    const listingTypeOnChange = (event) => setListingType(event.target.value);
+    const queryFilterOnChange = (event) => setQueryFilterType(event.target.value);
 
     const onAdminSearch = (postcode?: number) => {
         const adminSearchDetails: SearchDetails = {
@@ -59,6 +60,125 @@ export function AdminSearch(props: AdminSearchProps) {
         onAdminSearch(props.userPostCode);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.userPostCode]);
+
+    function SearchFilterSelection(){
+        if (queryFilterType === 'listings') {
+            return (
+                <>
+                    <Input
+                        placeholder="Listing ID"
+                        variant="filled"
+                        type="number"
+                        id="listingID"
+                    />
+                    <Input
+                        placeholder="User ID"
+                        variant="filled"
+                        type="number"
+                        id="userID"
+                    />
+                    <Input
+                        placeholder="Postcode"
+                        variant="filled"
+                        type="number"
+                        id="postcode"
+                    />
+                    <Input
+                        placeholder="Date"
+                        variant="filled"
+                        type="number"
+                        id="date"
+                    />
+                    <Select
+                        placeholder="Products or Services"
+                        type="type"
+                        id="listingType"
+                        onChange={listingTypeOnChange}
+                    >
+                        <option value="product">Product</option>
+                        <option value="service">Service</option>
+                    </Select>
+                    <CategorySelection />
+                    <Input
+                        placeholder="Description"
+                        variant="filled"
+                        type="number"
+                        id="listingID"
+                    />
+                    <Input
+                        placeholder="Price"
+                        variant="filled"
+                        type="number"
+                        id="listingID"
+                    />
+                    <Button
+                        leftIcon={<Icon as={FaSearch} />}
+                        onClick={() => onAdminSearch(currentUserPostCode)}
+                    >
+                        Listing Search
+                    </Button>
+                    </>
+            
+            );
+        } if(queryFilterType ==='users') {
+            return (
+                <>
+                    <Input
+                        placeholder="User ID"
+                        variant="filled"
+                        type="number"
+                        id="userID"
+                    />
+                    <Input
+                        placeholder="Name"
+                        variant="filled"
+                        type="number"
+                        id="userID"
+                    />
+                    <Input
+                        placeholder="Address"
+                        variant="filled"
+                        type="number"
+                        id="postcode"
+                    />
+                    <Input
+                        placeholder="City"
+                        variant="filled"
+                        type="number"
+                        id="date"
+                    />
+                    <Select
+                        placeholder="State"
+                        type="type"
+                        id="listingType"
+                    >
+                        <option value="product">ACT</option>
+                        <option value="service">NSW</option>
+                    </Select>
+                    <Input
+                        placeholder="Postcode"
+                        variant="filled"
+                        type="number"
+                        id="postcode"
+                    />
+                    <Input
+                        placeholder="Email"
+                        variant="filled"
+                        type="number"
+                        id="email"
+                    />
+                    <Button
+                        leftIcon={<Icon as={FaSearch} />}
+                        onClick={() => onAdminSearch(currentUserPostCode)}
+                    >
+                        User Search
+                    </Button>
+                    </>
+            );
+        }else{
+            return null;
+        }
+    }
 
     function CategorySelection() {
         if (listingType === 'product') {
@@ -121,121 +241,12 @@ export function AdminSearch(props: AdminSearchProps) {
                 placeholder="User or Listing"
                 type="type"
                 id="listingType"
-                onChange={typeOnChange}
+                onChange={queryFilterOnChange}
             >
-                <option value="user">User Search</option>
-                <option value="product">Listing Search</option>
+                <option value="users">User Search</option>
+                <option value="listings">Listing Search</option>
             </Select>
-            {(listingType === 'product') &&
-                <>
-                    <Input
-                        placeholder="Listing ID"
-                        variant="filled"
-                        type="number"
-                        id="listingID"
-                    />
-                    <Input
-                        placeholder="User ID"
-                        variant="filled"
-                        type="number"
-                        id="userID"
-                    />
-                    <Input
-                        placeholder="Postcode"
-                        variant="filled"
-                        type="number"
-                        id="postcode"
-                    />
-                    <Input
-                        placeholder="Date"
-                        variant="filled"
-                        type="number"
-                        id="date"
-                    />
-                    <Select
-                        placeholder="Products or Services"
-                        type="type"
-                        id="listingType"
-                        onChange={typeOnChange}
-                    >
-                        <option value="product">Product</option>
-                        <option value="service">Service</option>
-                    </Select>
-                    <CategorySelection />
-                    <Input
-                        placeholder="Description"
-                        variant="filled"
-                        type="number"
-                        id="listingID"
-                    />
-                    <Input
-                        placeholder="Price"
-                        variant="filled"
-                        type="number"
-                        id="listingID"
-                    />
-                    <Button
-                        leftIcon={<Icon as={FaSearch} />}
-                        onClick={() => onAdminSearch(currentUserPostCode)}
-                    >
-                        Listing Search
-                    </Button>
-                    </>
-            }
-            {(listingType==='user') && 
-            <>
-                    <Input
-                        placeholder="User ID"
-                        variant="filled"
-                        type="number"
-                        id="userID"
-                    />
-                    <Input
-                        placeholder="Name"
-                        variant="filled"
-                        type="number"
-                        id="userID"
-                    />
-                    <Input
-                        placeholder="Address"
-                        variant="filled"
-                        type="number"
-                        id="postcode"
-                    />
-                    <Input
-                        placeholder="City"
-                        variant="filled"
-                        type="number"
-                        id="date"
-                    />
-                    <Select
-                        placeholder="State"
-                        type="type"
-                        id="listingType"
-                    >
-                        <option value="product">ACT</option>
-                        <option value="service">NSW</option>
-                    </Select>
-                    <Input
-                        placeholder="Postcode"
-                        variant="filled"
-                        type="number"
-                        id="postcode"
-                    />
-                    <Input
-                        placeholder="Email"
-                        variant="filled"
-                        type="number"
-                        id="email"
-                    />
-                    <Button
-                        leftIcon={<Icon as={FaSearch} />}
-                        onClick={() => onAdminSearch(currentUserPostCode)}
-                    >
-                        User Search
-                    </Button>
-                    </>
-}
+            <SearchFilterSelection/>
             <Input
                 placeholder="Ticket System"
                 variant="filled"
