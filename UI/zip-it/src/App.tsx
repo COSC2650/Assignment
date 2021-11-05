@@ -8,7 +8,7 @@ import query from './data/queries';
 import mutation from './data/mutations';
 import clientConnection from './data/client';
 import UserListings from './components/display/useritemlist';
-import { AdminListings } from './components/display/adminItemList';
+import { AdminListings } from './components/display/adminitemlist';
 import NewListing, { newListingDetails } from './components/forms/newListing';
 import Confirmation, {
   ConfirmationDetails,
