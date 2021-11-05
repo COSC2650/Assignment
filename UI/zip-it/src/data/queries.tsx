@@ -10,6 +10,10 @@ const query = (props) => {
                   userID
                   userEmail
                   userFirstName
+                  userLastName
+                  userStreet
+                  userCity
+                  userState
                   userEmailVerified
                   userPostCode
                   roleID

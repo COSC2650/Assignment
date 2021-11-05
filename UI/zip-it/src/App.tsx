@@ -9,11 +9,11 @@ import mutation from './data/mutations';
 import clientConnection from './data/client';
 import UserListings from './components/display/useritemlist';
 import { AdminListings } from './components/display/adminitemlist';
-import NewListing, { newListingDetails } from './components/forms/newListing';
+import NewListing, { newListingDetails } from './components/forms/newlisting';
+import UserProfile, { newUserProfileDetails } from './components/forms/userprofile';
 import Confirmation, {
   ConfirmationDetails,
 } from './components/forms/confirmation';
-import ModifyUser from './components/forms/userProfile';
 
 interface LogInDetails {
   userID: number;
@@ -27,6 +27,11 @@ function App() {
   const [userID, setUserID] = useState(0);
   const [RoleID, setRoleID] = useState(0);
   const [userPostCode, setUserPostCode] = useState(0);
+  const [userFirstName, setUserFirstName] = useState('');
+  const [userLastName, setUserLastName] = useState('');
+  const [userStreet, setUserStreet] = useState('');
+  const [userCity, setUserCity] = useState('');
+  const [userState, setUserState] = useState('');
   const [authenticated, setAuthenticated] = useState<LogInDetails>();
   const [logInDisabled, setLogInDisabled] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
@@ -36,62 +41,24 @@ function App() {
   const [confirmationVisible, setConfirmationVisible] = useState(false);
   const [confirmationDisabled, setConfirmationDisabled] = useState(false);
   const [newListingVisible, setNewListingVisible] = useState(false);
-  const [AccountSettingsVisible, setAccountSettingsVisible] = useState(false);
+  const [UserProfileVisible, setUserProfileVisible] = useState(false);
+  const [UserProfileDisabled, setUserProfileDisabled] = useState(false);
   const [newListingDisabled, setNewListingDisabled] = useState(false);
   const { toggleColorMode } = useColorMode();
-
-  const onShowLogin = () => {
-    setNewListingVisible(false);
-    setLoginVisible(true);
-    setLogInDisabled(false);
-    setLogoutVisible(false);
-    setRegisterVisible(false);
-    setAccountSettingsVisible(false);
-  };
-
-  const onShowRegister = () => {
-    setNewListingVisible(false);
-    setLogoutVisible(false);
-    setLoginVisible(false);
-    setRegisterVisible(true);
-    setRegisterDisabled(false);
-    setAccountSettingsVisible(false);
-  };
-
-  const onShowLogout = () => {
-    setNewListingVisible(false);
-    setLogoutVisible(true);
-    setLoginVisible(false);
-    setRegisterVisible(false);
-    setAccountSettingsVisible(false);
-  };
-
-  const onShowAccountSettings = () => {
-    setNewListingVisible(false);
-    setAccountSettingsVisible(true);
-    setLogoutVisible(false);
-    setLoginVisible(false);
-    setRegisterVisible(false);
-  };
-
-  const onShowNewListing = () => {
-    setNewListingVisible(true);
-    setLogoutVisible(false);
-    setLoginVisible(false);
-    setRegisterVisible(false);
-    setNewListingDisabled(false);
-    setAccountSettingsVisible(false);
-  };
-
+  const onShowLogin = () => setLoginVisible(true);
+  const onShowRegister = () => setRegisterVisible(true);
+  const onShowLogout = () => setLogoutVisible(true);
+  const onShowUserProfile = () => setUserProfileVisible(true);
+  const onShowNewListing = () => setNewListingVisible(true);
   const onLogInClose = () => setLoginVisible(false);
   const onLogoutClose = () => setLogoutVisible(false);
   const onRegisterClose = () => setRegisterVisible(false);
   const onNewListingClose = () => setNewListingVisible(false);
-  const onAccountSettingsClose = () => setAccountSettingsVisible(false);
+  const onUserProfileClose = () => setUserProfileVisible(false)
+
   const onConfirmationClose = () => {
     setUserTitle('Welcome');
     setAuthenticated(undefined);
-
     setConfirmationVisible(false);
   };
 
@@ -146,6 +113,13 @@ function App() {
           setUserPostCode(queryResult.userPostCode);
           setUserID(queryResult.userID);
           setRoleID(queryResult.roleID);
+          setUserFirstName(queryResult.userFirstName);
+          setUserLastName(queryResult.userLastName);
+          setUserStreet(queryResult.userStreet);
+          setUserCity(queryResult.userCity);
+          setUserState(queryResult.userState);
+
+
 
           //hide login
           setLoginVisible(false);
@@ -314,7 +288,6 @@ function App() {
       });
   };
 
-  //create listing logic
   const onNewListing = (props: newListingDetails) => {
     const client = clientConnection();
     const listingProps = {
@@ -356,6 +329,48 @@ function App() {
       });
   };
 
+  //create listing logic
+  const onUserProfile = (props: newUserProfileDetails) => {
+    const client = clientConnection();
+    const listingProps = {
+      type: 'editUserProfile',
+      data: props,
+    };
+
+    client
+      .mutate({ mutation: mutation(listingProps) })
+      .then((result) => {
+        console.log(result);
+        toast({
+          title: 'Listing Created',
+          description: 'Your listing has been successfully created.',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+          position: 'top',
+        });
+        setUserProfileVisible(false);
+      })
+
+      .catch((result) => {
+        toast({
+          title: 'Catch Error',
+          description: 'Listing has encountered an error.',
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+          position: 'top',
+        });
+
+        console.log('Apollo/GraphQL failure - Zip-It');
+        console.log('check relevant query in queries.tsx');
+        console.log(props);
+        console.log(result);
+
+        setUserProfileDisabled(false);
+      });
+  };
+
   //portal type selection logic
   function UserAdminPortalDisplay() {
 
@@ -378,10 +393,10 @@ function App() {
     <>
       <Header
         toggleColorMode={toggleColorMode}
+        UserProfile={onShowUserProfile}
         toggleLogIn={onShowLogin}
         toggleLogout={onShowLogout}
-        toggleNewListing={onShowNewListing}
-        accountSettings={onShowAccountSettings}
+        NewListing={onShowNewListing}
         userTitle={userTitle}
         authenticated={authenticated !== undefined}
       />
@@ -419,11 +434,18 @@ function App() {
         listingPostCode={userPostCode}
       ></NewListing>
       <UserAdminPortalDisplay />
-      <ModifyUser
+      <UserProfile
         disabled={registerDisabled}
-        visible={AccountSettingsVisible}
+        visible={UserProfileVisible}
         onOpen={onShowLogin}
-        onClose={onAccountSettingsClose}
+        onUserProfile={onUserProfile}
+        onClose={onUserProfileClose}
+        userFirstName={userFirstName}
+        userLastName={userLastName}
+        userPostCode={userPostCode}
+        userStreet={userStreet}
+        userCity={userCity}
+        userState={userState}
       />
     </>
   );

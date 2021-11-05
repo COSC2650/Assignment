@@ -81,6 +81,35 @@ namespace API.Services
             return result;
         }
 
+        public async Task<User> EditUser(int userID, AddUserInput input)
+        {
+            // Create a return object
+            User edited;
+
+            if (_context.Users.Where(x => x.UserEmail == input.UserEmail).Any())
+            {
+                var user = new User
+                {
+                    UserFirstName = input.UserFirstName,
+                    UserLastName = input.UserLastName,
+                    UserStreet = input.UserStreet,
+                    UserCity = input.UserCity,
+                    UserState = input.UserState,
+                    UserPostCode = input.UserPostCode,
+                };
+
+
+                return edited;
+            }
+            else
+            {
+                result = new()
+                {
+                    UserID = 0
+                };
+            }
+        }
+
         public async Task<bool> DeleteUser(int userID)
         {
             var user = await _context.Users.FirstOrDefaultAsync(c => c.UserID == userID);
@@ -126,12 +155,14 @@ namespace API.Services
             return Hashbrowns.ValidatePassword(password, user.UserPasswordHash);
         }
 
-        public async Task<User> ConfirmUser(string userEmail, int confirmationCode) {
+        public async Task<User> ConfirmUser(string userEmail, int confirmationCode)
+        {
             // Retrieve the confirmation code
             ConfirmCode confirmCode = _context.ConfirmCodes.Where(c => c.Email == userEmail && c.Code == confirmationCode).First();
             User user = null;
 
-            if (confirmCode != null) {
+            if (confirmCode != null)
+            {
                 // Retrieve the user
                 user = await _context.Users.FirstOrDefaultAsync(c => c.UserEmail == userEmail);
 
