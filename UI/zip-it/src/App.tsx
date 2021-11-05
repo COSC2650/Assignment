@@ -356,7 +356,10 @@ function App() {
 
   //portal type selection logic
   function UserAdminPortalDisplay(logInDetails) {
-    if (authenticated?.userEmail === 's3632442@student.rmit.edu.au') {
+    if (
+      authenticated?.userEmail ===
+      ('s3632442@student.rmit.edu.au' || 's3204581@student.rmit.edu.au')
+    ) {
       return (
         <>
           <AdminListings userPostCode={3000} />
