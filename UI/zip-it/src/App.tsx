@@ -18,7 +18,6 @@ import ModifyUser from './components/forms/userProfile';
 interface LogInDetails {
   userID: number;
   userEmail: string;
-  userFirstName: string;
   userEmailVerified: boolean;
   userPostCode: number;
 }
@@ -26,6 +25,7 @@ interface LogInDetails {
 function App() {
   const [userTitle, setUserTitle] = useState(' Welcome!');
   const [userID, setUserID] = useState(0);
+  const [RoleID, setRoleID] = useState(0);
   const [userPostCode, setUserPostCode] = useState(0);
   const [authenticated, setAuthenticated] = useState<LogInDetails>();
   const [logInDisabled, setLogInDisabled] = useState(false);
@@ -145,6 +145,7 @@ function App() {
           setUserTitle('Hi, ' + queryResult.userFirstName + '!');
           setUserPostCode(queryResult.userPostCode);
           setUserID(queryResult.userID);
+          setRoleID(queryResult.roleID);
 
           //hide login
           setLoginVisible(false);
@@ -188,6 +189,7 @@ function App() {
 
   //logic for logout function
   const onLogout = () => {
+    setRoleID(2);
     //log out confirmation
     toast({
       title: 'Logged out',
@@ -355,11 +357,9 @@ function App() {
   };
 
   //portal type selection logic
-  function UserAdminPortalDisplay(logInDetails) {
-    if (
-      authenticated?.userEmail ===
-      ('s3632442@student.rmit.edu.au' || 's3204581@student.rmit.edu.au')
-    ) {
+  function UserAdminPortalDisplay() {
+
+    if (RoleID === 1) {
       return (
         <>
           <AdminListings userPostCode={userPostCode} />
