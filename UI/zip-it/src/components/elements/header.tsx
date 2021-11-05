@@ -1,22 +1,26 @@
+import {
+  AddIcon,
+  CloseIcon,
+  EditIcon,
+  HamburgerIcon,
+  MoonIcon,
+  SearchIcon,
+  SettingsIcon,
+  SunIcon,
+} from '@chakra-ui/icons';
 import { Flex, Spacer } from '@chakra-ui/layout';
 import {
-  IconButton,
-  useColorModeValue,
   Button,
-  Image,
   Heading,
+  IconButton,
+  Image,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  useColorModeValue,
 } from '@chakra-ui/react';
-import {
-  MoonIcon,
-  SunIcon,
-  EditIcon,
-  ExternalLinkIcon,
-  AddIcon,
-  HamburgerIcon,
-  RepeatIcon,
-} from '@chakra-ui/icons';
 import LogInButton from './loginbutton';
-import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
 
 interface HeaderProps {
   toggleColorMode(): void;
@@ -40,18 +44,46 @@ const Header = (props: HeaderProps) => {
   let authenticateButton;
   let userTitle;
 
-  if (props.authenticated) {
-    authenticateButton = <BurgerMenu />;
-    userTitle = props.userTitle;
-  } else {
-    authenticateButton = <LogInButton toggleLogIn={props.toggleLogIn} />;
-    userTitle = props.userTitle;
-  }
-
   const toggleColor = () => {
     props.toggleColorMode();
     (document.activeElement as HTMLElement).blur();
   };
+
+  if (props.authenticated) {
+    authenticateButton = <BurgerMenu />;
+    userTitle = props.userTitle;
+  } else {
+    authenticateButton = (
+      <>
+        <IconButton
+          onClick={toggleColor}
+          display={['block', 'none']}
+          borderColor={textColor}
+          marginLeft="5px"
+          borderWidth="1px"
+          color={textColor}
+          backgroundColor={headerBackground}
+          aria-label="Theme"
+          icon={colorModeIcon}
+        />
+        <Button
+          onClick={toggleColor}
+          display={['none', 'block']}
+          leftIcon={colorModeIcon}
+          borderColor={textColor}
+          marginLeft="5px"
+          borderWidth="1px"
+          color={textColor}
+          backgroundColor={headerBackground}
+          aria-label="Log in"
+        >
+          Theme
+        </Button>
+        <LogInButton toggleLogIn={props.toggleLogIn} />
+      </>
+    );
+    userTitle = props.userTitle;
+  }
 
   function BurgerMenu() {
     return (
@@ -67,16 +99,19 @@ const Header = (props: HeaderProps) => {
           <MenuItem icon={<AddIcon />} onClick={props.toggleNewListing}>
             New Listing
           </MenuItem>
-          <MenuItem icon={<ExternalLinkIcon />} command="">
+          <MenuItem icon={<SearchIcon />} command="">
             Current Listings
           </MenuItem>
-          <MenuItem icon={<RepeatIcon />} command="">
+          <MenuItem icon={<SettingsIcon />} command="">
             Account Settings
           </MenuItem>
           <MenuItem icon={<EditIcon />} command="">
             User Profile
           </MenuItem>
-          <MenuItem icon={<EditIcon />} onClick={props.toggleLogout}>
+          <MenuItem icon={colorModeIcon} command="" onClick={toggleColor}>
+            Switch Color Theme
+          </MenuItem>
+          <MenuItem icon={<CloseIcon />} onClick={props.toggleLogout}>
             Log Out
           </MenuItem>
         </MenuList>
@@ -112,30 +147,6 @@ const Header = (props: HeaderProps) => {
         <Image src={logo} height="40px" align="left" />
       </a>
       <Spacer />
-      <IconButton
-        onClick={toggleColor}
-        display={['block', 'none']}
-        borderColor={textColor}
-        marginLeft="5px"
-        borderWidth="1px"
-        color={textColor}
-        backgroundColor={headerBackground}
-        aria-label="Theme"
-        icon={colorModeIcon}
-      />
-      <Button
-        onClick={toggleColor}
-        display={['none', 'block']}
-        leftIcon={colorModeIcon}
-        borderColor={textColor}
-        marginLeft="5px"
-        borderWidth="1px"
-        color={textColor}
-        backgroundColor={headerBackground}
-        aria-label="Log in"
-      >
-        Theme
-      </Button>
       {authenticateButton}
     </Flex>
   );
