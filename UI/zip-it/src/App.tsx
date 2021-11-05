@@ -255,6 +255,7 @@ function App() {
       });
   };
 
+  //user confirmation logic
   const onConfirmation = (props: ConfirmationDetails) => {
     //invoke client
     const client = clientConnection();
@@ -311,6 +312,7 @@ function App() {
       });
   };
 
+  //create listing logic
   const onNewListing = (props: newListingDetails) => {
     const client = clientConnection();
     const listingProps = {
@@ -352,19 +354,20 @@ function App() {
       });
   };
 
+  //portal type selection logic
   function UserAdminPortalDisplay(logInDetails) {
     if (authenticated?.userEmail === 's3632442@student.rmit.edu.au') {
       return (
         <>
           {' '}
-          <AdminListings userPostCode={0} />
+          <AdminListings userPostCode={userPostCode} />
         </>
       );
     } else {
       return (
         <>
           {' '}
-          <UserListings userPostCode={0} />
+          <UserListings userPostCode={userPostCode} />
         </>
       );
     }

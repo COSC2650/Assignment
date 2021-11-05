@@ -1,7 +1,7 @@
 import { VStack, StackDivider, Stack } from '@chakra-ui/layout';
-import ListItem, { ListItemProp } from '../../components/elements/listitem';
+import ListItem, { ListItemProp } from '../elements/listitem';
 import query from '../../data/queries';
-import AdminSearch, {SearchDetails} from '../forms/adminsearch';
+import AdminSearch, { SearchDetails } from '../forms/adminsearch';
 import clientConnection from '../../data/client';
 import React, { useState, useEffect } from 'react';
 
@@ -18,7 +18,7 @@ export function AdminListings(props: userDetails) {
     listingCategory: '',
   };
 
-  const adminQueryAPI = (props: SearchDetails) => {
+  const queryAPI = (props: SearchDetails) => {
     const client = clientConnection();
     client
       .query(query(props))
@@ -49,9 +49,9 @@ export function AdminListings(props: userDetails) {
   }
 
   useEffect(() => {
-    adminQueryAPI(SearchDetails);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    queryAPI(SearchDetails);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [SearchDetails]);
 
   return (
     <>
@@ -61,7 +61,10 @@ export function AdminListings(props: userDetails) {
         divider={<StackDivider />}
         spacing={2}
       >
-        <AdminSearch onAdminSearchInterface={adminQueryAPI} userPostCode={props.userPostCode}></AdminSearch>
+        <AdminSearch
+          onAdminSearchInterface={queryAPI}
+          userPostCode={props.userPostCode}
+        ></AdminSearch>
         <VStack divider={<StackDivider />} spacing={2} width="100%">
           <ListingsFragment />
         </VStack>

@@ -58,7 +58,7 @@ export function UserListings(props: userDetails) {
   useEffect(() => {
     queryAPI(SearchDetails);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [SearchDetails]);
 
   //item list component
   return (
