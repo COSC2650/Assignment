@@ -1,6 +1,6 @@
 import { configure, render } from "enzyme";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
-import Listings from "./itemlist";
+import UserListings from "./useritemlist";
 
 jest.useFakeTimers();
 
@@ -13,7 +13,7 @@ jest.mock("react", () => ({
 
 describe("Item List", () => {
   it("should match snapshot", () => {
-    const componenet = render(<Listings />);
+    const componenet = render(<UserListings userPostCode={0}/>);
     expect(componenet).toMatchSnapshot();
   });
 });

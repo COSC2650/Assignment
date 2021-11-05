@@ -2,7 +2,7 @@ import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody,
 import { Flex, Spacer } from "@chakra-ui/layout";
 import { useState } from "react";
 
-export interface RestrationDetails {
+export interface RegistrationDetails {
     userEmail: string;
     userFirstName: string;
     userLastName: string;
@@ -15,11 +15,11 @@ export interface RestrationDetails {
 
 export interface RegisterProps {
     onOpenLogin(): void;
-    onRegister(props: RestrationDetails): void;
+    onRegister(props: RegistrationDetails): void;
     onClose(): void;
+    onresetPwd(): void;
     visible: boolean;
     disabled: boolean;
-    onresetPwd(): void;
 }
 
 //register component
@@ -47,7 +47,7 @@ export function Register(props: RegisterProps) {
     const postCodeOnChange = (event) => setPostCode(event.target.value);
 
     const onRegister = () => {
-        const registrationDetails: RestrationDetails = {
+        const registrationDetails: RegistrationDetails = {
             userEmail: email,
             userFirstName: firstName,
             userLastName: lastName,

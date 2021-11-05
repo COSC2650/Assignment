@@ -1,4 +1,4 @@
-import Search, { SearchProps, SearchDetails } from './search';
+import Search, { UserSearchProps, SearchDetails } from './usersearch';
 import { configure, render, mount } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
@@ -13,7 +13,7 @@ jest.mock('react', () => ({
 
 describe('Search Component', () => {
   it('Should render correctly', () => {
-    const props: SearchProps = {
+    const props: UserSearchProps = {
       onSearchInterface: (ldprops: SearchDetails) => {
         // Intentional
       },
@@ -28,7 +28,7 @@ describe('Search Component', () => {
     const mockOnSearchCallBack = jest.fn();
 
     //apply it to the onSearch interface
-    const props: SearchProps = {
+    const props: UserSearchProps = {
       onSearchInterface: mockOnSearchCallBack,
       userPostCode:3000,
     };

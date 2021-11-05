@@ -1,29 +1,33 @@
+import {
+  AddIcon,
+  CloseIcon,
+  EditIcon,
+  HamburgerIcon,
+  MoonIcon,
+  SearchIcon,
+  SettingsIcon,
+  SunIcon
+} from '@chakra-ui/icons';
 import { Flex, Spacer } from '@chakra-ui/layout';
 import {
-  IconButton,
-  useColorModeValue,
   Button,
-  Image,
   Heading,
+  IconButton,
+  Image,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  useColorModeValue
 } from '@chakra-ui/react';
-import {
-  MoonIcon,
-  SunIcon,
-  RepeatIcon,
-  EditIcon,
-  ExternalLinkIcon,
-  AddIcon,
-  HamburgerIcon,
-} from '@chakra-ui/icons';
-import LogOutButton from './logoutbutton';
 import LogInButton from './loginbutton';
-import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
 
 interface HeaderProps {
   toggleColorMode(): void;
   toggleLogIn(): void;
   toggleLogout(): void;
   toggleNewListing(): void;
+  accountSettings(): void;
   userTitle: string;
   authenticated: boolean;
 }
@@ -40,21 +44,48 @@ const Header = (props: HeaderProps) => {
   let authenticateButton;
   let userTitle;
 
-  if (props.authenticated) {
-    authenticateButton = <LogOutButton toggleLogIn={props.toggleLogout} />;
-    userTitle = props.userTitle;
-  } else {
-    authenticateButton = <LogInButton toggleLogIn={props.toggleLogIn} />;
-    userTitle = props.userTitle;
-  }
-
   const toggleColor = () => {
     props.toggleColorMode();
     (document.activeElement as HTMLElement).blur();
   };
 
-  function BurgerMenu() {
+  if (props.authenticated) {
+    authenticateButton = <BurgerMenu />;
+    userTitle = props.userTitle;
+  } else {
+    authenticateButton = (
+      <>
+        <IconButton
+          onClick={toggleColor}
+          display={['block', 'none']}
+          borderColor={textColor}
+          marginLeft="5px"
+          borderWidth="1px"
+          color={textColor}
+          backgroundColor={headerBackground}
+          aria-label="Theme"
+          icon={colorModeIcon}
+        />
+        <Button
+          onClick={toggleColor}
+          display={['none', 'block']}
+          leftIcon={colorModeIcon}
+          borderColor={textColor}
+          marginLeft="5px"
+          borderWidth="1px"
+          color={textColor}
+          backgroundColor={headerBackground}
+          aria-label="Log in"
+        >
+          Theme
+        </Button>
+        <LogInButton toggleLogIn={props.toggleLogIn} />
+      </>
+    );
+    userTitle = props.userTitle;
+  }
 
+  function BurgerMenu() {
     return (
       <Menu>
         <MenuButton
@@ -62,22 +93,26 @@ const Header = (props: HeaderProps) => {
           aria-label="Options"
           icon={<HamburgerIcon />}
           variant="outline"
-          color = "black"
+          color="black"
         />
         <MenuList>
-          <MenuItem
-          icon={<AddIcon />}
-          onClick={props.toggleNewListing}>
+          <MenuItem icon={<AddIcon />} onClick={props.toggleNewListing}>
             New Listing
           </MenuItem>
-          <MenuItem icon={<ExternalLinkIcon />} command="">
+          <MenuItem icon={<SearchIcon />} command="">
             Current Listings
           </MenuItem>
-          <MenuItem icon={<RepeatIcon />} command="">
+          <MenuItem icon={<SettingsIcon />} command="">
             Account Settings
           </MenuItem>
           <MenuItem icon={<EditIcon />} command="">
             User Profile
+          </MenuItem>
+          <MenuItem icon={colorModeIcon} command="" onClick={toggleColor}>
+            Switch Color Theme
+          </MenuItem>
+          <MenuItem icon={<CloseIcon />} onClick={props.toggleLogout}>
+            Log Out
           </MenuItem>
         </MenuList>
       </Menu>
@@ -97,11 +132,10 @@ const Header = (props: HeaderProps) => {
       background={headerBackground}
       id="color_mode"
     >
-      <BurgerMenu />
       <Heading
         as="h5"
         size="sm"
-        color="#000000"
+        color={textColor}
         display="flex"
         alignItems="center"
       >
@@ -109,32 +143,10 @@ const Header = (props: HeaderProps) => {
       </Heading>
 
       <Spacer />
-      <Image src={logo} height="40px" align="left" />
+      <a href="\">
+        <Image src={logo} height="40px" align="left" />
+      </a>
       <Spacer />
-      <IconButton
-        onClick={toggleColor}
-        display={['block', 'none']}
-        borderColor={textColor}
-        marginLeft="5px"
-        borderWidth="1px"
-        color={textColor}
-        backgroundColor={headerBackground}
-        aria-label="Theme"
-        icon={colorModeIcon}
-      />
-      <Button
-        onClick={toggleColor}
-        display={['none', 'block']}
-        leftIcon={colorModeIcon}
-        borderColor={textColor}
-        marginLeft="5px"
-        borderWidth="1px"
-        color={textColor}
-        backgroundColor={headerBackground}
-        aria-label="Log in"
-      >
-        Theme
-      </Button>
       {authenticateButton}
     </Flex>
   );

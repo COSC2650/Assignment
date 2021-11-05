@@ -1,28 +1,32 @@
-import { useState } from "react";
-import Header from "./components/elements/header";
-import { useColorMode, useToast } from "@chakra-ui/react";
-import Login, { LoginDetails } from "./components/forms/login";
-import Logout from "./components/forms/logout";
-import Register, { RestrationDetails } from "./components/forms/register";
-import query from "./data/queries";
-import mutation from "./data/mutations";
-import clientConnection from "./data/client";
-import { Listings } from "./components/display/itemlist";
+import { useState } from 'react';
+import Header from './components/elements/header';
+import { useColorMode, useToast } from '@chakra-ui/react';
+import Login, { LoginDetails } from './components/forms/login';
+import Logout from './components/forms/logout';
+import Register, { RegistrationDetails } from './components/forms/register';
+import query from './data/queries';
+import mutation from './data/mutations';
+import clientConnection from './data/client';
+import UserListings from './components/display/useritemlist';
+import { AdminListings } from './components/display/adminitemlist';
 import NewListing, { newListingDetails } from './components/forms/newListing';
-import Confirmation, { ConfirmationDetails } from "./components/forms/confirmation";
+import Confirmation, {
+  ConfirmationDetails,
+} from './components/forms/confirmation';
+import ModifyUser from './components/forms/userProfile';
 import Reset, { ResetPwd } from "./components/forms/resetPwd";
 
 interface LogInDetails {
   userID: number;
   userEmail: string;
-  userFirstName: string;
   userEmailVerified: boolean;
   userPostCode: number;
 }
 
 function App() {
-  const [userTitle, setUserTitle] = useState("Welcome");
+  const [userTitle, setUserTitle] = useState(' Welcome!');
   const [userID, setUserID] = useState(0);
+  const [RoleID, setRoleID] = useState(0);
   const [userPostCode, setUserPostCode] = useState(0);
   const [authenticated, setAuthenticated] = useState<LogInDetails>();
   const [logInDisabled, setLogInDisabled] = useState(false);
@@ -33,17 +37,21 @@ function App() {
   const [confirmationVisible, setConfirmationVisible] = useState(false);
   const [confirmationDisabled, setConfirmationDisabled] = useState(false);
   const [newListingVisible, setNewListingVisible] = useState(false);
+  const [AccountSettingsVisible, setAccountSettingsVisible] = useState(false);
   const [newListingDisabled, setNewListingDisabled] = useState(false);
   const [resetVisible, setResetVisible] = useState(false);
   const { toggleColorMode } = useColorMode();
+
   const onShowLogin = () => {
     setNewListingVisible(false);
     setLoginVisible(true);
     setLogInDisabled(false);
     setLogoutVisible(false);
     setRegisterVisible(false);
+    setAccountSettingsVisible(false);
     setResetVisible(false);
   };
+
   const onShowRegister = () => {
     setNewListingVisible(false);
     setLogoutVisible(false);
@@ -51,27 +59,41 @@ function App() {
     setRegisterVisible(true);
     setRegisterDisabled(false);
     setResetVisible(false);
+    setAccountSettingsVisible(false);
   };
+
   const onResetPwd = () => {
     setLogoutVisible(false);
     setLoginVisible(false);
     setRegisterVisible(false);
     setResetVisible(true);
 };
+
   const onShowLogout = () => {
     setNewListingVisible(false);
     setLogoutVisible(true);
     setLoginVisible(false);
     setRegisterVisible(false);
     setResetVisible(true);
+    setAccountSettingsVisible(false);
   };
+
+  const onShowAccountSettings = () => {
+    setNewListingVisible(false);
+    setAccountSettingsVisible(true);
+    setLogoutVisible(false);
+    setLoginVisible(false);
+    setRegisterVisible(false);
+  };
+
   const onShowNewListing = () => {
     setNewListingVisible(true);
     setLogoutVisible(false);
     setLoginVisible(false);
     setRegisterVisible(false);
-    setNewListingDisabled(false)
     setResetVisible(false);
+    setNewListingDisabled(false);
+    setAccountSettingsVisible(false);
   };
 
   const onLogInClose = () => setLoginVisible(false);
@@ -79,15 +101,15 @@ function App() {
   const onRegisterClose = () => setRegisterVisible(false);
   const onResetClose = () => setResetVisible(false);
   const onNewListingClose = () => setNewListingVisible(false);
-
+  const onAccountSettingsClose = () => setAccountSettingsVisible(false);
   const onConfirmationClose = () => {
     setUserTitle('Welcome');
     setAuthenticated(undefined);
 
     setConfirmationVisible(false);
   };
-  const toast = useToast();
 
+  const toast = useToast();
   const registrationErrorToast = () =>
     toast({
       title: 'Email already registered',
@@ -119,7 +141,7 @@ function App() {
       position: 'top',
     });
 
-  //Logic for Login fucntion
+  //Logic for Login function
   const onLogin = (props: LoginDetails) => {
     setLogInDisabled(true);
 
@@ -134,9 +156,10 @@ function App() {
 
         if (queryResult != null) {
           //set user data
-          setUserTitle('Welcome back ' + queryResult.userFirstName);
+          setUserTitle('Hi, ' + queryResult.userFirstName + '!');
           setUserPostCode(queryResult.userPostCode);
           setUserID(queryResult.userID);
+          setRoleID(queryResult.roleID);
 
           //hide login
           setLoginVisible(false);
@@ -180,6 +203,7 @@ function App() {
 
   //logic for logout function
   const onLogout = () => {
+    setRoleID(2);
     //log out confirmation
     toast({
       title: 'Logged out',
@@ -191,7 +215,8 @@ function App() {
     });
 
     //setheader title and authentication status
-    setUserTitle('Welcome');
+    setUserTitle(' Welcome!');
+    setUserPostCode(0);
     setAuthenticated(undefined);
     setLogInDisabled(false);
 
@@ -199,7 +224,7 @@ function App() {
     setLogoutVisible(false);
   };
 
-  const onRegister = (props: RestrationDetails) => {
+  const onRegister = (props: RegistrationDetails) => {
     //invoke client
     const client = clientConnection();
     const regProps = {
@@ -207,7 +232,7 @@ function App() {
       data: props,
     };
 
-    const onesetPwd = (props: ResetPwd) => {
+    const onResetPwd = (props: ResetPwd) => {
       if (true) {
           toast({
               title: "Email sent",
@@ -263,6 +288,7 @@ function App() {
       });
   };
 
+  //user confirmation logic
   const onConfirmation = (props: ConfirmationDetails) => {
     //invoke client
     const client = clientConnection();
@@ -319,11 +345,11 @@ function App() {
       });
   };
 
+  //create listing logic
   const onNewListing = (props: newListingDetails) => {
-
     const client = clientConnection();
     const listingProps = {
-      type: "newListing",
+      type: 'newListing',
       data: props,
     };
 
@@ -332,35 +358,52 @@ function App() {
       .then((result) => {
         console.log(result);
         toast({
-          title: "Account Created",
-          description: "Your listing has been successfully created.",
-          status: "success",
+          title: 'Listing Created',
+          description: 'Your listing has been successfully created.',
+          status: 'success',
           duration: 2000,
           isClosable: true,
-          position: "top",
+          position: 'top',
         });
         setNewListingVisible(false);
       })
 
       .catch((result) => {
-
         toast({
-          title: "Catch Error",
-          description: "Listing has encountered an error.",
-          status: "error",
+          title: 'Catch Error',
+          description: 'Listing has encountered an error.',
+          status: 'error',
           duration: 2000,
           isClosable: true,
-          position: "top",
+          position: 'top',
         });
 
-        console.log("Apollo/GraphQL failure - Zip-It");
-        console.log("check relevant query in queries.tsx");
+        console.log('Apollo/GraphQL failure - Zip-It');
+        console.log('check relevant query in queries.tsx');
         console.log(props);
         console.log(result);
 
         setNewListingDisabled(false);
       });
   };
+
+  //portal type selection logic
+  function UserAdminPortalDisplay() {
+
+    if (RoleID === 1) {
+      return (
+        <>
+          <AdminListings userPostCode={userPostCode} />
+        </>
+      );
+    } else {
+      return (
+        <>
+          <UserListings userPostCode={userPostCode} />
+        </>
+      );
+    }
+  }
 
   return (
     <>
@@ -369,6 +412,7 @@ function App() {
         toggleLogIn={onShowLogin}
         toggleLogout={onShowLogout}
         toggleNewListing={onShowNewListing}
+        accountSettings={onShowAccountSettings}
         userTitle={userTitle}
         authenticated={authenticated !== undefined}
       />
@@ -410,12 +454,18 @@ function App() {
       <Reset
         visible={resetVisible}
         onOpenLogin={onShowLogin}
-        onRegister={onRegister}
+        //onRegister={onRegister}
         onClose={onResetClose}
-        onresetPwd={onResetPwd}
-      ></Reset>
-      <Listings
-        userPostCode={userPostCode} />
+        onResetPwd={onResetPwd} onRegister={function (props: ResetPwd): void {
+          throw new Error('Function not implemented.');
+        } }      ></Reset>
+      <UserAdminPortalDisplay />
+      <ModifyUser
+        disabled={registerDisabled}
+        visible={AccountSettingsVisible}
+        onOpen={onShowLogin}
+        onClose={onAccountSettingsClose}
+      />
     </>
   );
 }

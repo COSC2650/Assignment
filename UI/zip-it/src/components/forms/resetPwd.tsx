@@ -9,7 +9,7 @@ export interface ResetPwd {
 export interface ResetProps {
     onOpenLogin(): void;
     onRegister(props: ResetPwd): void;
-    onresetPwd(props: ResetPwd): void;
+    onResetPwd(props: ResetPwd): void;
     onClose(): void;
     visible: boolean;
 }
@@ -22,7 +22,7 @@ export function Reset(props: ResetProps) {
 
     const emailOnChange = (event) => setEmail(event.target.value);
 
-    const onresetPwd = () => {
+    const onResetPwd = () => {
         const registrationDetails: ResetPwd = {
             email: email,
         };
@@ -36,7 +36,7 @@ export function Reset(props: ResetProps) {
             setFormValidationMessage("Your email is empty or invalid");
         } else {
             setFormValidationHidden(true);
-            props.onresetPwd(registrationDetails);
+            props.onResetPwd(registrationDetails);
         }
     };
 
@@ -59,7 +59,7 @@ export function Reset(props: ResetProps) {
                             Back
                         </Button>
                         <Spacer></Spacer>
-                        { <Button onClick={onresetPwd} id="resetPwd">
+                        { <Button onClick={onResetPwd} id="resetPwd">
                             Send email
                         </Button> }
                     </Flex>
