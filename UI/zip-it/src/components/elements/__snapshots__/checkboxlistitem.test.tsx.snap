@@ -9,7 +9,7 @@ LoadedCheerio {
     "children": Array [
       Node {
         "attribs": Object {
-          "class": "chakra-checkbox css-1uiwwan",
+          "class": "chakra-checkbox css-1y0kcif",
         },
         "children": Array [
           Node {
@@ -1205,7 +1205,7 @@ LoadedCheerio {
         "parent": [Circular],
         "prev": Node {
           "attribs": Object {
-            "class": "chakra-checkbox css-1uiwwan",
+            "class": "chakra-checkbox css-1y0kcif",
           },
           "children": Array [
             Node {
@@ -1913,7 +1913,7 @@ LoadedCheerio {
           "parent": [Circular],
           "prev": Node {
             "attribs": Object {
-              "class": "chakra-checkbox css-1uiwwan",
+              "class": "chakra-checkbox css-1y0kcif",
             },
             "children": Array [
               Node {
