@@ -83,31 +83,18 @@ namespace API.Services
 
         public async Task<User> EditUser(int userID, AddUserInput input)
         {
-            // Create a return object
-            User edited;
+            // safety check, should never happen
+            var editUser = await _context.Users.FirstOrDefaultAsync(x =>  x.UserID == userID);
 
-            if (_context.Users.Where(x => x.UserEmail == input.UserEmail).Any())
-            {
-                var user = new User
-                {
-                    UserFirstName = input.UserFirstName,
-                    UserLastName = input.UserLastName,
-                    UserStreet = input.UserStreet,
-                    UserCity = input.UserCity,
-                    UserState = input.UserState,
-                    UserPostCode = input.UserPostCode,
-                };
+            if (editUser == null)
+                return null;
 
+            // only detects updated fields, if field comes through empty (default) then it is ignored
+            _context.Users.Update(editUser);
 
-                return edited;
-            }
-            else
-            {
-                result = new()
-                {
-                    UserID = 0
-                };
-            }
+            // updates the database with changes
+            await _context.SaveChangesAsync();
+            return editUser;
         }
 
         public async Task<bool> DeleteUser(int userID)
