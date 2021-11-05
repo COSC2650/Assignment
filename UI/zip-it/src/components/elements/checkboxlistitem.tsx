@@ -3,7 +3,6 @@ import {
   Heading,
   Text,
   HStack,
-  VStack,
   Checkbox,
 } from '@chakra-ui/react';
 

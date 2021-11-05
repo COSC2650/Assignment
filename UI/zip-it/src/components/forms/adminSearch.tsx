@@ -1,4 +1,5 @@
-import { Input, Select, Stack, Button, Icon } from '@chakra-ui/react';
+import { Input, Select, HStack,VStack, Button, Icon } from '@chakra-ui/react';
+import { Spacer } from '@chakra-ui/layout';
 import { FaSearch } from 'react-icons/fa';
 import React, { useState } from 'react';
 
@@ -192,7 +193,7 @@ export function AdminSearch(props: AdminSearchProps) {
             leftIcon={<Icon as={FaSearch} />}
             onClick={() => onAdminSearch(currentUserPostCode)}
           >
-            Ticket System
+            Ticket Search
           </Button>
         </>
       );
@@ -257,7 +258,7 @@ export function AdminSearch(props: AdminSearchProps) {
   }
 
   return (
-    <Stack direction={['column']} w={['100%', '300px']}>
+    <VStack>
       <Select
         placeholder="Admin Selection"
         type="type"
@@ -268,8 +269,20 @@ export function AdminSearch(props: AdminSearchProps) {
         <option value="listings">Listing</option>
         <option value="tickets">Ticket</option>
       </Select>
-      <SearchFilterSelection />
-    </Stack>
+      <SearchFilterSelection /><HStack >
+      <Button
+        leftIcon={<Icon as={FaSearch} />}
+      >
+        Modify
+      </Button>
+      <Spacer />
+      <Button
+        leftIcon={<Icon as={FaSearch} />}
+      >
+        Delete
+      </Button>
+    </HStack>
+    </VStack>
   );
 }
 
