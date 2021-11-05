@@ -2,13 +2,13 @@ import { Input, Select, Stack, Button, Icon } from '@chakra-ui/react';
 import { FaSearch } from 'react-icons/fa';
 import React, { useState } from 'react';
 
-export interface AdminSearchDetails {
+export interface SearchDetails {
     listingPostCode?: number;
     listingType: string;
 }
 
 export interface AdminSearchProps {
-    onAdminSearchInterface(props: AdminSearchDetails): void;
+    onAdminSearchInterface(props: SearchDetails): void;
     userPostCode: number;
 }
 
@@ -38,7 +38,7 @@ export function AdminSearch(props: AdminSearchProps) {
     const typeOnChange = (event) => setType(event.target.value);
 
     const onAdminSearch = (postcode?: number) => {
-        const adminSearchDetails: AdminSearchDetails = {
+        const adminSearchDetails: SearchDetails = {
             listingPostCode: postcodeOnChange(postcode),
             listingType: listingType,
         };

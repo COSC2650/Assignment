@@ -1,7 +1,7 @@
 import { VStack, StackDivider, Stack } from '@chakra-ui/layout';
 import ListItem, { ListItemProp } from '../../components/elements/listitem';
 import query from '../../data/queries';
-import AdminSearch, {AdminSearchDetails} from '../forms/adminSearch';
+import AdminSearch, {SearchDetails} from '../forms/adminsearch';
 import clientConnection from '../../data/client';
 import React, { useState, useEffect } from 'react';
 
@@ -9,16 +9,16 @@ interface userDetails {
   userPostCode: number;
 }
 
-export function AdminListing(props: userDetails) {
+export function AdminListings(props: userDetails) {
   let [listings, setListings] = useState([]);
 
-  var adminSearchDetails = {
+  var SearchDetails = {
     listingPostCode: 2,
     listingType: '',
     listingCategory: '',
   };
 
-  const adminQueryAPI = (props: AdminSearchDetails) => {
+  const adminQueryAPI = (props: SearchDetails) => {
     const client = clientConnection();
     client
       .query(query(props))
@@ -49,7 +49,7 @@ export function AdminListing(props: userDetails) {
   }
 
   useEffect(() => {
-    adminQueryAPI(adminSearchDetails);
+    adminQueryAPI(SearchDetails);
         // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -69,4 +69,4 @@ export function AdminListing(props: userDetails) {
     </>
   );
 }
-export default AdminListing;
+export default AdminListings;

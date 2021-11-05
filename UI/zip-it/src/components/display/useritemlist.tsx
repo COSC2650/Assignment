@@ -1,6 +1,6 @@
 import { VStack, StackDivider, Stack } from '@chakra-ui/layout';
-import ListItem, { ListItemProp } from '../../components/elements/listitem';
-import Search, { SearchDetails } from '../forms/search';
+import ListItem, { ListItemProp } from '../elements/listitem';
+import Search, { SearchDetails } from '../forms/usersearch';
 import query from '../../data/queries';
 import clientConnection from '../../data/client';
 import React, { useState, useEffect } from 'react';
@@ -9,7 +9,7 @@ interface userDetails {
   userPostCode: number;
 }
 
-export function Listings(props: userDetails) {
+export function UserListings(props: userDetails) {
   let [listings, setListings] = useState([]);
 
   //default query parameters
@@ -69,7 +69,10 @@ export function Listings(props: userDetails) {
         divider={<StackDivider />}
         spacing={2}
       >
-        <Search onSearchInterface={queryAPI} userPostCode={props.userPostCode}></Search>
+        <Search
+          onSearchInterface={queryAPI}
+          userPostCode={props.userPostCode}
+        ></Search>
         <VStack divider={<StackDivider />} spacing={2} width="100%">
           <ListingsFragment />
         </VStack>
@@ -77,4 +80,4 @@ export function Listings(props: userDetails) {
     </>
   );
 }
-export default Listings;
+export default UserListings;

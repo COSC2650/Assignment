@@ -1,17 +1,19 @@
-import { useState } from "react";
-import Header from "./components/elements/header";
-import { useColorMode, useToast } from "@chakra-ui/react";
-import Login, { LoginDetails } from "./components/forms/login";
-import Logout from "./components/forms/logout";
-import Register, { RegistrationDetails } from "./components/forms/register";
-import query from "./data/queries";
-import mutation from "./data/mutations";
-import clientConnection from "./data/client";
-import { Listings } from "./components/display/itemlist";
-import { AdminListing } from "./components/display/adminItemList"
+import { useState } from 'react';
+import Header from './components/elements/header';
+import { useColorMode, useToast } from '@chakra-ui/react';
+import Login, { LoginDetails } from './components/forms/login';
+import Logout from './components/forms/logout';
+import Register, { RegistrationDetails } from './components/forms/register';
+import query from './data/queries';
+import mutation from './data/mutations';
+import clientConnection from './data/client';
+import UserListings from './components/display/useritemlist';
+import { AdminListings } from './components/display/adminitemlist';
 import NewListing, { newListingDetails } from './components/forms/newListing';
-import Confirmation, { ConfirmationDetails } from "./components/forms/confirmation";
-import ModifyUser from "./components/forms/userProfile";
+import Confirmation, {
+  ConfirmationDetails,
+} from './components/forms/confirmation';
+import ModifyUser from './components/forms/userProfile';
 
 interface LogInDetails {
   userID: number;
@@ -22,7 +24,7 @@ interface LogInDetails {
 }
 
 function App() {
-  const [userTitle, setUserTitle] = useState(" Welcome!");
+  const [userTitle, setUserTitle] = useState(' Welcome!');
   const [userID, setUserID] = useState(0);
   const [userPostCode, setUserPostCode] = useState(0);
   const [authenticated, setAuthenticated] = useState<LogInDetails>();
@@ -186,7 +188,6 @@ function App() {
 
   //logic for logout function
   const onLogout = () => {
-
     //log out confirmation
     toast({
       title: 'Logged out',
@@ -311,10 +312,9 @@ function App() {
   };
 
   const onNewListing = (props: newListingDetails) => {
-
     const client = clientConnection();
     const listingProps = {
-      type: "newListing",
+      type: 'newListing',
       data: props,
     };
 
@@ -323,35 +323,52 @@ function App() {
       .then((result) => {
         console.log(result);
         toast({
-          title: "Listing Created",
-          description: "Your listing has been successfully created.",
-          status: "success",
+          title: 'Listing Created',
+          description: 'Your listing has been successfully created.',
+          status: 'success',
           duration: 2000,
           isClosable: true,
-          position: "top",
+          position: 'top',
         });
         setNewListingVisible(false);
       })
 
       .catch((result) => {
-
         toast({
-          title: "Catch Error",
-          description: "Listing has encountered an error.",
-          status: "error",
+          title: 'Catch Error',
+          description: 'Listing has encountered an error.',
+          status: 'error',
           duration: 2000,
           isClosable: true,
-          position: "top",
+          position: 'top',
         });
 
-        console.log("Apollo/GraphQL failure - Zip-It");
-        console.log("check relevant query in queries.tsx");
+        console.log('Apollo/GraphQL failure - Zip-It');
+        console.log('check relevant query in queries.tsx');
         console.log(props);
         console.log(result);
 
         setNewListingDisabled(false);
       });
   };
+
+  function UserAdminPortalDisplay(logInDetails) {
+    if (authenticated?.userEmail === 's3632442@student.rmit.edu.au') {
+      return (
+        <>
+          {' '}
+          <AdminListings userPostCode={0} />
+        </>
+      );
+    } else {
+      return (
+        <>
+          {' '}
+          <UserListings userPostCode={0} />
+        </>
+      );
+    }
+  }
 
   return (
     <>
@@ -397,14 +414,7 @@ function App() {
         listingUserID={userID}
         listingPostCode={userPostCode}
       ></NewListing>
-      {(userPostCode !== 2614) &&
-        <Listings
-          userPostCode={userPostCode}
-        />}
-      {(userPostCode === 2614) &&
-        <AdminListing
-          userPostCode={userPostCode}
-        />}
+      <UserAdminPortalDisplay />
       <ModifyUser
         disabled={registerDisabled}
         visible={AccountSettingsVisible}

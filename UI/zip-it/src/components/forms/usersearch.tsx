@@ -10,12 +10,12 @@ export interface SearchDetails {
 }
 
 //interface to caller
-export interface SearchProps {
+export interface UserSearchProps {
   onSearchInterface(props: SearchDetails): void;
   userPostCode: number;
 }
 
-export function Search(props: SearchProps) {
+export function Search(props: UserSearchProps) {
   //defines Search Type and creates setter
   const [listingType, setType] = useState('');
   const [listingCategory, setCategory] = useState('');
