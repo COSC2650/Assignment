@@ -1,7 +1,7 @@
 import { VStack, StackDivider, Stack } from '@chakra-ui/layout';
 import ListItem, { ListItemProp } from '../elements/listitem';
 import query from '../../data/queries';
-import AdminSearch, {SearchDetails} from '../forms/adminsearch';
+import AdminSearch, {SearchDetails} from '../forms/adminSearch';
 import clientConnection from '../../data/client';
 import React, { useState, useEffect } from 'react';
 
