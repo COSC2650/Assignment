@@ -34,7 +34,7 @@ const LogInButton = (props: LogInProps) => {
         backgroundColor={headerBackground}
         aria-label="Register/Log in"
       >
-        {'Register/Log In'}
+        {'Login'}
       </Button>
     </>
   );

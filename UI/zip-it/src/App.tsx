@@ -380,7 +380,7 @@ function App() {
         toggleColorMode={toggleColorMode}
         toggleLogIn={onShowLogin}
         toggleLogout={onShowLogout}
-        createNewListing={onShowNewListing}
+        toggleNewListing={onShowNewListing}
         accountSettings={onShowAccountSettings}
         userTitle={userTitle}
         authenticated={authenticated !== undefined}

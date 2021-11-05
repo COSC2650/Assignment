@@ -5,7 +5,6 @@ import {
   Button,
   Image,
   Heading,
-  Icon,
 } from '@chakra-ui/react';
 import {
   MoonIcon,
@@ -13,9 +12,9 @@ import {
   EditIcon,
   ExternalLinkIcon,
   AddIcon,
-  LockIcon,
+  HamburgerIcon,
+  RepeatIcon
 } from '@chakra-ui/icons';
-import LogOutButton from './logoutbutton';
 import LogInButton from './loginbutton';
 import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
 
@@ -23,7 +22,7 @@ interface HeaderProps {
   toggleColorMode(): void;
   toggleLogIn(): void;
   toggleLogout(): void;
-  createNewListing(): void;
+  toggleNewListing(): void;
   accountSettings(): void;
   userTitle: string;
   authenticated: boolean;
@@ -42,7 +41,7 @@ const Header = (props: HeaderProps) => {
   let userTitle;
 
   if (props.authenticated) {
-    authenticateButton = <LogOutButton toggleLogIn={props.toggleLogout} />;
+    authenticateButton =       <BurgerMenu />;
     userTitle = props.userTitle;
   } else {
     authenticateButton = <LogInButton toggleLogIn={props.toggleLogIn} />;
@@ -54,45 +53,38 @@ const Header = (props: HeaderProps) => {
     (document.activeElement as HTMLElement).blur();
   };
 
-  function UserMenu() {
-    if (props.authenticated) {
-      return (
-        <Menu>
-          <MenuButton
-            as={Button}
-            display={['none', 'block']}
-            leftIcon={<Icon as={LockIcon} />}
-            borderColor={textColor}
-            marginLeft="5px"
-            borderWidth="1px"
-            color={textColor}
-            backgroundColor={headerBackground}
-            aria-label="Log in"
-          >
-            {'Account Settings'}
-          </MenuButton>
-          <MenuList>
-            <MenuItem
-              icon={<AddIcon />}
-              onClick={props.createNewListing}>
-              New Listing
-            </MenuItem>
-            <MenuItem icon={<ExternalLinkIcon />} >
-              Current Listings
-            </MenuItem>
-            <MenuItem icon={<EditIcon />}
-              onClick={props.accountSettings}>
-              Manage Profile
-            </MenuItem>
-          </MenuList>
-        </Menu>
-      );
-    } else {
-      return (
-        <Menu>
-        </Menu>
-      );
-    }
+  function BurgerMenu() {
+
+    return (
+      <Menu>
+        <MenuButton
+          as={IconButton}
+          aria-label="Options"
+          icon={<HamburgerIcon />}
+          variant="outline"
+          color = "black"
+        />
+        <MenuList>
+          <MenuItem
+          icon={<AddIcon />}
+          onClick={props.toggleNewListing}>
+            New Listing
+          </MenuItem>
+          <MenuItem icon={<ExternalLinkIcon />} command="">
+            Current Listings
+          </MenuItem>
+          <MenuItem icon={<RepeatIcon />} command="">
+            Account Settings
+          </MenuItem>
+          <MenuItem icon={<EditIcon />} command="">
+            User Profile
+          </MenuItem>
+          <MenuItem icon={<EditIcon />} onClick={props.toggleLogout}>
+            Log Out
+          </MenuItem>
+        </MenuList>
+      </Menu>
+    );
   }
 
   return (
@@ -108,9 +100,6 @@ const Header = (props: HeaderProps) => {
       background={headerBackground}
       id="color_mode"
     >
-
-      <UserMenu />
-
       <Heading
         as="h5"
         size="sm"
