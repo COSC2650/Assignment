@@ -15,7 +15,7 @@ export function UserListings(props: userDetails) {
   //default query parameters
   var SearchDetails = {
     // need this to be 0 for default searches for it to work (MP)
-    listingPostCode: 2,
+    listingPostCode: props.userPostCode,
     listingType: '',
     listingCategory: '',
   };

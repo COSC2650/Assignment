@@ -17,23 +17,27 @@ export function AdminSearch(props: AdminSearchProps) {
 
     const [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3);
 
-    function postcodeOnChange(postCodeInput?: number): number | undefined {
-        if (
-            postCodeInput !== undefined &&
-            (postCodeInput > 800 || props.userPostCode > 800)
-        ) {
-            if (
-                (isNaN(postCodeInput) || postCodeInput < 800) &&
-                props.userPostCode > 800
-            ) {
-                return props.userPostCode;
-            } else {
-                return postCodeInput;
-            }
-        } else {
-            return 5;
-        }
+    //on change validation and default value set
+  function postcodeOnChange(postCodeInput?: number): number | undefined {
+    if(postCodeInput === 0){
+      return 5;
     }
+    if (
+      postCodeInput !== undefined &&
+      (postCodeInput > 800 || props.userPostCode > 800)
+    ) {
+      if (
+        (isNaN(postCodeInput) || postCodeInput < 800) &&
+        props.userPostCode > 800
+      ) {
+        return props.userPostCode;
+      } else {
+        return postCodeInput;
+      }
+    } else {
+      return 6;
+    }
+  }
 
     const typeOnChange = (event) => setType(event.target.value);
 

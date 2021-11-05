@@ -359,14 +359,12 @@ function App() {
     if (authenticated?.userEmail === 's3632442@student.rmit.edu.au') {
       return (
         <>
-          {' '}
-          <AdminListings userPostCode={userPostCode} />
+          <AdminListings userPostCode={3000} />
         </>
       );
     } else {
       return (
         <>
-          {' '}
           <UserListings userPostCode={userPostCode} />
         </>
       );
