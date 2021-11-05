@@ -25,7 +25,7 @@ export interface ListItemProp {
 const ListItem = (props: ListItemProp) => {
   return (
     <HStack align="flex-start" width="100%">
-      <Checkbox defaultIsUnChecked>Checkbox</Checkbox>
+      <Checkbox marginTop="auto" defaultIsUnChecked>Checkbox</Checkbox>
       <Image borderRadius=".5rem" boxSize="3rem" src={props.listingImageURL} />
       <HStack align="left">
         <Heading as="h1" size="md" id="heading">

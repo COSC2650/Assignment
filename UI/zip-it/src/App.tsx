@@ -142,7 +142,7 @@ function App() {
 
         if (queryResult != null) {
           //set user data
-          setUserTitle(' Welcome back, ' + queryResult.userFirstName + '!');
+          setUserTitle('Hi, ' + queryResult.userFirstName + '!');
           setUserPostCode(queryResult.userPostCode);
           setUserID(queryResult.userID);
 

@@ -1,7 +1,7 @@
-import { Input, Select, HStack,VStack, Button, Icon } from '@chakra-ui/react';
 import { Spacer } from '@chakra-ui/layout';
-import { FaCross, FaEdit, FaSearch, FaWindowClose } from 'react-icons/fa';
+import { Button, HStack, Icon, Input, Select, VStack } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { FaEdit, FaSearch, FaWindowClose } from 'react-icons/fa';
 
 export interface SearchDetails {
   listingPostCode?: number;
