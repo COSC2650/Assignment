@@ -1,10 +1,5 @@
 import {
-  Image,
-  Heading,
-  Text,
-  HStack,
-  VStack,
-  Checkbox,
+  Heading, HStack, Image, Text
 } from '@chakra-ui/react';
 
 //listItem properties

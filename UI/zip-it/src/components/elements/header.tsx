@@ -6,7 +6,7 @@ import {
   MoonIcon,
   SearchIcon,
   SettingsIcon,
-  SunIcon,
+  SunIcon
 } from '@chakra-ui/icons';
 import { Flex, Spacer } from '@chakra-ui/layout';
 import {
@@ -18,7 +18,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  useColorModeValue,
+  useColorModeValue
 } from '@chakra-ui/react';
 import LogInButton from './loginbutton';
 
