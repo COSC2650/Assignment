@@ -1,6 +1,6 @@
 import { Input, Select, Stack, Button, Icon } from '@chakra-ui/react';
 import { FaSearch } from 'react-icons/fa';
-import React, { useState } from 'react';
+import React, {useState } from 'react';
 
 //SearchDetails constructor
 export interface SearchDetails {
@@ -10,12 +10,12 @@ export interface SearchDetails {
 }
 
 //interface to caller
-export interface SearchProps {
+export interface UserSearchProps {
   onSearchInterface(props: SearchDetails): void;
   userPostCode: number;
 }
 
-export function Search(props: SearchProps) {
+export function Search(props: UserSearchProps) {
   //defines Search Type and creates setter
   const [listingType, setType] = useState('');
   const [listingCategory, setCategory] = useState('');

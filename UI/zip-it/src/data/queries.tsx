@@ -12,6 +12,7 @@ const query = (props) => {
                   userFirstName
                   userEmailVerified
                   userPostCode
+                  roleID
                 }
               }
             `,
@@ -28,6 +29,7 @@ const query = (props) => {
                   listingImageURL
                   listingType
                   listingPostCode
+                  listingPrice
                 }
               }
               `,
