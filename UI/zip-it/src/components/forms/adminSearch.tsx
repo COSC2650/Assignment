@@ -1,6 +1,6 @@
 import { Input, Select, HStack,VStack, Button, Icon } from '@chakra-ui/react';
 import { Spacer } from '@chakra-ui/layout';
-import { FaSearch } from 'react-icons/fa';
+import { FaCross, FaEdit, FaSearch, FaWindowClose } from 'react-icons/fa';
 import React, { useState } from 'react';
 
 export interface SearchDetails {
@@ -271,13 +271,13 @@ export function AdminSearch(props: AdminSearchProps) {
       </Select>
       <SearchFilterSelection /><HStack >
       <Button
-        leftIcon={<Icon as={FaSearch} />}
+        leftIcon={<Icon as={FaEdit} />}
       >
         Modify
       </Button>
       <Spacer />
       <Button
-        leftIcon={<Icon as={FaSearch} />}
+        leftIcon={<Icon as={FaWindowClose} />}
       >
         Delete
       </Button>
