@@ -17,7 +17,6 @@ const query = (props) => {
             `,
     };
   } else {
-    console.log(props.listingPostCode)
     //fetches listings according to passed params
     return {
       query: gql`
