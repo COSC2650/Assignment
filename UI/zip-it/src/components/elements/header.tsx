@@ -13,7 +13,7 @@ import {
   ExternalLinkIcon,
   AddIcon,
   HamburgerIcon,
-  RepeatIcon
+  RepeatIcon,
 } from '@chakra-ui/icons';
 import LogInButton from './loginbutton';
 import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
@@ -41,7 +41,7 @@ const Header = (props: HeaderProps) => {
   let userTitle;
 
   if (props.authenticated) {
-    authenticateButton =       <BurgerMenu />;
+    authenticateButton = <BurgerMenu />;
     userTitle = props.userTitle;
   } else {
     authenticateButton = <LogInButton toggleLogIn={props.toggleLogIn} />;
@@ -54,7 +54,6 @@ const Header = (props: HeaderProps) => {
   };
 
   function BurgerMenu() {
-
     return (
       <Menu>
         <MenuButton
@@ -62,12 +61,10 @@ const Header = (props: HeaderProps) => {
           aria-label="Options"
           icon={<HamburgerIcon />}
           variant="outline"
-          color = "black"
+          color="black"
         />
         <MenuList>
-          <MenuItem
-          icon={<AddIcon />}
-          onClick={props.toggleNewListing}>
+          <MenuItem icon={<AddIcon />} onClick={props.toggleNewListing}>
             New Listing
           </MenuItem>
           <MenuItem icon={<ExternalLinkIcon />} command="">
@@ -107,12 +104,13 @@ const Header = (props: HeaderProps) => {
         display="flex"
         alignItems="center"
       >
-
         {userTitle}
       </Heading>
 
       <Spacer />
-      <Image src={logo} height="40px" align="left" />
+      <a href="\">
+        <Image src={logo} height="40px" align="left" />
+      </a>
       <Spacer />
       <IconButton
         onClick={toggleColor}

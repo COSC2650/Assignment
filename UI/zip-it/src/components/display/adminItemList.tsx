@@ -1,5 +1,5 @@
 import { VStack, StackDivider, Stack } from '@chakra-ui/layout';
-import ListItem, { ListItemProp } from '../elements/listitem';
+import ListItem, { ListItemProp } from '../elements/checkboxlistitem';
 import query from '../../data/queries';
 import AdminSearch, {SearchDetails} from '../forms/adminsearch';
 import clientConnection from '../../data/client';
