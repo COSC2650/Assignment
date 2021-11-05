@@ -362,7 +362,7 @@ function App() {
     ) {
       return (
         <>
-          <AdminListings userPostCode={3000} />
+          <AdminListings userPostCode={userPostCode} />
         </>
       );
     } else {
