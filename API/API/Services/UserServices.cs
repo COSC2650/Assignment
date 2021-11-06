@@ -83,6 +83,8 @@ namespace API.Services
 
         public async Task<User> EditUser(int userID, AddUserInput input)
         {
+            var lowestPostCode = 800;
+
             // safety check, should never happen
             var editUser = await _context.Users.FirstOrDefaultAsync(x => x.UserID == userID);
 
@@ -91,32 +93,33 @@ namespace API.Services
                 return null;
             }
 
-                if (input.UserFirstName != "")
-                { 
-                    editUser.UserFirstName = input.UserFirstName;
-                };
-                if (input.UserLastName != "")
-                {
-                    editUser.UserLastName = input.UserLastName;
-                };
-                if (input.UserStreet != "")
-                {
-                    editUser.UserStreet = input.UserStreet;
-                };
-                if (input.UserCity != "")
-                {
-                    editUser.UserCity = input.UserCity;
-                };
-                if (input.UserState != "")
-                {
-                    editUser.UserState = input.UserState;
-                };
-                if (input.UserPostCode != 0)
-                {
-                    editUser.UserPostCode = input.UserPostCode;
-                };
+            // validate inputs so see what exists
+            if (input.UserFirstName.Length == 0)
+            { 
+                editUser.UserFirstName = input.UserFirstName;
+            };
+            if (input.UserLastName.Length == 0)
+            {
+                editUser.UserLastName = input.UserLastName;
+            };
+            if (input.UserStreet.Length == 0)
+            {
+                editUser.UserStreet = input.UserStreet;
+            };
+            if (input.UserCity.Length == 0)
+            {
+                editUser.UserCity = input.UserCity;
+            };
+            if (input.UserState.Length == 0)
+            {
+                editUser.UserState = input.UserState;
+            };
+            if (input.UserPostCode != 0 && input.UserPostCode > lowestPostCode)
+            {
+                editUser.UserPostCode = input.UserPostCode;
+            };
 
-            // only detects updated fields, if field comes through empty (default) then it is ignored
+            // updates context with editted user
             _context.Users.Update(editUser);
 
             // updates the database with changes
