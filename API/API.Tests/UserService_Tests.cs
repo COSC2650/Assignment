@@ -313,6 +313,10 @@ namespace Tests
             Assert.Equal(editInput.UserCity, editedUser.UserCity);
             Assert.Equal(editInput.UserState, editedUser.UserState);
             Assert.Equal(editInput.UserPostCode, editedUser.UserPostCode);
+
+            // bad userID check
+            var invalidUserID = 0;
+            Assert.Null(await userService.EditUser(invalidUserID, editInput));
         }
 
         private static IList<AddUserInput> GenerateUsers()
