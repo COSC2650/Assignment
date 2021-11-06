@@ -10,7 +10,7 @@ import clientConnection from './data/client';
 import UserListings from './components/display/useritemlist';
 import { AdminListings } from './components/display/adminitemlist';
 import NewListing, { newListingDetails } from './components/forms/newlisting';
-import UserProfile, { newUserProfileDetails } from './components/forms/userprofile';
+import UserProfile, {userProfileDetails} from './components/forms/userprofile';
 import Confirmation, {
   ConfirmationDetails,
 } from './components/forms/confirmation';
@@ -330,20 +330,20 @@ function App() {
   };
 
   //create listing logic
-  const onUserProfile = (props: newUserProfileDetails) => {
+  const onUserProfile = (props: userProfileDetails) => {
     const client = clientConnection();
-    const listingProps = {
+    const userProfileProps = {
       type: 'editUserProfile',
       data: props,
     };
 
     client
-      .mutate({ mutation: mutation(listingProps) })
+      .mutate({ mutation: mutation(userProfileProps) })
       .then((result) => {
         console.log(result);
         toast({
-          title: 'Listing Created',
-          description: 'Your listing has been successfully created.',
+          title: 'User Profile',
+          description: 'Your profile information has been successfully changed.',
           status: 'success',
           duration: 2000,
           isClosable: true,
@@ -355,7 +355,7 @@ function App() {
       .catch((result) => {
         toast({
           title: 'Catch Error',
-          description: 'Listing has encountered an error.',
+          description: 'User profile has encountered an error.',
           status: 'error',
           duration: 2000,
           isClosable: true,
@@ -435,7 +435,7 @@ function App() {
       ></NewListing>
       <UserAdminPortalDisplay />
       <UserProfile
-        disabled={registerDisabled}
+        disabled={UserProfileDisabled}
         visible={UserProfileVisible}
         onOpen={onShowLogin}
         onUserProfile={onUserProfile}

@@ -27,8 +27,6 @@ export interface userProfileProps {
 
 export function UserProfile(props: userProfileProps) {
   const logo = '/images/logo_black.png'
-  const [formValidationMessage, setFormValidationMessage] = useState("");
-    const [formValidationHidden, setFormValidationHidden] = useState(true);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [street, setStreet] = useState("");
@@ -53,24 +51,7 @@ export function UserProfile(props: userProfileProps) {
           userPostCode: postCode,
       };
 
-      var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
-
-      setFormValidationHidden(false);
-
-      if (firstName.length < 2 || firstName.length > 50) {
-          setFormValidationMessage("Your first name is either empty or an invalid length");
-      } else if (lastName.length < 2 || lastName.length > 50) {
-          setFormValidationMessage("Your last name is either empty or an invalid length");
-      } else if (street.length < 2 || street.length > 50) {
-          setFormValidationMessage("Your street is either empty or an invalid length");
-      } else if (city.length < 2 || city.length > 50) {
-          setFormValidationMessage("Your city is either empty or an invalid length");
-      } else if (postCode < 1000 || postCode > 9999) {
-          setFormValidationMessage("Your postcode is an invalid input");
-      } else {
-          setFormValidationHidden(true);
           props.onUserProfile(editDetails);
-      }
   };
 
   return (
@@ -99,14 +80,14 @@ export function UserProfile(props: userProfileProps) {
 
         <ModalFooter>
           <Flex width="100%">
-            <Button id="edit"> onClick={onUserProfile}
+            <Button id="edit" onClick={onUserProfile}>
               Edit
             </Button>
             <Spacer></Spacer>
-            <Button id="delete">
+            <Button id="delete" onClick={props.onClose}>
               Delete
             </Button>
-            <Button id="cancel">
+            <Button id="cancel" onClick={props.onClose}>
               Cancel
             </Button>
           </Flex>
