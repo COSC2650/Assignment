@@ -300,7 +300,7 @@ namespace Tests
                 "",
                 "");
             
-            // Edit user first name
+            // Edit user first details
             await userService.EditUser(genInput.UserID, editInput);
             
             // Finds edit user
@@ -317,6 +317,27 @@ namespace Tests
             // bad userID check
             var invalidUserID = 0;
             Assert.Null(await userService.EditUser(invalidUserID, editInput));
+
+            // check postcode range logic condition
+            AddUserInput editInputPostCode = new(
+                "editFirstName",
+                "editLastName",
+                "editStreet",
+                "editCity",
+                "EDI",
+                700,
+                "",
+                "");
+            
+            // Edit user first details
+            await userService.EditUser(genInput.UserID, editInputPostCode);
+            
+            // Finds edit user
+            var editedPostCode = context.Users.First(x => x.UserID == genInput.UserID);
+
+            // Assert PostCode fail (should be equal to previous edit)
+            Assert.Equal(editedPostCode.UserPostCode, editInput.UserPostCode);
+
         }
 
         private static IList<AddUserInput> GenerateUsers()
