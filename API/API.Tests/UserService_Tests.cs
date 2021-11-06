@@ -258,6 +258,63 @@ namespace Tests
             Assert.Equal((await userService.ConfirmUser(user.UserEmail, code)).UserID, user.UserID);
         }
 
+        [Fact]
+        public async Task UserService_EditUser()
+        {
+            // Create sample users
+            AddUserInput input = new(
+                "firstName",
+                "lastName",
+                "street",
+                "city",
+                "###",
+                0000, 
+                "test@email.com",
+                "password");
+
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the UserService with the mocked context
+            UserService userService = new(context);
+
+            // Create a user
+            var genInput = await userService.CreateUser(input, mockedSMTPClient.Object);
+
+            // Check we've added a user
+            Assert.Equal(1, userService.GetAll().Count());
+
+            // Create edit input for user change first name
+            AddUserInput editInput = new(
+                "editFirstName",
+                "editLastName",
+                "editStreet",
+                "editCity",
+                "EDI",
+                4111,
+                "",
+                "");
+            
+            // Edit user first name
+            await userService.EditUser(genInput.UserID, editInput);
+            
+            // Finds edit user
+            var editedUser = context.Users.First(x => x.UserID == genInput.UserID);
+
+            // Checks editted values against editInput
+            Assert.Equal(editInput.UserFirstName, editedUser.UserFirstName);
+            Assert.Equal(editInput.UserLastName, editedUser.UserLastName);
+            Assert.Equal(editInput.UserStreet, editedUser.UserStreet);
+            Assert.Equal(editInput.UserCity, editedUser.UserCity);
+            Assert.Equal(editInput.UserState, editedUser.UserState);
+            Assert.Equal(editInput.UserPostCode, editedUser.UserPostCode);
+        }
+
         private static IList<AddUserInput> GenerateUsers()
         {
             // Create a new instance on the fixture
