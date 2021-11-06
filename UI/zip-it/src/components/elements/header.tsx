@@ -26,8 +26,8 @@ interface HeaderProps {
   toggleColorMode(): void;
   toggleLogIn(): void;
   toggleLogout(): void;
-  toggleNewListing(): void;
-  accountSettings(): void;
+  NewListing(): void;
+  UserProfile(): void;
   userTitle: string;
   authenticated: boolean;
 }
@@ -96,7 +96,7 @@ const Header = (props: HeaderProps) => {
           color="black"
         />
         <MenuList>
-          <MenuItem icon={<AddIcon />} onClick={props.toggleNewListing}>
+          <MenuItem icon={<AddIcon />} onClick={props.NewListing}>
             New Listing
           </MenuItem>
           <MenuItem icon={<SearchIcon />} command="">
@@ -105,7 +105,7 @@ const Header = (props: HeaderProps) => {
           <MenuItem icon={<SettingsIcon />} command="">
             Account Settings
           </MenuItem>
-          <MenuItem icon={<EditIcon />} command="">
+          <MenuItem icon={<EditIcon />} onClick={props.UserProfile}>
             User Profile
           </MenuItem>
           <MenuItem icon={colorModeIcon} command="" onClick={toggleColor}>

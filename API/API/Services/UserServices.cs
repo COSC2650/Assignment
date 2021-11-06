@@ -81,6 +81,46 @@ namespace API.Services
             return result;
         }
 
+        public async Task<User> EditUser(int userID, AddUserInput input)
+        {
+            var lowestPostCode = 800;
+
+            // safety check, should never happen
+            var editUser = await _context.Users.FirstOrDefaultAsync(x => x.UserID == userID);
+
+            if (editUser == null)
+            {
+                return null;
+            }
+
+            // validate inputs so see what exists
+            if (input.UserFirstName.Length != 0)
+                editUser.UserFirstName = input.UserFirstName;
+
+            if (input.UserLastName.Length != 0)
+                editUser.UserLastName = input.UserLastName;
+
+            if (input.UserStreet.Length != 0)
+                editUser.UserStreet = input.UserStreet;
+            
+            if (input.UserCity.Length != 0)
+                editUser.UserCity = input.UserCity;
+
+            if (input.UserState.Length != 0)
+                editUser.UserState = input.UserState;
+
+            if (input.UserPostCode != 0 && input.UserPostCode > lowestPostCode)
+                editUser.UserPostCode = input.UserPostCode;
+
+            // updates context with editted user
+            _context.Users.Update(editUser);
+
+            // updates the database with changes
+            await _context.SaveChangesAsync();
+
+            return editUser;
+        }
+
         public async Task<bool> DeleteUser(int userID)
         {
             var user = await _context.Users.FirstOrDefaultAsync(c => c.UserID == userID);
@@ -126,12 +166,14 @@ namespace API.Services
             return Hashbrowns.ValidatePassword(password, user.UserPasswordHash);
         }
 
-        public async Task<User> ConfirmUser(string userEmail, int confirmationCode) {
+        public async Task<User> ConfirmUser(string userEmail, int confirmationCode)
+        {
             // Retrieve the confirmation code
             ConfirmCode confirmCode = _context.ConfirmCodes.Where(c => c.Email == userEmail && c.Code == confirmationCode).First();
             User user = null;
 
-            if (confirmCode != null) {
+            if (confirmCode != null)
+            {
                 // Retrieve the user
                 user = await _context.Users.FirstOrDefaultAsync(c => c.UserEmail == userEmail);
 

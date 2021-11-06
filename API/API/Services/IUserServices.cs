@@ -14,5 +14,6 @@ namespace API.Services
         Task<User> GetUserByEmail(string email, string password);
         bool ValidatePassword(User user, string password);
         Task<User> ConfirmUser(string userEmail, int confirmationCode);
+        Task<User> EditUser(int userID, AddUserInput input);
     }  
 }  
