@@ -319,7 +319,7 @@ namespace Tests
             Assert.Null(await userService.EditUser(invalidUserID, editInput));
 
             // check postcode range logic condition
-            AddUserInput editInputPostCode = new(
+            AddUserInput invalidPostCodeRange = new(
                 "editFirstName",
                 "editLastName",
                 "editStreet",
@@ -330,13 +330,33 @@ namespace Tests
                 "");
             
             // Edit user first details
-            await userService.EditUser(genInput.UserID, editInputPostCode);
+            await userService.EditUser(genInput.UserID, invalidPostCodeRange);
             
             // Finds edit user
-            var editedPostCode = context.Users.First(x => x.UserID == genInput.UserID);
+            var editInvalidPostCodeRange = context.Users.First(x => x.UserID == genInput.UserID);
 
-            // Assert PostCode fail (should be equal to previous edit)
-            Assert.Equal(editedPostCode.UserPostCode, editInput.UserPostCode);
+            // Assert PostCode fail (should be equal to previous working edit)
+            Assert.Equal(editInvalidPostCodeRange.UserPostCode, editInput.UserPostCode);
+
+            // check postcode range logic condition
+            AddUserInput invalidPostCodeZero = new(
+                "editFirstName",
+                "editLastName",
+                "editStreet",
+                "editCity",
+                "EDI",
+                0,
+                "",
+                "");
+            
+            // Edit user first details
+            await userService.EditUser(genInput.UserID, invalidPostCodeZero);
+            
+            // Finds edit user
+            var editInvalidPostCodeZero = context.Users.First(x => x.UserID == genInput.UserID);
+
+            // Assert PostCode fail (should be equal to previous working edit)
+            Assert.Equal(editInvalidPostCodeZero.UserPostCode, editInput.UserPostCode);
 
         }
 
