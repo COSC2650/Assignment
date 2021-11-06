@@ -94,30 +94,23 @@ namespace API.Services
             }
 
             // validate inputs so see what exists
-            if (input.UserFirstName.Length == 0)
-            { 
+            if (input.UserFirstName.Length != 0)
                 editUser.UserFirstName = input.UserFirstName;
-            };
-            if (input.UserLastName.Length == 0)
-            {
+
+            if (input.UserLastName.Length != 0)
                 editUser.UserLastName = input.UserLastName;
-            };
-            if (input.UserStreet.Length == 0)
-            {
+
+            if (input.UserStreet.Length != 0)
                 editUser.UserStreet = input.UserStreet;
-            };
-            if (input.UserCity.Length == 0)
-            {
+            
+            if (input.UserCity.Length != 0)
                 editUser.UserCity = input.UserCity;
-            };
-            if (input.UserState.Length == 0)
-            {
+
+            if (input.UserState.Length != 0)
                 editUser.UserState = input.UserState;
-            };
+
             if (input.UserPostCode != 0 && input.UserPostCode > lowestPostCode)
-            {
                 editUser.UserPostCode = input.UserPostCode;
-            };
 
             // updates context with editted user
             _context.Users.Update(editUser);
