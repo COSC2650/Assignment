@@ -224,6 +224,23 @@ function App() {
     setLogoutVisible(false);
   };
 
+  const onResetPwdSubmit = (props: ResetPwd) => {
+    if (true) {
+        toast({
+            title: "Email sent",
+            description: "Please check your email for instructions on how to reset your password",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+            position: "top",
+        });
+    } else {
+        errorToast();
+    }
+
+    setResetVisible(false);
+};
+
   const onRegister = (props: RegistrationDetails) => {
     //invoke client
     const client = clientConnection();
@@ -232,22 +249,7 @@ function App() {
       data: props,
     };
 
-    const onResetPwd = (props: ResetPwd) => {
-      if (true) {
-          toast({
-              title: "Email sent",
-              description: "Please check your email for instructions on how to reset your password",
-              status: "success",
-              duration: 3000,
-              isClosable: true,
-              position: "top",
-          });
-      } else {
-          errorToast();
-      }
 
-      setResetVisible(false);
-  };
 
     //query database + pass result to
     client
@@ -456,9 +458,11 @@ function App() {
         onOpenLogin={onShowLogin}
         //onRegister={onRegister}
         onClose={onResetClose}
-        onResetPwd={onResetPwd} onRegister={function (props: ResetPwd): void {
+        //onResetPwd={onResetPwd}
+        onResetPwd={onResetPwdSubmit} onRegister={function (props: ResetPwd): void {
           throw new Error('Function not implemented.');
-        } }      ></Reset>
+        } }      
+      ></Reset>
       <UserAdminPortalDisplay />
       <ModifyUser
         disabled={registerDisabled}

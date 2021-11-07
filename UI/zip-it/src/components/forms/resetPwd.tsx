@@ -26,6 +26,7 @@ export function Reset(props: ResetProps) {
         const registrationDetails: ResetPwd = {
             email: email,
         };
+        
 
         // Email regex
         var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
@@ -34,9 +35,13 @@ export function Reset(props: ResetProps) {
 
         if (email === "" || !regexp.test(email)) {
             setFormValidationMessage("Your email is empty or invalid");
+            console.log("1")
+
         } else {
             setFormValidationHidden(true);
             props.onResetPwd(registrationDetails);
+            console.log("2")
+
         }
     };
 
@@ -59,9 +64,9 @@ export function Reset(props: ResetProps) {
                             Back
                         </Button>
                         <Spacer></Spacer>
-                        { <Button onClick={onResetPwd} id="resetPwd">
+                         <Button onClick={onResetPwd} id="resetPwd">
                             Send email
-                        </Button> }
+                        </Button> 
                     </Flex>
                 </ModalFooter>
             </ModalContent>
