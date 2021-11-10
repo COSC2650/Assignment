@@ -1,4 +1,4 @@
-FROM traefik:2.5.3
+FROM traefik:v2.5.4
 
 # Add the configuration files
 RUN mkdir -p /etc/traefik \ 

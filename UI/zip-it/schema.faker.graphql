@@ -1,17 +1,28 @@
 type User {
-  userFirstName: String @fake(type: firstName)
-  userLastName: String @fake(type: lastName)
-  userStreet: String @fake(type: streetAddress)
-  userCity: String @fake(type: city)
-  userState: String @fake(type: state)
-  userPostCode: Int @fake(type: zipCode)
-  userEmail: String @examples(values: ["email@email.email"])
-  userVerified: Boolean @examples(values: [false])
+    userID: Int! @fake(type: number)
+    userFirstName: String @fake(type: firstName)
+    userLastName: String @fake(type: lastName)
+    userStreet: String @fake(type: streetAddress)
+    userCity: String @fake(type: city)
+    userState: String @fake(type: state)
+    userPostCode: Int @fake(type: zipCode)
+    userEmail: String!
+    userPasswordHash: String!
+    userEmailVerified: Boolean! @examples(values: [true, false])
+    roleID: Int!
+    role: Role
+    listings: [Listing]
+}
+
+type Role {
+    roleID: Int! @fake(type: number)
+    roleName: String! @fake(type: lorem)
+    users: [User]
 }
 
 type Listing {
   listingID: String @fake(type: number)
-  listingPostCode: String @fake(type: number)
+  listingPostCode: Int @fake(type: number)
   listingType: String @examples(values: ["product" "service"])
   listingTitle: String @fake(type: word)
   listingCategory: String @fake(type: productCategory)
@@ -37,7 +48,25 @@ type Listing {
     )
 }
 
+type Verification {
+  userEmail: String @examples(values: ["email@email.email"])
+  veriCodeInit: Int @fake(type: number)
+	verified: Boolean @examples(values: [false])
+}
+
+
+
 type Query {
   userByEmail(email: String, password: String): User
   listingsByFilter(listingPostCode: Int,listingType: String,listingCategory: String): [Listing]@listLength(min: 10, max: 30)
+  getVeriCode(email: String):Verification
+}
+
+type Mutation{
+  setVeriCodeMatch(email:String):User
+  setUserDetails(email:String, userFirstName:String, userLastName:String, userStreet:String, userCity:String, userPostCode:Int, userVerified:Boolean, password:String):User
+  modifyUserDetails(email:String, userFirstName:String, userLastName:String, userStreet:String, userCity:String, userPostCode:Int, userVerified:Boolean):User
+  setUserPassword(email:String, password:String, oldPassword:String):User
+  setListingDetials(userID: String, listingID: String, listingPostCode: String, listingType: String, listingTitle: String, listingCategory: String, listingCondition: String, listingAvailibility: String, listingPrice: String, listingDescription: String, listingImageURL: String):Listing
+  modifyListingDetials(userID: String, listingID: String, listingPostCode: String, listingType: String, listingTitle: String, listingCategory: String, listingCondition: String, listingAvailibility: String, listingPrice: String, listingDescription: String, listingImageURL: String):Listing
 }

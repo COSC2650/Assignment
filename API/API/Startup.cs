@@ -50,6 +50,7 @@ namespace API
                     .AddTypeExtension<ListingQueries>()
                 .AddMutationType(d => d.Name("Mutation"))
                     .AddTypeExtension<UserMutations>()
+                    .AddTypeExtension<ListingMutations>()
                 .AddType<UserType>()
                 .AddType<ListingType>();
 

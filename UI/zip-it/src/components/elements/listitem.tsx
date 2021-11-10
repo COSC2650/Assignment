@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { 
     Image, 
     Heading, 
@@ -85,6 +86,48 @@ const ListItem = (props: ListingItemProps) => {
             </Drawer></>
         
     );
+=======
+import {
+  Heading, HStack, Image, Text
+} from '@chakra-ui/react';
+
+//listItem properties
+export interface ListItemProp {
+  listingImageURL: string;
+  listingID: string;
+  listingPostCode: number;
+  listingTitle: string;
+  listingCategory: string;
+  listingCondition: string;
+  listingAvailibility: string;
+  listingDescription: string;
+  listingPrice: number;
+  listingQuantity: number;
+  listingType: string;
+}
+
+//list item fragment
+const ListItem = (props: ListItemProp) => {
+  return (
+    <HStack align="flex-start" width="100%">
+      <Image borderRadius=".5rem" boxSize="3rem" src={props.listingImageURL} />
+      <HStack align="left">
+        <Heading as="h1" size="md" id="heading">
+          {props.listingTitle}
+        </Heading>
+        <Text size="md" id="contents">
+          {props.listingDescription}
+        </Text>
+        <Text size="md" id="postcode">
+          {'Postcode - ' + props.listingPostCode}
+        </Text>
+        <Text size="md" id="price">
+          {'Price - ' + props.listingPrice}
+        </Text>
+      </HStack>
+    </HStack>
+  );
+>>>>>>> ca3f78e63c4707a8b9002b4186ae26fd612ef0c3
 };
 
 export default ListItem;

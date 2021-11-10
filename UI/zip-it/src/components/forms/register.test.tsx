@@ -103,6 +103,9 @@ describe("Register", () => {
         wrapper.find("Input#lastName").simulate("change", { target: { value: "Last" } });
         wrapper.find("Input#password").simulate("change", { target: { value: "AValidPassw0rd" } });
         wrapper.find("Input#passwordConfirm").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#street").simulate("change", { target: { value: "Street" } });
+        wrapper.find("Input#city").simulate("change", { target: { value: "City" } });
+        wrapper.find("Input#postcode").simulate("change", { target: { value: 3000 } });
 
         // Click the Login button
         wrapper.find("Button#register").simulate("click");
@@ -160,6 +163,10 @@ describe("Register", () => {
         wrapper.find("Input#lastName").simulate("change", { target: { value: "Last" } });
         wrapper.find("Input#password").simulate("change", { target: { value: "AValidPassw0rd" } });
         wrapper.find("Input#passwordConfirm").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#street").simulate("change", { target: { value: "Street" } });
+        wrapper.find("Input#city").simulate("change", { target: { value: "City" } });
+        wrapper.find("Select#state").simulate("change", { target: { value: "VIC" } });
+        wrapper.find("Input#postcode").simulate("change", { target: { value: 3000 } });
 
         // Click the Login button
         wrapper.find("Button#register").simulate("click");
@@ -190,6 +197,10 @@ describe("Register", () => {
         wrapper.find("Input#lastName").simulate("change", { target: { value: "Last" } });
         wrapper.find("Input#password").simulate("change", { target: { value: "AValidPassw0rd" } });
         wrapper.find("Input#passwordConfirm").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#street").simulate("change", { target: { value: "Street" } });
+        wrapper.find("Input#city").simulate("change", { target: { value: "City" } });
+        wrapper.find("Select#state").simulate("change", { target: { value: "VIC" } });
+        wrapper.find("Input#postcode").simulate("change", { target: { value: 3000 } });
 
         // Click the Login button
         wrapper.find("Button#register").simulate("click");
@@ -220,6 +231,10 @@ describe("Register", () => {
         wrapper.find("Input#lastName").simulate("change", { target: { value: "Last" } });
         wrapper.find("Input#password").simulate("change", { target: { value: "AValidPassw0rd" } });
         wrapper.find("Input#passwordConfirm").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#street").simulate("change", { target: { value: "Street" } });
+        wrapper.find("Input#city").simulate("change", { target: { value: "City" } });
+        wrapper.find("Select#state").simulate("change", { target: { value: "VIC" } });
+        wrapper.find("Input#postcode").simulate("change", { target: { value: 3000 } });
 
         // Click the Login button
         wrapper.find("Button#register").simulate("click");
@@ -251,6 +266,10 @@ describe("Register", () => {
         wrapper.find("Input#lastName").simulate("change", { target: { value: "Last" } });
         wrapper.find("Input#password").simulate("change", { target: { value: "AValidPassw0rd" } });
         wrapper.find("Input#passwordConfirm").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#street").simulate("change", { target: { value: "Street" } });
+        wrapper.find("Input#city").simulate("change", { target: { value: "City" } });
+        wrapper.find("Select#state").simulate("change", { target: { value: "VIC" } });
+        wrapper.find("Input#postcode").simulate("change", { target: { value: 3000 } });
 
         // Click the Login button
         wrapper.find("Button#register").simulate("click");
@@ -282,6 +301,10 @@ describe("Register", () => {
         wrapper.find("Input#lastName").simulate("change", { target: { value: "Last" } });
         wrapper.find("Input#password").simulate("change", { target: { value: "AValidPassw0rd" } });
         wrapper.find("Input#passwordConfirm").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#street").simulate("change", { target: { value: "Street" } });
+        wrapper.find("Input#city").simulate("change", { target: { value: "City" } });
+        wrapper.find("Select#state").simulate("change", { target: { value: "VIC" } });
+        wrapper.find("Input#postcode").simulate("change", { target: { value: 3000 } });
 
         // Click the Login button
         wrapper.find("Button#register").simulate("click");
@@ -343,6 +366,10 @@ describe("Register", () => {
         wrapper.find("Input#lastName").simulate("change", { target: { value: "1" } });
         wrapper.find("Input#password").simulate("change", { target: { value: "AValidPassw0rd" } });
         wrapper.find("Input#passwordConfirm").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#street").simulate("change", { target: { value: "Street" } });
+        wrapper.find("Input#city").simulate("change", { target: { value: "City" } });
+        wrapper.find("Select#state").simulate("change", { target: { value: "VIC" } });
+        wrapper.find("Input#postcode").simulate("change", { target: { value: 3000 } });
 
         // Click the Login button
         wrapper.find("Button#register").simulate("click");
@@ -374,6 +401,10 @@ describe("Register", () => {
         wrapper.find("Input#lastName").simulate("change", { target: { value: "012345678901234567890123456789012345678901234567890" } });
         wrapper.find("Input#password").simulate("change", { target: { value: "AValidPassw0rd" } });
         wrapper.find("Input#passwordConfirm").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#street").simulate("change", { target: { value: "Street" } });
+        wrapper.find("Input#city").simulate("change", { target: { value: "City" } });
+        wrapper.find("Select#state").simulate("change", { target: { value: "VIC" } });
+        wrapper.find("Input#postcode").simulate("change", { target: { value: 3000 } });
 
         // Click the Login button
         wrapper.find("Button#register").simulate("click");
@@ -404,6 +435,10 @@ describe("Register", () => {
         wrapper.find("Input#firstName").simulate("change", { target: { value: "First" } });
         wrapper.find("Input#lastName").simulate("change", { target: { value: "Last" } });
         wrapper.find("Input#passwordConfirm").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#street").simulate("change", { target: { value: "Street" } });
+        wrapper.find("Input#city").simulate("change", { target: { value: "City" } });
+        wrapper.find("Select#state").simulate("change", { target: { value: "VIC" } });
+        wrapper.find("Input#postcode").simulate("change", { target: { value: 3000 } });
 
         // Click the Login button
         wrapper.find("Button#register").simulate("click");
@@ -435,6 +470,10 @@ describe("Register", () => {
         wrapper.find("Input#lastName").simulate("change", { target: { value: "Last" } });
         wrapper.find("Input#password").simulate("change", { target: { value: "1" } });
         wrapper.find("Input#passwordConfirm").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#street").simulate("change", { target: { value: "Street" } });
+        wrapper.find("Input#city").simulate("change", { target: { value: "City" } });
+        wrapper.find("Select#state").simulate("change", { target: { value: "VIC" } });
+        wrapper.find("Input#postcode").simulate("change", { target: { value: 3000 } });
 
         // Click the Login button
         wrapper.find("Button#register").simulate("click");
@@ -466,6 +505,10 @@ describe("Register", () => {
         wrapper.find("Input#lastName").simulate("change", { target: { value: "Last" } });
         wrapper.find("Input#password").simulate("change", { target: { value: "012345678901234567890123456789012345678901234567890" } });
         wrapper.find("Input#passwordConfirm").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#street").simulate("change", { target: { value: "Street" } });
+        wrapper.find("Input#city").simulate("change", { target: { value: "City" } });
+        wrapper.find("Select#state").simulate("change", { target: { value: "VIC" } });
+        wrapper.find("Input#postcode").simulate("change", { target: { value: 3000 } });
 
         // Click the Login button
         wrapper.find("Button#register").simulate("click");
@@ -496,6 +539,10 @@ describe("Register", () => {
         wrapper.find("Input#firstName").simulate("change", { target: { value: "First" } });
         wrapper.find("Input#lastName").simulate("change", { target: { value: "Last" } });
         wrapper.find("Input#password").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#street").simulate("change", { target: { value: "Street" } });
+        wrapper.find("Input#city").simulate("change", { target: { value: "City" } });
+        wrapper.find("Select#state").simulate("change", { target: { value: "VIC" } });
+        wrapper.find("Input#postcode").simulate("change", { target: { value: 3000 } });
 
         // Click the Login button
         wrapper.find("Button#register").simulate("click");
@@ -506,7 +553,7 @@ describe("Register", () => {
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
-    it("onRegister method should not be triggered - short password", () => {
+    it("onRegister method should not be triggered - short confirmation password", () => {
         const mockonOpenLoginCallBack = jest.fn();
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
@@ -527,6 +574,10 @@ describe("Register", () => {
         wrapper.find("Input#lastName").simulate("change", { target: { value: "Last" } });
         wrapper.find("Input#password").simulate("change", { target: { value: "AValidPassw0rd" } });
         wrapper.find("Input#passwordConfirm").simulate("change", { target: { value: "1" } });
+        wrapper.find("Input#street").simulate("change", { target: { value: "Street" } });
+        wrapper.find("Input#city").simulate("change", { target: { value: "City" } });
+        wrapper.find("Select#state").simulate("change", { target: { value: "VIC" } });
+        wrapper.find("Input#postcode").simulate("change", { target: { value: 3000 } });
 
         // Click the Login button
         wrapper.find("Button#register").simulate("click");
@@ -537,7 +588,7 @@ describe("Register", () => {
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
-    it("onRegister method should not be triggered - long password", () => {
+    it("onRegister method should not be triggered - long confirmation password", () => {
         const mockonOpenLoginCallBack = jest.fn();
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
@@ -558,6 +609,10 @@ describe("Register", () => {
         wrapper.find("Input#lastName").simulate("change", { target: { value: "Last" } });
         wrapper.find("Input#password").simulate("change", { target: { value: "AValidPassw0rd" } });
         wrapper.find("Input#passwordConfirm").simulate("change", { target: { value: "012345678901234567890123456789012345678901234567890" } });
+        wrapper.find("Input#street").simulate("change", { target: { value: "Street" } });
+        wrapper.find("Input#city").simulate("change", { target: { value: "City" } });
+        wrapper.find("Select#state").simulate("change", { target: { value: "VIC" } });
+        wrapper.find("Input#postcode").simulate("change", { target: { value: 3000 } });
 
         // Click the Login button
         wrapper.find("Button#register").simulate("click");
@@ -589,6 +644,218 @@ describe("Register", () => {
         wrapper.find("Input#lastName").simulate("change", { target: { value: "Last" } });
         wrapper.find("Input#password").simulate("change", { target: { value: "AValidPassw0rd" } });
         wrapper.find("Input#passwordConfirm").simulate("change", { target: { value: "AValidPassw1rd" } });
+        wrapper.find("Input#street").simulate("change", { target: { value: "Street" } });
+        wrapper.find("Input#city").simulate("change", { target: { value: "City" } });
+        wrapper.find("Select#state").simulate("change", { target: { value: "VIC" } });
+        wrapper.find("Input#postcode").simulate("change", { target: { value: 3000 } });
+
+        // Click the Login button
+        wrapper.find("Button#register").simulate("click");
+
+        // Check that none of the callbacks were called
+        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
+        expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
+    });
+
+    it("onRegister method should not be triggered - no street", () => {
+        const mockonOpenLoginCallBack = jest.fn();
+        const mockonRegisterCallBack = jest.fn();
+        const mockOnCloseCallBack = jest.fn();
+
+        const props: RegisterProps = {
+            onOpenLogin: mockonOpenLoginCallBack,
+            onRegister: mockonRegisterCallBack,
+            onClose: mockOnCloseCallBack,
+            visible: true,
+        };
+
+        // Render the component in a hidden state
+        const wrapper = mount(<Register {...props} />);
+
+        // Enter details in the fields
+        wrapper.find("Input#email").simulate("change", { target: { value: "a@valid.email" } });
+        wrapper.find("Input#firstName").simulate("change", { target: { value: "First" } });
+        wrapper.find("Input#lastName").simulate("change", { target: { value: "Last" } });
+        wrapper.find("Input#password").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#passwordConfirm").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#city").simulate("change", { target: { value: "City" } });
+        wrapper.find("Select#state").simulate("change", { target: { value: "VIC" } });
+        wrapper.find("Input#postcode").simulate("change", { target: { value: 3000 } });
+
+        // Click the Login button
+        wrapper.find("Button#register").simulate("click");
+
+        // Check that none of the callbacks were called
+        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
+        expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
+    });
+
+    it("onRegister method should not be triggered - short street", () => {
+        const mockonOpenLoginCallBack = jest.fn();
+        const mockonRegisterCallBack = jest.fn();
+        const mockOnCloseCallBack = jest.fn();
+
+        const props: RegisterProps = {
+            onOpenLogin: mockonOpenLoginCallBack,
+            onRegister: mockonRegisterCallBack,
+            onClose: mockOnCloseCallBack,
+            visible: true,
+        };
+
+        // Render the component in a hidden state
+        const wrapper = mount(<Register {...props} />);
+
+        // Enter details in the fields
+        wrapper.find("Input#email").simulate("change", { target: { value: "a@valid.email" } });
+        wrapper.find("Input#firstName").simulate("change", { target: { value: "First" } });
+        wrapper.find("Input#lastName").simulate("change", { target: { value: "Last" } });
+        wrapper.find("Input#password").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#passwordConfirm").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#street").simulate("change", { target: { value: "1" } });
+        wrapper.find("Input#city").simulate("change", { target: { value: "City" } });
+        wrapper.find("Select#state").simulate("change", { target: { value: "VIC" } });
+        wrapper.find("Input#postcode").simulate("change", { target: { value: 3000 } });
+
+        // Click the Login button
+        wrapper.find("Button#register").simulate("click");
+
+        // Check that none of the callbacks were called
+        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
+        expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
+    });
+
+    it("onRegister method should not be triggered - long street", () => {
+        const mockonOpenLoginCallBack = jest.fn();
+        const mockonRegisterCallBack = jest.fn();
+        const mockOnCloseCallBack = jest.fn();
+
+        const props: RegisterProps = {
+            onOpenLogin: mockonOpenLoginCallBack,
+            onRegister: mockonRegisterCallBack,
+            onClose: mockOnCloseCallBack,
+            visible: true,
+        };
+
+        // Render the component in a hidden state
+        const wrapper = mount(<Register {...props} />);
+
+        // Enter details in the fields
+        wrapper.find("Input#email").simulate("change", { target: { value: "a@valid.email" } });
+        wrapper.find("Input#firstName").simulate("change", { target: { value: "First" } });
+        wrapper.find("Input#lastName").simulate("change", { target: { value: "Last" } });
+        wrapper.find("Input#password").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#passwordConfirm").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#street").simulate("change", { target: { value: "012345678901234567890123456789012345678901234567890" } });
+        wrapper.find("Input#city").simulate("change", { target: { value: "City" } });
+        wrapper.find("Select#state").simulate("change", { target: { value: "VIC" } });
+        wrapper.find("Input#postcode").simulate("change", { target: { value: 3000 } });
+
+        // Click the Login button
+        wrapper.find("Button#register").simulate("click");
+
+        // Check that none of the callbacks were called
+        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
+        expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
+    });
+
+    it("onRegister method should not be triggered - no post code", () => {
+        const mockonOpenLoginCallBack = jest.fn();
+        const mockonRegisterCallBack = jest.fn();
+        const mockOnCloseCallBack = jest.fn();
+
+        const props: RegisterProps = {
+            onOpenLogin: mockonOpenLoginCallBack,
+            onRegister: mockonRegisterCallBack,
+            onClose: mockOnCloseCallBack,
+            visible: true,
+        };
+
+        // Render the component in a hidden state
+        const wrapper = mount(<Register {...props} />);
+
+        // Enter details in the fields
+        wrapper.find("Input#email").simulate("change", { target: { value: "a@valid.email" } });
+        wrapper.find("Input#firstName").simulate("change", { target: { value: "First" } });
+        wrapper.find("Input#lastName").simulate("change", { target: { value: "Last" } });
+        wrapper.find("Input#password").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#passwordConfirm").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#street").simulate("change", { target: { value: "Street" } });
+        wrapper.find("Input#city").simulate("change", { target: { value: "City" } });
+        wrapper.find("Select#state").simulate("change", { target: { value: "VIC" } });
+
+        // Click the Login button
+        wrapper.find("Button#register").simulate("click");
+
+        // Check that none of the callbacks were called
+        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
+        expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
+    });
+
+    it("onRegister method should not be triggered - three digit postcode", () => {
+        const mockonOpenLoginCallBack = jest.fn();
+        const mockonRegisterCallBack = jest.fn();
+        const mockOnCloseCallBack = jest.fn();
+
+        const props: RegisterProps = {
+            onOpenLogin: mockonOpenLoginCallBack,
+            onRegister: mockonRegisterCallBack,
+            onClose: mockOnCloseCallBack,
+            visible: true,
+        };
+
+        // Render the component in a hidden state
+        const wrapper = mount(<Register {...props} />);
+
+        // Enter details in the fields
+        wrapper.find("Input#email").simulate("change", { target: { value: "a@valid.email" } });
+        wrapper.find("Input#firstName").simulate("change", { target: { value: "First" } });
+        wrapper.find("Input#lastName").simulate("change", { target: { value: "Last" } });
+        wrapper.find("Input#password").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#passwordConfirm").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#street").simulate("change", { target: { value: "Street" } });
+        wrapper.find("Input#city").simulate("change", { target: { value: "City" } });
+        wrapper.find("Select#state").simulate("change", { target: { value: "VIC" } });
+        wrapper.find("Input#postcode").simulate("change", { target: { value: 999 } });
+
+        // Click the Login button
+        wrapper.find("Button#register").simulate("click");
+
+        // Check that none of the callbacks were called
+        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
+        expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
+    });
+
+    it("onRegister method should not be triggered - five digit postcode", () => {
+        const mockonOpenLoginCallBack = jest.fn();
+        const mockonRegisterCallBack = jest.fn();
+        const mockOnCloseCallBack = jest.fn();
+
+        const props: RegisterProps = {
+            onOpenLogin: mockonOpenLoginCallBack,
+            onRegister: mockonRegisterCallBack,
+            onClose: mockOnCloseCallBack,
+            visible: true,
+        };
+
+        // Render the component in a hidden state
+        const wrapper = mount(<Register {...props} />);
+
+        // Enter details in the fields
+        wrapper.find("Input#email").simulate("change", { target: { value: "a@valid.email" } });
+        wrapper.find("Input#firstName").simulate("change", { target: { value: "First" } });
+        wrapper.find("Input#lastName").simulate("change", { target: { value: "Last" } });
+        wrapper.find("Input#password").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#passwordConfirm").simulate("change", { target: { value: "AValidPassw0rd" } });
+        wrapper.find("Input#street").simulate("change", { target: { value: "Street" } });
+        wrapper.find("Input#city").simulate("change", { target: { value: "City" } });
+        wrapper.find("Select#state").simulate("change", { target: { value: "VIC" } });
+        wrapper.find("Input#postcode").simulate("change", { target: { value: 99999 } });
 
         // Click the Login button
         wrapper.find("Button#register").simulate("click");

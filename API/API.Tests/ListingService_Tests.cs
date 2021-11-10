@@ -8,6 +8,7 @@ using AutoFixture;
 using System.Threading.Tasks;
 
 using System;
+using API.GraphQL.Listings;
 
 namespace Tests
 {   
@@ -67,7 +68,7 @@ namespace Tests
         public async Task ListingService_GetAll()
         {
             // Generate a series of listings
-            IList<Listing> listings = GenerateListings();
+            IList<AddListingInput> listings = GenerateListings();
 
             // Change the context options to use an inmemory database
             var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
@@ -81,7 +82,7 @@ namespace Tests
             ListingService listingService = new(context);
 
             // Add the listings
-            foreach (Listing listing in listings) {
+            foreach (AddListingInput listing in listings) {
                 await listingService.CreateListing(listing);
             }
 
@@ -96,7 +97,7 @@ namespace Tests
         public async Task ListingService_Create()
         {
             // Create sample listing
-            Listing listing = GenerateListing();
+            var listing = GenerateListingInput();
 
             // Change the context options to use an inmemory database
             var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
@@ -110,13 +111,13 @@ namespace Tests
             ListingService listingService = new(context);
 
             // Create a listing
-            await listingService.CreateListing(listing);
+            var testListing = await listingService.CreateListing(listing);
 
             // Get all users
             var listingToAssert = listingService.GetAll().FirstOrDefault();
 
             // Assert that the generated list is equal to the returned
-            Assert.Equal(listingToAssert, listing);
+            Assert.Equal(listingToAssert, testListing);
         }
 
         [Fact]
@@ -126,17 +127,17 @@ namespace Tests
             string category;
             int postCode;
 
-            Listing Test = new();
-            Test.ListingType = "Product";
-            Test.ListingPostCode = 4000;
-            Test.ListingPrice = 1;
-            Test.ListingCondition = "Great";
-            Test.ListingTitle = "Test Product";
-            Test.ListingAvailability = DateTime.UtcNow;
-            Test.ListingDate = DateTime.UtcNow;
-            Test.ListingDescription = "Description";
-            Test.UserID = 1;
-            Test.ListingCategory = "Test Products";
+            AddListingInput Test = new(
+                1,
+                4000,
+                "Test Product",
+                "Test Products",
+                1,
+                "Product",
+                "Description",
+                "Condition",
+                "www.image.com"
+                );
 
             // Change the context options to use an inmemory database
             var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
@@ -152,16 +153,46 @@ namespace Tests
             // Create a listing
             await listingService.CreateListing(Test);
 
-            // Check for single field query - alter to check each field
+            // Check for zero field query
+            postCode = 0;
+            listingType = "";
+            category = "";
+            Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
+
+            // Check for single field query - postcode
             postCode = 4000;
             listingType = "";
             category = "";
             Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
 
-            // Check for two field query - alter to check each field
+            // Check for single field query - listingtype
+            postCode = 0;
+            listingType = "Product";
+            category = "";
+            Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
+
+            // Check for single field query - category
+            postCode = 0;
+            listingType = "";
+            category = "Test Products";
+            Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
+
+            // Check for two field query - postcode and listingtype
             postCode = 4000;
             listingType = "Product";
             category = "";
+            Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
+
+            // Check for two field query - postcode and category
+            postCode = 4000;
+            listingType = "";
+            category = "Test Products";
+            Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
+
+            // Check for two field query - listingtype and category
+            postCode = 0;
+            listingType = "Product";
+            category = "Test Products";
             Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
 
             // Check for three field query - alter to check each field
@@ -178,17 +209,17 @@ namespace Tests
             string category;
             int postCode;
 
-            Listing Test = new();
-            Test.ListingType = "Product";
-            Test.ListingPostCode = 4000;
-            Test.ListingPrice = 1;
-            Test.ListingCondition = "Great";
-            Test.ListingTitle = "Test Product";
-            Test.ListingAvailability = DateTime.UtcNow;
-            Test.ListingDate = DateTime.UtcNow;
-            Test.ListingDescription = "Description";
-            Test.UserID = 1;
-            Test.ListingCategory = "Test Products";
+            AddListingInput Test = new(
+                1,
+                4000,
+                "Test Product",
+                "Test Products",
+                1,
+                "Product",
+                "Description",
+                "Condition",
+                "www.image.com"
+                );
 
             // Change the context options to use an inmemory database
             var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
@@ -223,24 +254,24 @@ namespace Tests
             Assert.Equal(0, listingService.ListingByFilter(postCode, listingType, category).Count());
         }
 
-        private static IList<Listing> GenerateListings()
+        private static IList<AddListingInput> GenerateListings()
         {
             // Create a new instance on the fixture
             Fixture fixture = new();
 
             // Generte and return the list
-            return fixture.Build<List<Listing>>().Create();
+            return fixture.Build<List<AddListingInput>>().Create();
         }
 
-        private static Listing GenerateListing()
+        private static AddListingInput GenerateListingInput()
         {
             // Create a new instance on the fixture
             Fixture fixture = new();
-            fixture.Behaviors.Remove(new ThrowingRecursionBehavior());
-            fixture.Behaviors.Add(new OmitOnRecursionBehavior());
 
-            // Generte and return the list
-            return fixture.Build<Listing>().Create();
+            // Customise the email address and return
+            AddListingInput addListingInput = fixture.Build<AddListingInput>().Create();
+
+            return addListingInput;
         }
     }
 }

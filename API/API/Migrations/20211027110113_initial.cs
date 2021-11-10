@@ -47,7 +47,7 @@ namespace API.Migrations
                     UserPostCode = table.Column<int>(type: "int", maxLength: 4, nullable: false),
                     UserEmail = table.Column<string>(type: "varchar(767)", nullable: false),
                     UserPasswordHash = table.Column<string>(type: "text", nullable: false),
-                    UserEmailVerfied = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    UserEmailVerified = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     RoleID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

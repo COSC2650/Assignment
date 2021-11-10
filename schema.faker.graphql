@@ -1,0 +1,70 @@
+type User {
+  userID: Int! @fake(type: number)
+  userFirstName: String @fake(type: firstName)
+  userLastName: String @fake(type: lastName)
+  userStreet: String @fake(type: streetAddress)
+  userCity: String @fake(type: city)
+  userState: String @fake(type: state)
+  userPostCode: Int @fake(type: zipCode)
+  userEmail: String!
+  userPasswordHash: String!
+  userEmailVerified: Boolean! @examples(values: [true, false])
+  roleID: Int!
+  role: Role
+  listings: [Listing]
+}
+
+type Role {
+  roleID: Int! @fake(type: number)
+  roleName: String! @fake(type: lorem)
+  users: [User]
+}
+
+type Listing {
+  listingID: String @fake(type: number)
+  listingPostCode: String @fake(type: number)
+  listingType: String @examples(values: ["product" "service"])
+  listingTitle: String @fake(type: word)
+  listingCategory: String @fake(type: productCategory)
+  listingCondition: String @fake(type: word)
+  listingAvailibility: String @fake(type: date)
+  listingPrice: String @fake(type: number)
+  listingDescription: String
+    @examples(
+      values: [
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
+      ] 
+    )
+  listingImageURL: String
+    @examples(
+      values: [
+        "https://picsum.photos/100?random=1"
+        "https://picsum.photos/100?random=2"
+        "https://picsum.photos/100?random=3"
+        "https://picsum.photos/100?random=4"
+        "https://picsum.photos/100?random=5"
+        "https://picsum.photos/100?random=6"
+      ]
+    )
+}
+
+type Query {
+  userByEmail(email: String, password: String): User
+  listingsByFilter(listingPostCode: Int,listingType: String,listingCategory: String): [Listing]@listLength(min: 10, max: 30)
+}
+
+input AddUserInput {
+    userFirstName: String
+    userLastName: String
+    userStreet: String
+    userCity: String
+    userState: String
+    userPostCode: Int!
+    userEmail: String
+    userPassword: String
+}
+
+type Mutation {
+    createUser(input: AddUserInput): User
+    deleteUser(userID: Int!): Boolean!
+}

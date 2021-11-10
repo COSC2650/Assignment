@@ -1,19 +1,32 @@
+<<<<<<< HEAD:UI/zip-it/src/components/display/itemlist.tsx
 import { VStack, StackDivider, Stack } from "@chakra-ui/layout";
 import ListItem, { ListingItemProps } from "../../components/elements/listitem";
 import Search, { SearchDetails } from "../forms/search";
 import query from "../../data/queries";
 import clientConnection from "../../data/client";
 import React, { useState, useEffect } from "react";
+=======
+import { VStack, StackDivider, Stack } from '@chakra-ui/layout';
+import ListItem, { ListItemProp } from '../elements/listitem';
+import Search, { SearchDetails } from '../forms/usersearch';
+import query from '../../data/queries';
+import clientConnection from '../../data/client';
+import React, { useState, useEffect } from 'react';
+>>>>>>> ca3f78e63c4707a8b9002b4186ae26fd612ef0c3:UI/zip-it/src/components/display/useritemlist.tsx
 
-export function Listings() {
+interface userDetails {
+  userPostCode: number;
+}
+
+export function UserListings(props: userDetails) {
   let [listings, setListings] = useState([]);
 
   //default query parameters
   var SearchDetails = {
     // need this to be 0 for default searches for it to work (MP)
-    listingPostCode: 0,
-    listingType: "",
-    listingCategory: "",
+    listingPostCode: props.userPostCode,
+    listingType: '',
+    listingCategory: '',
   };
 
   const queryAPI = (props: SearchDetails) => {
@@ -28,13 +41,14 @@ export function Listings() {
       })
       //catch apollo/graphQL failure
       .catch((result) => {
-        console.log("Apollo/GraphQL failure - Zip-It");
-        console.log("check relevant query in queries.tsx");
+        console.log('Apollo/GraphQL failure - Zip-It');
+        console.log('check relevant query in queries.tsx');
         console.log(props);
         console.log(result);
       });
   };
 
+  //passes data returned to listItem to be rendered
   function ListingsFragment() {
     return (
       <>
@@ -49,6 +63,7 @@ export function Listings() {
     );
   }
 
+  //query on render useEffect to overcome re renders
   useEffect(() => {
     queryAPI(SearchDetails);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,15 +73,23 @@ export function Listings() {
   return (
     <>
       <Stack
-        direction={["column", "row"]}
+        direction={['column', 'row']}
         margin="60px 5px 5px 5px"
         divider={<StackDivider />}
         spacing={2}
       >
+<<<<<<< HEAD:UI/zip-it/src/components/display/itemlist.tsx
         <Search onSearchInterface={queryAPI}></Search>
         <VStack 
          divider={<StackDivider borderColor="gray.200"/>} 
          spacing={4}>
+=======
+        <Search
+          onSearchInterface={queryAPI}
+          userPostCode={props.userPostCode}
+        ></Search>
+        <VStack divider={<StackDivider />} spacing={2} width="100%">
+>>>>>>> ca3f78e63c4707a8b9002b4186ae26fd612ef0c3:UI/zip-it/src/components/display/useritemlist.tsx
           <ListingsFragment />
         </VStack>
       </Stack>
@@ -75,4 +98,4 @@ export function Listings() {
     </>
   );
 }
-export default Listings;
+export default UserListings;

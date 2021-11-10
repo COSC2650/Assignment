@@ -5,28 +5,38 @@ const query = (props) => {
   if (props.email != null) {
     return {
       query: gql`
-    {
-      userByEmail(email: "${props.email}", password: "${props.password}") {
-        userEmail
-        userFirstName
-      }
-    }
-  `,
+              {
+                userByEmail(email: "${props.email}", password: "${props.password}") {
+                  userID
+                  userEmail
+                  userFirstName
+                  userLastName
+                  userStreet
+                  userCity
+                  userState
+                  userEmailVerified
+                  userPostCode
+                  roleID
+                }
+              }
+            `,
     };
   } else {
     //fetches listings according to passed params
     return {
       query: gql`
-      {
-        listingsByFilter(listingPostCode:${props.listingPostCode},listingType:"${props.listingType}",listingCategory:"${props.listingCategory}") {
-          listingID
-          listingTitle
-          listingDescription
-          listingImageURL
-          listingType
-        }
-      }
-      `,
+              {
+                listingsByFilter(listingPostCode:${props.listingPostCode===undefined?0:props.listingPostCode},listingType:"${props.listingType}",listingCategory:"${props.listingCategory}") {
+                  listingID
+                  listingTitle
+                  listingDescription
+                  listingImageURL
+                  listingType
+                  listingPostCode
+                  listingPrice
+                }
+              }
+              `,
     };
   }
 };
