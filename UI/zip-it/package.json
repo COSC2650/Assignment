@@ -9,19 +9,15 @@
         "@chakra-ui/react": "1.6.12",
         "@emotion/react": "11.5.0",
         "@emotion/styled": "11.3.0",
-        "@jest/globals": "27.3.1",
-        "@testing-library/react": "12.1.2",
         "@types/jest": "27.0.2",
         "@types/node": "16.11.7",
         "@types/react": "17.0.34",
         "@types/react-dom": "17.0.11",
-        "eslint-config-react-app": "6.0.0",
         "framer-motion": "4.1.17",
         "graphql": "15.7.2",
         "react": "17.0.2",
         "react-dom": "17.0.2",
         "react-icons": "4.3.1",
-        "react-scripts": "^4.0.3",
         "typescript": "4.4.4",
         "web-vitals": "2.1.2"
     },
@@ -51,6 +47,10 @@
     },
     "devDependencies": {
         "@wojtekmaj/enzyme-adapter-react-17": "0.6.5",
-        "enzyme": "3.11.0"
+        "enzyme": "3.11.0",
+        "react-scripts": "^4.0.3",
+        "eslint-config-react-app": "6.0.0",
+        "@jest/globals": "27.3.1",
+        "@testing-library/react": "12.1.2"
     }
 }
