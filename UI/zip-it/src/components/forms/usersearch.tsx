@@ -20,6 +20,8 @@ export function Search(props: UserSearchProps) {
   const [listingType, setType] = useState('');
   const [listingCategory, setCategory] = useState('');
   const [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3);
+  let [toggleBox2, setToggleBox2] = useState(true);
+
 
   //on change validation and default value set
   function postcodeOnChange(postCodeInput?: number): number | undefined {
@@ -190,12 +192,27 @@ export function Search(props: UserSearchProps) {
         placeholder="Products or Services"
         type="type"
         id="listingType"
-        onChange={typeOnChange}
+        onChange={() => { setToggleBox2(!toggleBox2)}} 
       >
         <option value="product">Product</option>
         <option value="service">Service</option>
-      </Select>
-      <CategorySelection />
+      </Select>{
+      toggleBox2&&
+      <>
+          <Select
+            placeholder="Product Category"
+            type="productcategory"
+            id="productategory"
+            onChange={categoryOnChange}
+          >
+            <option value="clothes">Clothes</option>
+            <option value="automotive">Automotive</option>
+            <option value="industrial">Industrial</option>
+            <option value="handcrafted">HandCrafted</option>
+          </Select>
+        </>
+      }
+      {/* <CategorySelection /> */}
       <QualitySelection />
       <Button
         leftIcon={<Icon as={FaSearch} />}
