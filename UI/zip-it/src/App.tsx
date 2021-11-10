@@ -183,18 +183,6 @@ function App() {
     //hide login
     setLogoutVisible(false);
   };
-<<<<<<< HEAD
-  
-  const onRegister = (props: RestrationDetails) => {
-    if (true) {
-      toast({
-        title: "Account Created",
-        description: "Your account has been created.",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-        position: "top",
-=======
 
   const onRegister = (props: RegistrationDetails) => {
     //invoke client
@@ -240,7 +228,6 @@ function App() {
 
         // Reenable the confirmation dialog
         setRegisterDisabled(false);
->>>>>>> ca3f78e63c4707a8b9002b4186ae26fd612ef0c3
       });
   };
 
@@ -411,14 +398,8 @@ function App() {
         toggleLogout={onShowLogout}
         NewListing={onShowNewListing}
         userTitle={userTitle}
-<<<<<<< HEAD
-        authenticated={authenticated}
-      ></Header>
-      
-=======
         authenticated={authenticated !== undefined}
       />
->>>>>>> ca3f78e63c4707a8b9002b4186ae26fd612ef0c3
       <Login
         disabled={logInDisabled}
         visible={loginVisible}
@@ -444,9 +425,6 @@ function App() {
         onRegister={onRegister}
         onClose={onRegisterClose}
       ></Register>
-<<<<<<< HEAD
-      <Listings/>
-=======
       <NewListing
         disabled={newListingDisabled}
         visible={newListingVisible}
@@ -470,7 +448,6 @@ function App() {
         userCity={userCity}
         userState={userState}
       />
->>>>>>> ca3f78e63c4707a8b9002b4186ae26fd612ef0c3
     </>
   );
 }

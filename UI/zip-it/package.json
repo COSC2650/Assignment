@@ -17,12 +17,7 @@
         "@types/react-dom": "17.0.11",
         "eslint-config-react-app": "6.0.0",
         "framer-motion": "4.1.17",
-<<<<<<< HEAD
-        "graphql": "15.6.1",
-        "graphql-faker": "^2.0.0-rc.25",
-=======
         "graphql": "15.7.2",
->>>>>>> ca3f78e63c4707a8b9002b4186ae26fd612ef0c3
         "react": "17.0.2",
         "react-dom": "17.0.2",
         "react-icons": "4.3.1",
