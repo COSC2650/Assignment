@@ -21,7 +21,7 @@ const query = (props) => {
               }
             `,
     };
-  } else {
+  } else {console.log(props.emailSelection)
     //fetches listings according to passed params
     return {
       query: gql`

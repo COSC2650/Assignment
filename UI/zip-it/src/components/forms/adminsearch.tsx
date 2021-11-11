@@ -7,20 +7,28 @@ export interface SearchDetails {
   listingPostCode?: number;
   listingType: string;
   listingCategory: string;
+  emailSelection?: string;
+}
+
+//SearchDetails constructor
+export interface EmailSearchDetails {
+  emailSelection: string;
 }
 
 //interface to caller
-export interface UserSearchProps {
+export interface SearchProps {
   onAdminSearchInterface(props: SearchDetails): void;
   userPostCode: number;
 }
 
-export function AdminSearch(props: UserSearchProps) {
+
+export function AdminSearch(props: SearchProps) {
   //defines Search Type and creates setter
   let [listingType, setType] = useState('');
   let [listingCategory, setCategory] = useState('');
-  let [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3);
+  let [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3.1);
   let [adminselection, setAdminSelection] = useState('');
+  let [emailSelection, setEmailSelection] = useState('');
 
   //on change validation and default value set
   function postcodeOnChange(postCodeInput?: number): number | undefined {
@@ -48,10 +56,12 @@ export function AdminSearch(props: UserSearchProps) {
   const typeOnChange = (event) => setType(event.target.value);
   const categoryOnChange = (event) => setCategory(event.target.value);
   const adminOnChange = (event) => setAdminSelection(event.target.value);
+  const emailOnChange = (event) => setEmailSelection(event.target.value);
 
-  const onSearch = (postcode?: number) => {
+  const onSearch = (postcode?: number, emailselection?: string) => {
     //sets search setails
-    const searchDetails: SearchDetails = {
+    const SearchDetails: SearchDetails = {
+      emailSelection: emailSelection,
       listingPostCode: postcodeOnChange(postcode),
       listingType: listingType,
       listingCategory: listingCategory,
@@ -61,10 +71,11 @@ export function AdminSearch(props: UserSearchProps) {
     var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
 
     //sets details in interface
-    if (!regexp.test('{listingPostCode}')) {
-      props.onAdminSearchInterface(searchDetails);
+    if (!regexp.test('{listingPostCode}')&&!regexp.test('{emailSelection}')) {
+      props.onAdminSearchInterface(SearchDetails);
     }
   };
+
 
   //used to overcome async state change
   React.useEffect(() => {
@@ -198,13 +209,14 @@ export function AdminSearch(props: UserSearchProps) {
           </Select>
         </>
       )}
-      {adminselection === 'tickets' && <select />}
+      {adminselection === 'tickets' && <>To Be Implemented</>}
       {<></>}
       <Input
         placeholder="ID/Email"
         variant="filled"
         type="inputfield"
         id="emailselect"
+        onChange={(emailOnChange)}
       />
       <Input
         placeholder="Keyword"
