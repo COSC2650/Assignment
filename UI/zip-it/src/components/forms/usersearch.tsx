@@ -73,7 +73,7 @@ export function Search(props: UserSearchProps) {
 
   //search menu component
   return (
-    <Stack direction={['column']} w={['100%', '300px']}>
+    <Stack direction={['column']} w={['100%', '20rem']}>
       <Input
         placeholder="Post Code"
         variant="filled"

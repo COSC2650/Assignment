@@ -75,7 +75,7 @@ export function AdminSearch(props: UserSearchProps) {
 
   //search menu component
   return (
-    <Stack direction={['column']} w={['100%', '300px']}>
+    <Stack direction={['column']} w={['100%', '20rem']}>
       <Select
         placeholder="Admin Selection"
         type="dorpdownselect"
@@ -88,6 +88,16 @@ export function AdminSearch(props: UserSearchProps) {
       </Select>
       {adminselection === 'listings' && (
         <>
+          <Input
+            placeholder="Post Code"
+            variant="filled"
+            type="inputfield"
+            id="postcodeselect"
+            onChange={(event) => {
+              setCurrentUserPostCode(parseInt(event.target.value));
+              postcodeOnChange(parseInt(event.target.value));
+            }}
+          />
           <Select
             placeholder="Products or Services"
             defaultValue=""
@@ -164,17 +174,43 @@ export function AdminSearch(props: UserSearchProps) {
           )}
         </>
       )}
-      {adminselection === 'users' && <select />}{' '}
-      {adminselection === 'tickets' && <select />}else{}
+      {adminselection === 'users' && (
+        <>
+          <Select
+            placeholder="Account Type"
+            type="dropdownselect"
+            id="qualificationcategoryselect"
+            onChange={categoryOnChange}
+          >
+            <option value="qualandcert">Qualified and Certified</option>
+            <option value="qualified">Qualified</option>
+            <option value="unqualcert">Unqualified and Uncertified</option>
+          </Select>
+          <Select
+            placeholder="Sort By"
+            type="dropdownselect"
+            id="serviceavailability"
+            disabled={false}
+          >
+            <option value="">Duration</option>
+            <option value="">Category</option>
+            <option value="">Date</option>
+          </Select>
+        </>
+      )}
+      {adminselection === 'tickets' && <select />}
+      {<></>}
       <Input
-        placeholder="Post Code"
+        placeholder="ID/Email"
         variant="filled"
         type="inputfield"
-        id="postcodeselect"
-        onChange={(event) => {
-          setCurrentUserPostCode(parseInt(event.target.value));
-          postcodeOnChange(parseInt(event.target.value));
-        }}
+        id="emailselect"
+      />
+      <Input
+        placeholder="Keyword"
+        variant="filled"
+        type="inputfield"
+        id="keywordselect"
       />
       <Button
         leftIcon={<Icon as={FaSearch} />}
