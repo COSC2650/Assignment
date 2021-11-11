@@ -360,6 +360,13 @@ namespace Tests
 
         }
 
+        [Fact]
+        public void PasswordHashSuccess()
+        {
+            var hash = Hashbrowns.HashPassword("password");
+            Assert.True(Hashbrowns.ValidatePassword("password", hash));
+        }
+
         private static IList<AddUserInput> GenerateUsers()
         {
             // Create a new instance on the fixture
