@@ -99,7 +99,7 @@ export function Search(props: UserSearchProps) {
           <Select
             placeholder="Product Category"
             type="dropdownselect"
-            id="productategory"
+            id="productategoryselect"
             onChange={categoryOnChange}
           >
             <option value="clothes">Clothes</option>
@@ -131,7 +131,7 @@ export function Search(props: UserSearchProps) {
           <Select
             placeholder="Qualification"
             type="dropdownselect"
-            id="qualificationselect"
+            id="qualificationcategoryselect"
             onChange={categoryOnChange}
           >
             <option value="qualandcert">Qualified and Certified</option>
