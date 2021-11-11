@@ -41,7 +41,6 @@ export function UserListings(props: userDetails) {
 
   //passes data returned to listItem to be rendered
   function ListingsFragment() {
-    console.log(listings)
     return (
       <>
         {listings && (

@@ -9,7 +9,7 @@ LoadedCheerio {
     "children": Array [
       Node {
         "attribs": Object {
-          "class": "chakra-stack css-62i2ox",
+          "class": "chakra-stack css-qhff8k",
         },
         "children": Array [
           Node {
@@ -4808,7 +4808,7 @@ LoadedCheerio {
         "parent": [Circular],
         "prev": Node {
           "attribs": Object {
-            "class": "chakra-stack css-62i2ox",
+            "class": "chakra-stack css-qhff8k",
           },
           "children": Array [
             Node {
@@ -9573,7 +9573,7 @@ LoadedCheerio {
           "parent": [Circular],
           "prev": Node {
             "attribs": Object {
-              "class": "chakra-stack css-62i2ox",
+              "class": "chakra-stack css-qhff8k",
             },
             "children": Array [
               Node {

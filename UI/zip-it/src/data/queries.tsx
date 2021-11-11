@@ -22,7 +22,6 @@ const query = (props) => {
             `,
     };
   } else {
-    console.log(props);
     //fetches listings according to passed params
     return {
       query: gql`

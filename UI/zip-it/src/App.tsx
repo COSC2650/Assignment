@@ -27,8 +27,7 @@ interface LogInDetails {
 function App() {
   const [userTitle, setUserTitle] = useState(' Welcome!');
   const [userID, setUserID] = useState(0);
-  const [RoleID, setRoleID] = useState(1);
-  //const [RoleID, setRoleID] = useState(0);
+  const [RoleID, setRoleID] = useState(0);
   const [userPostCode, setUserPostCode] = useState(0);
   const [userFirstName, setUserFirstName] = useState('');
   const [userLastName, setUserLastName] = useState('');
