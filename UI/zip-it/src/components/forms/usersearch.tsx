@@ -158,7 +158,6 @@ export function Search(props: UserSearchProps) {
           ></Select>
         </>
       )}
-      {/* <QualitySelection /> */}
       <Button
         leftIcon={<Icon as={FaSearch} />}
         onClick={() => onSearch(currentUserPostCode)}
