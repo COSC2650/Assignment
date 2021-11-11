@@ -44,8 +44,7 @@ function mutation(props): DocumentNode {
     if (props.type === "deleteUserProfile") {
         result = gql`
                 mutation {
-                    deleteUser(userID: ${props.data.userID}) {
-                    }
+                    deleteUser(userID: ${props.data.userID})
                 }
             `;
     } else if (props.type === "newListing") {
