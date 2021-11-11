@@ -10,7 +10,9 @@ import clientConnection from './data/client';
 import UserListings from './components/display/useritemlist';
 import { AdminListings } from './components/display/adminitemlist';
 import NewListing, { newListingDetails } from './components/forms/newlisting';
-import UserProfile, {userProfileDetails} from './components/forms/userprofile';
+import UserProfile, {
+  userProfileDetails,
+} from './components/forms/userprofile';
 import Confirmation, {
   ConfirmationDetails,
 } from './components/forms/confirmation';
@@ -54,7 +56,7 @@ function App() {
   const onLogoutClose = () => setLogoutVisible(false);
   const onRegisterClose = () => setRegisterVisible(false);
   const onNewListingClose = () => setNewListingVisible(false);
-  const onUserProfileClose = () => setUserProfileVisible(false)
+  const onUserProfileClose = () => setUserProfileVisible(false);
 
   const onConfirmationClose = () => {
     setUserTitle('Welcome');
@@ -118,8 +120,6 @@ function App() {
           setUserStreet(queryResult.userStreet);
           setUserCity(queryResult.userCity);
           setUserState(queryResult.userState);
-
-
 
           //hide login
           setLoginVisible(false);
@@ -343,7 +343,8 @@ function App() {
         console.log(result);
         toast({
           title: 'User Profile',
-          description: 'Your profile information has been successfully changed.',
+          description:
+            'Your profile information has been successfully changed.',
           status: 'success',
           duration: 2000,
           isClosable: true,
@@ -373,7 +374,6 @@ function App() {
 
   //portal type selection logic
   function UserAdminPortalDisplay() {
-
     if (RoleID === 1) {
       return (
         <>
