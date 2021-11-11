@@ -15,6 +15,7 @@ export interface userProfileDetails {
 export interface userProfileProps {
   onOpen(): void;
   onClose(): void;
+  onDeleteUser(): void;
   onUserProfile(props: userProfileDetails): void;
   visible: boolean;
   disabled: boolean;
@@ -68,7 +69,7 @@ export function UserProfile(props: userProfileProps) {
           <Input disabled={props.disabled} onChange={lastNameOnChange} placeholder={props.userLastName} variant="filled" mb={3} type="name" id="lastName" />
           <Input disabled={props.disabled} onChange={streetOnChange}placeholder={props.userStreet} mb={3} variant="filled" type="text" id="street" />
           <Input disabled={props.disabled} onChange={cityOnChange}placeholder={props.userCity} mb={3} variant="filled" type="text" id="city" />
-          <Select disabled={props.disabled} onChange={stateOnChange}placeholder={"Your State:" + props.userState}mb={3} variant="filled" id="state">
+          <Select disabled={props.disabled} onChange={stateOnChange}placeholder={"Your State: " + props.userState}mb={3} variant="filled" id="state">
             <option value="ACT">ACT</option>
             <option value="NSW">NSW</option>
             <option value="NT">NT</option>
@@ -87,7 +88,7 @@ export function UserProfile(props: userProfileProps) {
               Edit
             </Button>
             <Spacer></Spacer>
-            <Button id="delete" onClick={props.onClose}>
+            <Button id="delete" onClick={props.onDeleteUser}>
               Delete
             </Button>
             <Button id="cancel" onClick={props.onClose}>

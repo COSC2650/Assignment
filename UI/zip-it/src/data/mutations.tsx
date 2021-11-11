@@ -39,6 +39,16 @@ function mutation(props): DocumentNode {
                 }
             `;
         // matching current input, will be changed in the future
+    } 
+    
+    if (props.type === "deleteUserProfile") {
+        result = gql`
+                mutation {
+                    deleteUser(userID: ${props.data.userID}) {
+                        deleteBoolean
+                    }
+                }
+            `;
     } else if (props.type === "newListing") {
         result = gql`
             mutation {

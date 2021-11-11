@@ -14,6 +14,7 @@ import UserProfile, {userProfileDetails} from './components/forms/userprofile';
 import Confirmation, {
   ConfirmationDetails,
 } from './components/forms/confirmation';
+import DeleteUser, {DeleteUserDetails} from './components/forms/deleteuser';
 
 interface LogInDetails {
   userID: number;
@@ -44,6 +45,8 @@ function App() {
   const [UserProfileVisible, setUserProfileVisible] = useState(false);
   const [UserProfileDisabled, setUserProfileDisabled] = useState(false);
   const [newListingDisabled, setNewListingDisabled] = useState(false);
+  const [DeleteUserDisabled, setDeleteUserDisabled] = useState(false);
+  const [DeleteUserVisible, setDeleteUserVisible] = useState(false);
   const { toggleColorMode } = useColorMode();
   const onShowLogin = () => setLoginVisible(true);
   const onShowRegister = () => setRegisterVisible(true);
@@ -54,7 +57,9 @@ function App() {
   const onLogoutClose = () => setLogoutVisible(false);
   const onRegisterClose = () => setRegisterVisible(false);
   const onNewListingClose = () => setNewListingVisible(false);
-  const onUserProfileClose = () => setUserProfileVisible(false)
+  const onUserProfileClose = () => setUserProfileVisible(false);
+  const onShowDeleteUser = () => setDeleteUserVisible(true);
+  const onShowDeleteUserClose = () => setDeleteUserVisible(false);
 
   const onConfirmationClose = () => {
     setUserTitle('Welcome');
@@ -340,6 +345,7 @@ function App() {
     client
       .mutate({ mutation: mutation(userProfileProps) })
       .then((result) => {
+        
         console.log(result);
         toast({
           title: 'User Profile',
@@ -368,6 +374,48 @@ function App() {
         console.log(result);
 
         setUserProfileDisabled(false);
+      });
+  };
+
+  const onDeleteUser = (props: DeleteUserDetails) => {
+    const client = clientConnection();
+    const deleteUserProps = {
+      type: 'deleteUserProfile',
+      data: props,
+    };
+
+    client
+      .mutate({ mutation: mutation(deleteUserProps) })
+      .then((result) => {
+        
+        console.log(result);
+        toast({
+          title: 'Delete User Profile',
+          description: 'Your profile information has been successfully removed.',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+          position: 'top',
+        });
+        setDeleteUserVisible(false);
+      })
+
+      .catch((result) => {
+        toast({
+          title: 'Catch Error',
+          description: 'User profile has encountered an error.',
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+          position: 'top',
+        });
+
+        console.log('Apollo/GraphQL failure - Zip-It');
+        console.log('check relevant query in queries.tsx');
+        console.log(props);
+        console.log(result);
+
+        setDeleteUserDisabled(false);
       });
   };
 
@@ -447,7 +495,15 @@ function App() {
         userStreet={userStreet}
         userCity={userCity}
         userState={userState}
-      />
+        onDeleteUser={onShowDeleteUser}
+          />
+      <DeleteUser
+        disabled={DeleteUserDisabled}
+        visible={DeleteUserVisible}
+        onOpen={onShowDeleteUser}
+        onClose={onShowDeleteUserClose}
+        onDeleteUser={onDeleteUser}
+        userID={userID}          />
     </>
   );
 }
