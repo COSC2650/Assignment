@@ -20,7 +20,7 @@ function mutation(props): DocumentNode {
     if (props.type === "editUserProfile") {
         result = gql`
                 mutation {
-                    editUser(input: { userFirstName: "${props.data.userFirstName}", userLastName: "${props.data.userLastName}", userStreet: "${props.data.userStreet}", userCity: "${props.data.userCity}", userState: "${props.data.userState}", userPostCode: ${props.data.userPostCode} }) {
+                    editUser(userID: ${props.data.userID}, input: { userFirstName: "${props.data.userFirstName}", userLastName: "${props.data.userLastName}", userStreet: "${props.data.userStreet}", userCity: "${props.data.userCity}", userState: "${props.data.userState}", userPostCode: ${props.data.userPostCode} }) {
                         userID
                     }
                 }

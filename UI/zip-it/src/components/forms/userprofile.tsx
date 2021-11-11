@@ -3,6 +3,7 @@ import { Flex, Spacer } from "@chakra-ui/layout";
 import { useState } from "react";
 
 export interface userProfileDetails {
+  userID: number;
   userFirstName: string;
   userLastName: string;
   userStreet: string;
@@ -17,6 +18,7 @@ export interface userProfileProps {
   onUserProfile(props: userProfileDetails): void;
   visible: boolean;
   disabled: boolean;
+  userID: number;
   userFirstName: string;
   userLastName: string;
   userStreet: string;
@@ -43,6 +45,7 @@ export function UserProfile(props: userProfileProps) {
     
     const onUserProfile = () => {
       const editDetails: userProfileDetails = {
+          userID: props.userID,
           userFirstName: firstName,
           userLastName: lastName,
           userStreet: street,

@@ -8,7 +8,7 @@ type User {
   userPostCode: Int @fake(type: zipCode)
   userEmail: String!
   userPasswordHash: String!
-  userEmailVerfied: Boolean! @examples(values: [true, false])
+  userEmailVerified: Boolean! @examples(values: [true, false])
   roleID: Int!
   role: Role
   listings: [Listing]
