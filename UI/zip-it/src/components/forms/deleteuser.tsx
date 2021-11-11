@@ -3,7 +3,6 @@ import { Flex, Spacer } from "@chakra-ui/layout";
 
 export interface DeleteUserDetails{
     userID: number;
-    deleteBoolean: boolean;
 }
 
 export interface DeleteUserProps {
@@ -20,7 +19,6 @@ export function DeleteUser(props: DeleteUserProps) {
     const onDeleteUser = () => {
         const deleteUserDetails: DeleteUserDetails = {
           userID: props.userID,
-          deleteBoolean: true,
         };
         
 props.onDeleteUser(deleteUserDetails);

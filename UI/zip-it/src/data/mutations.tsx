@@ -45,7 +45,6 @@ function mutation(props): DocumentNode {
         result = gql`
                 mutation {
                     deleteUser(userID: ${props.data.userID}) {
-                        deleteBoolean
                     }
                 }
             `;
