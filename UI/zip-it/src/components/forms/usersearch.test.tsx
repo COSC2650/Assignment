@@ -17,7 +17,7 @@ describe('Search Component', () => {
       onSearchInterface: (ldprops: SearchDetails) => {
         // Intentional
       },
-      userPostCode:3000,
+      userPostCode: 3000,
     };
     const component = render(<Search {...props} />);
     expect(component).toMatchSnapshot();
@@ -30,7 +30,7 @@ describe('Search Component', () => {
     //apply it to the onSearch interface
     const props: UserSearchProps = {
       onSearchInterface: mockOnSearchCallBack,
-      userPostCode:3000,
+      userPostCode: 3000,
     };
 
     // Render the component
@@ -38,10 +38,10 @@ describe('Search Component', () => {
 
     // Enter details in the fields
     wrapper
-      .find('Input#listingPostcode')
+      .find('Input#postcodeselect')
       .simulate('change', { target: { value: '4000' } });
     wrapper
-      .find('Select#listingType')
+      .find('Select#listingselect')
       .simulate('change', { target: { value: 'product' } });
 
     //to be added as search logic developed further
