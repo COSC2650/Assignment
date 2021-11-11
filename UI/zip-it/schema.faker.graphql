@@ -60,6 +60,8 @@ type Query {
   userByEmail(email: String, password: String): User
   listingsByFilter(listingPostCode: Int,listingType: String,listingCategory: String): [Listing]@listLength(min: 10, max: 30)
   getVeriCode(email: String):Verification
+  #usersByID by id{num}/{@}email/Account{Role}/{#}keyword
+  #listngsByID by userid{num}/{@}email/itemid{num}/{#}keyword
 }
 
 type Mutation{
