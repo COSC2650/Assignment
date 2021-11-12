@@ -201,6 +201,151 @@ namespace Tests
             category = "Test Products";
             Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
         }
+        public async Task ListingService_EditListing()
+        {
+            // Create sample listings
+            AddListingInput input = new(
+                123,
+                3000,
+                "A bug zapper",
+                "Good Condition",
+                0,
+                "Product",
+				"Selling my bug zapper",
+				"New",
+                "https://picsum.photos/100?random=5");
+
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the ListingService with the mocked context
+            ListingService listingService = new(context);
+
+            // Create a listing
+            var genInput = await listingService.CreateListing(input);
+
+            // Check we've added a listing
+            Assert.Equal(1, listingService.GetAll().Count());
+
+            // Create edit input for listing change first name
+            AddListingInput editInput = new(
+				123,
+                3000,
+                "editTitle",
+                "editCategory",
+				0,
+                "editType",
+				"editDescription",
+				"editCondition",
+				"https://picsum.photos/100?random=5"
+				);
+            
+            // Edit listing first details
+            await listingService.EditListing(genInput.ListingID, editInput);
+            
+            // Finds edit listing
+            var editedListing = context.Listings.First(x => x.ListingID == genInput.ListingID);
+
+            // Checks editted values against editInput
+            Assert.Equal(editInput.ListingPostCode, editedListing.ListingPostCode);
+            Assert.Equal(editInput.ListingTitle, editedListing.ListingTitle);
+            Assert.Equal(editInput.ListingCategory, editedListing.ListingCategory);
+            Assert.Equal(editInput.ListingPrice.ToString(), editedListing.ListingPrice.ToString());
+            Assert.Equal(editInput.ListingType, editedListing.ListingType);
+            Assert.Equal(editInput.ListingDescription, editedListing.ListingDescription);
+			Assert.Equal(editInput.ListingCondition, editedListing.ListingCondition);
+			Assert.Equal(editInput.ListingImageURL, editedListing.ListingImageURL);
+
+            // bad listingID check
+            var invalidListingID = 0;
+            Assert.Null(await listingService.EditListing(invalidListingID, editInput));
+
+            // check postcode range logic condition
+            AddListingInput invalidPostCodeRange = new(
+                123,
+                300,
+                "A bug zapper",
+                "Good Condition",
+                0,
+                "Product",
+				"Selling my bug zapper",
+				"New",
+                "https://picsum.photos/100?random=5");
+            
+            // Edit listing first details
+            await listingService.EditListing(genInput.ListingID, invalidPostCodeRange);
+            
+            // Finds edit listing
+            var editInvalidPostCodeRange = context.Listings.First(x => x.ListingID == genInput.ListingID);
+
+            // Assert PostCode fail (should be equal to previous working edit)
+            Assert.Equal(editInvalidPostCodeRange.ListingPostCode, editInput.ListingPostCode);
+
+            // check postcode range logic condition
+            AddListingInput invalidPostCodeZero = new(
+                123,
+                0,
+                "A bug zapper",
+                "Good Condition",
+                0,
+                "Product",
+				"Selling my bug zapper",
+				"New",
+                "https://picsum.photos/100?random=5");
+            
+            // Edit listing first details
+            await listingService.EditListing(genInput.ListingID, invalidPostCodeZero);
+            
+            // Finds edit listing
+            var editInvalidPostCodeZero = context.Listings.First(x => x.ListingID == genInput.ListingID);
+
+            // Assert PostCode fail (should be equal to previous working edit)
+            Assert.Equal(editInvalidPostCodeZero.ListingPostCode, editInput.ListingPostCode);
+
+        }
+
+        public async Task ListingService_Delete()
+         {
+             // Create sample listings
+            AddListingInput input = new(
+                123,
+                3000,
+                "A bug zapper",
+                "Good Condition",
+                0,
+                "Product",
+				"Selling my bug zapper",
+				"New",
+                "https://picsum.photos/100?random=5");
+
+             // Change the context options to use an inmemory database
+             var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                   .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                   .Options;
+
+             // Create a new instance of the ZipitContext
+             var context = new API.Data.ZipitContext(contextOptions);
+
+             // Create a new instance on the ListingService with the mocked context
+             ListingService listingService = new(context);
+
+             // Create a listing
+             var genInput = await listingService.CreateListing(input);
+
+             // Check we've added a listing
+             Assert.Equal(1, listingService.GetAll().Count());
+
+             // Delete the listing
+             await listingService.DeleteListing(genInput.ListingID);
+
+             // Check we have successfully delete the listing
+             Assert.Equal(0, listingService.GetAll().Count());
+         }
 
         [Fact]
         public async Task Listing_Service_ListingsByQueries_Fail()
