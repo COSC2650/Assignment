@@ -11,6 +11,7 @@ import UserListings from './components/display/useritemlist';
 import { AdminListings } from './components/display/adminitemlist';
 import NewListing, { newListingDetails } from './components/forms/newlisting';
 import UserProfile, { userProfileDetails } from './components/forms/userprofile';
+
 import Confirmation, {
   ConfirmationDetails,
 } from './components/forms/confirmation';
@@ -60,6 +61,7 @@ function App() {
   const onUserProfileClose = () => setUserProfileVisible(false);
   const onShowDeleteUser = () => setDeleteUserVisible(true);
   const onShowDeleteUserClose = () => setDeleteUserVisible(false);
+
 
   const onConfirmationClose = () => {
     setUserTitle('Welcome');
@@ -361,7 +363,8 @@ function App() {
         console.log(result);
         toast({
           title: 'User Profile',
-          description: 'Your profile information has been successfully changed.',
+          description:
+            'Your profile information has been successfully changed.',
           status: 'success',
           duration: 2000,
           isClosable: true,
@@ -439,7 +442,6 @@ function App() {
 
   //portal type selection logic
   function UserAdminPortalDisplay() {
-
     if (RoleID === 1) {
       return (
         <>
