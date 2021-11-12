@@ -10,11 +10,11 @@ import clientConnection from './data/client';
 import UserListings from './components/display/useritemlist';
 import { AdminListings } from './components/display/adminitemlist';
 import NewListing, { newListingDetails } from './components/forms/newlisting';
-import UserProfile, {userProfileDetails} from './components/forms/userprofile';
+import UserProfile, { userProfileDetails } from './components/forms/userprofile';
 import Confirmation, {
   ConfirmationDetails,
 } from './components/forms/confirmation';
-import DeleteUser, {DeleteUserDetails} from './components/forms/deleteuser';
+import DeleteUser, { DeleteUserDetails } from './components/forms/deleteuser';
 
 interface LogInDetails {
   userID: number;
@@ -123,8 +123,6 @@ function App() {
           setUserStreet(queryResult.userStreet);
           setUserCity(queryResult.userCity);
           setUserState(queryResult.userState);
-
-
 
           //hide login
           setLoginVisible(false);
@@ -345,7 +343,21 @@ function App() {
     client
       .mutate({ mutation: mutation(userProfileProps) })
       .then((result) => {
-        
+        if (props.userFirstName != null){
+        setUserTitle('Hi, ' + props.userFirstName + '!');}
+        if (props.userPostCode != null){
+        setUserPostCode(props.userPostCode);}
+        if (props.userFirstName != null){
+        setUserFirstName(props.userFirstName);}
+        if (props.userLastName != null){
+        setUserLastName(props.userLastName);}
+        if (props.userStreet != null){
+        setUserStreet(props.userStreet);}
+        if (props.userCity != null){
+        setUserCity(props.userCity);}
+        if (props.userState != null){
+        setUserState(props.userState);}
+
         console.log(result);
         toast({
           title: 'User Profile',
@@ -356,6 +368,7 @@ function App() {
           position: 'top',
         });
         setUserProfileVisible(false);
+
       })
 
       .catch((result) => {
@@ -387,7 +400,7 @@ function App() {
     client
       .mutate({ mutation: mutation(deleteUserProps) })
       .then((result) => {
-        
+
         console.log(result);
         toast({
           title: 'Delete User Profile',
@@ -397,6 +410,11 @@ function App() {
           isClosable: true,
           position: 'top',
         });
+        setUserTitle(' Welcome!');
+        setUserPostCode(0o0);
+        setAuthenticated(undefined);
+        setLogInDisabled(false);
+        setUserProfileVisible(false);
         setDeleteUserVisible(false);
       })
 
@@ -496,14 +514,14 @@ function App() {
         userCity={userCity}
         userState={userState}
         onDeleteUser={onShowDeleteUser}
-          />
+      />
       <DeleteUser
         disabled={DeleteUserDisabled}
         visible={DeleteUserVisible}
         onOpen={onShowDeleteUser}
         onClose={onShowDeleteUserClose}
         onDeleteUser={onDeleteUser}
-        userID={userID}          />
+        userID={userID} />
     </>
   );
 }
