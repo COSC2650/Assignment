@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 //fetches user authentication information
 const query = (props) => {
@@ -26,7 +26,13 @@ const query = (props) => {
     return {
       query: gql`
               {
-                listingsByFilter(listingPostCode:${props.listingPostCode===undefined?0:props.listingPostCode},listingType:"${props.listingType}",listingCategory:"${props.listingCategory}") {
+                listingsByFilter(listingPostCode:${
+                  props.listingPostCode === undefined
+                    ? 0
+                    : props.listingPostCode
+                },listingType:"${props.listingType}",listingCategory:"${
+        props.listingCategory
+      }") {
                   listingID
                   listingTitle
                   listingDescription
