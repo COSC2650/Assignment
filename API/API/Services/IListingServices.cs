@@ -10,7 +10,7 @@ namespace API.Services
    public interface IListingService  
     {  
         Task<Listing> CreateListing(AddListingInput input);
-        Task<User> EditListing(int listingID, AddListingInput input);
+        Task<Listing> EditListing(int listingID, AddListingInput input);
         Task<bool> DeleteListing(int listingID);  
         IQueryable<Listing> GetAll();
         IQueryable<Listing> ListingByFilter(int postCode, string listingType, string category);
