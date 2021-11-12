@@ -201,6 +201,7 @@ namespace Tests
             category = "Test Products";
             Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
         }
+        [Fact]
         public async Task ListingService_EditListing()
         {
             // Create sample listings
@@ -308,7 +309,7 @@ namespace Tests
             Assert.Equal(editInvalidPostCodeZero.ListingPostCode, editInput.ListingPostCode);
 
         }
-
+[Fact]
         public async Task ListingService_Delete()
          {
              // Create sample listings
