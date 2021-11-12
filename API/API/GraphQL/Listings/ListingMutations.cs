@@ -17,7 +17,7 @@ namespace API.GraphQL.Listings
 
         public async Task<Listing> CreateListing(AddListingInput input) => await _listingService.CreateListing(input);
         public async Task<bool> DeleteListing(int listingID) => await _listingService.DeleteListing(listingID);
-        public async Task<User> EditListing(int listingID, AddListingInput input) => await _listingService.EditListing(listingID, input);
+        public async Task<Listing> EditListing(int listingID, AddListingInput input) => await _listingService.EditListing(listingID, input);
 
 
     }  
