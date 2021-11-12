@@ -79,7 +79,7 @@ export function UserProfile(props: userProfileProps) {
             <option value="VIC">VIC</option>
             <option value="WA">WA</option>
           </Select>
-          <Input disabled={props.disabled} onChange={postCodeOnChange} placeholder={"props.userPostCode"} variant="filled" type="number" id="postcode" />
+          <Input disabled={props.disabled} onChange={postCodeOnChange} placeholder={props.userPostCode.toString()} variant="filled" type="number" id="postcode" />
         </ModalBody>
 
         <ModalFooter>
