@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-import { useState } from 'react';
 
 //fetches user authentication information
 const query = (props) => {
