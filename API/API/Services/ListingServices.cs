@@ -311,6 +311,7 @@ namespace API.Services
                 var emailMatch = _context.Listings.Where(x => x.User.UserEmail.Contains(keyword)).ToList();
                 var titleMatch = _context.Listings.Where(x => x.ListingTitle.Contains(keyword)).ToList();
                 var descMatch = _context.Listings.Where(x => x.ListingDescription.Contains(keyword)).ToList();
+                var categoryMatch = _context.Listings.Where(x => x.ListingCategory.Contains(keyword)).ToList();
                 var typeMatch = _context.Listings.Where(x => x.ListingType.Contains(keyword)).ToList();
                 var conditionMatch = _context.Listings.Where(x => x.ListingCondition.Contains(keyword)).ToList();
                 var imageMatch = _context.Listings.Where(x => x.ListingImageURL.Contains(keyword)).ToList();
@@ -321,6 +322,7 @@ namespace API.Services
                 emailMatch.ForEach(x => searchResults.Add(x));
                 titleMatch.ForEach(x => searchResults.Add(x));
                 descMatch.ForEach(x => searchResults.Add(x));
+                categoryMatch.ForEach(x => searchResults.Add(x));
                 typeMatch.ForEach(x => searchResults.Add(x));
                 conditionMatch.ForEach(x => searchResults.Add(x));
                 imageMatch.ForEach(x => searchResults.Add(x));

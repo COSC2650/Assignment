@@ -431,7 +431,7 @@ namespace Tests
             return fixture.Build<List<AddUserInput>>().Create();
         }
 
-        private static AddUserInput GenerateUserInput()
+        public static AddUserInput GenerateUserInput()
         {
             // Create a new instance on the fixture
             Fixture fixture = new();
