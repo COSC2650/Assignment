@@ -198,7 +198,9 @@ namespace API.Services
 
         public IQueryable<User> AdminUserSearch(string id, int role, string keyword)
         {
-            // Only one field is sent, determine the sent field
+            // Only one field is sent via front end
+            
+            // checks if id is sent field
             if(id.Length != 0)
             {
                 var isEmail = false;
@@ -223,18 +225,21 @@ namespace API.Services
                 return searchResults;
             }
 
+            // checks if role is sent field
             if(role != 0)
             {
                 return _context.Users.Where(x => x.RoleID == role);
             }
 
+            // checks if keyword is sent field
             if(keyword.Length != 0)
             {
                 var searchResults = UserKeywordSearch(keyword);
                 return searchResults.AsQueryable();
             }
             
-            return null;
+            // nothing sent, returning empty collection
+            return new List<User>{}.AsQueryable();
         }
 
         public IList<User> UserKeywordSearch(string keyword)
@@ -253,6 +258,7 @@ namespace API.Services
                 isString = true;
             }
 
+            // string keyword checks
             if(isString)
             {
                 var emailMatch = _context.Users.Where(x => x.UserEmail.Contains(keyword)).ToList();
@@ -264,6 +270,7 @@ namespace API.Services
                 
                 List<User> searchResults = new List<User> {};
 
+                // adds all results to searchResults list
                 emailMatch.ForEach(x => searchResults.Add(x));
                 firstNameMatch.ForEach(x => searchResults.Add(x));
                 lastNameMatch.ForEach(x => searchResults.Add(x));
@@ -272,7 +279,8 @@ namespace API.Services
                 stateMatch.ForEach(x => searchResults.Add(x));
                 
                 return searchResults;
-                
+
+            // integer keyword checks    
             } else {
                 return _context.Users.Where(x => x.UserPostCode == numCheck).ToList();
             }
