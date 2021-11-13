@@ -1,4 +1,4 @@
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -181,14 +181,75 @@ namespace API.Services
             return sortedList;
         }
 
+        public async Task<Listing> EditListing(int listingID, AddListingInput input)
+        {
+            var lowestPostCode = 800;
+
+            // safety check, should never happen
+            var editListing = await _context.Listings.FirstOrDefaultAsync(x => x.ListingID == listingID);
+
+            if (editListing == null)
+            {
+                return null;
+            }
+
+            // validate inputs so see what exists
+            if (input.ListingTitle.Length != 0)
+                editListing.ListingTitle = input.ListingTitle;
+
+            if (input.ListingCategory.Length != 0)
+                editListing.ListingCategory = input.ListingCategory;
+
+            if (input.ListingType.Length != 0)
+                editListing.ListingType = input.ListingType;
+
+            if (input.ListingPrice != 0)
+                editListing.ListingPrice = (decimal)input.ListingPrice;
+
+            if (input.ListingDescription.Length != 0)
+                editListing.ListingDescription = input.ListingDescription;
+            
+            if (input.ListingCondition.Length != 0)
+                editListing.ListingCondition = input.ListingCondition;
+
+            if (input.ListingImageURL.Length != 0)
+                editListing.ListingImageURL = input.ListingImageURL;
+
+            if (input.ListingPostCode != 0 && input.ListingPostCode > lowestPostCode)
+                editListing.ListingPostCode = input.ListingPostCode;
+
+            // updates context with editted user
+            _context.Listings.Update(editListing);
+
+            // updates the database with changes
+            await _context.SaveChangesAsync();
+
+            return editListing;
+        }
+
+                public async Task<bool> DeleteListing(int listingID)
+        {
+            var listing = await _context.Listings.FirstOrDefaultAsync(c => c.ListingID == listingID);
+            var response = false;
+
+            if (listing is not null)
+            {
+                _context.Listings.Remove(listing);
+                await _context.SaveChangesAsync();
+                response = true;
+            }
+
+            return response;
+        }
+
         public IQueryable<Listing> AdminListingSearch(string user, int listingID, string keyword)
         {
-            throw new NotImplementedException();
+            throw new System.NotImplementedException();
         }
 
         public IList<Listing> ListingKeywordSearch(string keyword)
         {
-            throw new NotImplementedException();
+            throw new System.NotImplementedException();
         }
     }
 }

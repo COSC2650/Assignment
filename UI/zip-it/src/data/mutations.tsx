@@ -39,7 +39,32 @@ function mutation(props): DocumentNode {
                 }
             `;
         // matching current input, will be changed in the future
-    } else if (props.type === "newListing") {
+    } 
+    
+    if (props.type === "deleteUserProfile") {
+        result = gql`
+                mutation {
+                    deleteUser(userID: ${props.data.userID})
+                }
+            `;
+    } 
+
+    if (props.type === "editListing") {
+        result = gql`
+                mutation {
+                    editListing(listingID: ${props.data.listingID}, input: { listingPostCode: ${props.data.listingPostCode}, listingTitle: "${props.data.listingTitle}", listingCategory: "${props.data.listingCategory}", listingPrice: ${props.data.listingPrice}, listingType: "${props.data.listingType}", listingDescription: "${props.data.listingDescription}", listingCondition: "${props.data.listingCondition}", listingImageURL: "${props.data.listingImageURL}" }) {
+                        listingID
+                    }
+                }
+            `;
+    }
+    if (props.type === "deleteListing") {
+        result = gql`
+                mutation {
+                    deleteListing(listingID: ${props.data.listingID})
+                }
+            `;
+    }else if (props.type === "newListing") {
         result = gql`
             mutation {
                 createListing(input: { userID: ${props.data.listingUserID}, listingPostCode: ${props.data.listingPostCode}, listingTitle: "${props.data.listingTitle}", listingCategory: "${props.data.listingCategory}", listingPrice: ${props.data.listingPrice}, listingType: "${props.data.listingType}",  listingDescription: "${props.data.listingDescription}", listingCondition: "${props.data.listingCondition}", listingImageURL: "${props.data.listingImageURL}",}) {
