@@ -367,6 +367,61 @@ namespace Tests
             Assert.True(Hashbrowns.ValidatePassword("password", hash));
         }
 
+        [Fact]
+        public async Task AdminUserSearch_Test()
+        {
+            // Create sample user input data
+            AddUserInput input = new(
+                "firstName",
+                "lastName",
+                "street",
+                "city",
+                "###",
+                0000, 
+                "test@email.com",
+                "password");
+
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the UserService with the mocked context
+            UserService userService = new(context);
+
+            // Create a user
+            var genInput = await userService.CreateUser(input, mockedSMTPClient.Object);
+
+            // Check user exists
+            Assert.Equal(1, userService.GetAll().Count());
+
+            // check email search
+            Assert.NotEmpty(userService.AdminUserSearch(genInput.UserEmail, 0, ""));
+
+            // check id search
+            Assert.NotEmpty(userService.AdminUserSearch("1", 0, ""));
+
+            // check role search (default user role = 2)
+            Assert.NotEmpty(userService.AdminUserSearch("", 2, ""));
+
+            // check string keywords
+            Assert.NotEmpty(userService.AdminUserSearch("", 0, "test@email.com"));
+            Assert.NotEmpty(userService.AdminUserSearch("", 0, "firstName"));
+            Assert.NotEmpty(userService.AdminUserSearch("", 0, "lastName")); 
+            Assert.NotEmpty(userService.AdminUserSearch("", 0, "street"));
+            Assert.NotEmpty(userService.AdminUserSearch("", 0, "city"));
+            Assert.NotEmpty(userService.AdminUserSearch("", 0, "###"));
+
+            // check number keywords
+            Assert.NotEmpty(userService.AdminUserSearch("", 0, "0000"));
+
+            // check no fields
+            Assert.Empty(userService.AdminUserSearch("", 0, ""));
+        }
+
         private static IList<AddUserInput> GenerateUsers()
         {
             // Create a new instance on the fixture
@@ -376,7 +431,7 @@ namespace Tests
             return fixture.Build<List<AddUserInput>>().Create();
         }
 
-        private static AddUserInput GenerateUserInput()
+        public static AddUserInput GenerateUserInput()
         {
             // Create a new instance on the fixture
             Fixture fixture = new();

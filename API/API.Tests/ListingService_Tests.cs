@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 using System;
 using API.GraphQL.Listings;
+using Moq;
+using API.Extensions;
 
 namespace Tests
 {   
@@ -399,6 +401,72 @@ namespace Tests
             category = "Test Products";
             Assert.Equal(0, listingService.ListingByFilter(postCode, listingType, category).Count());
         }
+
+        [Fact]
+        public async Task AdminListingSearch_Test()
+        {
+            Mock<ISmtpClient> mockedSMTPClient = new();
+            
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                  .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                  .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the ListingService with the mocked context
+            ListingService listingService = new(context);
+
+             // Create a new instance on the UserService with the mocked context
+            UserService userService = new(context);
+
+            // Create User
+            var userInput = UserService_Tests.GenerateUserInput();
+            var user = await userService.CreateUser(userInput, mockedSMTPClient.Object);
+
+            // Listing Input
+            AddListingInput Test = new(
+                user.UserID,
+                4000,
+                "Test Product",
+                "Test Products",
+                1,
+                "Product",
+                "Description",
+                "Condition",
+                "www.image.com"
+                );
+
+            // Create a listing
+            var listingTest = await listingService.CreateListing(Test);
+
+            // check no fields entered 
+            Assert.Empty(listingService.AdminListingSearch("", 0, ""));
+
+            // check user 
+            Assert.NotEmpty(listingService.AdminListingSearch(listingTest.UserID.ToString(), 0, ""));
+            Assert.NotEmpty(listingService.AdminListingSearch(listingTest.User.UserEmail, 0, ""));
+
+            // check listingID
+            Assert.NotEmpty(listingService.AdminListingSearch("", listingTest.ListingID, ""));
+
+            // check string keywords
+            Assert.NotEmpty(listingService.AdminListingSearch("", 0, listingTest.User.UserEmail));
+            Assert.NotEmpty(listingService.AdminListingSearch("", 0, listingTest.ListingTitle));
+            Assert.NotEmpty(listingService.AdminListingSearch("", 0, listingTest.ListingDescription));
+            Assert.NotEmpty(listingService.AdminListingSearch("", 0, listingTest.ListingCategory));
+            Assert.NotEmpty(listingService.AdminListingSearch("", 0, listingTest.ListingCondition));
+            Assert.NotEmpty(listingService.AdminListingSearch("", 0, listingTest.ListingImageURL));
+            Assert.NotEmpty(listingService.AdminListingSearch("", 0, listingTest.ListingType));
+
+            // check integer keywords
+            Assert.NotEmpty(listingService.AdminListingSearch("", 0, listingTest.UserID.ToString()));
+            Assert.NotEmpty(listingService.AdminListingSearch("", 0, listingTest.ListingID.ToString()));
+            Assert.NotEmpty(listingService.AdminListingSearch("", 0, listingTest.ListingPostCode.ToString()));
+            Assert.NotEmpty(listingService.AdminListingSearch("", 0, listingTest.ListingPrice.ToString()));
+        }
+
 
         private static IList<AddListingInput> GenerateListings()
         {

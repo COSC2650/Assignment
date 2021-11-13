@@ -20,5 +20,8 @@ namespace API.GraphQL.Users
 
         public Task<User> GetUserByEmail(string email, string password) =>
             _userService.GetUserByEmail(email, password);
+        
+        public IQueryable<User> AdminUserSearch(string id, int role, string keyword) => 
+            _userService.AdminUserSearch(id, role, keyword);
     }
 }

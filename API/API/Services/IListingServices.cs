@@ -19,5 +19,7 @@ namespace API.Services
         IQueryable<Listing> TwoFieldListingQuery(int postCode, string listingType, string category, 
             bool postCodeQuery, bool listingTypeQuery, List<int> postCodes, List<Listing> sortedList);
         IList<Listing> SortListByPostCode(List<Listing> results, List<int> postCodes, List<Listing> sortedList);
+        IQueryable<Listing> AdminListingSearch(string user, int listingID, string keyword);
+        IList<Listing> ListingKeywordSearch(string keyword);
     }  
 }  

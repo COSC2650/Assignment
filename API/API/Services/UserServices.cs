@@ -5,6 +5,8 @@ using API.Data;
 using API.Models;
 using API.Extensions;
 using API.GraphQL.Users;
+using System;
+using System.Collections.Generic;
 
 namespace API.Services
 {
@@ -192,6 +194,96 @@ namespace API.Services
 
             // Return the user
             return user;
+        }
+
+        public IQueryable<User> AdminUserSearch(string id, int role, string keyword)
+        {
+            // Only one field is sent via front end
+            
+            // checks if id is sent field
+            if(id.Length != 0)
+            {
+                var isEmail = false;
+                var numCheck = 0;
+
+                // Check if ID is sent or Email
+                try
+                {
+                    numCheck = Int32.Parse(id);
+                }
+                // Not an int
+                catch (FormatException) 
+                {
+                    isEmail = true;
+                }
+                
+                // Gets searched user data
+                var searchResults = isEmail ? _context.Users.Where(x => x.UserEmail == id)
+                                            : _context.Users.Where(x => x.UserID == numCheck);
+
+                // Return search results
+                return searchResults;
+            }
+
+            // checks if role is sent field
+            if(role != 0)
+            {
+                return _context.Users.Where(x => x.RoleID == role);
+            }
+
+            // checks if keyword is sent field
+            if(keyword.Length != 0)
+            {
+                var searchResults = UserKeywordSearch(keyword);
+                return searchResults.AsQueryable();
+            }
+            
+            // nothing sent, returning empty collection
+            return new List<User>{}.AsQueryable();
+        }
+
+        public IList<User> UserKeywordSearch(string keyword)
+        {
+            var numCheck = 0;
+            var isString = false;
+
+            // Check if keyword is number only
+            try
+            {
+                numCheck = Int32.Parse(keyword);
+            }
+            // Not an int
+            catch (FormatException) 
+            {
+                isString = true;
+            }
+
+            // string keyword checks
+            if(isString)
+            {
+                var emailMatch = _context.Users.Where(x => x.UserEmail.Contains(keyword)).ToList();
+                var firstNameMatch = _context.Users.Where(x => x.UserFirstName.Contains(keyword)).ToList();
+                var lastNameMatch = _context.Users.Where(x => x.UserLastName.Contains(keyword)).ToList();
+                var streetMatch = _context.Users.Where(x => x.UserStreet.Contains(keyword)).ToList();
+                var cityMatch = _context.Users.Where(x => x.UserCity.Contains(keyword)).ToList();
+                var stateMatch = _context.Users.Where(x => x.UserState.Contains(keyword)).ToList();
+                
+                List<User> searchResults = new List<User> {};
+
+                // adds all results to searchResults list
+                emailMatch.ForEach(x => searchResults.Add(x));
+                firstNameMatch.ForEach(x => searchResults.Add(x));
+                lastNameMatch.ForEach(x => searchResults.Add(x));
+                streetMatch.ForEach(x => searchResults.Add(x));
+                cityMatch.ForEach(x => searchResults.Add(x));
+                stateMatch.ForEach(x => searchResults.Add(x));
+                
+                return searchResults;
+
+            // integer keyword checks    
+            } else {
+                return _context.Users.Where(x => x.UserPostCode == numCheck).ToList();
+            }
         }
     }
 }
