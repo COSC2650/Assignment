@@ -180,5 +180,15 @@ namespace API.Services
             }
             return sortedList;
         }
+
+        public IQueryable<Listing> AdminListingSearch(string user, int listingID, string keyword)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Listing> ListingKeywordSearch(string keyword)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
