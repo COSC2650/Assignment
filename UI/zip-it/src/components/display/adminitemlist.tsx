@@ -1,7 +1,7 @@
 import { VStack, StackDivider, Stack } from '@chakra-ui/layout';
 import ListItem, { ListItemProp } from '../elements/checkboxlistitem';
 import query from '../../data/queries';
-import AdminSearch, {SearchDetails} from '../forms/adminsearch';
+import AdminSearch, { SearchDetails } from '../forms/adminsearch';
 import clientConnection from '../../data/client';
 import React, { useState, useEffect } from 'react';
 
@@ -11,6 +11,7 @@ interface userDetails {
 
 export function AdminListings(props: userDetails) {
   let [listings, setListings] = useState([]);
+  let [users, setUsers] = useState([]);
 
   var SearchDetails = {
     listingPostCode: props.userPostCode,
@@ -23,9 +24,15 @@ export function AdminListings(props: userDetails) {
     client
       .query(query(props))
       .then((result) => {
-        console.log(result.data)
-        // listings = result.data.listingsByFilter;
-        // setListings(listings);
+        if (isNaN(result.data.adminUserSearch[0].userID)===false) {
+          console.log('user returned');
+          console.log(result.data);
+          users = result.data.adminUserSearch;
+          setUsers(users);
+
+        }else{
+        listings = result.data.listingsByFilter;
+        setListings(listings);}
       })
       .catch((result) => {
         console.log('Apollo/GraphQL failure - Zip-It');
@@ -48,10 +55,10 @@ export function AdminListings(props: userDetails) {
       </>
     );
   }
- 
+
   useEffect(() => {
     queryAPI(SearchDetails);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -62,9 +69,9 @@ export function AdminListings(props: userDetails) {
         divider={<StackDivider />}
         spacing={2}
       >
-        <AdminSearch 
-        onAdminSearchInterface={queryAPI} 
-        userPostCode={props.userPostCode}
+        <AdminSearch
+          onAdminSearchInterface={queryAPI}
+          userPostCode={props.userPostCode}
         ></AdminSearch>
         <VStack divider={<StackDivider />} spacing={2} width="100%">
           <ListingsFragment />
