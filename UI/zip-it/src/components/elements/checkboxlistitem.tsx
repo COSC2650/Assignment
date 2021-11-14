@@ -61,7 +61,7 @@ const ListItem = (props: ListItemProp) => {
           value={props.listingID}
           onChange={(e) => checkboxOnChange(e)}
         ></Checkbox>
-        <Image
+        <Image 
           borderRadius=".5rem"
           boxSize="3rem"
           src={props.listingImageURL}

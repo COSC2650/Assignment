@@ -4,6 +4,7 @@ import query from '../../data/queries';
 import AdminSearch, { SearchDetails } from '../forms/adminsearch';
 import clientConnection from '../../data/client';
 import React, { useState, useEffect } from 'react';
+import DeleteUser, { DeleteUserDetails } from '../../components/forms/deleteuser';
 
 interface userDetails {
   userPostCode: number;
