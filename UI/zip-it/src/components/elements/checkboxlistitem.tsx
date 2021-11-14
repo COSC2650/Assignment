@@ -24,14 +24,29 @@ export interface ListItemProp {
   userPasswordHash: string;
   userEmailVerified: boolean;
   roleID: number;
+  isChecked: string;
 }
+
+//checked item iterator and checked item array
+let checkedItemNo = 0;
+let checkedItemArray = ([0]);
+
+//on checkboxOnChange adds item to array
+const checkboxOnChange = (e) => {
+  checkedItemArray[checkedItemNo] = e.target.value;
+  console.log(checkedItemArray);
+  checkedItemNo++;
+};
 
 //list item fragment
 const ListItem = (props: ListItemProp) => {
   if (props.listingID && !props.userID) {
     return (
       <HStack align="flex-start" width="100%" alignItems="center">
-        <Checkbox ></Checkbox>
+        <Checkbox
+          value={props.listingID}
+          onChange={(e) => checkboxOnChange(e)}
+        ></Checkbox>
         <Image
           borderRadius=".5rem"
           boxSize="3rem"
@@ -54,7 +69,11 @@ const ListItem = (props: ListItemProp) => {
   if (props.userID) {
     return (
       <HStack align="flex-start" width="100%" alignItems="center">
-        <Checkbox marginTop="auto"></Checkbox>
+        <Checkbox
+          marginTop="auto"
+          value={props.userID}
+          onChange={(e) => checkboxOnChange(e)}
+        ></Checkbox>
         <HStack align="left">
           <Heading as="h1" size="md" id="heading">
             {props.userFirstName}
@@ -74,7 +93,11 @@ const ListItem = (props: ListItemProp) => {
   } else {
     return (
       <HStack align="flex-start" width="100%" alignItems="center">
-        <Checkbox marginTop="auto"></Checkbox>
+        <Checkbox
+          marginTop="auto"
+          value={props.listingID}
+          onChange={(e) => checkboxOnChange(e)}
+        ></Checkbox>
         <Image
           borderRadius=".5rem"
           boxSize="3rem"

@@ -63,7 +63,7 @@ export function AdminSearch(props: SearchProps) {
     setListingIDSelection(event.target.value);
     setUserEmailSelection('emailIDSelection');
   };
-
+  
   const onSearch = (postcode?: number, emailselection?: string) => {
     //sets search setails
     const SearchDetails: SearchDetails = {
