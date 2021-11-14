@@ -2,9 +2,7 @@ import { gql } from '@apollo/client';
 
 //fetches user authentication information
 const query = (props) => {
-  console.log(props.emailIDSelection);
-  console.log(props.listingIDSelection);
-
+  
   if (props.email != null) {
     return {
       query: gql`
@@ -26,7 +24,7 @@ const query = (props) => {
     };
   }
   //adminUserSearch(id: string, role: number, keyword: string):[User]
-  if (props.emailIDSelection !== '') {
+  if (props.emailIDSelection !== 'emailIDSelection' && props.emailIDSelection !== undefined) {
     console.log(props.emailIDSelection);
     return {
       query: gql`
@@ -47,9 +45,8 @@ const query = (props) => {
               `,
     };
   }
-  if (props.listingIDSelection !== '') {
+  if (props.listingIDSelection !== 'listingIDSelection' && props.listingIDSelection !== undefined) {
     console.log(props.listingIDSelection);
-    console.log('making this point');
     return {
       query: gql`
               {

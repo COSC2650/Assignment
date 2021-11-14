@@ -23,8 +23,8 @@ export function AdminSearch(props: SearchProps) {
   let [listingCategory, setCategory] = useState("");
   let [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3.1);
   let [adminselection, setAdminSelection] = useState("");
-  let [emailIDSelection, setUserEmailSelection] = useState("");
-  let [listingIDSelection, setListingIDSelection] = useState("");
+  let [emailIDSelection, setUserEmailSelection] = useState("emailIDSelection");
+  let [listingIDSelection, setListingIDSelection] = useState("listingIDSelection");
 
   //on change validation and default value set
   function postcodeOnChange(postCodeInput?: number): number | undefined {
@@ -54,11 +54,11 @@ export function AdminSearch(props: SearchProps) {
   const adminOnChange = (event) => setAdminSelection(event.target.value);
   const userEmailOnChange = (event) => {
     setUserEmailSelection(event.target.value);
-    setListingIDSelection("");
+    setListingIDSelection("listingIDSelection");
   };
   const listingIDOnChange = (event) => {
     setListingIDSelection(event.target.value);
-    setUserEmailSelection("");
+    setUserEmailSelection("emailIDSelection");
   };
 
   const onSearch = (postcode?: number, emailselection?: string) => {

@@ -1,7 +1,7 @@
 import { VStack, StackDivider, Stack } from '@chakra-ui/layout';
 import ListItem, { ListItemProp } from '../elements/checkboxlistitem';
 import query from '../../data/queries';
-import AdminSearch, {SearchDetails} from '../forms/adminsearch';
+import AdminSearch, { SearchDetails } from '../forms/adminsearch';
 import clientConnection from '../../data/client';
 import React, { useState, useEffect } from 'react';
 
@@ -23,9 +23,19 @@ export function AdminListings(props: userDetails) {
     client
       .query(query(props))
       .then((result) => {
-        console.log(result.data)
-        // listings = result.data.listingsByFilter;
-        // setListings(listings);
+        if (result.data.listingsByFilter) {
+          listings = result.data.listingsByFilter;
+          setListings(listings);
+        }
+if(result.data.adminListingSearch){
+console.log("admin listing search")
+}
+        if (result.data.adminUserSearch) {
+          console.log('admin user search');
+        } else {
+          listings = result.data.listingsByFilter;
+          setListings(listings);
+        }
       })
       .catch((result) => {
         console.log('Apollo/GraphQL failure - Zip-It');
@@ -48,10 +58,10 @@ export function AdminListings(props: userDetails) {
       </>
     );
   }
- 
+
   useEffect(() => {
     queryAPI(SearchDetails);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -62,9 +72,9 @@ export function AdminListings(props: userDetails) {
         divider={<StackDivider />}
         spacing={2}
       >
-        <AdminSearch 
-        onAdminSearchInterface={queryAPI} 
-        userPostCode={props.userPostCode}
+        <AdminSearch
+          onAdminSearchInterface={queryAPI}
+          userPostCode={props.userPostCode}
         ></AdminSearch>
         <VStack divider={<StackDivider />} spacing={2} width="100%">
           <ListingsFragment />
