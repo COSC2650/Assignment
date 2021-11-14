@@ -1,8 +1,7 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 //fetches user authentication information
 const query = (props) => {
-
   if (props.email != null) {
     return {
       query: gql`
@@ -22,11 +21,57 @@ const query = (props) => {
               }
             `,
     };
-  } else {console.log(props.emailSelection)
-    
+  }
+  if (props.emailIDSelection !== "") {
+    console.log(props.emailIDSelection);
+    return {
+      query: gql`
+              {
+                listingsByFilter(listingPostCode:${
+                  props.listingPostCode === undefined
+                    ? 0
+                    : props.listingPostCode
+                },listingType:"${props.listingType}",listingCategory:"${
+        props.listingCategory
+      }") {
+                  listingID
+                  listingTitle
+                  listingDescription
+                  listingImageURL
+                  listingType
+                  listingPostCode
+                  listingPrice
+                }
+              }
+              `,
+    };
+  }
+  if (props.listingIDSelection !== "") {
+    console.log(props.listingIDSelection);
+    return {
+      query: gql`
+              {
+                listingsByFilter(listingPostCode:${
+                  props.listingPostCode === undefined
+                    ? 0
+                    : props.listingPostCode
+                },listingType:"${props.listingType}",listingCategory:"${
+        props.listingCategory
+      }") {
+                  listingID
+                  listingTitle
+                  listingDescription
+                  listingImageURL
+                  listingType
+                  listingPostCode
+                  listingPrice
+                }
+              }
+              `,
+    };
+  } else {
     //fetches listings according to passed params
     return {
-      
       query: gql`
               {
                 listingsByFilter(listingPostCode:${
