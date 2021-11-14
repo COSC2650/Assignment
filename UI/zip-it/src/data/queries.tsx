@@ -1,7 +1,10 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 //fetches user authentication information
 const query = (props) => {
+  console.log(props.emailIDSelection);
+  console.log(props.listingIDSelection);
+
   if (props.email != null) {
     return {
       query: gql`
@@ -22,42 +25,34 @@ const query = (props) => {
             `,
     };
   }
-  if (props.emailIDSelection !== "") {
+  //adminUserSearch(id: string, role: number, keyword: string):[User]
+  if (props.emailIDSelection !== '') {
     console.log(props.emailIDSelection);
     return {
       query: gql`
               {
-                listingsByFilter(listingPostCode:${
-                  props.listingPostCode === undefined
-                    ? 0
-                    : props.listingPostCode
-                },listingType:"${props.listingType}",listingCategory:"${
-        props.listingCategory
-      }") {
-                  listingID
-                  listingTitle
-                  listingDescription
-                  listingImageURL
-                  listingType
-                  listingPostCode
-                  listingPrice
+                adminUserSearch(id:"",role:0,keyword:"${props.emailIDSelection}") {
+                  userID
+                  userEmail
+                  userFirstName
+                  userLastName
+                  userStreet
+                  userCity
+                  userState
+                  userEmailVerified
+                  userPostCode
+                  roleID
                 }
               }
               `,
     };
   }
-  if (props.listingIDSelection !== "") {
+  if (props.listingIDSelection !== '') {
     console.log(props.listingIDSelection);
     return {
       query: gql`
               {
-                listingsByFilter(listingPostCode:${
-                  props.listingPostCode === undefined
-                    ? 0
-                    : props.listingPostCode
-                },listingType:"${props.listingType}",listingCategory:"${
-        props.listingCategory
-      }") {
+                adminListingSearch(id:"${props.listingIDSeleciton}",listingID:"",keyword:"") {
                   listingID
                   listingTitle
                   listingDescription
