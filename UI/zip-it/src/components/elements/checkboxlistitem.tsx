@@ -28,15 +28,29 @@ export interface ListItemProp {
 }
 
 //checked item iterator and checked item array
-let checkedItemNo = 0;
-let checkedItemArray = ([0]);
+let checkboxHashmap = new Map([]);
 
-//on checkboxOnChange adds item to array
+//on checkboxOnChange adds item hashmap
 const checkboxOnChange = (e) => {
-  checkedItemArray[checkedItemNo] = e.target.value;
-  console.log(checkedItemArray);
-  checkedItemNo++;
+  if (checkboxHashmap.get(e.target.value) === e.target.value) {
+    checkboxHashmap.delete(e.target.value);
+    console.log(checkboxHashmap);
+    console.log('delete');
+  } else {
+    checkboxHashmap.set(e.target.value, e.target.value);
+    console.log(checkboxHashmap);
+    console.log('add');
+  }
 };
+
+//iterates through hashmap deleting items
+function deleteItems() {
+  checkboxHashmap.forEach((checkedItem) => {
+    checkboxHashmap.delete(checkedItem);
+    console.log('deleted');
+  });
+  window.location.reload();
+}
 
 //list item fragment
 const ListItem = (props: ListItemProp) => {
@@ -51,6 +65,7 @@ const ListItem = (props: ListItemProp) => {
           borderRadius=".5rem"
           boxSize="3rem"
           src={props.listingImageURL}
+          onClick={deleteItems}
         />
         <HStack align="left">
           <Heading as="h1" size="md" id="heading">
@@ -75,7 +90,7 @@ const ListItem = (props: ListItemProp) => {
           onChange={(e) => checkboxOnChange(e)}
         ></Checkbox>
         <HStack align="left">
-          <Heading as="h1" size="md" id="heading">
+          <Heading as="h1" size="md" id="heading" onClick={deleteItems}>
             {props.userFirstName}
           </Heading>
           <Text size="md" id="contents">
@@ -102,6 +117,7 @@ const ListItem = (props: ListItemProp) => {
           borderRadius=".5rem"
           boxSize="3rem"
           src={props.listingImageURL}
+          onClick={deleteItems}
         />
         <HStack align="left">
           <Heading as="h1" size="md" id="heading">
