@@ -30,8 +30,8 @@ export interface ListItemProp {
 const ListItem = (props: ListItemProp) => {
   if (props.listingID && !props.userID) {
     return (
-      <HStack align="flex-start" width="100%">
-        <Checkbox marginTop="auto"></Checkbox>
+      <HStack align="flex-start" width="100%" alignItems="center">
+        <Checkbox ></Checkbox>
         <Image
           borderRadius=".5rem"
           boxSize="3rem"
@@ -41,9 +41,6 @@ const ListItem = (props: ListItemProp) => {
           <Heading as="h1" size="md" id="heading">
             {props.listingTitle}
           </Heading>
-          <Text size="md" id="contents">
-            {props.listingDescription}
-          </Text>
           <Text size="md" id="postcode">
             {'Postcode - ' + props.listingPostCode}
           </Text>
@@ -56,7 +53,7 @@ const ListItem = (props: ListItemProp) => {
   }
   if (props.userID) {
     return (
-      <HStack align="flex-start" width="100%">
+      <HStack align="flex-start" width="100%" alignItems="center">
         <Checkbox marginTop="auto"></Checkbox>
         <HStack align="left">
           <Heading as="h1" size="md" id="heading">
@@ -76,7 +73,7 @@ const ListItem = (props: ListItemProp) => {
     );
   } else {
     return (
-      <HStack align="flex-start" width="100%">
+      <HStack align="flex-start" width="100%" alignItems="center">
         <Checkbox marginTop="auto"></Checkbox>
         <Image
           borderRadius=".5rem"
