@@ -49,10 +49,11 @@ const query = (props) => {
   }
   if (props.listingIDSelection !== '') {
     console.log(props.listingIDSelection);
+    console.log('making this point');
     return {
       query: gql`
               {
-                adminListingSearch(id:"${props.listingIDSeleciton}",listingID:"",keyword:"") {
+                adminListingSearch(user:"",listingID:${props.listingIDSelection},keyword:"") {
                   listingID
                   listingTitle
                   listingDescription

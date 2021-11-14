@@ -23,8 +23,9 @@ export function AdminListings(props: userDetails) {
     client
       .query(query(props))
       .then((result) => {
-        listings = result.data.listingsByFilter;
-        setListings(listings);
+        console.log(result.data)
+        // listings = result.data.listingsByFilter;
+        // setListings(listings);
       })
       .catch((result) => {
         console.log('Apollo/GraphQL failure - Zip-It');
