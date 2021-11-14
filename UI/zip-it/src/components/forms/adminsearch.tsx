@@ -205,6 +205,12 @@ export function AdminSearch(props: SearchProps) {
           )}
         </>
       )}
+      <Button
+            leftIcon={<Icon as={FaSearch} />}
+            onClick={() => onSearch(currentUserPostCode)}
+          >
+            Search
+          </Button>
       {adminselection === "users" && (
         <>
           <Input
