@@ -11,6 +11,7 @@ interface userDetails {
 
 export function AdminListings(props: userDetails) {
   let [listings, setListings] = useState([]);
+  let [userlistings, setUserListings] = useState([]);
 
   var SearchDetails = {
     listingPostCode: props.userPostCode,
@@ -24,18 +25,18 @@ export function AdminListings(props: userDetails) {
       .query(query(props))
       .then((result) => {
         if (result.data.listingsByFilter) {
+          console.log('by filter');
           setListings(result.data.listingsByFilter);
         }
-if(result.data.adminListingSearch){
-console.log("admin listing search")
-console.log(result.data.adminListingSearch)
-}
+        if (result.data.adminListingSearch) {
+          console.log('admin listing search');
+          console.log(result.data.adminListingSearch);
+          setListings(result.data.adminListingSearch);
+        }
         if (result.data.adminUserSearch) {
           console.log('admin user search');
-          console.log(result.data.adminUserSearch)
-        } else {
-          listings = result.data.listingsByFilter;
-          setListings(listings);
+          console.log(result.data.adminUserSearch);
+          setUserListings(result.data.adminUserSearch);
         }
       })
       .catch((result) => {
@@ -47,8 +48,15 @@ console.log(result.data.adminListingSearch)
   };
 
   function ListingsFragment() {
+    console.log(listings);
     return (
       <>
+      {userlistings && (
+          <>
+            {userlistings.map((user: ListItemProp) => (<ListItem key={user.userID} {...user}></ListItem>
+            ))}
+          </>
+        )}
         {listings && (
           <>
             {listings.map((listing: ListItemProp) => (
@@ -59,6 +67,7 @@ console.log(result.data.adminListingSearch)
       </>
     );
   }
+  
 
   useEffect(() => {
     queryAPI(SearchDetails);
