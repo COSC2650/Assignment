@@ -24,14 +24,15 @@ export function AdminListings(props: userDetails) {
       .query(query(props))
       .then((result) => {
         if (result.data.listingsByFilter) {
-          listings = result.data.listingsByFilter;
-          setListings(listings);
+          setListings(result.data.listingsByFilter);
         }
 if(result.data.adminListingSearch){
 console.log("admin listing search")
+console.log(result.data.adminListingSearch)
 }
         if (result.data.adminUserSearch) {
           console.log('admin user search');
+          console.log(result.data.adminUserSearch)
         } else {
           listings = result.data.listingsByFilter;
           setListings(listings);

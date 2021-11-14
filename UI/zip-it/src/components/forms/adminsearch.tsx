@@ -1,6 +1,6 @@
-import { Input, Select, Stack, Button, Icon } from "@chakra-ui/react";
-import { FaSearch } from "react-icons/fa";
-import React, { useState } from "react";
+import { Input, Select, Stack, Button, Icon } from '@chakra-ui/react';
+import { FaSearch } from 'react-icons/fa';
+import React, { useState } from 'react';
 
 //SearchDetails constructor
 export interface SearchDetails {
@@ -19,12 +19,13 @@ export interface SearchProps {
 
 export function AdminSearch(props: SearchProps) {
   //defines Search Type and creates setter
-  let [listingType, setType] = useState("");
-  let [listingCategory, setCategory] = useState("");
+  let [listingType, setType] = useState('');
+  let [listingCategory, setCategory] = useState('');
   let [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3.1);
-  let [adminselection, setAdminSelection] = useState("");
-  let [emailIDSelection, setUserEmailSelection] = useState("emailIDSelection");
-  let [listingIDSelection, setListingIDSelection] = useState("listingIDSelection");
+  let [adminselection, setAdminSelection] = useState('');
+  let [emailIDSelection, setUserEmailSelection] = useState('emailIDSelection');
+  let [listingIDSelection, setListingIDSelection] =
+    useState('listingIDSelection');
 
   //on change validation and default value set
   function postcodeOnChange(postCodeInput?: number): number | undefined {
@@ -54,11 +55,11 @@ export function AdminSearch(props: SearchProps) {
   const adminOnChange = (event) => setAdminSelection(event.target.value);
   const userEmailOnChange = (event) => {
     setUserEmailSelection(event.target.value);
-    setListingIDSelection("listingIDSelection");
+    setListingIDSelection('listingIDSelection');
   };
   const listingIDOnChange = (event) => {
     setListingIDSelection(event.target.value);
-    setUserEmailSelection("emailIDSelection");
+    setUserEmailSelection('emailIDSelection');
   };
 
   const onSearch = (postcode?: number, emailselection?: string) => {
@@ -75,7 +76,7 @@ export function AdminSearch(props: SearchProps) {
     var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
 
     //sets details in interface
-    if (!regexp.test("{listingPostCode}") && !regexp.test("{emailSelection}")) {
+    if (!regexp.test('{listingPostCode}') && !regexp.test('{emailSelection}')) {
       props.onAdminSearchInterface(SearchDetails);
     }
   };
@@ -89,7 +90,7 @@ export function AdminSearch(props: SearchProps) {
 
   //search menu component
   return (
-    <Stack direction={["column"]} w={["100%", "20rem"]}>
+    <Stack direction={['column']} w={['100%', '20rem']}>
       <Select
         placeholder="Admin Selection"
         type="dorpdownselect"
@@ -100,7 +101,7 @@ export function AdminSearch(props: SearchProps) {
         <option value="listings">Listing</option>
         <option value="general">General</option>
       </Select>
-      {adminselection === "listings" && (
+      {adminselection === 'listings' && (
         <>
           <Input
             placeholder="Listing ID"
@@ -117,7 +118,7 @@ export function AdminSearch(props: SearchProps) {
           </Button>
         </>
       )}
-      {adminselection === "general" && (
+      {adminselection === 'general' && (
         <>
           <Input
             placeholder="Post Code"
@@ -139,7 +140,7 @@ export function AdminSearch(props: SearchProps) {
             <option value="product">Product</option>
             <option value="service">Service</option>
           </Select>
-          {listingType === "product" && (
+          {listingType === 'product' && (
             <>
               <Select
                 placeholder="Product Category"
@@ -171,7 +172,7 @@ export function AdminSearch(props: SearchProps) {
               </>
             </>
           )}
-          {listingType === "service" && (
+          {listingType === 'service' && (
             <>
               <Select
                 placeholder="Qualification"
@@ -194,7 +195,7 @@ export function AdminSearch(props: SearchProps) {
               </Select>
             </>
           )}
-          {listingType === "" && (
+          {listingType === '' && (
             <>
               <Select
                 placeholder="Availability"
@@ -203,15 +204,16 @@ export function AdminSearch(props: SearchProps) {
               ></Select>
             </>
           )}
-        </>
-      )}
-      <Button
+          <Button
             leftIcon={<Icon as={FaSearch} />}
             onClick={() => onSearch(currentUserPostCode)}
           >
             Search
           </Button>
-      {adminselection === "users" && (
+        </>
+      )}
+
+      {adminselection === 'users' && (
         <>
           <Input
             placeholder="Email"
