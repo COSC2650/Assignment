@@ -28,7 +28,7 @@ export interface ListItemProp {
 
 //list item fragment
 const ListItem = (props: ListItemProp) => {
-  if (props.listingID) {
+  if (props.listingID && !props.userID) {
     return (
       <HStack align="flex-start" width="100%">
         <Checkbox marginTop="auto"></Checkbox>

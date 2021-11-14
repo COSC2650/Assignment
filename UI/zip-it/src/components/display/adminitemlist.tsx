@@ -12,7 +12,7 @@ interface userDetails {
 export function AdminListings(props: userDetails) {
   let [listings, setListings] = useState([]);
   let [userlistings, setUserListings] = useState([]);
-
+  
   var SearchDetails = {
     listingPostCode: props.userPostCode,
     listingType: '',
@@ -32,11 +32,13 @@ export function AdminListings(props: userDetails) {
           console.log('admin listing search');
           console.log(result.data.adminListingSearch);
           setListings(result.data.adminListingSearch);
+          setUserListings([]);
         }
         if (result.data.adminUserSearch) {
           console.log('admin user search');
           console.log(result.data.adminUserSearch);
           setUserListings(result.data.adminUserSearch);
+          setListings([])
         }
       })
       .catch((result) => {
@@ -47,7 +49,9 @@ export function AdminListings(props: userDetails) {
       });
   };
 
-  function ListingsFragment() {
+
+  
+  function ListingsFragment() {    
     console.log(listings);
     return (
       <>

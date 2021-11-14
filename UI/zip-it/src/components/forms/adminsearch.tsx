@@ -29,6 +29,8 @@ export function AdminSearch(props: SearchProps) {
 
   //on change validation and default value set
   function postcodeOnChange(postCodeInput?: number): number | undefined {
+    setListingIDSelection("listingIDSelection");
+              setUserEmailSelection("emailIDSelection");
     if (postCodeInput === 0) {
       return 5;
     }
