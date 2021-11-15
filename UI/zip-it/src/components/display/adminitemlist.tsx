@@ -47,8 +47,7 @@ export function AdminListings(props: userDetails) {
 
 
   
-  function ListingsFragment() {    
-    console.log(listings);
+  function ListingsFragment() {
     return (
       <>
       {userlistings && (
