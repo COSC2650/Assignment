@@ -34,23 +34,18 @@ let checkboxHashmap = new Map([]);
 const checkboxOnChange = (e) => {
   if (checkboxHashmap.get(e.target.value) === e.target.value) {
     checkboxHashmap.delete(e.target.value);
-    console.log(checkboxHashmap);
-    console.log('remove from hashmap');
   } else {
     checkboxHashmap.set(e.target.value, e.target.value);
-    console.log(checkboxHashmap);
-    console.log('add to hashmap');
   }
 };
 
-//iterates through hashmap deleting items
-function deleteItems() {
-  checkboxHashmap.forEach((checkedItem) => {
-    checkboxHashmap.delete(checkedItem);
-    console.log('deleted');
-  });
-  window.location.reload();
-}
+// //iterates through hashmap deleting items
+// function deleteItems() {
+//   checkboxHashmap.forEach((checkedItem) => {
+//     checkboxHashmap.delete(checkedItem);
+//   });
+//   window.location.reload();
+// }
 
 //list item fragment
 const ListItem = (props: ListItemProp) => {
@@ -65,7 +60,6 @@ const ListItem = (props: ListItemProp) => {
           borderRadius=".5rem"
           boxSize="3rem"
           src={props.listingImageURL}
-          onClick={deleteItems}
         />
         <HStack align="left">
           <Heading as="h1" size="md" id="heading">
@@ -90,7 +84,7 @@ const ListItem = (props: ListItemProp) => {
           onChange={(e) => checkboxOnChange(e)}
         ></Checkbox>
         <HStack align="left">
-          <Heading as="h1" size="md" id="heading" onClick={deleteItems}>
+          <Heading as="h1" size="md" id="heading">
             {props.userFirstName}
           </Heading>
           <Text size="md" id="contents">
@@ -117,7 +111,6 @@ const ListItem = (props: ListItemProp) => {
           borderRadius=".5rem"
           boxSize="3rem"
           src={props.listingImageURL}
-          onClick={deleteItems}
         />
         <HStack align="left">
           <Heading as="h1" size="md" id="heading">

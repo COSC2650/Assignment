@@ -27,7 +27,6 @@ const query = (props) => {
     props.emailIDSelection !== "emailIDSelection" &&
     props.emailIDSelection !== undefined
   ) {
-    console.log(" user by email id selection");
     return {
       query: gql`
               {
@@ -51,7 +50,6 @@ const query = (props) => {
     props.listingIDSelection !== "listingIDSelection" &&
     props.listingIDSelection !== undefined
   ) {
-    console.log("listing by listing id selection");
     return {
       query: gql`
               {
@@ -72,7 +70,6 @@ const query = (props) => {
     props.listingsByFilter !== "listingsByFilter" &&
     props.listingsByFilter !== undefined
   ) {
-    console.log("listings by filter");
     //fetches listings according to passed params
     return {
       query: gql`
@@ -96,7 +93,6 @@ const query = (props) => {
               `,
     };
   } else {
-    console.log("listings else query");
     return {
       query: gql`
               {
