@@ -1,58 +1,58 @@
-import { Input, Select, Stack, Button, Icon } from '@chakra-ui/react';
-import { FaSearch } from 'react-icons/fa';
-import React, { useState } from 'react';
+import { Input, Select, Stack, Button, Icon } from "@chakra-ui/react";
+import { FaSearch } from "react-icons/fa";
+import React, { useState } from "react";
 
 //SearchDetails constructor
 export interface SearchDetails {
   listingPostCode?: number;
   listingType: string;
   listingCategory: string;
+  emailIDSelection?: string;
+  listingIDSelection?: string;
 }
 
 //interface to caller
-export interface UserSearchProps {
+export interface SearchProps {
   onAdminSearchInterface(props: SearchDetails): void;
   userPostCode: number;
 }
 
-export function AdminSearch(props: UserSearchProps) {
+export function AdminSearch(props: SearchProps) {
   //defines Search Type and creates setter
-  let [listingType, setType] = useState('');
-  let [listingCategory, setCategory] = useState('');
-  let [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3);
-  let [adminselection, setAdminSelection] = useState('');
-
-  //on change validation and default value set
-  function postcodeOnChange(postCodeInput?: number): number | undefined {
-    if (postCodeInput === 0) {
-      return 5;
-    }
-    if (
-      postCodeInput !== undefined &&
-      (postCodeInput > 800 || props.userPostCode > 800)
-    ) {
-      if (
-        (isNaN(postCodeInput) || postCodeInput < 800) &&
-        props.userPostCode > 800
-      ) {
-        return props.userPostCode;
-      } else {
-        return postCodeInput;
-      }
-    } else {
-      return 6;
-    }
-  }
+  let [listingType, setType] = useState("");
+  let [listingCategory, setCategory] = useState("");
+  let [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3.1);
+  let [adminselection, setAdminSelection] = useState("");
+  let [emailIDSelection, setUserEmailSelection] = useState("emailIDSelection");
+  let [listingIDSelection, setListingIDSelection] =
+    useState("listingIDSelection");
 
   //dropdown onchange
   const typeOnChange = (event) => setType(event.target.value);
   const categoryOnChange = (event) => setCategory(event.target.value);
   const adminOnChange = (event) => setAdminSelection(event.target.value);
+  const postcodeOnChange = (event) => {
+    setUserEmailSelection("emailIDSelection");
+    setListingIDSelection("listingIDSelection");
+    setCurrentUserPostCode(event.target.value);
+  };
+  const userEmailOnChange = (event) => {
+    setUserEmailSelection(event.target.value);
+    setListingIDSelection("listingIDSelection");
+    setCurrentUserPostCode(3.2);
+  };
+  const listingIDOnChange = (event) => {
+    setListingIDSelection(event.target.value);
+    setUserEmailSelection("emailIDSelection");
+    setCurrentUserPostCode(3.2);
+  };
 
-  const onSearch = (postcode?: number) => {
+  const onSearch = (postcode?: number, emailselection?: string) => {
     //sets search setails
-    const searchDetails: SearchDetails = {
-      listingPostCode: postcodeOnChange(postcode),
+    const SearchDetails: SearchDetails = {
+      listingIDSelection: listingIDSelection,
+      emailIDSelection: emailIDSelection,
+      listingPostCode: currentUserPostCode,
       listingType: listingType,
       listingCategory: listingCategory,
     };
@@ -61,21 +61,20 @@ export function AdminSearch(props: UserSearchProps) {
     var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
 
     //sets details in interface
-    if (!regexp.test('{listingPostCode}')) {
-      props.onAdminSearchInterface(searchDetails);
+    if (!regexp.test("{listingPostCode}") && !regexp.test("{emailSelection}")) {
+      props.onAdminSearchInterface(SearchDetails);
     }
   };
 
   //used to overcome async state change
   React.useEffect(() => {
-    setCurrentUserPostCode(props.userPostCode);
-    onSearch(props.userPostCode);
+    onSearch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.userPostCode]);
 
   //search menu component
   return (
-    <Stack direction={['column']} w={['100%', '20rem']}>
+    <Stack direction={["column"]} w={["100%", "20rem"]}>
       <Select
         placeholder="Admin Selection"
         type="dorpdownselect"
@@ -84,19 +83,47 @@ export function AdminSearch(props: UserSearchProps) {
       >
         <option value="users">User</option>
         <option value="listings">Listing</option>
-        <option value="tickets">Ticket</option>
+        <option value="general">General</option>
       </Select>
-      {adminselection === 'listings' && (
+      {adminselection === "users" && (
+        <>
+          <Input
+            placeholder="Email"
+            variant="filled"
+            type="inputfield"
+            id="useremail"
+            onChange={userEmailOnChange}
+          />
+          <Button leftIcon={<Icon as={FaSearch} />} onClick={() => onSearch()}>
+            Search
+          </Button>
+        </>
+      )}
+      {adminselection === "listings" && (
+        <>
+          <Input
+            placeholder="Listing ID"
+            variant="filled"
+            type="inputfield"
+            id="listingidadminsearch"
+            onChange={listingIDOnChange}
+          />
+          <Button
+            leftIcon={<Icon as={FaSearch} />}
+            onClick={() => onSearch(currentUserPostCode)}
+          >
+            Search
+          </Button>
+        </>
+      )}
+      {adminselection === "general" && (
         <>
           <Input
             placeholder="Post Code"
             variant="filled"
             type="inputfield"
             id="postcodeselect"
-            onChange={(event) => {
-              setCurrentUserPostCode(parseInt(event.target.value));
-              postcodeOnChange(parseInt(event.target.value));
-            }}
+            onChange={postcodeOnChange}
           />
           <Select
             placeholder="Products or Services"
@@ -108,7 +135,7 @@ export function AdminSearch(props: UserSearchProps) {
             <option value="product">Product</option>
             <option value="service">Service</option>
           </Select>
-          {listingType === 'product' && (
+          {listingType === "product" && (
             <>
               <Select
                 placeholder="Product Category"
@@ -140,7 +167,7 @@ export function AdminSearch(props: UserSearchProps) {
               </>
             </>
           )}
-          {listingType === 'service' && (
+          {listingType === "service" && (
             <>
               <Select
                 placeholder="Qualification"
@@ -163,7 +190,7 @@ export function AdminSearch(props: UserSearchProps) {
               </Select>
             </>
           )}
-          {listingType === '' && (
+          {listingType === "" && (
             <>
               <Select
                 placeholder="Availability"
@@ -172,52 +199,15 @@ export function AdminSearch(props: UserSearchProps) {
               ></Select>
             </>
           )}
+          <Button
+            leftIcon={<Icon as={FaSearch} />}
+            onClick={() => onSearch(currentUserPostCode)}
+          >
+            Search
+          </Button>
         </>
       )}
-      {adminselection === 'users' && (
-        <>
-          <Select
-            placeholder="Account Type"
-            type="dropdownselect"
-            id="qualificationcategoryselect"
-            onChange={categoryOnChange}
-          >
-            <option value="qualandcert">Qualified and Certified</option>
-            <option value="qualified">Qualified</option>
-            <option value="unqualcert">Unqualified and Uncertified</option>
-          </Select>
-          <Select
-            placeholder="Sort By"
-            type="dropdownselect"
-            id="serviceavailability"
-            disabled={false}
-          >
-            <option value="">Duration</option>
-            <option value="">Category</option>
-            <option value="">Date</option>
-          </Select>
-        </>
-      )}
-      {adminselection === 'tickets' && <select />}
       {<></>}
-      <Input
-        placeholder="ID/Email"
-        variant="filled"
-        type="inputfield"
-        id="emailselect"
-      />
-      <Input
-        placeholder="Keyword"
-        variant="filled"
-        type="inputfield"
-        id="keywordselect"
-      />
-      <Button
-        leftIcon={<Icon as={FaSearch} />}
-        onClick={() => onSearch(currentUserPostCode)}
-      >
-        Search
-      </Button>
     </Stack>
   );
 }
