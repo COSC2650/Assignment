@@ -30,16 +30,16 @@ export interface ListItemProp {
 //checked item iterator and checked item array
 let checkboxHashmap = new Map([]);
 
-//on checkboxOnChange adds item hashmap
+//add and remove ids from hashmap
 const checkboxOnChange = (e) => {
   if (checkboxHashmap.get(e.target.value) === e.target.value) {
     checkboxHashmap.delete(e.target.value);
     console.log(checkboxHashmap);
-    console.log('delete');
+    console.log('remove from hashmap');
   } else {
     checkboxHashmap.set(e.target.value, e.target.value);
     console.log(checkboxHashmap);
-    console.log('add');
+    console.log('add to hashmap');
   }
 };
 

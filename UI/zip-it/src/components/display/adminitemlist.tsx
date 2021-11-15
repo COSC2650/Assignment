@@ -4,7 +4,6 @@ import query from '../../data/queries';
 import AdminSearch, { SearchDetails } from '../forms/adminsearch';
 import clientConnection from '../../data/client';
 import React, { useState, useEffect } from 'react';
-import DeleteUser, { DeleteUserDetails } from '../../components/forms/deleteuser';
 
 interface userDetails {
   userPostCode: number;
@@ -28,6 +27,7 @@ export function AdminListings(props: userDetails) {
         if (result.data.listingsByFilter) {
           console.log('by filter');
           setListings(result.data.listingsByFilter);
+          setUserListings([]);
         }
         if (result.data.adminListingSearch) {
           console.log('admin listing search');
