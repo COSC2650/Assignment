@@ -69,7 +69,7 @@ export function Register(props: RegisterProps) {
         } else if (lastName.length < 2 || lastName.length > 50) {
             setFormValidationMessage("Your last name is either empty or an invalid length");
         } else if (password.length < 2 || password.length > 50) {
-            setFormValidationMessage("Your passwork is either empty or an invalid length");
+            setFormValidationMessage("Your password is either empty or an invalid length");
         } else if (passwordConfirm.length < 2 || passwordConfirm.length > 50) {
             setFormValidationMessage("Your confirmation password is either empty or an invalid length");
         } else if (street.length < 2 || street.length > 50) {
