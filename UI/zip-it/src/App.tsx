@@ -342,6 +342,8 @@ function App() {
       data: props,
     };
 
+    console.log(props.userFirstName);
+
     client
       .mutate({ mutation: mutation(userProfileProps) })
       .then((result) => {

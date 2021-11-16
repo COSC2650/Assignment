@@ -72,7 +72,7 @@ export function EditListing(props: editListingProps) {
     return (
         <Modal isOpen={props.visible} onClose={props.onClose} id="editlisting">
             <ModalOverlay />
-            <ModalContent><Image src={logo} width="200px" />
+            <ModalContent>
                 <ModalHeader>Edit Listing</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
