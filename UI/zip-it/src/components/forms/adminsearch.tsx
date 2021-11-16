@@ -1,6 +1,6 @@
-import { Input, Select, Stack, Button, Icon } from "@chakra-ui/react";
-import { FaSearch } from "react-icons/fa";
-import React, { useState } from "react";
+import { Input, Select, Stack, Button, Icon } from '@chakra-ui/react';
+import { FaSearch, FaTrashAlt } from 'react-icons/fa';
+import React, { useState } from 'react';
 
 //SearchDetails constructor
 export interface SearchDetails {
@@ -12,38 +12,39 @@ export interface SearchDetails {
 }
 
 //interface to caller
-export interface SearchProps {
+export interface SearchPannelProps {
   onAdminSearchInterface(props: SearchDetails): void;
+  onAdminDeleteItemsInterface(): void;
   userPostCode: number;
 }
 
-export function AdminSearch(props: SearchProps) {
+export function AdminSearch(props: SearchPannelProps) {
   //defines Search Type and creates setter
-  let [listingType, setType] = useState("");
-  let [listingCategory, setCategory] = useState("");
+  let [listingType, setType] = useState('');
+  let [listingCategory, setCategory] = useState('');
   let [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3.1);
-  let [adminselection, setAdminSelection] = useState("");
-  let [emailIDSelection, setUserEmailSelection] = useState("emailIDSelection");
+  let [adminselection, setAdminSelection] = useState('');
+  let [emailIDSelection, setUserEmailSelection] = useState('emailIDSelection');
   let [listingIDSelection, setListingIDSelection] =
-    useState("listingIDSelection");
+    useState('listingIDSelection');
 
   //dropdown onchange
   const typeOnChange = (event) => setType(event.target.value);
   const categoryOnChange = (event) => setCategory(event.target.value);
   const adminOnChange = (event) => setAdminSelection(event.target.value);
   const postcodeOnChange = (event) => {
-    setUserEmailSelection("emailIDSelection");
-    setListingIDSelection("listingIDSelection");
+    setUserEmailSelection('emailIDSelection');
+    setListingIDSelection('listingIDSelection');
     setCurrentUserPostCode(event.target.value);
   };
   const userEmailOnChange = (event) => {
     setUserEmailSelection(event.target.value);
-    setListingIDSelection("listingIDSelection");
+    setListingIDSelection('listingIDSelection');
     setCurrentUserPostCode(3.2);
   };
   const listingIDOnChange = (event) => {
     setListingIDSelection(event.target.value);
-    setUserEmailSelection("emailIDSelection");
+    setUserEmailSelection('emailIDSelection');
     setCurrentUserPostCode(3.2);
   };
 
@@ -61,11 +62,12 @@ export function AdminSearch(props: SearchProps) {
     var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
 
     //sets details in interface
-    if (!regexp.test("{listingPostCode}") && !regexp.test("{emailSelection}")) {
+    if (!regexp.test('{listingPostCode}') && !regexp.test('{emailSelection}')) {
       props.onAdminSearchInterface(SearchDetails);
     }
   };
 
+ 
   //used to overcome async state change
   React.useEffect(() => {
     onSearch();
@@ -74,7 +76,7 @@ export function AdminSearch(props: SearchProps) {
 
   //search menu component
   return (
-    <Stack direction={["column"]} w={["100%", "20rem"]}>
+    <Stack direction={['column']} w={['100%', '20rem']}>
       <Select
         placeholder="Admin Selection"
         type="dorpdownselect"
@@ -85,7 +87,7 @@ export function AdminSearch(props: SearchProps) {
         <option value="listings">Listing</option>
         <option value="general">General</option>
       </Select>
-      {adminselection === "users" && (
+      {adminselection === 'users' && (
         <>
           <Input
             placeholder="Email"
@@ -97,9 +99,12 @@ export function AdminSearch(props: SearchProps) {
           <Button leftIcon={<Icon as={FaSearch} />} onClick={() => onSearch()}>
             Search
           </Button>
+          <Button leftIcon={<Icon as={FaTrashAlt} />} onClick={props.onAdminDeleteItemsInterface}>
+            Delete Items
+          </Button>
         </>
       )}
-      {adminselection === "listings" && (
+      {adminselection === 'listings' && (
         <>
           <Input
             placeholder="Listing ID"
@@ -114,9 +119,12 @@ export function AdminSearch(props: SearchProps) {
           >
             Search
           </Button>
+          <Button leftIcon={<Icon as={FaTrashAlt} />} onClick={props.onAdminDeleteItemsInterface}>
+            Delete Items
+          </Button>
         </>
       )}
-      {adminselection === "general" && (
+      {adminselection === 'general' && (
         <>
           <Input
             placeholder="Post Code"
@@ -135,7 +143,7 @@ export function AdminSearch(props: SearchProps) {
             <option value="product">Product</option>
             <option value="service">Service</option>
           </Select>
-          {listingType === "product" && (
+          {listingType === 'product' && (
             <>
               <Select
                 placeholder="Product Category"
@@ -167,7 +175,7 @@ export function AdminSearch(props: SearchProps) {
               </>
             </>
           )}
-          {listingType === "service" && (
+          {listingType === 'service' && (
             <>
               <Select
                 placeholder="Qualification"
@@ -190,7 +198,7 @@ export function AdminSearch(props: SearchProps) {
               </Select>
             </>
           )}
-          {listingType === "" && (
+          {listingType === '' && (
             <>
               <Select
                 placeholder="Availability"

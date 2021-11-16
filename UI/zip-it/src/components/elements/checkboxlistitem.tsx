@@ -24,7 +24,13 @@ export interface ListItemProp {
   userPasswordHash: string;
   userEmailVerified: boolean;
   roleID: number;
-  isChecked: string;
+  isChecked: boolean;
+}
+
+export interface ItemSelectionsProp{
+  onAdminDeleteItems(props: ItemSelectionsProp);
+  listItemHashMap: [];
+  userItemHashMap: [];
 }
 
 //checked item iterator and checked item array

@@ -4,6 +4,7 @@ import query from '../../data/queries';
 import AdminSearch, { SearchDetails } from '../forms/adminsearch';
 import clientConnection from '../../data/client';
 import React, { useState, useEffect } from 'react';
+import mutation from '../../data/mutations';
 
 interface userDetails {
   userPostCode: number;
@@ -12,7 +13,7 @@ interface userDetails {
 export function AdminListings(props: userDetails) {
   let [listings, setListings] = useState([]);
   let [userlistings, setUserListings] = useState([]);
-  
+
   var SearchDetails = {
     listingPostCode: props.userPostCode,
     listingType: '',
@@ -34,7 +35,7 @@ export function AdminListings(props: userDetails) {
         }
         if (result.data.adminUserSearch) {
           setUserListings(result.data.adminUserSearch);
-          setListings([])
+          setListings([]);
         }
       })
       .catch((result) => {
@@ -45,14 +46,56 @@ export function AdminListings(props: userDetails) {
       });
   };
 
+  const mutateAPI = () => {
+    console.log("testfire")
+    // const client = clientConnection();
 
-  
+    // client
+    //   .mutate({ mutation: mutation(props) })
+    //   .then((result) => {
+    //     console.log(result);
+    //     // toast({
+    //     //   title: 'Delete User Profile',
+    //     //   description: 'Your profile information has been successfully removed.',
+    //     //   status: 'success',
+    //     //   duration: 2000,
+    //     //   isClosable: true,
+    //     //   position: 'top',
+    //     //});
+    //     // setUserTitle(' Welcome!');
+    //     // setUserPostCode(0o0);
+    //     // setAuthenticated(undefined);
+    //     // setLogInDisabled(false);
+    //     // setUserProfileVisible(false);
+    //     // setDeleteUserVisible(false);
+    //   })
+
+    //   .catch((result) => {
+    //     // toast({
+    //     //   title: 'Catch Error',
+    //     //   description: 'User profile has encountered an error.',
+    //     //   status: 'error',
+    //     //   duration: 2000,
+    //     //   isClosable: true,
+    //     //   position: 'top',
+    //     //});
+
+    //     console.log('Apollo/GraphQL failure - Zip-It');
+    //     console.log('check relevant query in queries.tsx');
+    //     console.log(props);
+    //     console.log(result);
+
+    //     //setDeleteUserDisabled(false);
+    //   });
+  };
+
   function ListingsFragment() {
     return (
       <>
-      {userlistings && (
+        {userlistings && (
           <>
-            {userlistings.map((user: ListItemProp) => (<ListItem key={user.userID} {...user}></ListItem>
+            {userlistings.map((user: ListItemProp) => (
+              <ListItem key={user.userID} {...user}></ListItem>
             ))}
           </>
         )}
@@ -66,7 +109,6 @@ export function AdminListings(props: userDetails) {
       </>
     );
   }
-  
 
   useEffect(() => {
     queryAPI(SearchDetails);
@@ -82,6 +124,7 @@ export function AdminListings(props: userDetails) {
         spacing={2}
       >
         <AdminSearch
+          onAdminDeleteItemsInterface={mutateAPI}
           onAdminSearchInterface={queryAPI}
           userPostCode={props.userPostCode}
         ></AdminSearch>
