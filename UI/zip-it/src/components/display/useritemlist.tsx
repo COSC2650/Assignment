@@ -29,6 +29,7 @@ export function UserListings(props: userDetails) {
         //create constant from result
         listings = result.data.listingsByFilter;
         setListings(listings);
+        console.log(listings)
       })
       //catch apollo/graphQL failure
       .catch((result) => {

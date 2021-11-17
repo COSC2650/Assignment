@@ -72,7 +72,6 @@ function mutation(props): DocumentNode {
             mutation {
                 deleteMultiListings(input: ${props.hashmap}) {
                     listingID
-                    listingTitle
                 }
             }
         `;
