@@ -8,7 +8,7 @@ type User {
     userPostCode: Int @fake(type: zipCode)
     userEmail: String!
     userPasswordHash: String!
-    userEmailVerfied: Boolean! @examples(values: [true, false])
+    userEmailVerified: Boolean! @examples(values: [true, false])
     roleID: Int!
     role: Role
     listings: [Listing]
@@ -48,10 +48,13 @@ type Listing {
     )
 }
 
-type Verification {
+type ConfirmCode {
   userEmail: String @examples(values: ["email@email.email"])
-  veriCodeInit: Int @fake(type: number)
-	verified: Boolean @examples(values: [false])
+  confirmationCode: Int @fake(type: number)
+}
+
+type DeleteListings {
+  listingID: Int @fake(type: number)
 }
 
 
@@ -59,14 +62,16 @@ type Verification {
 type Query {
   userByEmail(email: String, password: String): User
   listingsByFilter(listingPostCode: Int,listingType: String,listingCategory: String): [Listing]@listLength(min: 10, max: 30)
-  getVeriCode(email: String):Verification
+  adminUserSearch(id: string, role: number, keyword: string):[User]
+  adminListingSearch(id: string, listingID: number, keyword: string):[Listing]
 }
 
-type Mutation{
-  setVeriCodeMatch(email:String):User
-  setUserDetails(email:String, userFirstName:String, userLastName:String, userStreet:String, userCity:String, userPostCode:Int, userVerified:Boolean, password:String):User
-  modifyUserDetails(email:String, userFirstName:String, userLastName:String, userStreet:String, userCity:String, userPostCode:Int, userVerified:Boolean):User
-  setUserPassword(email:String, password:String, oldPassword:String):User
-  setListingDetials(userID: String, listingID: String, listingPostCode: String, listingType: String, listingTitle: String, listingCategory: String, listingCondition: String, listingAvailibility: String, listingPrice: String, listingDescription: String, listingImageURL: String):Listing
-  modifyListingDetials(userID: String, listingID: String, listingPostCode: String, listingType: String, listingTitle: String, listingCategory: String, listingCondition: String, listingAvailibility: String, listingPrice: String, listingDescription: String, listingImageURL: String):Listing
+type Mutation {
+  createUser(input: { email:String, userFirstName:String, userLastName:String, userStreet:String, userCity:String, userPostCode:Int, password:String }):User
+  editUser(userID: number, input: { userFirstName:String, userLastName:String, userStreet:String, userCity:String, userPostCode:Int }):User
+  confirmUser(userEmail: string, confirmationCode: number):User
+  #TODO:setUserPassword(email:String, password:String, oldPassword:String):User
+  createListing(input: { userID: String, listingID: String, listingPostCode: String, listingType: String, listingTitle: String, listingCategory: String, listingCondition: String, listingAvailibility: String, listingPrice: String, listingDescription: String, listingImageURL: String }):Listing
+  editListing(input: { userID: String, listingID: String, listingPostCode: String, listingType: String, listingTitle: String, listingCategory: String, listingCondition: String, listingAvailibility: String, listingPrice: String, listingDescription: String, listingImageURL: String }):Listing
+  deleteMultiListings(input: [DeleteListings!] ):[DeleteListings]
 }

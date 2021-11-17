@@ -1,6 +1,6 @@
 import {
   Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Input, Select,
-  Button, Image, Alert, AlertIcon, AlertDescription, FormControl
+  Button, Alert, AlertIcon, AlertDescription, FormControl
 } from '@chakra-ui/react';
 import { Flex, Spacer } from '@chakra-ui/layout';
 import { useState } from 'react';
@@ -44,7 +44,6 @@ export function NewListing(props: newListingProps) {
   const typeOnChange = (event) => setType(event.target.value)
   const descriptionOnChange = (event) => setDescription(event.target.value)
   const imageOnChange = (event) => setImage(event.target.value)
-  const logo = '/images/logo_black.png'
   const onNewListing = () => {
     const newListingDetails: newListingDetails = {
       listingUserID: props.listingUserID,
@@ -161,7 +160,7 @@ export function NewListing(props: newListingProps) {
       <FormControl>
         <Modal isOpen={props.visible} onClose={props.onClose} id="newListing">
           <ModalOverlay />
-          <ModalContent><Image src={logo} width="200px" />
+          <ModalContent>
             <ModalHeader>New Listing</ModalHeader>
             <ModalCloseButton />
             <ModalBody>

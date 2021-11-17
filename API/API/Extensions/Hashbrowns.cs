@@ -14,7 +14,7 @@ namespace API.Extensions
 
         public static string HashPassword(string password)
         {
-            var cryptoProvider = new RNGCryptoServiceProvider();
+            var cryptoProvider = RandomNumberGenerator.Create();
             byte[] salt = new byte[SaltByteSize];
             cryptoProvider.GetBytes(salt);
 

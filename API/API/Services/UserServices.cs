@@ -5,6 +5,8 @@ using API.Data;
 using API.Models;
 using API.Extensions;
 using API.GraphQL.Users;
+using System;
+using System.Collections.Generic;
 
 namespace API.Services
 {
@@ -81,6 +83,46 @@ namespace API.Services
             return result;
         }
 
+        public async Task<User> EditUser(int userID, AddUserInput input)
+        {
+            var lowestPostCode = 800;
+
+            // safety check, should never happen
+            var editUser = await _context.Users.FirstOrDefaultAsync(x => x.UserID == userID);
+
+            if (editUser == null)
+            {
+                return null;
+            }
+
+            // validate inputs so see what exists
+            if (input.UserFirstName.Length != 0)
+                editUser.UserFirstName = input.UserFirstName;
+
+            if (input.UserLastName.Length != 0)
+                editUser.UserLastName = input.UserLastName;
+
+            if (input.UserStreet.Length != 0)
+                editUser.UserStreet = input.UserStreet;
+            
+            if (input.UserCity.Length != 0)
+                editUser.UserCity = input.UserCity;
+
+            if (input.UserState.Length != 0)
+                editUser.UserState = input.UserState;
+
+            if (input.UserPostCode != 0 && input.UserPostCode > lowestPostCode)
+                editUser.UserPostCode = input.UserPostCode;
+
+            // updates context with editted user
+            _context.Users.Update(editUser);
+
+            // updates the database with changes
+            await _context.SaveChangesAsync();
+
+            return editUser;
+        }
+
         public async Task<bool> DeleteUser(int userID)
         {
             var user = await _context.Users.FirstOrDefaultAsync(c => c.UserID == userID);
@@ -126,12 +168,14 @@ namespace API.Services
             return Hashbrowns.ValidatePassword(password, user.UserPasswordHash);
         }
 
-        public async Task<User> ConfirmUser(string userEmail, int confirmationCode) {
+        public async Task<User> ConfirmUser(string userEmail, int confirmationCode)
+        {
             // Retrieve the confirmation code
             ConfirmCode confirmCode = _context.ConfirmCodes.Where(c => c.Email == userEmail && c.Code == confirmationCode).First();
             User user = null;
 
-            if (confirmCode != null) {
+            if (confirmCode != null)
+            {
                 // Retrieve the user
                 user = await _context.Users.FirstOrDefaultAsync(c => c.UserEmail == userEmail);
 
@@ -150,6 +194,96 @@ namespace API.Services
 
             // Return the user
             return user;
+        }
+
+        public IQueryable<User> AdminUserSearch(string id, int role, string keyword)
+        {
+            // Only one field is sent via front end
+            
+            // checks if id is sent field
+            if(id.Length != 0)
+            {
+                var isEmail = false;
+                var numCheck = 0;
+
+                // Check if ID is sent or Email
+                try
+                {
+                    numCheck = Int32.Parse(id);
+                }
+                // Not an int
+                catch (FormatException) 
+                {
+                    isEmail = true;
+                }
+                
+                // Gets searched user data
+                var searchResults = isEmail ? _context.Users.Where(x => x.UserEmail == id)
+                                            : _context.Users.Where(x => x.UserID == numCheck);
+
+                // Return search results
+                return searchResults;
+            }
+
+            // checks if role is sent field
+            if(role != 0)
+            {
+                return _context.Users.Where(x => x.RoleID == role);
+            }
+
+            // checks if keyword is sent field
+            if(keyword.Length != 0)
+            {
+                var searchResults = UserKeywordSearch(keyword);
+                return searchResults.AsQueryable();
+            }
+            
+            // nothing sent, returning empty collection
+            return new List<User>{}.AsQueryable();
+        }
+
+        public IList<User> UserKeywordSearch(string keyword)
+        {
+            var numCheck = 0;
+            var isString = false;
+
+            // Check if keyword is number only
+            try
+            {
+                numCheck = Int32.Parse(keyword);
+            }
+            // Not an int
+            catch (FormatException) 
+            {
+                isString = true;
+            }
+
+            // string keyword checks
+            if(isString)
+            {
+                var emailMatch = _context.Users.Where(x => x.UserEmail.Contains(keyword)).ToList();
+                var firstNameMatch = _context.Users.Where(x => x.UserFirstName.Contains(keyword)).ToList();
+                var lastNameMatch = _context.Users.Where(x => x.UserLastName.Contains(keyword)).ToList();
+                var streetMatch = _context.Users.Where(x => x.UserStreet.Contains(keyword)).ToList();
+                var cityMatch = _context.Users.Where(x => x.UserCity.Contains(keyword)).ToList();
+                var stateMatch = _context.Users.Where(x => x.UserState.Contains(keyword)).ToList();
+                
+                List<User> searchResults = new List<User> {};
+
+                // adds all results to searchResults list
+                emailMatch.ForEach(x => searchResults.Add(x));
+                firstNameMatch.ForEach(x => searchResults.Add(x));
+                lastNameMatch.ForEach(x => searchResults.Add(x));
+                streetMatch.ForEach(x => searchResults.Add(x));
+                cityMatch.ForEach(x => searchResults.Add(x));
+                stateMatch.ForEach(x => searchResults.Add(x));
+                
+                return searchResults;
+
+            // integer keyword checks    
+            } else {
+                return _context.Users.Where(x => x.UserPostCode == numCheck).ToList();
+            }
         }
     }
 }

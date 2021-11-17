@@ -54,7 +54,7 @@ export function Login(props: LoginProps) {
     if (email === '' || !regexp.test(email)) {
       setFormValidationMessage('Your email is empty or invalid');
     } else if (password === '') {
-      setFormValidationMessage('Your passwork is empty');
+      setFormValidationMessage('Your password is empty');
     } else {
       setFormValidationHidden(true);
       props.onLogin(loginDetails);

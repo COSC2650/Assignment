@@ -47,7 +47,65 @@ function App() {
   const [UserProfileVisible, setUserProfileVisible] = useState(false);
   const [UserProfileDisabled, setUserProfileDisabled] = useState(false);
   const [newListingDisabled, setNewListingDisabled] = useState(false);
+<<<<<<< HEAD
   const [resetVisible, setResetVisible] = useState(false);
+  const { toggleColorMode } = useColorMode();
+
+  const onShowLogin = () => {
+    setNewListingVisible(false);
+    setLoginVisible(true);
+    setLogInDisabled(false);
+    setLogoutVisible(false);
+    setRegisterVisible(false);
+    setAccountSettingsVisible(false);
+    setResetVisible(false);
+  };
+
+  const onShowRegister = () => {
+    setNewListingVisible(false);
+    setLogoutVisible(false);
+    setLoginVisible(false);
+    setRegisterVisible(true);
+    setRegisterDisabled(false);
+    setResetVisible(false);
+    setAccountSettingsVisible(false);
+  };
+
+  const onResetPwd = () => {
+    setLogoutVisible(false);
+    setLoginVisible(false);
+    setRegisterVisible(false);
+    setResetVisible(true);
+};
+
+  const onShowLogout = () => {
+    setNewListingVisible(false);
+    setLogoutVisible(true);
+    setLoginVisible(false);
+    setRegisterVisible(false);
+    setResetVisible(true);
+    setAccountSettingsVisible(false);
+  };
+
+  const onShowAccountSettings = () => {
+    setNewListingVisible(false);
+    setAccountSettingsVisible(true);
+    setLogoutVisible(false);
+    setLoginVisible(false);
+    setRegisterVisible(false);
+  };
+
+  const onShowNewListing = () => {
+    setNewListingVisible(true);
+    setLogoutVisible(false);
+    setLoginVisible(false);
+    setRegisterVisible(false);
+    setResetVisible(false);
+    setNewListingDisabled(false);
+    setAccountSettingsVisible(false);
+  };
+
+=======
   const [DeleteUserDisabled, setDeleteUserDisabled] = useState(false);
   const [DeleteUserVisible, setDeleteUserVisible] = useState(false);
   const { toggleColorMode } = useColorMode();
@@ -56,6 +114,7 @@ function App() {
   const onShowLogout = () => setLogoutVisible(true);
   const onShowUserProfile = () => setUserProfileVisible(true);
   const onShowNewListing = () => setNewListingVisible(true);
+>>>>>>> origin/main
   const onLogInClose = () => setLoginVisible(false);
   const onLogoutClose = () => setLogoutVisible(false);
   const onRegisterClose = () => setRegisterVisible(false);
@@ -64,7 +123,6 @@ function App() {
   const onUserProfileClose = () => setUserProfileVisible(false);
   const onShowDeleteUser = () => setDeleteUserVisible(true);
   const onShowDeleteUserClose = () => setDeleteUserVisible(false);
-  const onResetPwd = () => onResetPwd(); 
 
 
   const onConfirmationClose = () => {

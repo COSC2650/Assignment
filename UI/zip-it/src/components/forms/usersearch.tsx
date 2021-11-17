@@ -1,6 +1,6 @@
 import { Input, Select, Stack, Button, Icon } from '@chakra-ui/react';
 import { FaSearch } from 'react-icons/fa';
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 
 //SearchDetails constructor
 export interface SearchDetails {
@@ -17,13 +17,13 @@ export interface UserSearchProps {
 
 export function Search(props: UserSearchProps) {
   //defines Search Type and creates setter
-  const [listingType, setType] = useState('');
+  let [listingType, setType] = useState('');
   const [listingCategory, setCategory] = useState('');
   const [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3);
 
   //on change validation and default value set
   function postcodeOnChange(postCodeInput?: number): number | undefined {
-    if(postCodeInput === 0){
+    if (postCodeInput === 0) {
       return 5;
     }
     if (
@@ -46,13 +46,13 @@ export function Search(props: UserSearchProps) {
   //dropdown onchange
   const typeOnChange = (event) => setType(event.target.value);
   const categoryOnChange = (event) => setCategory(event.target.value);
-  
+
   const onSearch = (postcode?: number) => {
     //sets search setails
     const searchDetails: SearchDetails = {
       listingPostCode: postcodeOnChange(postcode),
       listingType: listingType,
-      listingCategory:listingCategory,
+      listingCategory: listingCategory,
     };
 
     // Email regex
@@ -71,116 +71,14 @@ export function Search(props: UserSearchProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.userPostCode]);
 
-  //search menu logic
-  function CategorySelection() {
-    if (listingType === 'product') {
-      return (
-        <>
-          <Select
-            placeholder="Product Category"
-            type="productcategory"
-            id="productategory"
-            onChange={categoryOnChange}
-          >
-            <option value="clothes">Clothes</option>
-            <option value="automotive">Automotive</option>
-            <option value="industrial">Industrial</option>
-            <option value="handcrafted">HandCrafted</option>
-          </Select>
-        </>
-      );
-    }
-    if (listingType === 'service') {
-      return (
-        <>
-          <Select
-            placeholder="Service Category"
-            type="servicecagegory"
-            id="servicecategory"
-            onChange={categoryOnChange}
-          >
-            <option value="landscaping">Qualified</option>
-            <option value="plumbing">Qualified and Certified</option>
-            <option value="equipmentrepair">Unqualified and Uncertified</option>
-          </Select>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <Select
-            placeholder="Category"
-            type="category"
-            id="category"
-            disabled
-          ></Select>
-        </>
-      );
-    }
-  }
-    function QualitySelection() {
-      if (listingType === 'product') {
-        return (
-          <>
-            <Select
-              placeholder="Condition"
-              type="condition"
-              id="listingCondition"
-            >
-              <option value="">Good Condition</option>
-              <option value="">Well used</option>
-              <option value="">Barely Used</option>
-              <option value="">Unused</option>
-            </Select>
-            <Select placeholder="Availibility" disabled={false}>
-              <option value="">Now</option>
-              <option value="">Date and Time</option>
-              <option value="">Pre Order</option>
-            </Select>
-          </>
-        );
-      }
-      if (listingType === 'service') {
-        return (
-          <>
-            <Select
-              placeholder="Qualification"
-              type="qualificaiton"
-              id="qualification"
-            >
-              <option value="">Qualified</option>
-              <option value="">Qualified and Certified</option>
-              <option value="">Unqualified and Uncertified</option>
-            </Select>
-            <Select placeholder="Availibility" disabled={false}>
-              <option value="">Now</option>
-              <option value="">Date</option>
-            </Select>
-          </>
-        );
-      } else {
-        return (
-          <>
-            <Select
-              placeholder="Conditions"
-              type="category"
-              id="category"
-              disabled
-            ></Select>
-            <Select placeholder="Availibility" disabled></Select>
-          </>
-        );
-      }
-  }
-
   //search menu component
   return (
-    <Stack direction={['column']} w={['100%', '300px']}>
+    <Stack direction={['column']} w={['100%', '20rem']}>
       <Input
         placeholder="Post Code"
         variant="filled"
-        type="number"
-        id="listingPostcode"
+        type="inputfield"
+        id="postcodeselect"
         onChange={(event) => {
           setCurrentUserPostCode(parseInt(event.target.value));
           postcodeOnChange(parseInt(event.target.value));
@@ -188,15 +86,78 @@ export function Search(props: UserSearchProps) {
       />
       <Select
         placeholder="Products or Services"
-        type="type"
-        id="listingType"
+        defaultValue=""
+        type="dropdownselect"
+        id="listingselect"
         onChange={typeOnChange}
       >
         <option value="product">Product</option>
         <option value="service">Service</option>
       </Select>
-      <CategorySelection />
-      <QualitySelection />
+      {listingType === 'product' && (
+        <>
+          <Select
+            placeholder="Product Category"
+            type="dropdownselect"
+            id="productategoryselect"
+            onChange={categoryOnChange}
+          >
+            <option value="clothes">Clothes</option>
+            <option value="automotive">Automotive</option>
+            <option value="industrial">Industrial</option>
+            <option value="handcrafted">HandCrafted</option>
+          </Select>
+          <>
+            <Select
+              placeholder="Condition"
+              type="dropdownselect"
+              id="conditionselect"
+            >
+              <option value="">Good Condition</option>
+              <option value="">Well used</option>
+              <option value="">Barely Used</option>
+              <option value="">Unused</option>
+            </Select>
+            <Select placeholder="Availability" disabled={false}>
+              <option value="">Now</option>
+              <option value="">Date and Time</option>
+              <option value="">Pre Order</option>
+            </Select>
+          </>
+        </>
+      )}
+      {listingType === 'service' && (
+        <>
+          <Select
+            placeholder="Qualification"
+            type="dropdownselect"
+            id="qualificationcategoryselect"
+            onChange={categoryOnChange}
+          >
+            <option value="qualandcert">Qualified and Certified</option>
+            <option value="qualified">Qualified</option>
+            <option value="unqualcert">Unqualified and Uncertified</option>
+          </Select>
+          <Select
+            placeholder="Availability"
+            type="dropdownselect"
+            id="serviceavailability"
+            disabled={false}
+          >
+            <option value="">Now</option>
+            <option value="">Date</option>
+          </Select>
+        </>
+      )}
+      {listingType === '' && (
+        <>
+          <Select
+            placeholder="Availability"
+            type="dropdownselect"
+            id="generalavailability"
+          ></Select>
+        </>
+      )}
       <Button
         leftIcon={<Icon as={FaSearch} />}
         onClick={() => onSearch(currentUserPostCode)}
