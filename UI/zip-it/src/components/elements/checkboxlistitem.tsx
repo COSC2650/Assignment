@@ -24,26 +24,19 @@ export interface ListItemProp {
   userPasswordHash: string;
   userEmailVerified: boolean;
   roleID: number;
-  isChecked: boolean;
+  checkBoxToggle(props:ToggleProps): void;  
 }
 
 export interface ItemSelectionsProp{
   onAdminDeleteItems(props: ItemSelectionsProp);
-  listItemHashMap: [];
-  userItemHashMap: [];
+  checkboxHashMap: [];
 }
 
-//checked item iterator and checked item array
-let checkboxHashmap = new Map([]);
+export interface ToggleProps {
+  listingID: string;
+  toggled: boolean;
+}
 
-//add and remove ids from hashmap
-const checkboxOnChange = (e) => {
-  if (checkboxHashmap.get(e.target.value) === e.target.value) {
-    checkboxHashmap.delete(e.target.value);
-  } else {
-    checkboxHashmap.set(e.target.value, e.target.value);
-  }
-};
 
 // //iterates through hashmap deleting items
 // function deleteItems() {
@@ -55,6 +48,21 @@ const checkboxOnChange = (e) => {
 
 //list item fragment
 const ListItem = (props: ListItemProp) => {
+
+  
+  const checkboxOnChange = (e) => {
+
+
+    const toggleProps: ToggleProps = {
+      listingID: e.target.value,
+      toggled: e.target.checked,
+    }
+    
+    //changes state of checkbox toggle passing in props
+    props.checkBoxToggle(toggleProps);
+    
+    }
+
   if (props.listingID && !props.userID) {
     return (
       <HStack align="flex-start" width="100%" alignItems="center">

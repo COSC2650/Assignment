@@ -1,5 +1,5 @@
 import { VStack, StackDivider, Stack } from '@chakra-ui/layout';
-import ListItem, { ListItemProp } from '../elements/checkboxlistitem';
+import ListItem, { ListItemProp, ToggleProps } from '../elements/checkboxlistitem';
 import query from '../../data/queries';
 import AdminSearch, { SearchDetails } from '../forms/adminsearch';
 import clientConnection from '../../data/client';
@@ -46,8 +46,21 @@ export function AdminListings(props: userDetails) {
       });
   };
 
+  //checked item iterator and checked item array
+  let checkboxHashmap = new Map([]);
+
+  //add and remove ids from hashmap
+  const checkboxOnChange = (props: ToggleProps) => {
+    if (!props.toggled) {
+      checkboxHashmap.delete(props.listingID);
+    } else {
+      checkboxHashmap.set(props.listingID, props.listingID);
+    }
+  };
+
   const mutateAPI = () => {
-    console.log("testfire")
+    console.log('testfire');
+    console.log(checkboxHashmap)
     // const client = clientConnection();
 
     // client
@@ -95,14 +108,14 @@ export function AdminListings(props: userDetails) {
         {userlistings && (
           <>
             {userlistings.map((user: ListItemProp) => (
-              <ListItem key={user.userID} {...user}></ListItem>
+              <ListItem key={user.userID}  {...user} checkBoxToggle={checkboxOnChange}></ListItem>
             ))}
           </>
         )}
         {listings && (
           <>
             {listings.map((listing: ListItemProp) => (
-              <ListItem key={listing.listingID} {...listing}></ListItem>
+              <ListItem key={listing.listingID} {...listing} checkBoxToggle={checkboxOnChange}></ListItem>
             ))}
           </>
         )}
