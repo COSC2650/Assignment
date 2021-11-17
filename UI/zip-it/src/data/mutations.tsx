@@ -69,7 +69,7 @@ function mutation(props): DocumentNode {
     if (props.type === "reset") {
         result = gql`
             mutation {
-                confirmUser(userEmail: "${props.data.userEmail}") {
+                resetPwd(userEmail: "${props.data.userEmail}") {
                     userEmail
                 }
             }

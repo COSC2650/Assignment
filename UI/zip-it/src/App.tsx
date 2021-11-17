@@ -64,7 +64,14 @@ function App() {
   const onUserProfileClose = () => setUserProfileVisible(false);
   const onShowDeleteUser = () => setDeleteUserVisible(true);
   const onShowDeleteUserClose = () => setDeleteUserVisible(false);
-  const onResetPwd = () => onResetPwd(); 
+  //const onResetPwd = () => onResetPwd(); 
+
+  const onResetPwd = () => {
+    setLogoutVisible(false);
+    setLoginVisible(false);
+    setRegisterVisible(false);
+    setResetVisible(true);
+};
 
 
   const onConfirmationClose = () => {
