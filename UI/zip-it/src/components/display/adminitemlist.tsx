@@ -47,7 +47,11 @@ export function AdminListings(props: userDetails) {
   };
 
   //checked item iterator and checked item array
-  let checkboxHashmap = new Map([]);
+    let checkboxHashmap = new Map([]);
+
+    const DeleteProps = {
+      hashmap: checkboxHashmap,
+    }
 
   //add and remove ids from hashmap
   const checkboxOnChange = (props: ToggleProps) => {
@@ -61,11 +65,12 @@ export function AdminListings(props: userDetails) {
   const mutateAPI = () => {
     console.log('testfire');
     console.log(checkboxHashmap)
-    // const client = clientConnection();
+    const client = clientConnection();
 
-    // client
-    //   .mutate({ mutation: mutation(props) })
-    //   .then((result) => {
+    client
+      .mutate({ mutation: mutation(DeleteProps) })
+      .then((result) => {
+        console.log(result)
     //     console.log(result);
     //     // toast({
     //     //   title: 'Delete User Profile',
@@ -81,25 +86,16 @@ export function AdminListings(props: userDetails) {
     //     // setLogInDisabled(false);
     //     // setUserProfileVisible(false);
     //     // setDeleteUserVisible(false);
-    //   })
+      })
 
-    //   .catch((result) => {
-    //     // toast({
-    //     //   title: 'Catch Error',
-    //     //   description: 'User profile has encountered an error.',
-    //     //   status: 'error',
-    //     //   duration: 2000,
-    //     //   isClosable: true,
-    //     //   position: 'top',
-    //     //});
+      .catch((result) => {
 
-    //     console.log('Apollo/GraphQL failure - Zip-It');
-    //     console.log('check relevant query in queries.tsx');
-    //     console.log(props);
-    //     console.log(result);
+        console.log('Apollo/GraphQL failure - Zip-It');
+        console.log('check relevant query in queries.tsx');
+        console.log(props);
+        console.log(result);
 
-    //     //setDeleteUserDisabled(false);
-    //   });
+      });
   };
 
   function ListingsFragment() {

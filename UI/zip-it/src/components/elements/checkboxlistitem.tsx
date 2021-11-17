@@ -37,15 +37,6 @@ export interface ToggleProps {
   toggled: boolean;
 }
 
-
-// //iterates through hashmap deleting items
-// function deleteItems() {
-//   checkboxHashmap.forEach((checkedItem) => {
-//     checkboxHashmap.delete(checkedItem);
-//   });
-//   window.location.reload();
-// }
-
 //list item fragment
 const ListItem = (props: ListItemProp) => {
 
