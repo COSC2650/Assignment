@@ -8,7 +8,7 @@ export interface SearchDetails {
   listingType: string;
   listingCategory: string;
   emailIDSelection?: string;
-  listingIDSelection?: string;
+  listingIDSelection?: number;
 }
 
 //interface to caller
@@ -25,8 +25,7 @@ export function AdminSearch(props: SearchPannelProps) {
   let [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3.1);
   let [adminselection, setAdminSelection] = useState('');
   let [emailIDSelection, setUserEmailSelection] = useState('emailIDSelection');
-  let [listingIDSelection, setListingIDSelection] =
-    useState('listingIDSelection');
+  let [listingIDSelection, setListingIDSelection] = useState(0);
 
   //dropdown onchange
   const typeOnChange = (event) => setType(event.target.value);
@@ -34,18 +33,24 @@ export function AdminSearch(props: SearchPannelProps) {
   const adminOnChange = (event) => setAdminSelection(event.target.value);
   const postcodeOnChange = (event) => {
     setUserEmailSelection('emailIDSelection');
-    setListingIDSelection('listingIDSelection');
+    setListingIDSelection(1);
     setCurrentUserPostCode(event.target.value);
   };
   const userEmailOnChange = (event) => {
     setUserEmailSelection(event.target.value);
-    setListingIDSelection('listingIDSelection');
+    setListingIDSelection(2);
     setCurrentUserPostCode(3.2);
   };
   const listingIDOnChange = (event) => {
-    setListingIDSelection(event.target.value);
-    setUserEmailSelection('emailIDSelection');
-    setCurrentUserPostCode(3.2);
+    if (isNaN(event.target.value) || event.target.value === undefined) {
+      setListingIDSelection(0);
+      setUserEmailSelection('emailIDSelection');
+      setCurrentUserPostCode(3.2);
+    } else {
+      setListingIDSelection(event.target.value);
+      setUserEmailSelection('emailIDSelection');
+      setCurrentUserPostCode(3.2);
+    }
   };
 
   const onSearch = (postcode?: number, emailselection?: string) => {
@@ -67,7 +72,6 @@ export function AdminSearch(props: SearchPannelProps) {
     }
   };
 
- 
   //used to overcome async state change
   React.useEffect(() => {
     onSearch();
@@ -99,7 +103,10 @@ export function AdminSearch(props: SearchPannelProps) {
           <Button leftIcon={<Icon as={FaSearch} />} onClick={() => onSearch()}>
             Search
           </Button>
-          <Button leftIcon={<Icon as={FaTrashAlt} />} onClick={props.onAdminDeleteItemsInterface}>
+          <Button
+            leftIcon={<Icon as={FaTrashAlt} />}
+            onClick={props.onAdminDeleteItemsInterface}
+          >
             Delete Items
           </Button>
         </>
@@ -119,7 +126,10 @@ export function AdminSearch(props: SearchPannelProps) {
           >
             Search
           </Button>
-          <Button leftIcon={<Icon as={FaTrashAlt} />} onClick={props.onAdminDeleteItemsInterface}>
+          <Button
+            leftIcon={<Icon as={FaTrashAlt} />}
+            onClick={props.onAdminDeleteItemsInterface}
+          >
             Delete Items
           </Button>
         </>

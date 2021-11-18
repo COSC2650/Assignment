@@ -52,6 +52,10 @@ export function AdminListings(props: userDetails) {
   //checked item iterator and checked item array
   let checkboxHashmap = new Map([]);
 
+  const DeleteProps = {
+      hashmap: Array.from(checkboxHashmap.keys())
+    }
+
   //add and remove ids from hashmap
   const checkboxOnChange = (props: ToggleProps) => {
     if (!props.toggled) {
@@ -63,16 +67,14 @@ export function AdminListings(props: userDetails) {
 
   const mutateAPI = () => {
     console.log('testfire');
-    console.log(checkboxHashmap);
-    let keys = Array.from(checkboxHashmap.keys());
-
-    console.log(keys);
+    console.log(DeleteProps);
 
     const client = clientConnection();
 
     client
-      .mutate({ mutation: mutation(keys) })
+      .mutate({ mutation: mutation(DeleteProps) })
       .then((result) => {
+        
         console.log(result);
         
       })
