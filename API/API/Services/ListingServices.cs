@@ -228,7 +228,7 @@ namespace API.Services
             return editListing;
         }
 
-                public async Task<bool> DeleteListing(int listingID)
+        public async Task<bool> DeleteListing(int listingID)
         {
             var listing = await _context.Listings.FirstOrDefaultAsync(c => c.ListingID == listingID);
             var response = false;
@@ -346,6 +346,23 @@ namespace API.Services
 
                 return searchResults;
             }
+        }
+
+        public async Task<bool> DeleteMultiListings(int[] listings)
+        {               
+            var response = false;
+
+            if (listings is not null)
+            {
+                foreach(int listID in listings)
+                {
+                    var listing = _context.Listings.FirstOrDefault(x => x.ListingID == listID);
+                    _context.Listings.Remove(listing);
+                    await _context.SaveChangesAsync();
+                }
+                response = true;
+            }
+            return response;
         }
     }
 }

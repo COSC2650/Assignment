@@ -311,7 +311,8 @@ namespace Tests
             Assert.Equal(editInvalidPostCodeZero.ListingPostCode, editInput.ListingPostCode);
 
         }
-[Fact]
+
+        [Fact]
         public async Task ListingService_Delete()
          {
              // Create sample listings
@@ -465,6 +466,59 @@ namespace Tests
             Assert.NotEmpty(listingService.AdminListingSearch("", 0, listingTest.ListingID.ToString()));
             Assert.NotEmpty(listingService.AdminListingSearch("", 0, listingTest.ListingPostCode.ToString()));
             Assert.NotEmpty(listingService.AdminListingSearch("", 0, listingTest.ListingPrice.ToString()));
+        }
+
+        [Fact]
+        public async Task ListingService_MassDelete()
+         {
+            // Create sample listings
+            AddListingInput firstInput = new(
+                1,
+                3000,
+                "A bug zapper",
+                "Good Condition",
+                0,
+                "Product",
+				"Selling my bug zapper",
+				"New",
+                "https://picsum.photos/100?random=5");
+            
+            AddListingInput secondInput = new(
+                2,
+                3000,
+                "A bug zapper",
+                "Good Condition",
+                0,
+                "Product",
+				"Selling my bug zapper",
+				"New",
+                "https://picsum.photos/100?random=5");
+
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the ListingService with the mocked context
+            ListingService listingService = new(context);
+
+            // Create the listings
+            var firstListing = await listingService.CreateListing(firstInput);
+            var secondListing = await listingService.CreateListing(secondInput);
+
+            // Check we've added the listings
+            Assert.Equal(2, listingService.GetAll().Count());
+
+            var listings = new int [] {firstListing.ListingID, secondListing.ListingID};
+
+            // Delete the listings
+            await listingService.DeleteMultiListings(listings);
+
+            // Check we have successfully deleted the listings
+            Assert.Equal(0, listingService.GetAll().Count());
         }
 
 
