@@ -353,28 +353,23 @@ namespace API.Services
             if (listings is null)
                 return false;
 
-            var listCount = listings.Length;
             var listPassed = 0;
 
-            if (listCount > 0)
+            if (listings.Length != 0)
             {
                 foreach(int listID in listings)
                 {
                     var listing = _context.Listings.FirstOrDefault(x => x.ListingID == listID);
-                    if (listing is null)
-                        continue;
-                    
-                    _context.Listings.Remove(listing);
-                    var result = await _context.SaveChangesAsync();
-                        
-                    if(result == 1)
+                    if(listing is not null)
+                    {
                         listPassed++;
+                        _context.Listings.Remove(listing);
+                        await _context.SaveChangesAsync();
                     }
-            }
-
-            if (listCount > 0 && listPassed == listCount)
-                return true;
-            
+                }
+                if (listings.Length == listPassed)
+                    return true; 
+            }     
             return false;
         }
     }
