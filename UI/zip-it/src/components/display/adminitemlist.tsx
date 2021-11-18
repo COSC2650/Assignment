@@ -54,9 +54,7 @@ export function AdminListings(props: userDetails) {
   //checked item iterator and checked item array
   let checkboxHashmap = new Map([]);
 
-  const DeleteProps = {
-    hashmap: Array.from(checkboxHashmap.keys()),
-  };
+  
 
   //add and remove ids from hashmap
   const checkboxOnChange = (props: ToggleProps) => {
@@ -67,8 +65,15 @@ export function AdminListings(props: userDetails) {
     }
   };
 
+  
+
+let DeleteProps ={
+    hashmap:checkboxHashmap
+  }
+
   const mutateAPI = () => {
     const client = clientConnection();
+    console.log(DeleteProps)
     client
       .mutate({ mutation: mutation(DeleteProps) })
       .then((result) => {
@@ -91,8 +96,8 @@ export function AdminListings(props: userDetails) {
             position: 'top',
           });
         }
+        queryAPI(SearchDetails);
       })
-
       .catch((result) => {
         console.log('Apollo/GraphQL failure - Zip-It');
         console.log('check relevant query in queries.tsx');

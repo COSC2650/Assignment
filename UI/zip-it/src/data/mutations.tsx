@@ -3,7 +3,7 @@ import { DocumentNode, gql } from '@apollo/client';
 //fetches user authentication information
 function mutation(props): DocumentNode {
   let result;
-  console.log(props.hashmap);
+  console.log(props);
 
   if (props.type === 'register') {
     result = gql`
@@ -67,11 +67,14 @@ function mutation(props): DocumentNode {
             `;
   }
   if (props.hashmap) {
+    //create
+
+    let keys = Array.from(props.hashmap.keys());
     console.log('delete listings mutation');
-    console.log(props.hashmap);
+    console.log(keys);
     result = gql`
             mutation {
-                deleteMultiListings(listings:[${props.hashmap}]) 
+                deleteMultiListings(listings:[${keys}]) 
             }
         `;
   } else if (props.type === 'newListing') {

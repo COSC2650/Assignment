@@ -28,7 +28,7 @@ export interface ListItemProp {
 }
 
 export interface ToggleProps {
-  listingID: string;
+  listingID: number;
   toggled: boolean;
 }
 //list item fragment
