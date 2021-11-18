@@ -241,7 +241,7 @@ namespace Tests
                 3000,
                 "editTitle",
                 "editCategory",
-				0,
+				1,
                 "editType",
 				"editDescription",
 				"editCondition",
@@ -555,6 +555,9 @@ namespace Tests
 
             // Check that fail message is returned
             Assert.False(await listingService.DeleteMultiListings(emptyListings));
+
+            // Check that fail message is returned
+            Assert.False(await listingService.DeleteMultiListings(null));
 
             // send wrong ID
             var badListings = new int [] {firstListing.ListingID, 3};
