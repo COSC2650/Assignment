@@ -3,6 +3,7 @@ import ListItem, {
   ListItemProp,
   ToggleProps,
 } from '../elements/checkboxlistitem';
+import { useToast } from '@chakra-ui/toast';
 import query from '../../data/queries';
 import AdminSearch, { SearchDetails } from '../forms/adminsearch';
 import clientConnection from '../../data/client';
@@ -16,6 +17,7 @@ interface userDetails {
 export function AdminListings(props: userDetails) {
   let [listings, setListings] = useState([]);
   let [userlistings, setUserListings] = useState([]);
+  const toast = useToast();
 
   var SearchDetails = {
     listingPostCode: props.userPostCode,
@@ -53,8 +55,8 @@ export function AdminListings(props: userDetails) {
   let checkboxHashmap = new Map([]);
 
   const DeleteProps = {
-      hashmap: Array.from(checkboxHashmap.keys())
-    }
+    hashmap: Array.from(checkboxHashmap.keys()),
+  };
 
   //add and remove ids from hashmap
   const checkboxOnChange = (props: ToggleProps) => {
@@ -66,17 +68,29 @@ export function AdminListings(props: userDetails) {
   };
 
   const mutateAPI = () => {
-    console.log('testfire');
-    console.log(DeleteProps);
-
     const client = clientConnection();
-
     client
       .mutate({ mutation: mutation(DeleteProps) })
       .then((result) => {
-        
-        console.log(result);
-        
+        if (result) {
+          toast({
+            title: 'Listing Deleted',
+            description: 'Selected listings have been deleted',
+            status: 'success',
+            duration: 2000,
+            isClosable: true,
+            position: 'top',
+          });
+        } else {
+          toast({
+            title: 'Listing Not Deleted',
+            description: 'The listing you tried to delete does not exist',
+            status: 'warning',
+            duration: 2000,
+            isClosable: true,
+            position: 'top',
+          });
+        }
       })
 
       .catch((result) => {
