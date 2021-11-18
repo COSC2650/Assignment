@@ -349,20 +349,34 @@ namespace API.Services
         }
 
         public async Task<bool> DeleteMultiListings(int[] listings)
-        {               
-            var response = false;
-
+        {             
             if (listings is not null)
             {
-                foreach(int listID in listings)
+                var listCount = listings.Length;
+                var listPassed = 0;
+
+                if (listCount > 0)
                 {
-                    var listing = _context.Listings.FirstOrDefault(x => x.ListingID == listID);
-                    _context.Listings.Remove(listing);
-                    await _context.SaveChangesAsync();
+                    foreach(int listID in listings)
+                    {
+                        var listing = _context.Listings.FirstOrDefault(x => x.ListingID == listID);
+                        if (listing is null)
+                            continue;
+                        
+                        _context.Listings.Remove(listing);
+                        var result = await _context.SaveChangesAsync();
+                        
+                        if(result == 1)
+                            listPassed++;
+                    }
                 }
-                response = true;
+
+                if (listCount > 0 && listPassed == listCount)
+                {
+                    return true;
+                }
             }
-            return response;
+            return false;
         }
     }
 }
