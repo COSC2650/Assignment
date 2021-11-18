@@ -24,44 +24,37 @@ export interface ListItemProp {
   userPasswordHash: string;
   userEmailVerified: boolean;
   roleID: number;
-  checkBoxToggle(props:ToggleProps): void;  
-}
-
-export interface ItemSelectionsProp{
-  onAdminDeleteItems(props: ItemSelectionsProp);
-  checkboxHashMap: [];
+  checkBoxToggle(props: ToggleProps): void;
 }
 
 export interface ToggleProps {
   listingID: string;
   toggled: boolean;
 }
-
 //list item fragment
 const ListItem = (props: ListItemProp) => {
 
-  
+  //adds target value and checked status to toggle props
   const checkboxOnChange = (e) => {
-
-
     const toggleProps: ToggleProps = {
       listingID: e.target.value,
       toggled: e.target.checked,
-    }
-    
-    //changes state of checkbox toggle passing in props
+    };
+
+    //passing props in to checkbox toggle function
     props.checkBoxToggle(toggleProps);
-    
-    }
+  };
+
 
   if (props.listingID && !props.userID) {
     return (
       <HStack align="flex-start" width="100%" alignItems="center">
+
         <Checkbox
           value={props.listingID}
           onChange={(e) => checkboxOnChange(e)}
         ></Checkbox>
-        <Image 
+        <Image
           borderRadius=".5rem"
           boxSize="3rem"
           src={props.listingImageURL}

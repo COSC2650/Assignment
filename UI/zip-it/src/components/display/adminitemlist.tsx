@@ -1,5 +1,8 @@
 import { VStack, StackDivider, Stack } from '@chakra-ui/layout';
-import ListItem, { ListItemProp, ToggleProps } from '../elements/checkboxlistitem';
+import ListItem, {
+  ListItemProp,
+  ToggleProps,
+} from '../elements/checkboxlistitem';
 import query from '../../data/queries';
 import AdminSearch, { SearchDetails } from '../forms/adminsearch';
 import clientConnection from '../../data/client';
@@ -47,11 +50,7 @@ export function AdminListings(props: userDetails) {
   };
 
   //checked item iterator and checked item array
-    let checkboxHashmap = new Map([]);
-
-    const DeleteProps = {
-      hashmap: checkboxHashmap,
-    }
+  let checkboxHashmap = new Map([]);
 
   //add and remove ids from hashmap
   const checkboxOnChange = (props: ToggleProps) => {
@@ -64,37 +63,25 @@ export function AdminListings(props: userDetails) {
 
   const mutateAPI = () => {
     console.log('testfire');
-    console.log(checkboxHashmap)
+    console.log(checkboxHashmap);
+    let keys = Array.from(checkboxHashmap.keys());
+
+    console.log(keys);
+
     const client = clientConnection();
 
     client
-      .mutate({ mutation: mutation(DeleteProps) })
+      .mutate({ mutation: mutation(keys) })
       .then((result) => {
-        console.log(result)
-    //     console.log(result);
-    //     // toast({
-    //     //   title: 'Delete User Profile',
-    //     //   description: 'Your profile information has been successfully removed.',
-    //     //   status: 'success',
-    //     //   duration: 2000,
-    //     //   isClosable: true,
-    //     //   position: 'top',
-    //     //});
-    //     // setUserTitle(' Welcome!');
-    //     // setUserPostCode(0o0);
-    //     // setAuthenticated(undefined);
-    //     // setLogInDisabled(false);
-    //     // setUserProfileVisible(false);
-    //     // setDeleteUserVisible(false);
+        console.log(result);
+        
       })
 
       .catch((result) => {
-
         console.log('Apollo/GraphQL failure - Zip-It');
         console.log('check relevant query in queries.tsx');
         console.log(props);
         console.log(result);
-
       });
   };
 
@@ -104,14 +91,22 @@ export function AdminListings(props: userDetails) {
         {userlistings && (
           <>
             {userlistings.map((user: ListItemProp) => (
-              <ListItem key={user.userID}  {...user} checkBoxToggle={checkboxOnChange}></ListItem>
+              <ListItem
+                key={user.userID}
+                {...user}
+                checkBoxToggle={checkboxOnChange}
+              ></ListItem>
             ))}
           </>
         )}
         {listings && (
           <>
             {listings.map((listing: ListItemProp) => (
-              <ListItem key={listing.listingID} {...listing} checkBoxToggle={checkboxOnChange}></ListItem>
+              <ListItem
+                key={listing.listingID}
+                {...listing}
+                checkBoxToggle={checkboxOnChange}
+              ></ListItem>
             ))}
           </>
         )}
