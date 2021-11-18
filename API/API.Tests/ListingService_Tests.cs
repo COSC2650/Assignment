@@ -241,7 +241,7 @@ namespace Tests
                 3000,
                 "editTitle",
                 "editCategory",
-				0,
+				1,
                 "editType",
 				"editDescription",
 				"editCondition",
@@ -311,7 +311,8 @@ namespace Tests
             Assert.Equal(editInvalidPostCodeZero.ListingPostCode, editInput.ListingPostCode);
 
         }
-[Fact]
+
+        [Fact]
         public async Task ListingService_Delete()
          {
              // Create sample listings
@@ -466,6 +467,105 @@ namespace Tests
             Assert.NotEmpty(listingService.AdminListingSearch("", 0, listingTest.ListingPostCode.ToString()));
             Assert.NotEmpty(listingService.AdminListingSearch("", 0, listingTest.ListingPrice.ToString()));
         }
+
+        [Fact]
+        public async Task ListingService_MassDeleteSuccess()
+         {
+            // Create sample listings
+            AddListingInput firstInput = new(
+                1,
+                3000,
+                "A bug zapper",
+                "Good Condition",
+                0,
+                "Product",
+				"Selling my bug zapper",
+				"New",
+                "https://picsum.photos/100?random=5");
+            
+            AddListingInput secondInput = new(
+                2,
+                3000,
+                "A bug zapper",
+                "Good Condition",
+                0,
+                "Product",
+				"Selling my bug zapper",
+				"New",
+                "https://picsum.photos/100?random=5");
+
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the ListingService with the mocked context
+            ListingService listingService = new(context);
+
+            // Create the listings
+            var firstListing = await listingService.CreateListing(firstInput);
+            var secondListing = await listingService.CreateListing(secondInput);
+
+            // Check we've added the listings
+            Assert.Equal(2, listingService.GetAll().Count());
+
+            var listings = new int [] {firstListing.ListingID, secondListing.ListingID};
+
+            // Delete the listings
+            Assert.True(await listingService.DeleteMultiListings(listings));
+        }
+
+        [Fact]
+        public async Task ListingService_MassDeleteFailure()
+        {
+            // Create sample listing - only one correct required
+            AddListingInput firstInput = new(
+                1,
+                3000,
+                "A bug zapper",
+                "Good Condition",
+                0,
+                "Product",
+				"Selling my bug zapper",
+				"New",
+                "https://picsum.photos/100?random=5");
+
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the ListingService with the mocked context
+            ListingService listingService = new(context);
+
+            // Create the listing
+            var firstListing = await listingService.CreateListing(firstInput);
+
+            // Check we've added the listing
+            Assert.Equal(1, listingService.GetAll().Count());
+
+            // send empty array
+            var emptyListings = Array.Empty<int>();
+
+            // Check that fail message is returned
+            Assert.False(await listingService.DeleteMultiListings(emptyListings));
+
+            // Check that fail message is returned
+            Assert.False(await listingService.DeleteMultiListings(null));
+
+            // send wrong ID
+            var badListings = new int [] {firstListing.ListingID, 3};
+
+            // Check that fail message is returned
+            Assert.False(await listingService.DeleteMultiListings(badListings));
+        }
+
 
 
         private static IList<AddListingInput> GenerateListings()

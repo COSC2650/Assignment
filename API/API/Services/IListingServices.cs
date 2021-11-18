@@ -12,6 +12,7 @@ namespace API.Services
         Task<Listing> CreateListing(AddListingInput input);
         Task<Listing> EditListing(int listingID, AddListingInput input);
         Task<bool> DeleteListing(int listingID);  
+        Task<bool> DeleteMultiListings(int[] listings);
         IQueryable<Listing> GetAll();
         IQueryable<Listing> ListingByFilter(int postCode, string listingType, string category);
         IQueryable<Listing> OneFieldListingQuery(int postCode, string listingType, string category, 
