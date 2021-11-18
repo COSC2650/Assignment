@@ -42,7 +42,8 @@ namespace API
                 .AddScoped<IListingService, ListingService>()
                 .AddScoped<UserQueries>()
                 .AddScoped<UserMutations>()
-                .AddScoped<ListingQueries>();
+                .AddScoped<ListingQueries>()
+                .AddScoped<ListingMutations>();
 
             services.AddGraphQLServer()
                 .AddQueryType(d => d.Name("Query"))

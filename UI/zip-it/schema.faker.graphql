@@ -73,5 +73,5 @@ type Mutation {
   #TODO:setUserPassword(email:String, password:String, oldPassword:String):User
   createListing(input: { userID: String, listingID: String, listingPostCode: String, listingType: String, listingTitle: String, listingCategory: String, listingCondition: String, listingAvailibility: String, listingPrice: String, listingDescription: String, listingImageURL: String }):Listing
   editListing(input: { userID: String, listingID: String, listingPostCode: String, listingType: String, listingTitle: String, listingCategory: String, listingCondition: String, listingAvailibility: String, listingPrice: String, listingDescription: String, listingImageURL: String }):Listing
-  deleteMultiListings(input: [DeleteListings!] ):[DeleteListings]
+  deleteMultiListings(listings: [Int!]) Boolean!
 }
