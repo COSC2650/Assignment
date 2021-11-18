@@ -551,7 +551,7 @@ namespace Tests
             Assert.Equal(1, listingService.GetAll().Count());
 
             // send empty array
-            var emptyListings = new int [] {};
+            var emptyListings = Array.Empty<int>();
 
             // Check that fail message is returned
             Assert.False(await listingService.DeleteMultiListings(emptyListings));
