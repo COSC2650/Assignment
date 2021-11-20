@@ -285,5 +285,29 @@ namespace API.Services
                 return _context.Users.Where(x => x.UserPostCode == numCheck).ToList();
             }
         }
+
+        public async Task<bool> DeleteMultiUsers(string[] users)
+        {
+            if (users is null || users.Length == 0)
+                return false;
+
+            var listPassed = 0;
+
+            foreach(string email in users)
+            {
+                var result = _context.Users.Any(x => x.UserEmail == email);
+                if(result)
+                {
+                    listPassed++;
+                    _context.Users.Remove(_context.Users.FirstOrDefault(x => x.UserEmail == email));
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            if (users.Length == listPassed)
+                return true;
+
+            return false;
+        }
     }
 }
