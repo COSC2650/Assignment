@@ -1,7 +1,7 @@
 import { VStack, StackDivider, Stack } from '@chakra-ui/layout';
 import ListItem, { ListItemProp } from '../elements/checkboxlistitem';
 import query from '../../data/queries';
-import AdminSearch, {SearchDetails} from '../forms/adminsearch';
+import AdminSearch, { SearchDetails } from '../forms/adminsearch';
 import clientConnection from '../../data/client';
 import React, { useState, useEffect } from 'react';
 
@@ -11,7 +11,8 @@ interface userDetails {
 
 export function AdminListings(props: userDetails) {
   let [listings, setListings] = useState([]);
-
+  let [userlistings, setUserListings] = useState([]);
+  
   var SearchDetails = {
     listingPostCode: props.userPostCode,
     listingType: '',
@@ -23,8 +24,18 @@ export function AdminListings(props: userDetails) {
     client
       .query(query(props))
       .then((result) => {
-        listings = result.data.listingsByFilter;
-        setListings(listings);
+        if (result.data.listingsByFilter) {
+          setListings(result.data.listingsByFilter);
+          setUserListings([]);
+        }
+        if (result.data.adminListingSearch) {
+          setListings(result.data.adminListingSearch);
+          setUserListings([]);
+        }
+        if (result.data.adminUserSearch) {
+          setUserListings(result.data.adminUserSearch);
+          setListings([])
+        }
       })
       .catch((result) => {
         console.log('Apollo/GraphQL failure - Zip-It');
@@ -34,9 +45,17 @@ export function AdminListings(props: userDetails) {
       });
   };
 
+
+  
   function ListingsFragment() {
     return (
       <>
+      {userlistings && (
+          <>
+            {userlistings.map((user: ListItemProp) => (<ListItem key={user.userID} {...user}></ListItem>
+            ))}
+          </>
+        )}
         {listings && (
           <>
             {listings.map((listing: ListItemProp) => (
@@ -47,10 +66,11 @@ export function AdminListings(props: userDetails) {
       </>
     );
   }
- 
+  
+
   useEffect(() => {
     queryAPI(SearchDetails);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -61,9 +81,9 @@ export function AdminListings(props: userDetails) {
         divider={<StackDivider />}
         spacing={2}
       >
-        <AdminSearch 
-        onAdminSearchInterface={queryAPI} 
-        userPostCode={props.userPostCode}
+        <AdminSearch
+          onAdminSearchInterface={queryAPI}
+          userPostCode={props.userPostCode}
         ></AdminSearch>
         <VStack divider={<StackDivider />} spacing={2} width="100%">
           <ListingsFragment />

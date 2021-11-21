@@ -4,7 +4,7 @@ exports[`ListItem Should render correctly 1`] = `
 LoadedCheerio {
   "0": Node {
     "attribs": Object {
-      "class": "chakra-stack css-fmbk1s",
+      "class": "chakra-stack css-1twuvi0",
     },
     "children": Array [
       Node {
@@ -17,6 +17,7 @@ LoadedCheerio {
               "class": "chakra-checkbox__input",
               "style": "border:0px;clip:rect(0px, 0px, 0px, 0px);height:1px;width:1px;margin:-1px;padding:0px;overflow:hidden;white-space:nowrap;position:absolute",
               "type": "checkbox",
+              "value": "",
             },
             "children": Array [],
             "name": "input",
@@ -29,32 +30,7 @@ LoadedCheerio {
               "children": Array [],
               "name": "span",
               "namespace": "http://www.w3.org/1999/xhtml",
-              "next": Node {
-                "attribs": Object {
-                  "class": "chakra-checkbox__label css-1oeb2oe",
-                },
-                "children": Array [
-                  Node {
-                    "data": "Checkbox",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                ],
-                "name": "span",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": null,
-                "parent": [Circular],
-                "prev": [Circular],
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                },
-              },
+              "next": null,
               "parent": [Circular],
               "prev": [Circular],
               "type": "tag",
@@ -74,11 +50,13 @@ LoadedCheerio {
               "class": undefined,
               "style": undefined,
               "type": undefined,
+              "value": undefined,
             },
             "x-attribsPrefix": Object {
               "class": undefined,
               "style": undefined,
               "type": undefined,
+              "value": undefined,
             },
           },
           Node {
@@ -89,38 +67,14 @@ LoadedCheerio {
             "children": Array [],
             "name": "span",
             "namespace": "http://www.w3.org/1999/xhtml",
-            "next": Node {
-              "attribs": Object {
-                "class": "chakra-checkbox__label css-1oeb2oe",
-              },
-              "children": Array [
-                Node {
-                  "data": "Checkbox",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "text",
-                },
-              ],
-              "name": "span",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": null,
-              "parent": [Circular],
-              "prev": [Circular],
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "class": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "class": undefined,
-              },
-            },
+            "next": null,
             "parent": [Circular],
             "prev": Node {
               "attribs": Object {
                 "class": "chakra-checkbox__input",
                 "style": "border:0px;clip:rect(0px, 0px, 0px, 0px);height:1px;width:1px;margin:-1px;padding:0px;overflow:hidden;white-space:nowrap;position:absolute",
                 "type": "checkbox",
+                "value": "",
               },
               "children": Array [],
               "name": "input",
@@ -133,11 +87,13 @@ LoadedCheerio {
                 "class": undefined,
                 "style": undefined,
                 "type": undefined,
+                "value": undefined,
               },
               "x-attribsPrefix": Object {
                 "class": undefined,
                 "style": undefined,
                 "type": undefined,
+                "value": undefined,
               },
             },
             "type": "tag",
@@ -147,589 +103,11 @@ LoadedCheerio {
             },
             "x-attribsPrefix": Object {
               "aria-hidden": undefined,
-              "class": undefined,
-            },
-          },
-          Node {
-            "attribs": Object {
-              "class": "chakra-checkbox__label css-1oeb2oe",
-            },
-            "children": Array [
-              Node {
-                "data": "Checkbox",
-                "next": null,
-                "parent": [Circular],
-                "prev": null,
-                "type": "text",
-              },
-            ],
-            "name": "span",
-            "namespace": "http://www.w3.org/1999/xhtml",
-            "next": null,
-            "parent": [Circular],
-            "prev": Node {
-              "attribs": Object {
-                "aria-hidden": "true",
-                "class": "chakra-checkbox__control css-dnty2r",
-              },
-              "children": Array [],
-              "name": "span",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": [Circular],
-              "parent": [Circular],
-              "prev": Node {
-                "attribs": Object {
-                  "class": "chakra-checkbox__input",
-                  "style": "border:0px;clip:rect(0px, 0px, 0px, 0px);height:1px;width:1px;margin:-1px;padding:0px;overflow:hidden;white-space:nowrap;position:absolute",
-                  "type": "checkbox",
-                },
-                "children": Array [],
-                "name": "input",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": [Circular],
-                "parent": [Circular],
-                "prev": null,
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                  "style": undefined,
-                  "type": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                  "style": undefined,
-                  "type": undefined,
-                },
-              },
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "aria-hidden": undefined,
-                "class": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "aria-hidden": undefined,
-                "class": undefined,
-              },
-            },
-            "type": "tag",
-            "x-attribsNamespace": Object {
-              "class": undefined,
-            },
-            "x-attribsPrefix": Object {
               "class": undefined,
             },
           },
         ],
         "name": "label",
-        "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Node {
-          "attribs": Object {
-            "class": "chakra-image css-gz3640",
-            "src": "https://picsum.photos/100?random=1",
-          },
-          "children": Array [],
-          "name": "img",
-          "namespace": "http://www.w3.org/1999/xhtml",
-          "next": Node {
-            "attribs": Object {
-              "class": "chakra-stack css-a03k66",
-            },
-            "children": Array [
-              Node {
-                "attribs": Object {
-                  "class": "chakra-heading css-0",
-                  "id": "heading",
-                },
-                "children": Array [
-                  Node {
-                    "data": "Test Title",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                ],
-                "name": "h1",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": Node {
-                  "attribs": Object {
-                    "class": "chakra-text css-0",
-                    "id": "contents",
-                  },
-                  "children": Array [
-                    Node {
-                      "data": "Test Description",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "p",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Node {
-                    "attribs": Object {
-                      "class": "chakra-text css-0",
-                      "id": "postcode",
-                    },
-                    "children": Array [
-                      Node {
-                        "data": "Postcode - 0",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "p",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": Node {
-                      "attribs": Object {
-                        "class": "chakra-text css-0",
-                        "id": "price",
-                      },
-                      "children": Array [
-                        Node {
-                          "data": "Price - 100",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                      ],
-                      "name": "p",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": [Circular],
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                        "id": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                        "id": undefined,
-                      },
-                    },
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "id": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "id": undefined,
-                    },
-                  },
-                  "parent": [Circular],
-                  "prev": [Circular],
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "id": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "id": undefined,
-                  },
-                },
-                "parent": [Circular],
-                "prev": null,
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                  "id": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                  "id": undefined,
-                },
-              },
-              Node {
-                "attribs": Object {
-                  "class": "chakra-text css-0",
-                  "id": "contents",
-                },
-                "children": Array [
-                  Node {
-                    "data": "Test Description",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                ],
-                "name": "p",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": Node {
-                  "attribs": Object {
-                    "class": "chakra-text css-0",
-                    "id": "postcode",
-                  },
-                  "children": Array [
-                    Node {
-                      "data": "Postcode - 0",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "p",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Node {
-                    "attribs": Object {
-                      "class": "chakra-text css-0",
-                      "id": "price",
-                    },
-                    "children": Array [
-                      Node {
-                        "data": "Price - 100",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "p",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "id": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "id": undefined,
-                    },
-                  },
-                  "parent": [Circular],
-                  "prev": [Circular],
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "id": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "id": undefined,
-                  },
-                },
-                "parent": [Circular],
-                "prev": Node {
-                  "attribs": Object {
-                    "class": "chakra-heading css-0",
-                    "id": "heading",
-                  },
-                  "children": Array [
-                    Node {
-                      "data": "Test Title",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "h1",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": [Circular],
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "id": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "id": undefined,
-                  },
-                },
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                  "id": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                  "id": undefined,
-                },
-              },
-              Node {
-                "attribs": Object {
-                  "class": "chakra-text css-0",
-                  "id": "postcode",
-                },
-                "children": Array [
-                  Node {
-                    "data": "Postcode - 0",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                ],
-                "name": "p",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": Node {
-                  "attribs": Object {
-                    "class": "chakra-text css-0",
-                    "id": "price",
-                  },
-                  "children": Array [
-                    Node {
-                      "data": "Price - 100",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "p",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": [Circular],
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "id": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "id": undefined,
-                  },
-                },
-                "parent": [Circular],
-                "prev": Node {
-                  "attribs": Object {
-                    "class": "chakra-text css-0",
-                    "id": "contents",
-                  },
-                  "children": Array [
-                    Node {
-                      "data": "Test Description",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "p",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": [Circular],
-                  "parent": [Circular],
-                  "prev": Node {
-                    "attribs": Object {
-                      "class": "chakra-heading css-0",
-                      "id": "heading",
-                    },
-                    "children": Array [
-                      Node {
-                        "data": "Test Title",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "h1",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "id": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "id": undefined,
-                    },
-                  },
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "id": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "id": undefined,
-                  },
-                },
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                  "id": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                  "id": undefined,
-                },
-              },
-              Node {
-                "attribs": Object {
-                  "class": "chakra-text css-0",
-                  "id": "price",
-                },
-                "children": Array [
-                  Node {
-                    "data": "Price - 100",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                ],
-                "name": "p",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": null,
-                "parent": [Circular],
-                "prev": Node {
-                  "attribs": Object {
-                    "class": "chakra-text css-0",
-                    "id": "postcode",
-                  },
-                  "children": Array [
-                    Node {
-                      "data": "Postcode - 0",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "p",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": [Circular],
-                  "parent": [Circular],
-                  "prev": Node {
-                    "attribs": Object {
-                      "class": "chakra-text css-0",
-                      "id": "contents",
-                    },
-                    "children": Array [
-                      Node {
-                        "data": "Test Description",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "p",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": Node {
-                      "attribs": Object {
-                        "class": "chakra-heading css-0",
-                        "id": "heading",
-                      },
-                      "children": Array [
-                        Node {
-                          "data": "Test Title",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                      ],
-                      "name": "h1",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": [Circular],
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                        "id": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                        "id": undefined,
-                      },
-                    },
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "id": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "id": undefined,
-                    },
-                  },
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "id": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "id": undefined,
-                  },
-                },
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                  "id": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                  "id": undefined,
-                },
-              },
-            ],
-            "name": "div",
-            "namespace": "http://www.w3.org/1999/xhtml",
-            "next": null,
-            "parent": [Circular],
-            "prev": [Circular],
-            "type": "tag",
-            "x-attribsNamespace": Object {
-              "class": undefined,
-            },
-            "x-attribsPrefix": Object {
-              "class": undefined,
-            },
-          },
-          "parent": [Circular],
-          "prev": [Circular],
-          "type": "tag",
-          "x-attribsNamespace": Object {
-            "class": undefined,
-            "src": undefined,
-          },
-          "x-attribsPrefix": Object {
-            "class": undefined,
-            "src": undefined,
-          },
-        },
-        "parent": [Circular],
-        "prev": null,
-        "type": "tag",
-        "x-attribsNamespace": Object {
-          "class": undefined,
-        },
-        "x-attribsPrefix": Object {
-          "class": undefined,
-        },
-      },
-      Node {
-        "attribs": Object {
-          "class": "chakra-image css-gz3640",
-          "src": "https://picsum.photos/100?random=1",
-        },
-        "children": Array [],
-        "name": "img",
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Node {
           "attribs": Object {
@@ -1203,240 +581,13 @@ LoadedCheerio {
           },
         },
         "parent": [Circular],
-        "prev": Node {
-          "attribs": Object {
-            "class": "chakra-checkbox css-1y0kcif",
-          },
-          "children": Array [
-            Node {
-              "attribs": Object {
-                "class": "chakra-checkbox__input",
-                "style": "border:0px;clip:rect(0px, 0px, 0px, 0px);height:1px;width:1px;margin:-1px;padding:0px;overflow:hidden;white-space:nowrap;position:absolute",
-                "type": "checkbox",
-              },
-              "children": Array [],
-              "name": "input",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": Node {
-                "attribs": Object {
-                  "aria-hidden": "true",
-                  "class": "chakra-checkbox__control css-dnty2r",
-                },
-                "children": Array [],
-                "name": "span",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": Node {
-                  "attribs": Object {
-                    "class": "chakra-checkbox__label css-1oeb2oe",
-                  },
-                  "children": Array [
-                    Node {
-                      "data": "Checkbox",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "span",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": [Circular],
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
-                "parent": [Circular],
-                "prev": [Circular],
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "aria-hidden": undefined,
-                  "class": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "aria-hidden": undefined,
-                  "class": undefined,
-                },
-              },
-              "parent": [Circular],
-              "prev": null,
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "class": undefined,
-                "style": undefined,
-                "type": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "class": undefined,
-                "style": undefined,
-                "type": undefined,
-              },
-            },
-            Node {
-              "attribs": Object {
-                "aria-hidden": "true",
-                "class": "chakra-checkbox__control css-dnty2r",
-              },
-              "children": Array [],
-              "name": "span",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": Node {
-                "attribs": Object {
-                  "class": "chakra-checkbox__label css-1oeb2oe",
-                },
-                "children": Array [
-                  Node {
-                    "data": "Checkbox",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                ],
-                "name": "span",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": null,
-                "parent": [Circular],
-                "prev": [Circular],
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                },
-              },
-              "parent": [Circular],
-              "prev": Node {
-                "attribs": Object {
-                  "class": "chakra-checkbox__input",
-                  "style": "border:0px;clip:rect(0px, 0px, 0px, 0px);height:1px;width:1px;margin:-1px;padding:0px;overflow:hidden;white-space:nowrap;position:absolute",
-                  "type": "checkbox",
-                },
-                "children": Array [],
-                "name": "input",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": [Circular],
-                "parent": [Circular],
-                "prev": null,
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                  "style": undefined,
-                  "type": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                  "style": undefined,
-                  "type": undefined,
-                },
-              },
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "aria-hidden": undefined,
-                "class": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "aria-hidden": undefined,
-                "class": undefined,
-              },
-            },
-            Node {
-              "attribs": Object {
-                "class": "chakra-checkbox__label css-1oeb2oe",
-              },
-              "children": Array [
-                Node {
-                  "data": "Checkbox",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "text",
-                },
-              ],
-              "name": "span",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": null,
-              "parent": [Circular],
-              "prev": Node {
-                "attribs": Object {
-                  "aria-hidden": "true",
-                  "class": "chakra-checkbox__control css-dnty2r",
-                },
-                "children": Array [],
-                "name": "span",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": [Circular],
-                "parent": [Circular],
-                "prev": Node {
-                  "attribs": Object {
-                    "class": "chakra-checkbox__input",
-                    "style": "border:0px;clip:rect(0px, 0px, 0px, 0px);height:1px;width:1px;margin:-1px;padding:0px;overflow:hidden;white-space:nowrap;position:absolute",
-                    "type": "checkbox",
-                  },
-                  "children": Array [],
-                  "name": "input",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": [Circular],
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "style": undefined,
-                    "type": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "style": undefined,
-                    "type": undefined,
-                  },
-                },
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "aria-hidden": undefined,
-                  "class": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "aria-hidden": undefined,
-                  "class": undefined,
-                },
-              },
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "class": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "class": undefined,
-              },
-            },
-          ],
-          "name": "label",
-          "namespace": "http://www.w3.org/1999/xhtml",
-          "next": [Circular],
-          "parent": [Circular],
-          "prev": null,
-          "type": "tag",
-          "x-attribsNamespace": Object {
-            "class": undefined,
-          },
-          "x-attribsPrefix": Object {
-            "class": undefined,
-          },
-        },
+        "prev": null,
         "type": "tag",
         "x-attribsNamespace": Object {
           "class": undefined,
-          "src": undefined,
         },
         "x-attribsPrefix": Object {
           "class": undefined,
-          "src": undefined,
         },
       },
       Node {
@@ -1903,89 +1054,20 @@ LoadedCheerio {
         "parent": [Circular],
         "prev": Node {
           "attribs": Object {
-            "class": "chakra-image css-gz3640",
-            "src": "https://picsum.photos/100?random=1",
+            "class": "chakra-checkbox css-1y0kcif",
           },
-          "children": Array [],
-          "name": "img",
-          "namespace": "http://www.w3.org/1999/xhtml",
-          "next": [Circular],
-          "parent": [Circular],
-          "prev": Node {
-            "attribs": Object {
-              "class": "chakra-checkbox css-1y0kcif",
-            },
-            "children": Array [
-              Node {
-                "attribs": Object {
-                  "class": "chakra-checkbox__input",
-                  "style": "border:0px;clip:rect(0px, 0px, 0px, 0px);height:1px;width:1px;margin:-1px;padding:0px;overflow:hidden;white-space:nowrap;position:absolute",
-                  "type": "checkbox",
-                },
-                "children": Array [],
-                "name": "input",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": Node {
-                  "attribs": Object {
-                    "aria-hidden": "true",
-                    "class": "chakra-checkbox__control css-dnty2r",
-                  },
-                  "children": Array [],
-                  "name": "span",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Node {
-                    "attribs": Object {
-                      "class": "chakra-checkbox__label css-1oeb2oe",
-                    },
-                    "children": Array [
-                      Node {
-                        "data": "Checkbox",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "span",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                    },
-                  },
-                  "parent": [Circular],
-                  "prev": [Circular],
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "aria-hidden": undefined,
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "aria-hidden": undefined,
-                    "class": undefined,
-                  },
-                },
-                "parent": [Circular],
-                "prev": null,
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                  "style": undefined,
-                  "type": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                  "style": undefined,
-                  "type": undefined,
-                },
+          "children": Array [
+            Node {
+              "attribs": Object {
+                "class": "chakra-checkbox__input",
+                "style": "border:0px;clip:rect(0px, 0px, 0px, 0px);height:1px;width:1px;margin:-1px;padding:0px;overflow:hidden;white-space:nowrap;position:absolute",
+                "type": "checkbox",
+                "value": "",
               },
-              Node {
+              "children": Array [],
+              "name": "input",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": Node {
                 "attribs": Object {
                   "aria-hidden": "true",
                   "class": "chakra-checkbox__control css-dnty2r",
@@ -1993,158 +1075,94 @@ LoadedCheerio {
                 "children": Array [],
                 "name": "span",
                 "namespace": "http://www.w3.org/1999/xhtml",
-                "next": Node {
-                  "attribs": Object {
-                    "class": "chakra-checkbox__label css-1oeb2oe",
-                  },
-                  "children": Array [
-                    Node {
-                      "data": "Checkbox",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "span",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": [Circular],
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
-                "parent": [Circular],
-                "prev": Node {
-                  "attribs": Object {
-                    "class": "chakra-checkbox__input",
-                    "style": "border:0px;clip:rect(0px, 0px, 0px, 0px);height:1px;width:1px;margin:-1px;padding:0px;overflow:hidden;white-space:nowrap;position:absolute",
-                    "type": "checkbox",
-                  },
-                  "children": Array [],
-                  "name": "input",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": [Circular],
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "style": undefined,
-                    "type": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "style": undefined,
-                    "type": undefined,
-                  },
-                },
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "aria-hidden": undefined,
-                  "class": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "aria-hidden": undefined,
-                  "class": undefined,
-                },
-              },
-              Node {
-                "attribs": Object {
-                  "class": "chakra-checkbox__label css-1oeb2oe",
-                },
-                "children": Array [
-                  Node {
-                    "data": "Checkbox",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                ],
-                "name": "span",
-                "namespace": "http://www.w3.org/1999/xhtml",
                 "next": null,
                 "parent": [Circular],
-                "prev": Node {
-                  "attribs": Object {
-                    "aria-hidden": "true",
-                    "class": "chakra-checkbox__control css-dnty2r",
-                  },
-                  "children": Array [],
-                  "name": "span",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": [Circular],
-                  "parent": [Circular],
-                  "prev": Node {
-                    "attribs": Object {
-                      "class": "chakra-checkbox__input",
-                      "style": "border:0px;clip:rect(0px, 0px, 0px, 0px);height:1px;width:1px;margin:-1px;padding:0px;overflow:hidden;white-space:nowrap;position:absolute",
-                      "type": "checkbox",
-                    },
-                    "children": Array [],
-                    "name": "input",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "style": undefined,
-                      "type": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "style": undefined,
-                      "type": undefined,
-                    },
-                  },
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "aria-hidden": undefined,
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "aria-hidden": undefined,
-                    "class": undefined,
-                  },
-                },
+                "prev": [Circular],
                 "type": "tag",
                 "x-attribsNamespace": Object {
+                  "aria-hidden": undefined,
                   "class": undefined,
                 },
                 "x-attribsPrefix": Object {
+                  "aria-hidden": undefined,
                   "class": undefined,
                 },
               },
-            ],
-            "name": "label",
-            "namespace": "http://www.w3.org/1999/xhtml",
-            "next": [Circular],
-            "parent": [Circular],
-            "prev": null,
-            "type": "tag",
-            "x-attribsNamespace": Object {
-              "class": undefined,
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+                "style": undefined,
+                "type": undefined,
+                "value": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+                "style": undefined,
+                "type": undefined,
+                "value": undefined,
+              },
             },
-            "x-attribsPrefix": Object {
-              "class": undefined,
+            Node {
+              "attribs": Object {
+                "aria-hidden": "true",
+                "class": "chakra-checkbox__control css-dnty2r",
+              },
+              "children": Array [],
+              "name": "span",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": Node {
+                "attribs": Object {
+                  "class": "chakra-checkbox__input",
+                  "style": "border:0px;clip:rect(0px, 0px, 0px, 0px);height:1px;width:1px;margin:-1px;padding:0px;overflow:hidden;white-space:nowrap;position:absolute",
+                  "type": "checkbox",
+                  "value": "",
+                },
+                "children": Array [],
+                "name": "input",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": [Circular],
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                  "style": undefined,
+                  "type": undefined,
+                  "value": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                  "style": undefined,
+                  "type": undefined,
+                  "value": undefined,
+                },
+              },
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "aria-hidden": undefined,
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "aria-hidden": undefined,
+                "class": undefined,
+              },
             },
-          },
+          ],
+          "name": "label",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": [Circular],
+          "parent": [Circular],
+          "prev": null,
           "type": "tag",
           "x-attribsNamespace": Object {
             "class": undefined,
-            "src": undefined,
           },
           "x-attribsPrefix": Object {
             "class": undefined,
-            "src": undefined,
           },
         },
         "type": "tag",

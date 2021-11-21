@@ -28,6 +28,10 @@ namespace API.Data
                     new Role {
                         RoleID = 2,
                         RoleName = "User"
+                    },
+                    new Role {
+                        RoleID = 3,
+                        RoleName = "Premium"
                     });
         }
     }

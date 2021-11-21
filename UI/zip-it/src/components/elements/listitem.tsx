@@ -1,7 +1,6 @@
 import {
   Heading, 
-  HStack, 
-  Image, 
+  HStack,  
   Text, 
   Drawer,
   Button,
@@ -16,7 +15,6 @@ import {
 
 //listItem properties
 export interface ListItemProp {
-  listingImageURL: string;
   listingID: string;
   listingPostCode: number;
   listingTitle: string;
@@ -36,9 +34,7 @@ const ListItem = (props: ListItemProp) => {
 
   return (
     <>
-      
       <HStack align="flex-start" width="100%" onClick={onOpen}>
-        <Image borderRadius=".5rem" boxSize="3rem" src={props.listingImageURL} />
         <HStack align="left">
           <Heading as="h1" size="md" id="heading">
             {props.listingTitle}
@@ -85,7 +81,6 @@ const ListItem = (props: ListItemProp) => {
                 </DrawerFooter>
             </DrawerContent>
         </Drawer></>
-
   );
 };
 

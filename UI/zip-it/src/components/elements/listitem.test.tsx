@@ -13,8 +13,7 @@ jest.mock('react', () => ({
 }));
 
 describe('ListItem', () => {
-  const props: ListingItemProps = {
-    listingImageURL: 'https://picsum.photos/100?random=1',
+  const props: ListItemProp = {
     listingTitle: 'Test Title',
     listingDescription: 'Test Description',
     listingPrice: 100.0,

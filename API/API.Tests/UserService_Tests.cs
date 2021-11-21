@@ -360,6 +360,164 @@ namespace Tests
 
         }
 
+        [Fact]
+        public void PasswordHashSuccess()
+        {
+            var hash = Hashbrowns.HashPassword("password");
+            Assert.True(Hashbrowns.ValidatePassword("password", hash));
+        }
+
+        [Fact]
+        public async Task AdminUserSearch_Test()
+        {
+            // Create sample user input data
+            AddUserInput input = new(
+                "firstName",
+                "lastName",
+                "street",
+                "city",
+                "###",
+                0000, 
+                "test@email.com",
+                "password");
+
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the UserService with the mocked context
+            UserService userService = new(context);
+
+            // Create a user
+            var genInput = await userService.CreateUser(input, mockedSMTPClient.Object);
+
+            // Check user exists
+            Assert.Equal(1, userService.GetAll().Count());
+
+            // check email search
+            Assert.NotEmpty(userService.AdminUserSearch(genInput.UserEmail, 0, ""));
+
+            // check id search
+            Assert.NotEmpty(userService.AdminUserSearch("1", 0, ""));
+
+            // check role search (default user role = 2)
+            Assert.NotEmpty(userService.AdminUserSearch("", 2, ""));
+
+            // check string keywords
+            Assert.NotEmpty(userService.AdminUserSearch("", 0, "test@email.com"));
+            Assert.NotEmpty(userService.AdminUserSearch("", 0, "firstName"));
+            Assert.NotEmpty(userService.AdminUserSearch("", 0, "lastName")); 
+            Assert.NotEmpty(userService.AdminUserSearch("", 0, "street"));
+            Assert.NotEmpty(userService.AdminUserSearch("", 0, "city"));
+            Assert.NotEmpty(userService.AdminUserSearch("", 0, "###"));
+
+            // check number keywords
+            Assert.NotEmpty(userService.AdminUserSearch("", 0, "0000"));
+
+            // check no fields
+            Assert.Empty(userService.AdminUserSearch("", 0, ""));
+        }
+
+        [Fact]
+        public async Task UserService_MassDeleteSuccess()
+         {
+            // Create sample users
+            AddUserInput firstInput = new(
+                "firstName",
+                "lastName",
+                "street",
+                "city",
+                "###",
+                0000, 
+                "first@email.com",
+                "password");
+            
+            AddUserInput secondInput = new(
+                "firstName",
+                "lastName",
+                "street",
+                "city",
+                "###",
+                0000, 
+                "second@email.com",
+                "password");
+
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the UserService with the mocked context
+            UserService userService = new(context);
+
+            // Create a user
+            var firstUser = await userService.CreateUser(firstInput, mockedSMTPClient.Object);
+            var secondUser = await userService.CreateUser(secondInput, mockedSMTPClient.Object);
+
+            // Check we've added the users
+            Assert.Equal(2, userService.GetAll().Count());
+
+            // create string array of user emails
+            var users = new string [] {firstUser.UserEmail, secondUser.UserEmail};
+
+            // Delete the listings
+            Assert.True(await userService.DeleteMultiUsers(users));
+        }
+
+        [Fact]
+        public async Task UserService_MassDeleteFailure()
+        {
+            // Create sample user
+            AddUserInput firstInput = new(
+                "firstName",
+                "lastName",
+                "street",
+                "city",
+                "###",
+                0000, 
+                "first@email.com",
+                "password");
+
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the UserService with the mocked context
+            UserService userService = new(context);
+
+            // Create a user
+            var firstUser = await userService.CreateUser(firstInput, mockedSMTPClient.Object);
+
+            // Check we've added the listing
+            Assert.Equal(1, userService.GetAll().Count());
+
+            // send empty array
+            var emptyUsers = Array.Empty<string>();
+
+            // Check that fail message is returned for empty
+            Assert.False(await userService.DeleteMultiUsers(emptyUsers));
+
+            // Check that fail message is returned for null
+            Assert.False(await userService.DeleteMultiUsers(null));
+
+            // send bad email
+            var badUsers = new string [] {firstInput.UserEmail, "not@matched.com"};
+
+            // Check that fail message is returned
+            Assert.False(await userService.DeleteMultiUsers(badUsers));
+        }
+
         private static IList<AddUserInput> GenerateUsers()
         {
             // Create a new instance on the fixture
@@ -369,7 +527,7 @@ namespace Tests
             return fixture.Build<List<AddUserInput>>().Create();
         }
 
-        private static AddUserInput GenerateUserInput()
+        public static AddUserInput GenerateUserInput()
         {
             // Create a new instance on the fixture
             Fixture fixture = new();
