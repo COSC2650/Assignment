@@ -1,4 +1,4 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Select, Input, Button, Image } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Select, Input, Button } from "@chakra-ui/react";
 import { Flex, Spacer } from "@chakra-ui/layout";
 import { useState } from "react";
 
@@ -11,7 +11,6 @@ export interface editListingDetails {
     listingType: string;
     listingDescription: string;
     listingCondition: string;
-    listingImageURL: string;
 }
 
 export interface editListingProps {
@@ -28,11 +27,9 @@ export interface editListingProps {
     listingType: string;
     listingDescription: string;
     listingCondition: string;
-    listingImageURL: string;
 }
 
 export function EditListing(props: editListingProps) {
-    const logo = '/images/logo_black.png'
     const [listingTitle, setListingTitle] = useState("");
     const [listingPostCode, setListingPostCode] = useState(0);
     const [listingCategory, setListingCategory] = useState("");
@@ -40,7 +37,6 @@ export function EditListing(props: editListingProps) {
     const [listingType, setListingType] = useState("");
     const [listingDescription, setListingDescription] = useState("");
     const [listingCondition, setListingCondition] = useState("");
-    const [listingImageURL, setListingImageURL] = useState("");
 
     const listingTitleOnChange = (event) => setListingTitle(event.target.value);
     const listingPostCodeOnChange = (event) => setListingPostCode(event.target.value);
@@ -49,9 +45,6 @@ export function EditListing(props: editListingProps) {
     const listingTypeOnChange = (event) => setListingType(event.target.value);
     const listingDescriptionOnChange = (event) => setListingDescription(event.target.value);
     const listingConditionOnChange = (event) => setListingCondition(event.target.value);
-    const listingImageURLOnChange = (event) => setListingImageURL(event.target.value);
-
-
 
     const onEditListing = () => {
         const editListing: editListingDetails = {
@@ -63,7 +56,6 @@ export function EditListing(props: editListingProps) {
             listingType: listingType,
             listingDescription: listingDescription,
             listingCondition: listingCondition,
-            listingImageURL: listingImageURL,
         };
 
         props.onEditListing(editListing);
@@ -100,7 +92,6 @@ export function EditListing(props: editListingProps) {
                         <option value="now">Now</option>
                         <option value="date">Date</option>
                     </Select>
-                    <Input disabled={props.disabled} onChange={listingImageURLOnChange} placeholder={props.listingImageURL} variant="filled" mb={3} id="imageurl" />
                 </ModalBody>
                 <ModalFooter>
                     <Flex width="100%">

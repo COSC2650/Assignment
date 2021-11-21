@@ -52,7 +52,7 @@ function mutation(props): DocumentNode {
     if (props.type === "editListing") {
         result = gql`
                 mutation {
-                    editListing(listingID: ${props.data.listingID}, input: { listingPostCode: ${props.data.listingPostCode}, listingTitle: "${props.data.listingTitle}", listingCategory: "${props.data.listingCategory}", listingPrice: ${props.data.listingPrice}, listingType: "${props.data.listingType}", listingDescription: "${props.data.listingDescription}", listingCondition: "${props.data.listingCondition}", listingImageURL: "${props.data.listingImageURL}" }) {
+                    editListing(listingID: ${props.data.listingID}, input: { listingPostCode: ${props.data.listingPostCode}, listingTitle: "${props.data.listingTitle}", listingCategory: "${props.data.listingCategory}", listingPrice: ${props.data.listingPrice}, listingType: "${props.data.listingType}", listingDescription: "${props.data.listingDescription}", listingCondition: "${props.data.listingCondition}"}) {
                         listingID
                     }
                 }
@@ -67,7 +67,7 @@ function mutation(props): DocumentNode {
     }else if (props.type === "newListing") {
         result = gql`
             mutation {
-                createListing(input: { userID: ${props.data.listingUserID}, listingPostCode: ${props.data.listingPostCode}, listingTitle: "${props.data.listingTitle}", listingCategory: "${props.data.listingCategory}", listingPrice: ${props.data.listingPrice}, listingType: "${props.data.listingType}",  listingDescription: "${props.data.listingDescription}", listingCondition: "${props.data.listingCondition}", listingImageURL: "${props.data.listingImageURL}",}) {
+                createListing(input: { userID: ${props.data.listingUserID}, listingPostCode: ${props.data.listingPostCode}, listingTitle: "${props.data.listingTitle}", listingCategory: "${props.data.listingCategory}", listingPrice: ${props.data.listingPrice}, listingType: "${props.data.listingType}",  listingDescription: "${props.data.listingDescription}", listingCondition: "${props.data.listingCondition}"}) {
                     listingID
                 }
             }
