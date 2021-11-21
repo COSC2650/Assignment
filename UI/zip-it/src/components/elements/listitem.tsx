@@ -67,7 +67,6 @@ const ListItem = (props: ListItemProp) => {
                 <Text>{'Availability - ' +props.listingAvailibility}</Text>
                 <Text>{'Description: ' +props.listingDescription}</Text>
                 <Text>{'Price - ' + props.listingPrice}</Text>
-                <Text>{'Quantity - ' +props.listingQuantity}</Text>
                 <Text>{'Type - ' +props.listingType}</Text>
 
                 </DrawerBody>
