@@ -61,7 +61,6 @@ const ListItem = (props: ListItemProp) => {
                 <DrawerHeader>{props.listingTitle}</DrawerHeader>
 
                 <DrawerBody>
-                <Image borderRadius="1rem" width ="80%" boxSize="12rem" src={props.listingImageURL}/>
                 <Text> {'Post Code - ' +props.listingPostCode}</Text>
                 <Text>{'Category- ' +props.listingCategory}</Text>
                 <Text>{'Condition - ' +props.listingCondition}</Text>
