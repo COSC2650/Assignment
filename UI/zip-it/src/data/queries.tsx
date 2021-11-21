@@ -57,7 +57,6 @@ const query = (props) => {
                   listingID
                   listingTitle
                   listingDescription
-                  listingImageURL
                   listingType
                   listingPostCode
                   listingPrice
@@ -84,7 +83,6 @@ const query = (props) => {
                   listingID
                   listingTitle
                   listingDescription
-                  listingImageURL
                   listingType
                   listingPostCode
                   listingPrice
@@ -104,7 +102,6 @@ const query = (props) => {
                   listingID
                   listingTitle
                   listingDescription
-                  listingImageURL
                   listingType
                   listingPostCode
                   listingPrice

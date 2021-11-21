@@ -37,7 +37,5 @@ namespace API.Models
         public string ListingCondition { get; set; }
 
         public DateTime ListingAvailability { get; set; }
-
-        public string ListingImageURL { get; set; }
     }
 }
