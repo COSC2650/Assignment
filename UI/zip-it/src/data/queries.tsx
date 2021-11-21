@@ -86,6 +86,9 @@ const query = (props) => {
                   listingType
                   listingPostCode
                   listingPrice
+                  listingAvailability
+                  listingCategory
+                  listingCondition
                 }
               }
               `,
@@ -105,6 +108,9 @@ const query = (props) => {
                   listingType
                   listingPostCode
                   listingPrice
+                  listingAvailability
+                  listingCategory
+                  listingCondition
                 }
               }
               `,
