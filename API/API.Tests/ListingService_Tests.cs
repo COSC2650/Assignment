@@ -262,7 +262,6 @@ namespace Tests
             Assert.Equal(editInput.ListingType, editedListing.ListingType);
             Assert.Equal(editInput.ListingDescription, editedListing.ListingDescription);
 			Assert.Equal(editInput.ListingCondition, editedListing.ListingCondition);
-			Assert.Equal(editInput.ListingImageURL, editedListing.ListingImageURL);
 
             // bad listingID check
             var invalidListingID = 0;
@@ -458,7 +457,6 @@ namespace Tests
             Assert.NotEmpty(listingService.AdminListingSearch("", 0, listingTest.ListingDescription));
             Assert.NotEmpty(listingService.AdminListingSearch("", 0, listingTest.ListingCategory));
             Assert.NotEmpty(listingService.AdminListingSearch("", 0, listingTest.ListingCondition));
-            Assert.NotEmpty(listingService.AdminListingSearch("", 0, listingTest.ListingImageURL));
             Assert.NotEmpty(listingService.AdminListingSearch("", 0, listingTest.ListingType));
 
             // check integer keywords
