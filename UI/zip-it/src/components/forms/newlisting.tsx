@@ -66,6 +66,16 @@ export function NewListing(props: newListingProps) {
       setFormValidationMessage("Your listing price needs to exceed $1.00");
     } else if (listingDescription.length < 3) {
       setFormValidationMessage("Description must be atleast 3 characters");
+    } else if (listingType === '') {
+      setFormValidationMessage("You must select a listing type");
+    } else if (listingType === 'product' &&listingCategory === '') {
+      setFormValidationMessage("You must select a category");
+    } else if (listingType === 'service' && listingCategory === '') {
+      setFormValidationMessage("You must select a qualification");
+    } else if (listingType === 'product' && listingCondition === '') {
+      setFormValidationMessage("You must select a condition");
+    } else if (listingType === 'service' && listingAvailability === '') {
+      setFormValidationMessage("You must select availability");
     } else { 
       setFormValidationHidden(true);
       props.onNewListing(newListingDetails);
