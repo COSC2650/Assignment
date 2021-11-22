@@ -66,11 +66,21 @@ function mutation(props): DocumentNode {
                 }
             `;
   }
-  if (props.hashmap) {
-    //create
-
-    let keys = Array.from(props.hashmap.keys());
-    console.log('delete listings mutation');
+  if (props.itemsHashmap.size > 0) {
+    //create array from hashmap
+    let keys = Array.from(props.itsmsHashmap.keys());
+    console.log('delete ietmlistings mutation');
+    console.log(keys);
+    result = gql`
+            mutation {
+                deleteMultiListings(listings:[${keys}]) 
+            }
+        `;
+  }
+  if (props.usersHashmap.size > 0) {
+    //create array from hashmap
+    let keys = Array.from(props.usersHashmap.keys());
+    console.log('delete userlistings mutation');
     console.log(keys);
     result = gql`
             mutation {

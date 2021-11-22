@@ -52,44 +52,41 @@ export function AdminListings(props: userDetails) {
   };
 
   //checked item iterator and checked item array
-  let checkboxHashmap = new Map([]);
+  let itemCheckboxHashmap = new Map([]);
+  let userCheckboxHashmap = new Map([]);
 
-  var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
+  const regexp = new RegExp(
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  );
 
   //add and remove ids from hashmap
   const checkboxOnChange = (props: ToggleProps) => {
     if (!props.toggled) {
-      console.log(props.listingID);
       if (!isNaN(props.listingID)) {
-        console.log('listing unchecked');
+        itemCheckboxHashmap.delete(props.listingID);
       }
       if (regexp.test(String(props.listingID))) {
-        console.log('email unchecked');
+        userCheckboxHashmap.delete(props.listingID);
       }
-
-      checkboxHashmap.delete(props.listingID);
     } else {
-      console.log(props.listingID);
       if (!isNaN(props.listingID)) {
-        console.log('listing checked');
+        itemCheckboxHashmap.set(props.listingID, props.listingID);
       }
       if (regexp.test(String(props.listingID))) {
-        console.log('email checked');
+        userCheckboxHashmap.set(props.listingID, props.listingID);
       }
-
-      checkboxHashmap.set(props.listingID, props.listingID);
     }
   };
 
   //stores prop in props
   let DeleteProps = {
-    hashmap: checkboxHashmap,
+    itemsHashmap: itemCheckboxHashmap,
+    usersHashmap: userCheckboxHashmap,
   };
 
   //delete multi item mutation call
   const mutateAPI = () => {
     const client = clientConnection();
-    console.log(DeleteProps);
     client
       .mutate({ mutation: mutation(DeleteProps) })
       .then((result) => {
