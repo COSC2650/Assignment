@@ -54,26 +54,42 @@ export function AdminListings(props: userDetails) {
   //checked item iterator and checked item array
   let checkboxHashmap = new Map([]);
 
-  
+  var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
 
   //add and remove ids from hashmap
   const checkboxOnChange = (props: ToggleProps) => {
     if (!props.toggled) {
+      console.log(props.listingID);
+      if (!isNaN(props.listingID)) {
+        console.log('listing unchecked');
+      }
+      if (regexp.test(String(props.listingID))) {
+        console.log('email unchecked');
+      }
+
       checkboxHashmap.delete(props.listingID);
     } else {
+      console.log(props.listingID);
+      if (!isNaN(props.listingID)) {
+        console.log('listing checked');
+      }
+      if (regexp.test(String(props.listingID))) {
+        console.log('email checked');
+      }
+
       checkboxHashmap.set(props.listingID, props.listingID);
     }
   };
 
-  
+  //stores prop in props
+  let DeleteProps = {
+    hashmap: checkboxHashmap,
+  };
 
-let DeleteProps ={
-    hashmap:checkboxHashmap
-  }
-
+  //delete multi item mutation call
   const mutateAPI = () => {
     const client = clientConnection();
-    console.log(DeleteProps)
+    console.log(DeleteProps);
     client
       .mutate({ mutation: mutation(DeleteProps) })
       .then((result) => {

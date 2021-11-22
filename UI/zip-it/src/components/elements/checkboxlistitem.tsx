@@ -1,7 +1,8 @@
-import { Heading, Text, HStack, Checkbox } from '@chakra-ui/react';
+import { Image, Heading, Text, HStack, Checkbox } from '@chakra-ui/react';
 
 //listItem properties
 export interface ListItemProp {
+  listingImageURL: string;
   listingID: string;
   listingPostCode: number;
   listingTitle: string;
@@ -32,7 +33,6 @@ export interface ToggleProps {
 }
 //list item fragment
 const ListItem = (props: ListItemProp) => {
-
   //adds target value and checked status to toggle props
   const checkboxOnChange = (e) => {
     const toggleProps: ToggleProps = {
@@ -44,15 +44,18 @@ const ListItem = (props: ListItemProp) => {
     props.checkBoxToggle(toggleProps);
   };
 
-
   if (props.listingID && !props.userID) {
     return (
       <HStack align="flex-start" width="100%" alignItems="center">
-
         <Checkbox
           value={props.listingID}
           onChange={(e) => checkboxOnChange(e)}
         ></Checkbox>
+        <Image
+          borderRadius=".5rem"
+          boxSize="3rem"
+          src={props.listingImageURL}
+        />
         <HStack align="left">
           <Heading as="h1" size="md" id="heading">
             {props.listingTitle}
@@ -72,7 +75,7 @@ const ListItem = (props: ListItemProp) => {
       <HStack align="flex-start" width="100%" alignItems="center">
         <Checkbox
           marginTop="auto"
-          value={props.userID}
+          value={props.userEmail}
           onChange={(e) => checkboxOnChange(e)}
         ></Checkbox>
         <HStack align="left">
@@ -99,6 +102,11 @@ const ListItem = (props: ListItemProp) => {
           value={props.listingID}
           onChange={(e) => checkboxOnChange(e)}
         ></Checkbox>
+        <Image
+          borderRadius=".5rem"
+          boxSize="3rem"
+          src={props.listingImageURL}
+        />
         <HStack align="left">
           <Heading as="h1" size="md" id="heading">
             {props.listingTitle}
