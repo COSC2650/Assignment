@@ -28,7 +28,6 @@ namespace API.Services
             listing.ListingTitle = input.ListingTitle;
             listing.ListingPrice = (decimal)input.ListingPrice;
             listing.ListingPostCode = input.ListingPostCode;
-            listing.ListingImageURL = input.ListingImageURL;
             listing.ListingDescription = input.ListingDescription;
             listing.ListingDate = System.DateTime.UtcNow;
             listing.ListingCategory = input.ListingCategory;
@@ -213,9 +212,6 @@ namespace API.Services
             if (input.ListingCondition.Length != 0)
                 editListing.ListingCondition = input.ListingCondition;
 
-            if (input.ListingImageURL.Length != 0)
-                editListing.ListingImageURL = input.ListingImageURL;
-
             if (input.ListingPostCode != 0 && input.ListingPostCode > lowestPostCode)
                 editListing.ListingPostCode = input.ListingPostCode;
 
@@ -314,7 +310,6 @@ namespace API.Services
                 var categoryMatch = _context.Listings.Where(x => x.ListingCategory.Contains(keyword)).ToList();
                 var typeMatch = _context.Listings.Where(x => x.ListingType.Contains(keyword)).ToList();
                 var conditionMatch = _context.Listings.Where(x => x.ListingCondition.Contains(keyword)).ToList();
-                var imageMatch = _context.Listings.Where(x => x.ListingImageURL.Contains(keyword)).ToList();
                 
                 List<Listing> searchResults = new List<Listing> {};
 
@@ -325,7 +320,6 @@ namespace API.Services
                 categoryMatch.ForEach(x => searchResults.Add(x));
                 typeMatch.ForEach(x => searchResults.Add(x));
                 conditionMatch.ForEach(x => searchResults.Add(x));
-                imageMatch.ForEach(x => searchResults.Add(x));
                 
                 return searchResults;
 
@@ -349,20 +343,27 @@ namespace API.Services
         }
 
         public async Task<bool> DeleteMultiListings(int[] listings)
-        {               
-            var response = false;
+        {             
+            if (listings is null || listings.Length == 0)
+                return false;
 
-            if (listings is not null)
+            var listPassed = 0;
+
+            foreach(int listID in listings)
             {
-                foreach(int listID in listings)
+                var result = _context.Listings.Any(x => x.ListingID == listID);
+                if(result)
                 {
-                    var listing = _context.Listings.FirstOrDefault(x => x.ListingID == listID);
-                    _context.Listings.Remove(listing);
+                    listPassed++;
+                    _context.Listings.Remove(_context.Listings.FirstOrDefault(x => x.ListingID == listID));
                     await _context.SaveChangesAsync();
                 }
-                response = true;
             }
-            return response;
+
+            if (listings.Length == listPassed)
+                return true;
+
+            return false;
         }
     }
 }

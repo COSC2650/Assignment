@@ -15,7 +15,6 @@ export interface newListingDetails {
   listingAvailability: string;
   listingPrice: number;
   listingDescription: string;
-  listingImageURL: string;
 }
 
 export interface newListingProps {
@@ -36,14 +35,12 @@ export function NewListing(props: newListingProps) {
   const [listingType, setType] = useState('')
   const [listingDescription, setDescription] = useState('')
   const [listingAvailability] = useState('')
-  const [listingImageURL, setImage] = useState('')
   const [listingCondition] = useState('')
 
   const titleOnChange = (event) => setTitle(event.target.value)
   const priceOnChange = (event) => setPrice(event.target.value)
   const typeOnChange = (event) => setType(event.target.value)
   const descriptionOnChange = (event) => setDescription(event.target.value)
-  const imageOnChange = (event) => setImage(event.target.value)
   const onNewListing = () => {
     const newListingDetails: newListingDetails = {
       listingUserID: props.listingUserID,
@@ -54,7 +51,6 @@ export function NewListing(props: newListingProps) {
       listingType: listingType,
       listingDescription: listingDescription,
       listingAvailability: listingAvailability,
-      listingImageURL: listingImageURL,
       listingCondition: listingCondition,
     };
 
@@ -184,8 +180,6 @@ export function NewListing(props: newListingProps) {
               <Input onChange={descriptionOnChange} placeholder="Create a listing description here" variant="filled" mb={3} type="description" id="description" />
               Listing Condition:
               <CategoryAvailability />
-              Image:
-              <Input onChange={imageOnChange} placeholder="Place an image URL here" variant="filled" mb={3} type="imageurl" id="imageurl" />
             </ModalBody>
 
             <ModalFooter>

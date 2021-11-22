@@ -78,6 +78,8 @@ export function UserListings(props: userDetails) {
           <ListingsFragment />
         </VStack>
       </Stack>
+
+      
     </>
   );
 }

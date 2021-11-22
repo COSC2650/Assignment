@@ -1,4 +1,4 @@
-import ListItem, { ListItemProp } from './listitem';
+import ListItem, { ListingItemProps } from './listitem';
 import { configure, render } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { describe, expect } from '@jest/globals';
@@ -14,7 +14,6 @@ jest.mock('react', () => ({
 
 describe('ListItem', () => {
   const props: ListItemProp = {
-    listingImageURL: 'https://picsum.photos/100?random=1',
     listingTitle: 'Test Title',
     listingDescription: 'Test Description',
     listingPrice: 100.0,

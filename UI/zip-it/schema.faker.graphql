@@ -35,17 +35,6 @@ type Listing {
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
       ] 
     )
-  listingImageURL: String
-    @examples(
-      values: [
-        "https://picsum.photos/100?random=1"
-        "https://picsum.photos/100?random=2"
-        "https://picsum.photos/100?random=3"
-        "https://picsum.photos/100?random=4"
-        "https://picsum.photos/100?random=5"
-        "https://picsum.photos/100?random=6"
-      ]
-    )
 }
 
 type ConfirmCode {
@@ -71,7 +60,7 @@ type Mutation {
   editUser(userID: number, input: { userFirstName:String, userLastName:String, userStreet:String, userCity:String, userPostCode:Int }):User
   confirmUser(userEmail: string, confirmationCode: number):User
   #TODO:setUserPassword(email:String, password:String, oldPassword:String):User
-  createListing(input: { userID: String, listingID: String, listingPostCode: String, listingType: String, listingTitle: String, listingCategory: String, listingCondition: String, listingAvailibility: String, listingPrice: String, listingDescription: String, listingImageURL: String }):Listing
-  editListing(input: { userID: String, listingID: String, listingPostCode: String, listingType: String, listingTitle: String, listingCategory: String, listingCondition: String, listingAvailibility: String, listingPrice: String, listingDescription: String, listingImageURL: String }):Listing
-  deleteMultiListings(input: [DeleteListings!] ):[DeleteListings]
+  createListing(input: { userID: String, listingID: String, listingPostCode: String, listingType: String, listingTitle: String, listingCategory: String, listingCondition: String, listingAvailibility: String, listingPrice: String, listingDescription: String }):Listing
+  editListing(input: { userID: String, listingID: String, listingPostCode: String, listingType: String, listingTitle: String, listingCategory: String, listingCondition: String, listingAvailibility: String, listingPrice: String, listingDescription: String }):Listing
+  deleteMultiListings(listings: [Int!]) Boolean!
 }

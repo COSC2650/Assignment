@@ -57,7 +57,6 @@ const query = (props) => {
                   listingID
                   listingTitle
                   listingDescription
-                  listingImageURL
                   listingType
                   listingPostCode
                   listingPrice
@@ -84,10 +83,12 @@ const query = (props) => {
                   listingID
                   listingTitle
                   listingDescription
-                  listingImageURL
                   listingType
                   listingPostCode
                   listingPrice
+                  listingAvailability
+                  listingCategory
+                  listingCondition
                 }
               }
               `,
@@ -104,10 +105,12 @@ const query = (props) => {
                   listingID
                   listingTitle
                   listingDescription
-                  listingImageURL
                   listingType
                   listingPostCode
                   listingPrice
+                  listingAvailability
+                  listingCategory
+                  listingCondition
                 }
               }
               `,

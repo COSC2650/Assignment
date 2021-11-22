@@ -1,8 +1,7 @@
-import { Image, Heading, Text, HStack, Checkbox } from '@chakra-ui/react';
+import { Heading, Text, HStack, Checkbox } from '@chakra-ui/react';
 
 //listItem properties
 export interface ListItemProp {
-  listingImageURL: string;
   listingID: string;
   listingPostCode: number;
   listingTitle: string;
@@ -54,11 +53,6 @@ const ListItem = (props: ListItemProp) => {
           value={props.listingID}
           onChange={(e) => checkboxOnChange(e)}
         ></Checkbox>
-        <Image
-          borderRadius=".5rem"
-          boxSize="3rem"
-          src={props.listingImageURL}
-        />
         <HStack align="left">
           <Heading as="h1" size="md" id="heading">
             {props.listingTitle}
@@ -105,11 +99,6 @@ const ListItem = (props: ListItemProp) => {
           value={props.listingID}
           onChange={(e) => checkboxOnChange(e)}
         ></Checkbox>
-        <Image
-          borderRadius=".5rem"
-          boxSize="3rem"
-          src={props.listingImageURL}
-        />
         <HStack align="left">
           <Heading as="h1" size="md" id="heading">
             {props.listingTitle}
