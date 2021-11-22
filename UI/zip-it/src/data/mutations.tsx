@@ -68,7 +68,7 @@ function mutation(props): DocumentNode {
   }
   if (props.itemsHashmap.size > 0) {
     //create array from hashmap
-    let keys = Array.from(props.itsmsHashmap.keys());
+    let keys = Array.from(props.itemsHashmap.keys());
     console.log('delete ietmlistings mutation');
     console.log(keys);
     result = gql`
