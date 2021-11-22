@@ -15,8 +15,8 @@ interface userDetails {
 }
 
 export function AdminListings(props: userDetails) {
-  let [listings, setListings] = useState([]);
-  let [userlistings, setUserListings] = useState([]);
+  let [itemListings, setItemListings] = useState([]);
+  let [userListings, setUserListings] = useState([]);
   const toast = useToast();
 
   var SearchDetails = {
@@ -31,16 +31,16 @@ export function AdminListings(props: userDetails) {
       .query(query(props))
       .then((result) => {
         if (result.data.listingsByFilter) {
-          setListings(result.data.listingsByFilter);
+          setItemListings(result.data.listingsByFilter);
           setUserListings([]);
         }
         if (result.data.adminListingSearch) {
-          setListings(result.data.adminListingSearch);
+          setItemListings(result.data.adminListingSearch);
           setUserListings([]);
         }
         if (result.data.adminUserSearch) {
           setUserListings(result.data.adminUserSearch);
-          setListings([]);
+          setItemListings([]);
         }
       })
       .catch((result) => {
@@ -109,7 +109,7 @@ export function AdminListings(props: userDetails) {
             position: 'top',
           });
         }
-        queryAPI(SearchDetails);
+        
       })
       .catch((result) => {
         console.log('Apollo/GraphQL failure - Zip-It');
@@ -120,11 +120,12 @@ export function AdminListings(props: userDetails) {
   };
 
   function ListingsFragment() {
+    if (itemListings.length>0 || userListings.length > 0){
     return (
       <>
-        {userlistings && (
+        {userListings && (
           <>
-            {userlistings.map((user: ListItemProp) => (
+            {userListings.map((user: ListItemProp) => (
               <ListItem
                 key={user.userID}
                 {...user}
@@ -133,9 +134,9 @@ export function AdminListings(props: userDetails) {
             ))}
           </>
         )}
-        {listings && (
+        {itemListings && (
           <>
-            {listings.map((listing: ListItemProp) => (
+            {itemListings.map((listing: ListItemProp) => (
               <ListItem
                 key={listing.listingID}
                 {...listing}
@@ -145,7 +146,9 @@ export function AdminListings(props: userDetails) {
           </>
         )}
       </>
-    );
+    );}else{
+      return null
+    }
   }
 
   useEffect(() => {
