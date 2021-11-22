@@ -84,7 +84,7 @@ function mutation(props): DocumentNode {
     console.log(keys);
     result = gql`
             mutation {
-                deleteMultiUsers(users:[${keys}]) 
+                deleteMultiUsers(users:["${keys}"]) 
             }
         `;
   } else if (props.type === 'newListing') {
