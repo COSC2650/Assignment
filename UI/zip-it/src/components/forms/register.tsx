@@ -108,7 +108,7 @@ export function Register(props: RegisterProps) {
                         <option value="ACT">ACT</option>
                         <option value="NSW">NSW</option>
                         <option value="NT">NT</option>
-                        <option value="WA">QLD</option>
+                        <option value="QLD">QLD</option>
                         <option value="SA">SA</option>
                         <option value="TAS">TAS</option>
                         <option value="VIC">VIC</option>

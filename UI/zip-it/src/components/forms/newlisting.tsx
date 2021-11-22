@@ -60,15 +60,24 @@ export function NewListing(props: newListingProps) {
 
     setFormValidationHidden(false);
 
-    if (listingTitle === "") {
-      setFormValidationMessage("Your listing title is empty");
-    } else if (listingPrice === null) {
-      setFormValidationMessage("Your listing price is empty");
-    } else if (listingDescription === "") {
-      setFormValidationMessage("Your description is empty");
-    } else {
+    if (listingTitle.length < 3) {
+      setFormValidationMessage("Title must be atleast 3 characters");
+    } else if (listingPrice < 1) {
+      setFormValidationMessage("Your listing price needs to exceed $1.00");
+    } else if (listingDescription.length < 3) {
+      setFormValidationMessage("Description must be atleast 3 characters");
+    } else { 
       setFormValidationHidden(true);
       props.onNewListing(newListingDetails);
+      
+      // resets props for next listing
+      setTitle('');
+      setCategory('');
+      setPrice(0);
+      setType('');
+      setDescription('');
+      setAvailabilty('');
+      setCondition('');
     }
   };
 
@@ -93,7 +102,7 @@ export function NewListing(props: newListingProps) {
                 <option value="service">Service</option>
               </Select>
               Price:
-              $<Input onChange={priceOnChange} placeholder="Create a listing price here" variant="filled" mb={3} type="price" id="price" />
+              $<Input onChange={priceOnChange} placeholder="Create a listing price here" variant="filled" mb={3} type="number" id="price" />
               Description:
               <Input onChange={descriptionOnChange} placeholder="Create a listing description here" variant="filled" mb={3} type="description" id="description" />
               {listingType === "product" && (
