@@ -33,7 +33,7 @@ export function AdminSearch(props: SearchPannelProps) {
   const adminOnChange = (event) => setAdminSelection(event.target.value);
   const postcodeOnChange = (event) => {
     setUserEmailSelection('emailIDSelection');
-    setListingIDSelection(1);
+    setListingIDSelection(0);
     setCurrentUserPostCode(event.target.value);
   };
   const userEmailOnChange = (event) => {
@@ -52,6 +52,11 @@ export function AdminSearch(props: SearchPannelProps) {
       setCurrentUserPostCode(3.2);
     }
   };
+  function clearSelections() {
+    setUserEmailSelection('emailIDSelection');
+    setListingIDSelection(0);
+    setCurrentUserPostCode(0);
+  }
 
   const onSearch = (postcode?: number, emailselection?: string) => {
     //sets search setails
@@ -71,7 +76,11 @@ export function AdminSearch(props: SearchPannelProps) {
       props.onAdminSearchInterface(SearchDetails);
     }
   };
-
+  const onDelete = () => {
+    props.onAdminDeleteItemsInterface();
+    clearSelections();
+    onSearch();
+  };
   //used to overcome async state change
   React.useEffect(() => {
     onSearch();
@@ -103,10 +112,7 @@ export function AdminSearch(props: SearchPannelProps) {
           <Button leftIcon={<Icon as={FaSearch} />} onClick={() => onSearch()}>
             Search
           </Button>
-          <Button
-            leftIcon={<Icon as={FaTrashAlt} />}
-            onClick={props.onAdminDeleteItemsInterface}
-          >
+          <Button leftIcon={<Icon as={FaTrashAlt} />} onClick={onDelete}>
             Delete Items
           </Button>
         </>
@@ -126,10 +132,7 @@ export function AdminSearch(props: SearchPannelProps) {
           >
             Search
           </Button>
-          <Button
-            leftIcon={<Icon as={FaTrashAlt} />}
-            onClick={props.onAdminDeleteItemsInterface}
-          >
+          <Button leftIcon={<Icon as={FaTrashAlt} />} onClick={onDelete}>
             Delete Items
           </Button>
         </>
