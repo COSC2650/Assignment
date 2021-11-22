@@ -31,6 +31,7 @@ export interface ToggleProps {
   listingID: number;
   toggled: boolean;
 }
+
 //list item fragment
 const ListItem = (props: ListItemProp) => {
   //adds target value and checked status to toggle props
@@ -39,7 +40,6 @@ const ListItem = (props: ListItemProp) => {
       listingID: e.target.value,
       toggled: e.target.checked,
     };
-
     //passing props in to checkbox toggle function
     props.checkBoxToggle(toggleProps);
   };

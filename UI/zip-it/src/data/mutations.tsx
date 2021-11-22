@@ -69,25 +69,22 @@ function mutation(props): DocumentNode {
   if (props.itemsHashmap.size > 0) {
     //create array from hashmap
     let keys = Array.from(props.itemsHashmap.keys());
-    console.log('delete ietmlistings mutation');
-    console.log(keys);
     result = gql`
             mutation {
-                deleteMultiListings(listings:[${keys}]) 
+                deleteMultiListings(listings:${keys}) 
             }
         `;
   }
   if (props.usersHashmap.size > 0) {
     //create array from hashmap
     let keys = Array.from(props.usersHashmap.keys());
-    console.log('delete userlistings mutation');
-    console.log(keys);
     result = gql`
             mutation {
-                deleteMultiUsers(users:["${keys}"]) 
+                deleteMultiUsers(users:"${keys}") 
             }
         `;
-  } else if (props.type === 'newListing') {
+  }
+  if (props.type === 'newListing') {
     result = gql`
             mutation {
                 createListing(input: { userID: ${props.data.listingUserID}, listingPostCode: ${props.data.listingPostCode}, listingTitle: "${props.data.listingTitle}", listingCategory: "${props.data.listingCategory}", listingPrice: ${props.data.listingPrice}, listingType: "${props.data.listingType}",  listingDescription: "${props.data.listingDescription}", listingCondition: "${props.data.listingCondition}"}) {

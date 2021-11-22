@@ -14,23 +14,25 @@ export interface SearchDetails {
 //interface to caller
 export interface SearchPannelProps {
   onAdminSearchInterface(props: SearchDetails): void;
-  onAdminDeleteItemsInterface(): void;
-  userPostCode: number;
+  onAdminDeleteListingsInterface(): void;
 }
 
 export function AdminSearch(props: SearchPannelProps) {
   //defines Search Type and creates setter
   let [listingType, setType] = useState('');
   let [listingCategory, setCategory] = useState('');
-  let [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3.1);
+  let [currentUserPostCode, setCurrentUserPostCode] = useState<number>(0);
   let [adminselection, setAdminSelection] = useState('');
   let [emailIDSelection, setUserEmailSelection] = useState('emailIDSelection');
   let [listingIDSelection, setListingIDSelection] = useState(0);
+  const emailRegex = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
 
-  //dropdown onchange
+
+  //clears conflicting search parameters
   const typeOnChange = (event) => setType(event.target.value);
   const categoryOnChange = (event) => setCategory(event.target.value);
   const adminOnChange = (event) => setAdminSelection(event.target.value);
+  
   const postcodeOnChange = (event) => {
     setUserEmailSelection('emailIDSelection');
     setListingIDSelection(0);
@@ -38,27 +40,24 @@ export function AdminSearch(props: SearchPannelProps) {
   };
   const userEmailOnChange = (event) => {
     setUserEmailSelection(event.target.value);
-    setListingIDSelection(2);
-    setCurrentUserPostCode(3.2);
+    setListingIDSelection(0);
+    setCurrentUserPostCode(0);
   };
   const listingIDOnChange = (event) => {
     if (isNaN(event.target.value) || event.target.value === undefined) {
       setListingIDSelection(0);
       setUserEmailSelection('emailIDSelection');
-      setCurrentUserPostCode(3.2);
+      setCurrentUserPostCode(0);
     } else {
       setListingIDSelection(event.target.value);
       setUserEmailSelection('emailIDSelection');
-      setCurrentUserPostCode(3.2);
+      setCurrentUserPostCode(0);
     }
   };
-  function clearSelections() {
-    setUserEmailSelection('emailIDSelection');
-    setListingIDSelection(0);
-    setCurrentUserPostCode(0);
-  }
-
-  const onSearch = (postcode?: number, emailselection?: string) => {
+  
+  //admin search function
+  const onSearch = (postcode?: number) => {
+    
     //sets search setails
     const SearchDetails: SearchDetails = {
       listingIDSelection: listingIDSelection,
@@ -68,24 +67,16 @@ export function AdminSearch(props: SearchPannelProps) {
       listingCategory: listingCategory,
     };
 
-    // Email regex
-    var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
-
     //sets details in interface
-    if (!regexp.test('{listingPostCode}') && !regexp.test('{emailSelection}')) {
+    if (!emailRegex.test('{listingPostCode}') && !emailRegex.test('{emailSelection}')) {
       props.onAdminSearchInterface(SearchDetails);
     }
   };
-  const onDelete = () => {
-    props.onAdminDeleteItemsInterface();
-    clearSelections();
-    onSearch();
+
+  //onMultiDelete
+  const onMultiDelete = () => {
+    props.onAdminDeleteListingsInterface();
   };
-  //used to overcome async state change
-  React.useEffect(() => {
-    onSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.userPostCode]);
 
   //search menu component
   return (
@@ -112,7 +103,7 @@ export function AdminSearch(props: SearchPannelProps) {
           <Button leftIcon={<Icon as={FaSearch} />} onClick={() => onSearch()}>
             Search
           </Button>
-          <Button leftIcon={<Icon as={FaTrashAlt} />} onClick={onDelete}>
+          <Button leftIcon={<Icon as={FaTrashAlt} />} onClick={onMultiDelete}>
             Delete Items
           </Button>
         </>
@@ -128,11 +119,11 @@ export function AdminSearch(props: SearchPannelProps) {
           />
           <Button
             leftIcon={<Icon as={FaSearch} />}
-            onClick={() => onSearch(currentUserPostCode)}
+            onClick={() => onSearch()}
           >
             Search
           </Button>
-          <Button leftIcon={<Icon as={FaTrashAlt} />} onClick={onDelete}>
+          <Button leftIcon={<Icon as={FaTrashAlt} />} onClick={onMultiDelete}>
             Delete Items
           </Button>
         </>
