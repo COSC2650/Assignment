@@ -72,132 +72,6 @@ export function NewListing(props: newListingProps) {
     }
   };
 
-  function CategorySelection() {
-    if (listingType === "product") {
-      return (
-        <>
-          Category:
-          <Select 
-            onChange = {categoryOnChange}
-            placeholder="Choose A Category"
-            type="category"
-            id="category"
-            mb={3}
-          >
-            <option value="cat1">Category 1</option>
-            <option value="cat2">Category 2</option>
-            <option value="cat3">Category 3</option>
-            <option value="cat4">Category 4</option>
-          </Select>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <Input
-            value=""
-            id="category"
-            hidden
-          ></Input>
-        </>
-      );
-    }
-  }
-
-  function ConditionSelection() {
-    if (listingType === "product") {
-      return (
-        <>
-          Condition:
-          <Select 
-            onChange = {conditionOnChange}
-            placeholder="Item Condition"
-            type="condition"
-            id="condition"
-            mb={3}
-          >
-            <option value="Brand New">Brand New</option>
-            <option value="Great Condition">Great Condition</option>
-            <option value="Moderate Condition">Moderate Condition</option>
-            <option value="Poor Condition">Poor Condition</option>
-            <option value="Needs Repair">Needs Repair</option>
-          </Select>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <Input
-            value=""
-            id="condition"
-            hidden
-          ></Input>
-        </>
-      );
-    }
-  }
-    
-  function QualificationSelection() {
-    if (listingType === "service") {
-      return (
-        <>
-          Qualifications:
-          <Select
-            onChange = {categoryOnChange} 
-            placeholder="Servicer Qualification"
-            type="qualification"
-            id="qualification"
-            mb={3}
-          >
-            <option value="Qualified">Qualified</option>
-            <option value="Qualified and Certified">Qualified and Certified</option>
-            <option value="Unqualified and Uncertified">Unqualified and Uncertified</option>
-          </Select>
-        </>
-      );
-      } else {
-        return (
-          <>
-            <Input
-              value=""
-              id="qualification"
-              hidden
-            ></Input>
-          </>
-        );
-      }
-    }
-
-    function AvailabilitySelection() {
-      if (listingType === "service") {
-        return (
-          <>
-            Service Availability:
-            <Select
-              onChange = {availabilityOnChange} 
-              placeholder="Job Availibility" 
-              type="availibility"
-              id="availibility"
-              mb={3}
-            >
-              <option value="option1">Now</option>
-              <option value="option2">Date</option>
-            </Select>
-          </>
-        );
-      } else {
-        return (
-          <>
-            <Input
-              value=""
-              id="availibility"
-              hidden
-            ></Input>
-          </>
-        );
-      }
-    }
-
     return (
       <FormControl>
         <Modal isOpen={props.visible} onClose={props.onClose} id="newListing">
@@ -214,7 +88,7 @@ export function NewListing(props: newListingProps) {
               <Input onChange={titleOnChange} placeholder="Create a title for your listing here" variant="filled" mb={3} type="title" id="title" />
               Type:
               <Select
-                placeholder="Products or Services" type="type" id="type" onChange={typeOnChange} mb={3}>
+                placeholder="Products or Services" id="listingtype" onChange={typeOnChange} mb={3}>
                 <option value="product">Product</option>
                 <option value="service">Service</option>
               </Select>
@@ -222,10 +96,60 @@ export function NewListing(props: newListingProps) {
               $<Input onChange={priceOnChange} placeholder="Create a listing price here" variant="filled" mb={3} type="price" id="price" />
               Description:
               <Input onChange={descriptionOnChange} placeholder="Create a listing description here" variant="filled" mb={3} type="description" id="description" />
-              <CategorySelection />
-              <ConditionSelection />
-              <QualificationSelection />
-              <AvailabilitySelection />
+              {listingType === "product" && (
+                <>
+                  Category:
+                  <Select 
+                    onChange = {categoryOnChange}
+                    placeholder="Choose A Category"
+                    id="category"
+                    mb={3}
+                  >
+                    <option value="cat1">Category 1</option>
+                    <option value="cat2">Category 2</option>
+                    <option value="cat3">Category 3</option>
+                    <option value="cat4">Category 4</option>
+                  </Select>
+                  Condition:
+                  <Select 
+                    onChange = {conditionOnChange}
+                    placeholder="Item Condition"
+                    id="condition"
+                    mb={3}
+                  >
+                    <option value="Brand New">Brand New</option>
+                    <option value="Great Condition">Great Condition</option>
+                    <option value="Moderate Condition">Moderate Condition</option>
+                    <option value="Poor Condition">Poor Condition</option>
+                    <option value="Needs Repair">Needs Repair</option>
+                  </Select>
+                </>
+              )}
+              {listingType === "service" && (
+                <>
+                  Qualifications:
+                  <Select
+                    onChange = {categoryOnChange} 
+                    placeholder="Servicer Qualification"
+                    id="qualification"
+                    mb={3}
+                  >
+                    <option value="Qualified">Qualified</option>
+                    <option value="Qualified and Certified">Qualified and Certified</option>
+                    <option value="Unqualified and Uncertified">Unqualified and Uncertified</option>
+                  </Select>
+                  Service Availability:
+                  <Select
+                    onChange = {availabilityOnChange} 
+                    placeholder="Job Availibility" 
+                    id="availibility"
+                    mb={3}
+                  >
+                    <option value="option1">Now</option>
+                    <option value="option2">Date</option>
+                  </Select>
+                </>
+              )}
             </ModalBody>
 
             <ModalFooter>
