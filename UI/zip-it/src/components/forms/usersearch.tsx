@@ -1,12 +1,4 @@
-import {
-  Input,
-  Select,
-  Stack,
-  Button,
-  Icon,
-  HStack,
-  Heading,
-} from '@chakra-ui/react';
+import { Input, Select, Stack, Button, Icon, HStack } from '@chakra-ui/react';
 import { FaSearch } from 'react-icons/fa';
 import React, { useState } from 'react';
 
@@ -15,6 +7,7 @@ export interface SearchDetails {
   listingPostCode?: number;
   listingType: string;
   listingCategory: string;
+  listingQuality: string;
   listingMinPrice: number;
   listingMaxPrice: number;
   listingKeyword: string;
@@ -30,6 +23,7 @@ export function Search(props: UserSearchProps) {
   //defines Search Type and creates setter
   const [listingType, setType] = useState('');
   const [listingCategory, setCategory] = useState('');
+  const [listingQuality, setQuality] = useState('');
   const [currentUserPostCode, setCurrentUserPostCode] = useState<number>(0);
   const [keyword, setKeyword] = useState('');
   const [maxPrice, setMaxPrice] = useState(0);
@@ -60,6 +54,7 @@ export function Search(props: UserSearchProps) {
   //dropdown onchange
   const typeOnChange = (event) => setType(event.target.value);
   const categoryOnChange = (event) => setCategory(event.target.value);
+  const qualityOnChange = (event) => setQuality(event.target.value);
   const minPriceOnChange = (event) => setMinPrice(event.target.value);
   const maxPriceOnChange = (event) => setMaxPrice(event.target.value);
   const keywordOnChange = (event) => setKeyword(event.target.value);
@@ -70,6 +65,7 @@ export function Search(props: UserSearchProps) {
       listingPostCode: postcodeOnChange(postcode),
       listingType: listingType,
       listingCategory: listingCategory,
+      listingQuality: listingQuality,
       listingMinPrice: minPrice,
       listingMaxPrice: maxPrice,
       listingKeyword: keyword,
@@ -114,9 +110,9 @@ export function Search(props: UserSearchProps) {
       {listingType === 'product' && (
         <>
           <Select
-            placeholder="Product Category"
+            placeholder="Category"
             type="dropdownselect"
-            id="productategoryselect"
+            id="productcategoryselect"
             onChange={categoryOnChange}
           >
             <option value="clothes">Clothes</option>
@@ -129,6 +125,7 @@ export function Search(props: UserSearchProps) {
               placeholder="Condition"
               type="dropdownselect"
               id="conditionselect"
+              onChange={qualityOnChange}
             >
               <option value="good">Good Condition</option>
               <option value="wellused">Well used</option>
@@ -140,25 +137,28 @@ export function Search(props: UserSearchProps) {
       )}
       {listingType === 'service' && (
         <>
+          {' '}
+          <Select
+            placeholder="Category"
+            type="dropdownselect"
+            id="servicecategoryselect"
+            onChange={categoryOnChange}
+          >
+            <option value="clothes">Plumbing</option>
+            <option value="mechanical">Mechanical</option>
+            <option value="carpentry">Carpentry</option>
+            <option value="fabrication">Fabrication</option>
+          </Select>
           <Select
             placeholder="Qualification"
             type="dropdownselect"
             id="qualificationcategoryselect"
-            onChange={categoryOnChange}
+            onChange={qualityOnChange}
           >
             <option value="qualandcert">Qualified and Certified</option>
             <option value="qualified">Qualified</option>
             <option value="unqualcert">Unqualified and Uncertified</option>
           </Select>
-        </>
-      )}
-      {listingType === '' && (
-        <>
-          <Select
-            placeholder="Availability"
-            type="dropdownselect"
-            id="generalavailability"
-          ></Select>
         </>
       )}
       <Input

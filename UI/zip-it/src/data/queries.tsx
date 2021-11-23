@@ -66,11 +66,7 @@ const query = (props) => {
               `,
     };
   }
-  if (
-    (props.listingKeyword !== undefined && props.listingKeyword !== '') ||
-    (props.listingMinPrice !== undefined && props.listingMinPrice !== '')||
-    (props.listingMaxPrice !== undefined && props.listingMaxPrice !== '')
-  ) {
+  if (props.listingType !== 'product' && props.listingType !== 'service') {
     console.log('new user search');
 
     //fetches listings according to passed params
@@ -103,9 +99,10 @@ const query = (props) => {
     //               props.listingPostCode === undefined
     //                 ? 0
     //                 : props.listingPostCode
-    //             },listingKeyword:"${props.listingKeyword}",listingPrice:"${
-    //     props.listingPrice
-    //   }") {
+    //             },listingKeyword:"${props.listingKeyword}",listingMinPrice:${
+    //     props.listingMinPrice
+    //   },listingMaxPrice:${props.listingMaxPrice}
+    //   ) {
     //               listingID
     //               listingTitle
     //               listingDescription
@@ -119,14 +116,14 @@ const query = (props) => {
     //           }
     //           `,
     // };
-
   }
   if (props.listingType !== undefined && props.listingType === 'service') {
     console.log('service');
+
     return {
       query: gql`
               {
-                serviceByFilter(listingPostCode:${
+                listingsByFilter(listingPostCode:${
                   props.listingPostCode < 800 ? 0 : props.listingPostCode
                 },listingType:"${props.listingType}",listingCategory:"${
         props.listingCategory
@@ -144,13 +141,97 @@ const query = (props) => {
               }
               `,
     };
+
+    // return {
+    //   query: gql`
+    //           {
+    //             serviceByFilter(listingPostCode:${
+    //               props.listingPostCode === undefined
+    //                 ? 0
+    //                 : props.listingPostCode
+    //             },listingKeyword:"${props.listingKeyword}",listingMinPrice:${
+    //     props.listingMinPrice
+    //   },listingMaxPrice:${
+    //     props.listingMaxPrice
+    //   },listingQuality:"${props.listingQuality}", listingCagegory:"${
+    //     props.listingCategory
+    //   }"
+    //   ) {
+    //               listingID
+    //               listingTitle
+    //               listingDescription
+    //               listingType
+    //               listingPostCode
+    //               listingPrice
+    //               listingAvailability
+    //               listingCategory
+    //               listingCondition
+    //             }
+    //           }
+    //           `,
+    // };
   }
   if (props.listingType !== undefined && props.listingType === 'product') {
     console.log('product');
     return {
       query: gql`
               {
-                productByFilter(listingPostCode:${
+                listingsByFilter(listingPostCode:${
+                  props.listingPostCode < 800 ? 0 : props.listingPostCode
+                },listingType:"${props.listingType}",listingCategory:"${
+        props.listingCategory
+      }") {
+                  listingID
+                  listingTitle
+                  listingDescription
+                  listingType
+                  listingPostCode
+                  listingPrice
+                  listingAvailability
+                  listingCategory
+                  listingCondition
+                }
+              }
+              `,
+    };
+
+    // return {
+    //   query: gql`
+    //           {
+    //             serviceByFilter(listingPostCode:${
+    //               props.listingPostCode === undefined
+    //                 ? 0
+    //                 : props.listingPostCode
+    //             },listingKeyword:"${props.listingKeyword}",listingMinPrice:${
+    //     props.listingMinPrice
+    //   },listingMaxPrice:${
+    //     props.listingMaxPrice
+    //   },listingQuality:"${props.listingQuality}", listingCagegory:"${
+    //     props.listingCategory
+    //   }"
+    //   ) {
+    //               listingID
+    //               listingTitle
+    //               listingDescription
+    //               listingType
+    //               listingPostCode
+    //               listingPrice
+    //               listingAvailability
+    //               listingCategory
+    //               listingCondition
+    //             }
+    //           }
+    //           `,
+    // };
+  }
+  
+  else {
+    console.log('default');
+    //default if no params are selected and no user logged in
+    return {
+      query: gql`
+              {
+                listingsByFilter(listingPostCode:${
                   props.listingPostCode < 800 ? 0 : props.listingPostCode
                 },listingType:"${props.listingType}",listingCategory:"${
         props.listingCategory
@@ -169,7 +250,11 @@ const query = (props) => {
               `,
     };
   }
-  //if user selects posdcode and nothing else
+};
+export default query;
+
+
+////original search query
   // if (
   //   props.listingPostCode !== undefined &&
   //   props.listingPostCode >= 0 &&
@@ -201,31 +286,4 @@ const query = (props) => {
   //             }
   //             `,
   //   };
-  // } 
-  else {
-
-    //default if no params are selected and no user logged in
-    return {
-      query: gql`
-              {
-                listingsByFilter(listingPostCode:${
-                  props.listingPostCode < 800 ? 0 : props.listingPostCode
-                },listingType:"${props.listingType}",listingCategory:"${
-        props.listingCategory
-      }") {
-                  listingID
-                  listingTitle
-                  listingDescription
-                  listingType
-                  listingPostCode
-                  listingPrice
-                  listingAvailability
-                  listingCategory
-                  listingCondition
-                }
-              }
-              `,
-    };
-  }
-};
-export default query;
+  // }

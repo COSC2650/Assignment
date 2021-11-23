@@ -18,6 +18,7 @@ export function UserListings(props: userDetails) {
     listingPostCode: props.userPostCode,
     listingType: '',
     listingCategory: '',
+    listingQuality: '',
     listingMinPrice: 0,
     listingMaxPrice: 0,
     listingKeyword: '',
