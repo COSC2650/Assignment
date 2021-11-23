@@ -218,7 +218,7 @@ namespace API.Services
                 }
                 
                 // Gets searched user data
-                var searchResults = isEmail ? _context.Users.Where(x => x.UserEmail == id)
+                var searchResults = isEmail ? _context.Users.Where(x => x.UserEmail.Contains(id))
                                             : _context.Users.Where(x => x.UserID == numCheck);
 
                 // Return search results
