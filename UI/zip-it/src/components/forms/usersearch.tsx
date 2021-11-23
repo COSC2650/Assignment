@@ -1,4 +1,12 @@
-import { Input, Select, Stack, Button, Icon } from '@chakra-ui/react';
+import {
+  Input,
+  Select,
+  Stack,
+  Button,
+  Icon,
+  HStack,
+  Heading,
+} from '@chakra-ui/react';
 import { FaSearch } from 'react-icons/fa';
 import React, { useState } from 'react';
 
@@ -7,6 +15,9 @@ export interface SearchDetails {
   listingPostCode?: number;
   listingType: string;
   listingCategory: string;
+  listingMinPrice: number;
+  listingMaxPrice: number;
+  listingKeyword: string;
 }
 
 //interface to caller
@@ -17,9 +28,12 @@ export interface UserSearchProps {
 
 export function Search(props: UserSearchProps) {
   //defines Search Type and creates setter
-  let [listingType, setType] = useState('');
+  const [listingType, setType] = useState('');
   const [listingCategory, setCategory] = useState('');
-  const [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3);
+  const [currentUserPostCode, setCurrentUserPostCode] = useState<number>(0);
+  const [keyword, setKeyword] = useState('');
+  const [maxPrice, setMaxPrice] = useState(0);
+  const [minPrice, setMinPrice] = useState(0);
 
   //on change validation and default value set
   function postcodeOnChange(postCodeInput?: number): number | undefined {
@@ -46,6 +60,9 @@ export function Search(props: UserSearchProps) {
   //dropdown onchange
   const typeOnChange = (event) => setType(event.target.value);
   const categoryOnChange = (event) => setCategory(event.target.value);
+  const minPriceOnChange = (event) => setMinPrice(event.target.value);
+  const maxPriceOnChange = (event) => setMaxPrice(event.target.value);
+  const keywordOnChange = (event) => setKeyword(event.target.value);
 
   const onSearch = (postcode?: number) => {
     //sets search setails
@@ -53,6 +70,9 @@ export function Search(props: UserSearchProps) {
       listingPostCode: postcodeOnChange(postcode),
       listingType: listingType,
       listingCategory: listingCategory,
+      listingMinPrice: minPrice,
+      listingMaxPrice: maxPrice,
+      listingKeyword: keyword,
     };
 
     // Email regex
@@ -75,14 +95,11 @@ export function Search(props: UserSearchProps) {
   return (
     <Stack direction={['column']} w={['100%', '20rem']}>
       <Input
-        placeholder="Post Code"
+        placeholder="Keyword"
         variant="filled"
         type="inputfield"
-        id="postcodeselect"
-        onChange={(event) => {
-          setCurrentUserPostCode(parseInt(event.target.value));
-          postcodeOnChange(parseInt(event.target.value));
-        }}
+        id="keyword"
+        onChange={keywordOnChange}
       />
       <Select
         placeholder="Products or Services"
@@ -113,15 +130,10 @@ export function Search(props: UserSearchProps) {
               type="dropdownselect"
               id="conditionselect"
             >
-              <option value="">Good Condition</option>
-              <option value="">Well used</option>
-              <option value="">Barely Used</option>
-              <option value="">Unused</option>
-            </Select>
-            <Select placeholder="Availability" disabled={false}>
-              <option value="">Now</option>
-              <option value="">Date and Time</option>
-              <option value="">Pre Order</option>
+              <option value="good">Good Condition</option>
+              <option value="wellused">Well used</option>
+              <option value="barelyused">Barely Used</option>
+              <option value="unused">Unused</option>
             </Select>
           </>
         </>
@@ -138,15 +150,6 @@ export function Search(props: UserSearchProps) {
             <option value="qualified">Qualified</option>
             <option value="unqualcert">Unqualified and Uncertified</option>
           </Select>
-          <Select
-            placeholder="Availability"
-            type="dropdownselect"
-            id="serviceavailability"
-            disabled={false}
-          >
-            <option value="">Now</option>
-            <option value="">Date</option>
-          </Select>
         </>
       )}
       {listingType === '' && (
@@ -158,6 +161,32 @@ export function Search(props: UserSearchProps) {
           ></Select>
         </>
       )}
+      <Input
+        placeholder="Post Code"
+        variant="filled"
+        type="inputfield"
+        id="postcodeselect"
+        onChange={(event) => {
+          setCurrentUserPostCode(parseInt(event.target.value));
+          postcodeOnChange(parseInt(event.target.value));
+        }}
+      />
+      <HStack spacing={2} width="100%">
+        <Input
+          placeholder="$MAX"
+          variant="filled"
+          type="inputfield"
+          id="maxprice"
+          onChange={maxPriceOnChange}
+        />
+        <Input
+          placeholder="$MIN"
+          variant="filled"
+          type="inputfield"
+          id="minprice"
+          onChange={minPriceOnChange}
+        />
+      </HStack>
       <Button
         leftIcon={<Icon as={FaSearch} />}
         onClick={() => onSearch(currentUserPostCode)}
