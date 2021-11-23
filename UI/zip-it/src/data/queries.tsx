@@ -30,7 +30,7 @@ const query = (props) => {
     return {
       query: gql`
               {
-                adminUserSearch(id:"",role:0,keyword:"${props.emailIDSelection}") {
+                adminUserSearch(id:"${props.emailIDSelection}",role:0,keyword:"") {
                   userID
                   userEmail
                   userFirstName
