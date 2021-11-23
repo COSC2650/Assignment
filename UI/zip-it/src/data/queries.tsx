@@ -2,7 +2,6 @@ import { gql } from '@apollo/client';
 
 //fetches user authentication information
 const query = (props) => {
-  console.log(props);
   if (props.email != null) {
     return {
       query: gql`
