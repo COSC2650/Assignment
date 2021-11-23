@@ -1,6 +1,6 @@
-import { Input, Select, Stack, Button, Icon } from "@chakra-ui/react";
-import { FaSearch } from "react-icons/fa";
-import React, { useState } from "react";
+import { Input, Select, Stack, Button, Icon } from '@chakra-ui/react';
+import { FaSearch, FaTrashAlt } from 'react-icons/fa';
+import React, { useState } from 'react';
 
 //SearchDetails constructor
 export interface SearchDetails {
@@ -8,46 +8,56 @@ export interface SearchDetails {
   listingType: string;
   listingCategory: string;
   emailIDSelection?: string;
-  listingIDSelection?: string;
+  listingIDSelection?: number;
 }
 
 //interface to caller
-export interface SearchProps {
+export interface SearchPannelProps {
   onAdminSearchInterface(props: SearchDetails): void;
-  userPostCode: number;
+  onAdminDeleteListingsInterface(): void;
 }
 
-export function AdminSearch(props: SearchProps) {
+export function AdminSearch(props: SearchPannelProps) {
   //defines Search Type and creates setter
-  let [listingType, setType] = useState("");
-  let [listingCategory, setCategory] = useState("");
-  let [currentUserPostCode, setCurrentUserPostCode] = useState<number>(3.1);
-  let [adminselection, setAdminSelection] = useState("");
-  let [emailIDSelection, setUserEmailSelection] = useState("emailIDSelection");
-  let [listingIDSelection, setListingIDSelection] =
-    useState("listingIDSelection");
+  let [listingType, setType] = useState('');
+  let [listingCategory, setCategory] = useState('');
+  let [currentUserPostCode, setCurrentUserPostCode] = useState<number>(0);
+  let [adminselection, setAdminSelection] = useState('');
+  let [emailIDSelection, setUserEmailSelection] = useState('emailIDSelection');
+  let [listingIDSelection, setListingIDSelection] = useState(0);
+  const emailRegex = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
 
-  //dropdown onchange
+
+  //clears conflicting search parameters
   const typeOnChange = (event) => setType(event.target.value);
   const categoryOnChange = (event) => setCategory(event.target.value);
   const adminOnChange = (event) => setAdminSelection(event.target.value);
+  
   const postcodeOnChange = (event) => {
-    setUserEmailSelection("emailIDSelection");
-    setListingIDSelection("listingIDSelection");
+    setUserEmailSelection('emailIDSelection');
+    setListingIDSelection(0);
     setCurrentUserPostCode(event.target.value);
   };
   const userEmailOnChange = (event) => {
     setUserEmailSelection(event.target.value);
-    setListingIDSelection("listingIDSelection");
-    setCurrentUserPostCode(3.2);
+    setListingIDSelection(0);
+    setCurrentUserPostCode(0);
   };
   const listingIDOnChange = (event) => {
-    setListingIDSelection(event.target.value);
-    setUserEmailSelection("emailIDSelection");
-    setCurrentUserPostCode(3.2);
+    if (isNaN(event.target.value) || event.target.value === undefined) {
+      setListingIDSelection(0);
+      setUserEmailSelection('emailIDSelection');
+      setCurrentUserPostCode(0);
+    } else {
+      setListingIDSelection(event.target.value);
+      setUserEmailSelection('emailIDSelection');
+      setCurrentUserPostCode(0);
+    }
   };
-
-  const onSearch = (postcode?: number, emailselection?: string) => {
+  
+  //admin search function
+  const onSearch = (postcode?: number) => {
+    
     //sets search setails
     const SearchDetails: SearchDetails = {
       listingIDSelection: listingIDSelection,
@@ -57,24 +67,20 @@ export function AdminSearch(props: SearchProps) {
       listingCategory: listingCategory,
     };
 
-    // Email regex
-    var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
-
     //sets details in interface
-    if (!regexp.test("{listingPostCode}") && !regexp.test("{emailSelection}")) {
+    if (!emailRegex.test('{listingPostCode}') && !emailRegex.test('{emailSelection}')) {
       props.onAdminSearchInterface(SearchDetails);
     }
   };
 
-  //used to overcome async state change
-  React.useEffect(() => {
-    onSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.userPostCode]);
+  //onMultiDelete
+  const onMultiDelete = () => {
+    props.onAdminDeleteListingsInterface();
+  };
 
   //search menu component
   return (
-    <Stack direction={["column"]} w={["100%", "20rem"]}>
+    <Stack direction={['column']} w={['100%', '20rem']}>
       <Select
         placeholder="Admin Selection"
         type="dorpdownselect"
@@ -85,7 +91,7 @@ export function AdminSearch(props: SearchProps) {
         <option value="listings">Listing</option>
         <option value="general">General</option>
       </Select>
-      {adminselection === "users" && (
+      {adminselection === 'users' && (
         <>
           <Input
             placeholder="Email"
@@ -97,9 +103,12 @@ export function AdminSearch(props: SearchProps) {
           <Button leftIcon={<Icon as={FaSearch} />} onClick={() => onSearch()}>
             Search
           </Button>
+          <Button leftIcon={<Icon as={FaTrashAlt} />} onClick={onMultiDelete}>
+            Delete Items
+          </Button>
         </>
       )}
-      {adminselection === "listings" && (
+      {adminselection === 'listings' && (
         <>
           <Input
             placeholder="Listing ID"
@@ -110,13 +119,16 @@ export function AdminSearch(props: SearchProps) {
           />
           <Button
             leftIcon={<Icon as={FaSearch} />}
-            onClick={() => onSearch(currentUserPostCode)}
+            onClick={() => onSearch()}
           >
             Search
           </Button>
+          <Button leftIcon={<Icon as={FaTrashAlt} />} onClick={onMultiDelete}>
+            Delete Items
+          </Button>
         </>
       )}
-      {adminselection === "general" && (
+      {adminselection === 'general' && (
         <>
           <Input
             placeholder="Post Code"
@@ -135,7 +147,7 @@ export function AdminSearch(props: SearchProps) {
             <option value="product">Product</option>
             <option value="service">Service</option>
           </Select>
-          {listingType === "product" && (
+          {listingType === 'product' && (
             <>
               <Select
                 placeholder="Product Category"
@@ -167,7 +179,7 @@ export function AdminSearch(props: SearchProps) {
               </>
             </>
           )}
-          {listingType === "service" && (
+          {listingType === 'service' && (
             <>
               <Select
                 placeholder="Qualification"
@@ -190,7 +202,7 @@ export function AdminSearch(props: SearchProps) {
               </Select>
             </>
           )}
-          {listingType === "" && (
+          {listingType === '' && (
             <>
               <Select
                 placeholder="Availability"

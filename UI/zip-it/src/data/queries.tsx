@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 //fetches user authentication information
 const query = (props) => {
@@ -24,13 +24,13 @@ const query = (props) => {
   }
   //adminUserSearch(id: string, role: number, keyword: string):[User]
   if (
-    props.emailIDSelection !== "emailIDSelection" &&
+    props.emailIDSelection !== 'emailIDSelection' &&
     props.emailIDSelection !== undefined
   ) {
     return {
       query: gql`
               {
-                adminUserSearch(id:"",role:0,keyword:"${props.emailIDSelection}") {
+                adminUserSearch(id:"${props.emailIDSelection}",role:0,keyword:"") {
                   userID
                   userEmail
                   userFirstName
@@ -47,7 +47,7 @@ const query = (props) => {
     };
   }
   if (
-    props.listingIDSelection !== "listingIDSelection" &&
+    props.listingIDSelection !== 0 &&
     props.listingIDSelection !== undefined
   ) {
     return {
@@ -66,8 +66,9 @@ const query = (props) => {
     };
   }
   if (
-    props.listingsByFilter !== "listingsByFilter" &&
-    props.listingsByFilter !== undefined
+    props.listingPostCode >= 0 &&
+    props.listingPostCode !== undefined &&
+    props.listingPostCode <= 900
   ) {
     //fetches listings according to passed params
     return {

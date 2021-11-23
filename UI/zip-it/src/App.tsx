@@ -113,7 +113,6 @@ function App() {
       .query(query(props))
       .then((result) => {
         const queryResult = result.data.userByEmail;
-
         if (queryResult != null) {
           //set user data
           setUserTitle('Hi, ' + queryResult.userFirstName + '!');
@@ -447,7 +446,7 @@ function App() {
     if (RoleID === 1) {
       return (
         <>
-          <AdminListings userPostCode={userPostCode} />
+          <AdminListings />
         </>
       );
     } else {
