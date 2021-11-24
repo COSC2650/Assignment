@@ -158,7 +158,7 @@ namespace API.Services
             if(queryArgs == 4)
                 return FourFieldListingQuery(postCodes, keyword, listType, category, quality, queriedFields);
 
-            if(queryArgs == 5)
+            else
             {
                 var results = _context.Listings.Where(x => x.ListingType == listType)
                     .Where(x => x.ListingCategory == category)
@@ -170,9 +170,6 @@ namespace API.Services
                 var sortedResults = SortListByPostCode(results, postCodes, sortedList);
                 return sortedResults.AsQueryable();
             }
-
-            else 
-                return Enumerable.Empty<Listing>().AsQueryable();
         }
 
         // one search field query
