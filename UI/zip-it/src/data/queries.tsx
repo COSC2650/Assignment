@@ -152,6 +152,7 @@ console.log(props)
     // };
 
     return {
+      
       query: gql`
               {
                 listingsByFilter(listingPostCode:${
