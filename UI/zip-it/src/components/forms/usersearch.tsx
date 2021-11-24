@@ -137,14 +137,13 @@ export function Search(props: UserSearchProps) {
       )}
       {listingType === 'service' && (
         <>
-          {' '}
           <Select
             placeholder="Category"
             type="dropdownselect"
             id="servicecategoryselect"
             onChange={categoryOnChange}
           >
-            <option value="clothes">Plumbing</option>
+            <option value="plumbing">Plumbing</option>
             <option value="mechanical">Mechanical</option>
             <option value="carpentry">Carpentry</option>
             <option value="fabrication">Fabrication</option>
