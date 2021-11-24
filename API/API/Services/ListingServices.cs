@@ -249,61 +249,57 @@ namespace API.Services
         {
             var sortedList = new List<Listing>();
 
-            if(queriedFields.Contains("type"))
+            // listType + postCode + keyword
+            if(queriedFields.Contains("type") && postCodes.Any() && queriedFields.Contains("keyword"))
             {
-                if(postCodes.Any())
-                {
-                    // listType + postCode + keyword
-                    if(queriedFields.Contains("keyword"))
-                    {
-                        var results = _context.Listings.Where(x => x.ListingType == listType)
-                            .Where(x => postCodes.Contains(x.ListingPostCode))
-                            .Where(x => x.ListingDescription.Contains(keyword) || x.ListingTitle.Contains(keyword))
-                            .ToList();
+                var results = _context.Listings.Where(x => x.ListingType == listType)
+                    .Where(x => postCodes.Contains(x.ListingPostCode))
+                    .Where(x => x.ListingDescription.Contains(keyword) || x.ListingTitle.Contains(keyword))
+                    .ToList();
 
-                        var sortedResults = SortListByPostCode(results, postCodes, sortedList);
-                        return sortedResults.AsQueryable();
-                    }
-
-                    // listType + postCode + category
-                    if(queriedFields.Contains("category"))
-                    {
-                        var results = _context.Listings.Where(  x => x.ListingType == listType)
-                            .Where(x => x.ListingCategory == category)
-                            .Where(x => postCodes.Contains(x.ListingPostCode))
-                            .ToList();
-
-                        var sortedResults = SortListByPostCode(results, postCodes, sortedList);
-                        return sortedResults.AsQueryable();   
-                    }
-
-                    // listType + postCode + quality
-                    else
-                    {
-                        var results = _context.Listings.Where(  x => x.ListingType == listType)
-                            .Where(x => x.ListingCondition == quality)
-                            .Where(x => postCodes.Contains(x.ListingPostCode))
-                            .ToList();
-
-                        var sortedResults = SortListByPostCode(results, postCodes, sortedList);
-                        return sortedResults.AsQueryable();
-                    }
-                } else {
-                    // listType + keyword + category
-                    if(queriedFields.Contains("category"))
-                        return _context.Listings.Where(  x => x.ListingType == listType)
-                            .Where(x => x.ListingCategory == category)
-                            .Where(x => x.ListingDescription.Contains(keyword) || x.ListingTitle.Contains(keyword));
-                    // listType + keyword + quality
-                    else
-                        return _context.Listings.Where(  x => x.ListingType == listType)
-                            .Where(x => x.ListingCondition == quality)
-                            .Where(x => x.ListingDescription.Contains(keyword) || x.ListingTitle.Contains(keyword));
-                }
-            } else {
-                // incorrect query - returning empty collection
-                return Enumerable.Empty<Listing>().AsQueryable();
+                var sortedResults = SortListByPostCode(results, postCodes, sortedList);
+                return sortedResults.AsQueryable();
             }
+
+            // listType + postCode + category
+            if(queriedFields.Contains("type") && postCodes.Any() && queriedFields.Contains("category"))
+            {
+                var results = _context.Listings.Where(  x => x.ListingType == listType)
+                    .Where(x => x.ListingCategory == category)
+                    .Where(x => postCodes.Contains(x.ListingPostCode))
+                    .ToList();
+
+                var sortedResults = SortListByPostCode(results, postCodes, sortedList);
+                return sortedResults.AsQueryable();   
+            }
+
+            // listType + postCode + quality
+            if(queriedFields.Contains("type") && postCodes.Any() && queriedFields.Contains("quality"))
+            {
+                var results = _context.Listings.Where(  x => x.ListingType == listType)
+                    .Where(x => x.ListingCondition == quality)
+                    .Where(x => postCodes.Contains(x.ListingPostCode))
+                    .ToList();
+
+                var sortedResults = SortListByPostCode(results, postCodes, sortedList);
+                return sortedResults.AsQueryable();
+            }
+
+            // listType + keyword + category
+            if(queriedFields.Contains("type") && queriedFields.Contains("keyword") && queriedFields.Contains("category"))
+                return _context.Listings.Where(  x => x.ListingType == listType)
+                    .Where(x => x.ListingCategory == category)
+                    .Where(x => x.ListingDescription.Contains(keyword) || x.ListingTitle.Contains(keyword));
+            
+            // listType + keyword + quality
+            if(queriedFields.Contains("type") && queriedFields.Contains("keyword") && queriedFields.Contains("quality"))
+                return _context.Listings.Where(  x => x.ListingType == listType)
+                    .Where(x => x.ListingCondition == quality)
+                    .Where(x => x.ListingDescription.Contains(keyword) || x.ListingTitle.Contains(keyword));
+            
+            // incorrect query - returning empty collection
+            else
+                return Enumerable.Empty<Listing>().AsQueryable();
         }
 
         // four field search query
