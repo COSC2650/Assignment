@@ -2,6 +2,8 @@ import { gql } from '@apollo/client';
 
 //fetches user authentication information
 const query = (props) => {
+console.log(props)
+
   if (props.email != null) {
     return {
       query: gql`
@@ -70,7 +72,7 @@ const query = (props) => {
     props.listingPostCode !== undefined &&
     props.listingPostCode <= 900
   ) {
-    //fetches listings according to passed params
+
     return {
       query: gql`
               {
@@ -96,6 +98,7 @@ const query = (props) => {
     };
   } else {
     return {
+      
       query: gql`
               {
                 listingsByFilter(listingPostCode:${
