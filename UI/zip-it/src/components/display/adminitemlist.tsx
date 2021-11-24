@@ -9,12 +9,13 @@ import AdminSearch, { SearchDetails } from '../forms/adminsearch';
 import clientConnection from '../../data/client';
 import React, { useState, useEffect } from 'react';
 import mutation from '../../data/mutations';
+import Search from '../forms/usersearch';
 
-interface ListDetails {
+interface userDetails {
+  userPostCode: number;
 }
 
-export function AdminListings(props: ListDetails) {
-  
+export function AdminListings(props: userDetails) {
   const [itemListings, setItemListings] = useState([]);
   const [userListings, setUserListings] = useState([]);
   const toast = useToast();
@@ -25,7 +26,7 @@ export function AdminListings(props: ListDetails) {
 
   //sets default search details
   const SearchDetails = {
-    listingPostCode: 0,
+    listingPostCode: props.userPostCode,
     listingType: '',
     listingCategory: '',
   };
@@ -33,7 +34,7 @@ export function AdminListings(props: ListDetails) {
   //checked item iterator and checked item array
   let itemCheckboxHashmap = new Map([]);
   let userCheckboxHashmap = new Map([]);
-  
+
   //stores prop in props
   let DeleteProps = {
     itemsHashmap: itemCheckboxHashmap,
@@ -46,7 +47,6 @@ export function AdminListings(props: ListDetails) {
     client
       .query(query(props))
       .then((result) => {
-
         //sets listings hashmaps
         if (result.data.listingsByFilter) {
           setItemListings(result.data.listingsByFilter);
@@ -103,7 +103,7 @@ export function AdminListings(props: ListDetails) {
             isClosable: true,
             position: 'top',
           });
-          console.log(SearchDetails)
+          console.log(SearchDetails);
           queryAPI(SearchDetails);
         } else {
           toast({
@@ -170,10 +170,16 @@ export function AdminListings(props: ListDetails) {
         divider={<StackDivider />}
         spacing={2}
       >
-        <AdminSearch
-          onAdminDeleteListingsInterface={mutateAPI}
-          onAdminSearchInterface={queryAPI}
-        ></AdminSearch>
+        <VStack>
+          <AdminSearch
+            onAdminDeleteListingsInterface={mutateAPI}
+            onAdminSearchInterface={queryAPI}
+          ></AdminSearch>
+          <Search
+            onSearchInterface={queryAPI}
+            userPostCode={props.userPostCode}
+          ></Search>
+        </VStack>
         <VStack divider={<StackDivider />} spacing={2} width="100%">
           <ListingsFragment />
         </VStack>
