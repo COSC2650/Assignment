@@ -80,9 +80,12 @@ console.log(props)
                   props.listingPostCode === undefined
                     ? 0
                     : props.listingPostCode
-                },listingType:"${props.listingType}",listingCategory:"${
+                },listingKeyword:"${props.listingKeyword}",listingMinPrice:${
+        props.listingMinPrice
+      },listingMaxPrice:${props.listingMaxPrice}, listingType:"${props.listingType}", listingCategory:"${
         props.listingCategory
-      }") {
+      }", listingQuality:"${props.listingQuality}"
+      ) {
                   listingID
                   listingTitle
                   listingDescription
@@ -96,16 +99,44 @@ console.log(props)
               }
               `,
     };
+
+    // return {
+    //   query: gql`
+    //           {
+    //             listingsByFilter(listingPostCode:${
+    //               props.listingPostCode === undefined
+    //                 ? 0
+    //                 : props.listingPostCode
+    //             },listingType:"${props.listingType}",listingCategory:"${
+    //     props.listingCategory
+    //   }") {
+    //               listingID
+    //               listingTitle
+    //               listingDescription
+    //               listingType
+    //               listingPostCode
+    //               listingPrice
+    //               listingAvailability
+    //               listingCategory
+    //               listingCondition
+    //             }
+    //           }
+    //           `,
+    // };
   } else {
     return {
-      
       query: gql`
               {
                 listingsByFilter(listingPostCode:${
-                  props.listingPostCode < 800 ? 0 : props.listingPostCode
-                },listingType:"${props.listingType}",listingCategory:"${
+                  props.listingPostCode === undefined
+                    ? 0
+                    : props.listingPostCode
+                },listingKeyword:"${props.listingKeyword}",listingMinPrice:${
+        props.listingMinPrice
+      },listingMaxPrice:${props.listingMaxPrice}, listingType:"${props.listingType}", listingCategory:"${
         props.listingCategory
-      }") {
+      }", listingQuality:"${props.listingQuality}"
+      ) {
                   listingID
                   listingTitle
                   listingDescription
@@ -119,6 +150,28 @@ console.log(props)
               }
               `,
     };
+
+    // return {
+    //   query: gql`
+    //           {
+    //             listingsByFilter(listingPostCode:${
+    //               props.listingPostCode < 800 ? 0 : props.listingPostCode
+    //             },listingType:"${props.listingType}",listingCategory:"${
+    //     props.listingCategory
+    //   }") {
+    //               listingID
+    //               listingTitle
+    //               listingDescription
+    //               listingType
+    //               listingPostCode
+    //               listingPrice
+    //               listingAvailability
+    //               listingCategory
+    //               listingCondition
+    //             }
+    //           }
+    //           `,
+    // };
   }
 };
 export default query;
