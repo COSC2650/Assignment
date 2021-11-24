@@ -85,14 +85,12 @@ namespace API.Services
             // is minPrice queried
             if (minPrice > 0)
             {
-                queryArgs++;
                 priceQueried = true;
             }
             
             // is maxPrice queried
             if (maxPrice > 0)
             {
-                queryArgs++;
                 priceQueried = true;
             }
             
@@ -157,26 +155,25 @@ namespace API.Services
             if(queryArgs == 3)
                 return ThreeFieldListingQuery(postCodes, keyword, listType, category, quality, queriedFields);
 
-            // if(queryArgs == 4)
-            // {
+            if(queryArgs == 4)
+                return FourFieldListingQuery(postCodes, keyword, listType, category, quality, queriedFields);
 
-            // }
+            if(queryArgs == 5)
+            {
+                var results = _context.Listings.Where(x => x.ListingType == listType)
+                    .Where(x => x.ListingCategory == category)
+                    .Where(x => x.ListingCondition == quality)
+                    .Where(x => postCodes.Contains(x.ListingPostCode))
+                    .Where(x => x.ListingDescription.Contains(keyword) || x.ListingTitle.Contains(keyword))
+                    .ToList();
+
+                var sortedResults = SortListByPostCode(results, postCodes, sortedList);
+                return sortedResults.AsQueryable();
+            }
 
             else 
                 return Enumerable.Empty<Listing>().AsQueryable();
         }
-        //     // all three search fields are queried
-        //     else 
-        //     { 
-        //         var results = _context.Listings.Where(x => postCodes.Contains(x.ListingPostCode))
-        //             .Where(x => x.ListingPrice <= minPrice)
-        //             .Where(x => x.ListingDescription.Contains(keyword) || x.ListingTitle.Contains(keyword))
-        //             .ToList();
-                
-        //         var sortedResults = SortListByPostCode(results, postCodes, sortedList);
-        //         return sortedResults.AsQueryable();
-        //     }
-        // }
 
         // one search field query
         public IQueryable<Listing> OneFieldListingQuery(List<int> postCodes, string keyword, string listType, List<string> queriedFields)
@@ -305,7 +302,37 @@ namespace API.Services
         // four field search query
         public IQueryable<Listing> FourFieldListingQuery(List<int> postCodes, string keyword, string listType, string category, string quality, List<string> queriedFields)
         {
-            throw new NotImplementedException();
+            var sortedList = new List<Listing>();
+
+            // listType + postcode + keyword + category
+            if(queriedFields.Contains("type") && postCodes.Any() && queriedFields.Contains("keyword") && queriedFields.Contains("category"))
+            {
+                var results = _context.Listings.Where(x => x.ListingType == listType)
+                    .Where(x => x.ListingCategory == category)
+                    .Where(x => postCodes.Contains(x.ListingPostCode))
+                    .Where(x => x.ListingDescription.Contains(keyword) || x.ListingTitle.Contains(keyword))
+                    .ToList();
+
+                var sortedResults = SortListByPostCode(results, postCodes, sortedList);
+                return sortedResults.AsQueryable();
+            }
+            
+            // listType + postcode + keyword + condition
+            if(queriedFields.Contains("type") && postCodes.Any() && queriedFields.Contains("keyword") && queriedFields.Contains("quality"))
+            {
+                var results = _context.Listings.Where(x => x.ListingType == listType)
+                    .Where(x => x.ListingCondition == quality)
+                    .Where(x => postCodes.Contains(x.ListingPostCode))
+                    .Where(x => x.ListingDescription.Contains(keyword) || x.ListingTitle.Contains(keyword))
+                    .ToList();
+
+                var sortedResults = SortListByPostCode(results, postCodes, sortedList);
+                return sortedResults.AsQueryable();
+            }
+
+            // incorrect query - returning empty collection
+            else
+                return Enumerable.Empty<Listing>().AsQueryable();
         }
 
         // sorts results by postcode vicinity

@@ -210,6 +210,17 @@ namespace Tests
             Assert.Equal(1, listingService.ListingByFilter(0, "Title", 0, 0, "Type", "", "Condition").Count());
             Assert.Equal(1, listingService.ListingByFilter(0, "Description", 0, 0, "Type", "", "Condition").Count());
 
+            // Check for four field query - type + postcode + keyword + category 
+            Assert.Equal(1, listingService.ListingByFilter(4000, "Title", 0, 0, "Type", "Category", "").Count());
+            Assert.Equal(1, listingService.ListingByFilter(4000, "Description", 0, 0, "Type", "Category", "").Count());
+
+            // Check for four field query - type + postcode + keyword + quality
+            Assert.Equal(1, listingService.ListingByFilter(4000, "Title", 0, 0, "Type", "", "Condition").Count());
+            Assert.Equal(1, listingService.ListingByFilter(4000, "Description", 0, 0, "Type", "", "Condition").Count());
+
+            // Check for five field query - type + postcode + keyword + category + quality
+            Assert.Equal(1, listingService.ListingByFilter(4000, "Title", 0, 0, "Type", "Category", "Condition").Count());
+            Assert.Equal(1, listingService.ListingByFilter(4000, "Description", 0, 0, "Type", "Category", "Condition").Count());
         }
 
         [Fact]
