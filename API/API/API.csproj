@@ -17,7 +17,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.3" />
     <PackageReference Include="MySql.EntityFrameworkCore" Version="5.0.8" />
     <PackageReference Include="NewRelic.Agent" Version="9.2.0" />
-    <PackageReference Include="Sentry.AspNetCore" Version="3.11.1" />
+    <PackageReference Include="Sentry.AspNetCore" Version="3.12.0" />
     <PackageReference Include="Sentry.NLog" Version="3.12.0" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.32.0.39516">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
