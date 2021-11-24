@@ -312,6 +312,9 @@ namespace Tests
             // listType + condition + postcode + category
             Assert.Equal(0, listingService.ListingByFilter(3000, "", 0, 0, "wrong", "wrong", "wrong").Count());
 
+            // keyword + condition + postcode + category (should be impossible)
+            Assert.Equal(0, listingService.ListingByFilter(3000, "wrong", 0, 0, "", "wrong", "wrong").Count());
+
             // listType + keyword + condition + postcode + category 
             Assert.Equal(0, listingService.ListingByFilter(3000, "wrong", 0, 0, "wrong", "wrong", "wrong").Count());
         }
