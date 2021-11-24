@@ -253,8 +253,6 @@ namespace Tests
 
             // Check for higher minPrice than maxPrice field query
             Assert.Equal(0, listingService.ListingByFilter(0, "", 2, 1, "", "", "").Count());
-
-            Assert.Equal(0, listingService.ListingByFilter(4000, "Title", 0, 0, "Type", "Category", "Condition").Count());
         }
 
         [Fact]
