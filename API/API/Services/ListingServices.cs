@@ -116,7 +116,7 @@ namespace API.Services
             }
 
             // nothing is queried
-            if(queryArgs==0)
+            if(queryArgs==0 && !priceQueried)
                 return _context.Listings.AsQueryable();
 
             // something has been queried
