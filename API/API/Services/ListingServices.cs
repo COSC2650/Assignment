@@ -327,6 +327,26 @@ namespace API.Services
                 return sortedResults.AsQueryable();
             }
 
+            // listType + postcode + category + condition
+            if(queriedFields.Contains("type") && postCodes.Any() && queriedFields.Contains("category") && queriedFields.Contains("quality"))
+            {
+                var results = _context.Listings.Where(x => x.ListingType == listType)
+                    .Where(x => x.ListingCategory == category)
+                    .Where(x => x.ListingCondition == quality)
+                    .Where(x => postCodes.Contains(x.ListingPostCode))
+                    .ToList();
+
+                var sortedResults = SortListByPostCode(results, postCodes, sortedList);
+                return sortedResults.AsQueryable();
+            }
+
+            // listType + keyword + category + condition
+            if(queriedFields.Contains("type") && queriedFields.Contains("keyword") && queriedFields.Contains("category") && queriedFields.Contains("quality"))
+                return _context.Listings.Where(x => x.ListingType == listType)
+                    .Where(x => x.ListingCategory == category)
+                    .Where(x => x.ListingCondition == quality)
+                    .Where(x => x.ListingDescription.Contains(keyword) || x.ListingTitle.Contains(keyword));
+
             // incorrect query - returning empty collection
             else
                 return Enumerable.Empty<Listing>().AsQueryable();

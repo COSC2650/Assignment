@@ -218,6 +218,13 @@ namespace Tests
             Assert.Equal(1, listingService.ListingByFilter(4000, "Title", 0, 0, "Type", "", "Condition").Count());
             Assert.Equal(1, listingService.ListingByFilter(4000, "Description", 0, 0, "Type", "", "Condition").Count());
 
+            // Check for four field query - type + keyword + category + quality
+            Assert.Equal(1, listingService.ListingByFilter(0, "Title", 0, 0, "Type", "Category", "Condition").Count());
+            Assert.Equal(1, listingService.ListingByFilter(0, "Description", 0, 0, "Type", "Category", "Condition").Count());
+
+            // Check for four field query - type + postcode + category + quality
+            Assert.Equal(1, listingService.ListingByFilter(4000, "", 0, 0, "Type", "Category", "Condition").Count());
+
             // Check for five field query - type + postcode + keyword + category + quality
             Assert.Equal(1, listingService.ListingByFilter(4000, "Title", 0, 0, "Type", "Category", "Condition").Count());
             Assert.Equal(1, listingService.ListingByFilter(4000, "Description", 0, 0, "Type", "Category", "Condition").Count());
@@ -253,6 +260,60 @@ namespace Tests
 
             // Check for higher minPrice than maxPrice field query
             Assert.Equal(0, listingService.ListingByFilter(0, "", 2, 1, "", "", "").Count());
+
+            // Check for wrong postcode
+            Assert.Equal(0, listingService.ListingByFilter(3000, "", 2, 1, "", "", "").Count());
+
+            // Check for wrong keyword
+            Assert.Equal(0, listingService.ListingByFilter(0, "wrong", 2, 1, "", "", "").Count());
+
+            // Check for wrong type
+            Assert.Equal(0, listingService.ListingByFilter(0, "", 2, 1, "wrong", "", "").Count());
+
+            // Check for wrong type + postcode
+            Assert.Equal(0, listingService.ListingByFilter(3000, "", 0, 0, "wrong", "", "").Count());
+            
+            // Check for wrong type + keyword
+            Assert.Equal(0, listingService.ListingByFilter(0, "wrong", 0, 0, "wrong", "", "").Count());
+
+            // Check for wrong keyword + postcode
+            Assert.Equal(0, listingService.ListingByFilter(3000, "wrong", 0, 0, "", "", "").Count());
+
+            // Check for wrong type + category
+            Assert.Equal(0, listingService.ListingByFilter(0, "", 0, 0, "wrong", "wrong", "").Count());
+
+            // Check for wrong type + quality
+            Assert.Equal(0, listingService.ListingByFilter(0, "", 0, 0, "wrong", "", "wrong").Count());
+
+            // listType + postCode + keyword
+            Assert.Equal(0, listingService.ListingByFilter(4000, "wrong", 0, 0, "wrong", "", "").Count());
+
+            // listType + postCode + category
+            Assert.Equal(0, listingService.ListingByFilter(4000, "wrong", 0, 0, "wrong", "", "").Count());
+
+            // listType + postCode + quality
+            Assert.Equal(0, listingService.ListingByFilter(4000, "wrong", 0, 0, "", "", "wrong").Count());
+
+            // listType + category + keyword
+            Assert.Equal(0, listingService.ListingByFilter(0, "wrong", 0, 0, "wrong", "wrong", "").Count());
+
+            // listType + condition + keyword
+            Assert.Equal(0, listingService.ListingByFilter(0, "wrong", 0, 0, "wrong", "", "wrong").Count());
+
+            // listType + postcode + keyword + catgeory
+            Assert.Equal(0, listingService.ListingByFilter(3000, "wrong", 0, 0, "wrong", "wrong", "").Count());
+
+            // listType + postcode + keyword + condition
+            Assert.Equal(0, listingService.ListingByFilter(3000, "wrong", 0, 0, "wrong", "", "wrong").Count());
+
+            // listType + condition + keyword + category
+            Assert.Equal(0, listingService.ListingByFilter(0, "wrong", 0, 0, "wrong", "wrong", "wrong").Count());
+
+            // listType + condition + postcode + category
+            Assert.Equal(0, listingService.ListingByFilter(3000, "", 0, 0, "wrong", "wrong", "wrong").Count());
+
+            // listType + keyword + condition + postcode + category 
+            Assert.Equal(0, listingService.ListingByFilter(3000, "wrong", 0, 0, "wrong", "wrong", "wrong").Count());
         }
 
         [Fact]
