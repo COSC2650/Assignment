@@ -191,6 +191,25 @@ namespace Tests
             // Check for two field query - postcode + keyword
             Assert.Equal(1, listingService.ListingByFilter(4000, "Title", 0, 0, "", "", "").Count());
             Assert.Equal(1, listingService.ListingByFilter(4000, "Description", 0, 0, "", "", "").Count());
+
+            // Check for three field query - type + postcode + keyword
+            Assert.Equal(1, listingService.ListingByFilter(4000, "Title", 0, 0, "Type", "", "").Count());
+            Assert.Equal(1, listingService.ListingByFilter(4000, "Description", 0, 0, "Type", "", "").Count());
+
+            // Check for three field query - type + postcode + category
+            Assert.Equal(1, listingService.ListingByFilter(4000, "", 0, 0, "Type", "Category", "").Count());
+
+            // Check for three field query - type + postcode + quality
+            Assert.Equal(1, listingService.ListingByFilter(4000, "", 0, 0, "Type", "", "Condition").Count());
+
+            // Check for three field query - type + keyword + category
+            Assert.Equal(1, listingService.ListingByFilter(0, "Title", 0, 0, "Type", "Category", "").Count());
+            Assert.Equal(1, listingService.ListingByFilter(0, "Description", 0, 0, "Type", "Category", "").Count());
+
+            // Check for three field query - type + keyword + quality
+            Assert.Equal(1, listingService.ListingByFilter(0, "Title", 0, 0, "Type", "", "Condition").Count());
+            Assert.Equal(1, listingService.ListingByFilter(0, "Description", 0, 0, "Type", "", "Condition").Count());
+
         }
 
         [Fact]
@@ -223,6 +242,8 @@ namespace Tests
 
             // Check for higher minPrice than maxPrice field query
             Assert.Equal(0, listingService.ListingByFilter(0, "", 2, 1, "", "", "").Count());
+
+            Assert.Equal(0, listingService.ListingByFilter(4000, "Title", 0, 0, "Type", "Category", "Condition").Count());
         }
 
         [Fact]

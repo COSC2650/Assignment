@@ -154,10 +154,8 @@ namespace API.Services
             if(queryArgs == 2)
                 return TwoFieldListingQuery(postCodes, keyword, listType, category, quality, queriedFields);
 
-            // if(queryArgs == 3)
-            // {
-
-            // }
+            if(queryArgs == 3)
+                return ThreeFieldListingQuery(postCodes, keyword, listType, category, quality, queriedFields);
 
             // if(queryArgs == 4)
             // {
@@ -244,6 +242,74 @@ namespace API.Services
                 var sortedResults = SortListByPostCode(results, postCodes, sortedList);
                 return sortedResults.AsQueryable();
             }
+        }
+
+        // three field search query
+        public IQueryable<Listing> ThreeFieldListingQuery(List<int> postCodes, string keyword, string listType, string category, string quality, List<string> queriedFields)
+        {
+            var sortedList = new List<Listing>();
+
+            if(queriedFields.Contains("type"))
+            {
+                if(postCodes.Any())
+                {
+                    // listType + postCode + keyword
+                    if(queriedFields.Contains("keyword"))
+                    {
+                        var results = _context.Listings.Where(x => x.ListingType == listType)
+                            .Where(x => postCodes.Contains(x.ListingPostCode))
+                            .Where(x => x.ListingDescription.Contains(keyword) || x.ListingTitle.Contains(keyword))
+                            .ToList();
+
+                        var sortedResults = SortListByPostCode(results, postCodes, sortedList);
+                        return sortedResults.AsQueryable();
+                    }
+
+                    // listType + postCode + category
+                    if(queriedFields.Contains("category"))
+                    {
+                        var results = _context.Listings.Where(  x => x.ListingType == listType)
+                            .Where(x => x.ListingCategory == category)
+                            .Where(x => postCodes.Contains(x.ListingPostCode))
+                            .ToList();
+
+                        var sortedResults = SortListByPostCode(results, postCodes, sortedList);
+                        return sortedResults.AsQueryable();   
+                    }
+
+                    // listType + postCode + quality
+                    else
+                    {
+                        var results = _context.Listings.Where(  x => x.ListingType == listType)
+                            .Where(x => x.ListingCondition == quality)
+                            .Where(x => postCodes.Contains(x.ListingPostCode))
+                            .ToList();
+
+                        var sortedResults = SortListByPostCode(results, postCodes, sortedList);
+                        return sortedResults.AsQueryable();
+                    }
+                } else {
+                    // listType + keyword + category
+                    if(queriedFields.Contains("category"))
+                        return _context.Listings.Where(  x => x.ListingType == listType)
+                            .Where(x => x.ListingCategory == category)
+                            .Where(x => x.ListingDescription.Contains(keyword) || x.ListingTitle.Contains(keyword));
+                    // listType + keyword + quality
+                    else
+                        return _context.Listings.Where(  x => x.ListingType == listType)
+                            .Where(x => x.ListingCondition == quality)
+                            .Where(x => x.ListingDescription.Contains(keyword) || x.ListingTitle.Contains(keyword));
+                }
+            } else {
+                // incorrect query - returning empty collection
+                return Enumerable.Empty<Listing>().AsQueryable();
+            }
+        }
+
+        // four field search query
+        public IQueryable<Listing> FourFieldListingQuery(List<int> postCodes, string keyword, string listType, string category, string quality, List<string> queriedFields)
+        {
+            throw new NotImplementedException();
         }
 
         // sorts results by postcode vicinity
