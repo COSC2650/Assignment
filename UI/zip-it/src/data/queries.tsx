@@ -73,33 +73,6 @@ console.log(props)
     props.listingPostCode <= 900
   ) {
 
-    // return {
-    //   query: gql`
-    //           {
-    //             serviceByFilter(listingPostCode:${
-    //               props.listingPostCode === undefined
-    //                 ? 0
-    //                 : props.listingPostCode
-    //             },listingKeyword:"${props.listingKeyword}",listingMinPrice:${
-    //     props.listingMinPrice
-    //   },listingMaxPrice:${props.listingMaxPrice}, listingType:"${props.listingType}", listingCagegory:"${
-    //     props.listingCategory
-    //   }", listingQuality:"${props.listingQuality}"
-    //   ) {
-    //               listingID
-    //               listingTitle
-    //               listingDescription
-    //               listingType
-    //               listingPostCode
-    //               listingPrice
-    //               listingAvailability
-    //               listingCategory
-    //               listingCondition
-    //             }
-    //           }
-    //           `,
-    // };
-
     return {
       query: gql`
               {
@@ -124,33 +97,6 @@ console.log(props)
               `,
     };
   } else {
-    // return {
-    //   query: gql`
-    //           {
-    //             serviceByFilter(listingPostCode:${
-    //               props.listingPostCode === undefined
-    //                 ? 0
-    //                 : props.listingPostCode
-    //             },listingKeyword:"${props.listingKeyword}",listingMinPrice:${
-    //     props.listingMinPrice
-    //   },listingMaxPrice:${props.listingMaxPrice}, listingType:"${props.listingType}", listingCagegory:"${
-    //     props.listingCategory
-    //   }", listingQuality:"${props.listingQuality}"
-    //   ) {
-    //               listingID
-    //               listingTitle
-    //               listingDescription
-    //               listingType
-    //               listingPostCode
-    //               listingPrice
-    //               listingAvailability
-    //               listingCategory
-    //               listingCondition
-    //             }
-    //           }
-    //           `,
-    // };
-
     return {
       
       query: gql`
