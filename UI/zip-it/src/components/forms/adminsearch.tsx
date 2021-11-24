@@ -19,50 +19,45 @@ export interface SearchPannelProps {
 
 export function AdminSearch(props: SearchPannelProps) {
   //defines Search Type and creates setter
-  let [listingType, setType] = useState('');
-  let [listingCategory, setCategory] = useState('');
-  let [currentUserPostCode, setCurrentUserPostCode] = useState<number>(0);
+
   let [adminselection, setAdminSelection] = useState('');
   let [emailIDSelection, setUserEmailSelection] = useState('emailIDSelection');
   let [listingIDSelection, setListingIDSelection] = useState(0);
   const emailRegex = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
 
-
   //clears conflicting search parameters
   const adminOnChange = (event) => setAdminSelection(event.target.value);
-  
-  
+
   const userEmailOnChange = (event) => {
     setUserEmailSelection(event.target.value);
     setListingIDSelection(0);
-    setCurrentUserPostCode(0);
   };
   const listingIDOnChange = (event) => {
     if (isNaN(event.target.value) || event.target.value === undefined) {
       setListingIDSelection(0);
       setUserEmailSelection('emailIDSelection');
-      setCurrentUserPostCode(0);
     } else {
       setListingIDSelection(event.target.value);
       setUserEmailSelection('emailIDSelection');
-      setCurrentUserPostCode(0);
     }
   };
-  
+
   //admin search function
   const onSearch = (postcode?: number) => {
-    
     //sets search setails
     const SearchDetails: SearchDetails = {
       listingIDSelection: listingIDSelection,
       emailIDSelection: emailIDSelection,
-      listingPostCode: currentUserPostCode,
-      listingType: listingType,
-      listingCategory: listingCategory,
+      listingPostCode: 0,
+      listingType: '',
+      listingCategory: '',
     };
 
     //sets details in interface
-    if (!emailRegex.test('{listingPostCode}') && !emailRegex.test('{emailSelection}')) {
+    if (
+      !emailRegex.test('{listingPostCode}') &&
+      !emailRegex.test('{emailSelection}')
+    ) {
       props.onAdminSearchInterface(SearchDetails);
     }
   };
@@ -107,17 +102,14 @@ export function AdminSearch(props: SearchPannelProps) {
             id="listingidadminsearch"
             onChange={listingIDOnChange}
           />
-          <Button
-            leftIcon={<Icon as={FaSearch} />}
-            onClick={() => onSearch()}
-          >
+          <Button leftIcon={<Icon as={FaSearch} />} onClick={() => onSearch()}>
             Search
           </Button>
         </>
       )}
       <Button leftIcon={<Icon as={FaTrashAlt} />} onClick={onMultiDelete}>
-            Delete Items
-          </Button>
+        Delete Items
+      </Button>
       {<></>}
     </Stack>
   );
