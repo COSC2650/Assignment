@@ -55,8 +55,14 @@ export function Search(props: UserSearchProps) {
   const typeOnChange = (event) => setType(event.target.value);
   const categoryOnChange = (event) => setCategory(event.target.value);
   const qualityOnChange = (event) => setQuality(event.target.value);
-  const minPriceOnChange = (event) => setMinPrice(event.target.value);
-  const maxPriceOnChange = (event) => setMaxPrice(event.target.value);
+  const minPriceOnChange = (event) =>
+    event.target.value === ''
+      ? setMinPrice(0)
+      : setMinPrice(event.target.value);
+  const maxPriceOnChange = (event) =>
+    event.target.value === ''
+      ? setMaxPrice(0)
+      : setMaxPrice(event.target.value);
   const keywordOnChange = (event) => setKeyword(event.target.value);
 
   const onSearch = (postcode?: number) => {
