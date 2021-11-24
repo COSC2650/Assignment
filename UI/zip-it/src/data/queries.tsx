@@ -2,8 +2,6 @@ import { gql } from '@apollo/client';
 
 //fetches user authentication information
 const query = (props) => {
-console.log(props)
-
   if (props.email != null) {
     return {
       query: gql`
@@ -26,8 +24,8 @@ console.log(props)
   }
   //adminUserSearch(id: string, role: number, keyword: string):[User]
   if (
-    props.emailIDSelection !== 'emailIDSelection' &&
-    props.emailIDSelection !== undefined
+    props.emailIDSelection !== undefined &&
+    props.emailIDSelection !== 'emailIDSelection'
   ) {
     return {
       query: gql`
@@ -49,8 +47,8 @@ console.log(props)
     };
   }
   if (
-    props.listingIDSelection !== 0 &&
-    props.listingIDSelection !== undefined
+    props.listingIDSelection !== undefined &&
+    props.listingIDSelection !== 0
   ) {
     return {
       query: gql`
@@ -66,63 +64,6 @@ console.log(props)
               }
               `,
     };
-  }
-  if (
-    props.listingPostCode >= 0 &&
-    props.listingPostCode !== undefined &&
-    props.listingPostCode <= 900
-  ) {
-
-    return {
-      query: gql`
-              {
-                listingsByFilter(listingPostCode:${
-                  props.listingPostCode === undefined
-                    ? 0
-                    : props.listingPostCode
-                },listingKeyword:"${props.listingKeyword}",listingMinPrice:${
-        props.listingMinPrice
-      },listingMaxPrice:${props.listingMaxPrice}, listingType:"${props.listingType}", listingCategory:"${
-        props.listingCategory
-      }", listingQuality:"${props.listingQuality}"
-      ) {
-                  listingID
-                  listingTitle
-                  listingDescription
-                  listingType
-                  listingPostCode
-                  listingPrice
-                  listingAvailability
-                  listingCategory
-                  listingCondition
-                }
-              }
-              `,
-    };
-
-    // return {
-    //   query: gql`
-    //           {
-    //             listingsByFilter(listingPostCode:${
-    //               props.listingPostCode === undefined
-    //                 ? 0
-    //                 : props.listingPostCode
-    //             },listingType:"${props.listingType}",listingCategory:"${
-    //     props.listingCategory
-    //   }") {
-    //               listingID
-    //               listingTitle
-    //               listingDescription
-    //               listingType
-    //               listingPostCode
-    //               listingPrice
-    //               listingAvailability
-    //               listingCategory
-    //               listingCondition
-    //             }
-    //           }
-    //           `,
-    // };
   } else {
     return {
       query: gql`
@@ -133,9 +74,11 @@ console.log(props)
                     : props.listingPostCode
                 },listingKeyword:"${props.listingKeyword}",listingMinPrice:${
         props.listingMinPrice
-      },listingMaxPrice:${props.listingMaxPrice}, listingType:"${props.listingType}", listingCategory:"${
-        props.listingCategory
-      }", listingQuality:"${props.listingQuality}"
+      },listingMaxPrice:${props.listingMaxPrice}, listingType:"${
+        props.listingType
+      }", listingCategory:"${props.listingCategory}", listingQuality:"${
+        props.listingQuality
+      }"
       ) {
                   listingID
                   listingTitle
@@ -150,28 +93,6 @@ console.log(props)
               }
               `,
     };
-
-    // return {
-    //   query: gql`
-    //           {
-    //             listingsByFilter(listingPostCode:${
-    //               props.listingPostCode < 800 ? 0 : props.listingPostCode
-    //             },listingType:"${props.listingType}",listingCategory:"${
-    //     props.listingCategory
-    //   }") {
-    //               listingID
-    //               listingTitle
-    //               listingDescription
-    //               listingType
-    //               listingPostCode
-    //               listingPrice
-    //               listingAvailability
-    //               listingCategory
-    //               listingCondition
-    //             }
-    //           }
-    //           `,
-    // };
   }
 };
 export default query;
