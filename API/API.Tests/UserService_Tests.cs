@@ -512,7 +512,7 @@ namespace Tests
             Assert.False(await userService.DeleteMultiUsers(null));
 
             // send bad email
-            var badUsers = new string [] {firstInput.UserEmail, "not@matched.com"};
+            var badUsers = new string [] {firstUser.UserEmail, "not@matched.com"};
 
             // Check that fail message is returned
             Assert.False(await userService.DeleteMultiUsers(badUsers));
