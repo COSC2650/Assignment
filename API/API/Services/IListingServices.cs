@@ -19,8 +19,8 @@ namespace API.Services
         IQueryable<Listing> QueriedListingByFilter(List<int> postCodes, string keyword, string listType, string category, 
             string quality, List<string> queriedFields);
         IQueryable<Listing> OneFieldListingQuery(List<int> postCodes, string keyword, string listType, List<string> queriedFields);
-        IQueryable<Listing> TwoFieldListingQuery(List<int> postCodes, string keyword, decimal price, 
-            bool postCodeQuery, bool keywordQuery, List<Listing> sortedList);
+        IQueryable<Listing> TwoFieldListingQuery(List<int> postCodes, string keyword, string listType, 
+            string category, string quality, List<string> queriedFields);
         IList<Listing> SortListByPostCode(List<Listing> results, List<int> postCodes, List<Listing> sortedList);
         IQueryable<Listing> AdminListingSearch(string user, int listingID, string keyword);
         IList<Listing> ListingKeywordSearch(string keyword);
