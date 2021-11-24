@@ -99,12 +99,6 @@ const Header = (props: HeaderProps) => {
           <MenuItem icon={<AddIcon />} onClick={props.NewListing}>
             New Listing
           </MenuItem>
-          <MenuItem icon={<SearchIcon />} command="">
-            Current Listings
-          </MenuItem>
-          <MenuItem icon={<SettingsIcon />} command="">
-            Account Settings
-          </MenuItem>
           <MenuItem icon={<EditIcon />} onClick={props.UserProfile}>
             User Profile
           </MenuItem>

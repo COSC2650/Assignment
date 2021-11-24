@@ -124,10 +124,10 @@ export function NewListing(props: newListingProps) {
                     id="category"
                     mb={3}
                   >
-                    <option value="cat1">Category 1</option>
-                    <option value="cat2">Category 2</option>
-                    <option value="cat3">Category 3</option>
-                    <option value="cat4">Category 4</option>
+                    <option value="clothes">Clothes</option>
+                    <option value="automotive">Automotive</option>
+                    <option value="industrial">Industrial</option>
+                    <option value="handcrafted">HandCrafted</option>
                   </Select>
                   Condition:
                   <Select 

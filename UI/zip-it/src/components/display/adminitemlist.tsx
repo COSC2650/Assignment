@@ -157,11 +157,6 @@ export function AdminListings(props: userDetails) {
     }
   }
 
-  useEffect(() => {
-    queryAPI(SearchDetails);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <>
       <Stack

@@ -346,8 +346,6 @@ function App() {
       data: props,
     };
 
-    console.log(props.userFirstName);
-
     client
       .mutate({ mutation: mutation(userProfileProps) })
       .then((result) => {
@@ -373,7 +371,6 @@ function App() {
           setUserState(props.userState);
         }
 
-        console.log(result);
         toast({
           title: 'User Profile',
           description:

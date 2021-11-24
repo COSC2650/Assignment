@@ -3,28 +3,20 @@ import ListItem, { ListItemProp } from '../elements/listitem';
 import Search, { SearchDetails } from '../forms/usersearch';
 import query from '../../data/queries';
 import clientConnection from '../../data/client';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
+//interfaces
 interface userDetails {
   userPostCode: number;
 }
-
 export function UserListings(props: userDetails) {
   let [listings, setListings] = useState([]);
 
-  //default query parameters
-  var SearchDetails = {
-    // need this to be 0 for default searches for it to work (MP)
-    listingPostCode: props.userPostCode,
-    listingType: '',
-    listingCategory: '',
-    listingQuality: '',
-    listingMinPrice: 0,
-    listingMaxPrice: 0,
-    listingKeyword: '',
-  };
 
+
+  //search query
   const queryAPI = (props: SearchDetails) => {
+    
     //invoke client
     const client = clientConnection();
     client
@@ -57,12 +49,6 @@ export function UserListings(props: userDetails) {
       </>
     );
   }
-
-  //query on render useEffect to overcome re renders
-  useEffect(() => {
-    queryAPI(SearchDetails);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   //item list component
   return (
