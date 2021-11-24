@@ -45,65 +45,171 @@ namespace API.Services
             return _context.Listings.AsQueryable();
         }
 
-        public IQueryable<Listing> ListingByFilter(int postCode, string keyword, decimal price)
+        public IQueryable<Listing> ListingByFilter(
+            int postCode, 
+            string keyword, 
+            decimal minPrice, 
+            decimal maxPrice, 
+            string listType, 
+            string category, 
+            string quality
+            )
         {
             int queryArgs = 0;
             int lowestPostCodeRange = 799;
-            bool postCodeQuery = false;
-            bool keywordQuery = false;
             var postCodes = new List<int>();
-            var sortedList = new List<Listing>();
+            var queriedFields = new List<string>();
+            bool priceQueried = false;
 
             // is postcode queried
             if(postCode > lowestPostCodeRange)
             {
-               postCodeQuery = true;
-               queryArgs++;
-               // sets range of postcodes in vicinity of target
-               postCodes = new List<int>{postCode, postCode+1, postCode-1, postCode+2, postCode-2, postCode+3, postCode-3};
+                queryArgs++;
+                queriedFields.Add("postcode");
+                
+                // sets range of postcodes in vicinity of target
+                postCodes = new List<int>{postCode, postCode+1, postCode-1, postCode+2, postCode-2, postCode+3, postCode-3};
             }
 
             // is keyword queried
             if(keyword.Length > 0)
             {
-                keywordQuery = true;
                 queryArgs++;
+                queriedFields.Add("keyword");
             }
-            // is price queried
-            if(price > 0)
+            
+            // shouldn't get here through validation but just incase
+            if(maxPrice > 0 && minPrice > maxPrice)
+                return Enumerable.Empty<Listing>().AsQueryable();
+            
+            // is minPrice queried
+            if (minPrice > 0)
+            {
                 queryArgs++;
+                priceQueried = true;
+            }
+            
+            // is maxPrice queried
+            if (maxPrice > 0)
+            {
+                queryArgs++;
+                priceQueried = true;
+            }
+            
+            // is type queried
+            if (listType.Length > 0)
+            {
+                queryArgs++;
+                queriedFields.Add("type");
+            }
+            
+            // is category queried
+            if (category.Length > 0)
+            {
+                queryArgs++;
+                queriedFields.Add("category");
+            }
+
+            // is quality queried
+            if (quality.Length > 0)
+            {
+                queryArgs++;
+                queriedFields.Add("quality");
+            }
 
             // nothing is queried
             if(queryArgs==0)
                 return _context.Listings.AsQueryable();
 
-            // one field queried
-            if(queryArgs==1)
-                return OneFieldListingQuery(postCodes, keyword, price, postCodeQuery, keywordQuery, sortedList);
+            // something has been queried
+            else
+            {
+                var results = QueriedListingByFilter(postCodes, keyword, listType, category, quality, queriedFields);
 
-            // two fields queried
-            if(queryArgs==2)
-                return TwoFieldListingQuery(postCodes, keyword, price, postCodeQuery, keywordQuery, sortedList);
-            
-            // all three search fields are queried
-            else 
-            { 
-                var results = _context.Listings.Where(x => postCodes.Contains(x.ListingPostCode))
-                    .Where(x => x.ListingPrice <= price)
-                    .Where(x => x.ListingDescription.Contains(keyword) || x.ListingTitle.Contains(keyword))
-                    .ToList();
-                
-                var sortedResults = SortListByPostCode(results, postCodes, sortedList);
-                return sortedResults.AsQueryable();
+                if(priceQueried)
+                    return FilterResultsByPrice(results, minPrice, maxPrice);
+                else
+                    return results;
             }
         }
 
-        // one search field query
-        public IQueryable<Listing> OneFieldListingQuery(List<int> postCodes, string keyword, decimal price, 
-            bool postCodeQuery, bool keywordQuery, List<Listing> sortedList)
+        public IQueryable<Listing> QueriedListingByFilter(
+            List<int> postCodes, 
+            string keyword,
+            string listType,
+            string category,
+            string quality,
+            List<string> queriedFields)
         {
+            var sortedList = new List<Listing>();
+            int queryArgs = queriedFields.Count;
+
+            // only price was queried
+            if(queryArgs == 0)
+               return _context.Listings.AsQueryable();
+            
+            if(queryArgs == 1)
+            {
+                return OneFieldListingQuery(postCodes, keyword, listType, queriedFields);
+            }
+            
+            // if(queryArgs == 2)
+            // {
+
+            // }
+
+            // if(queryArgs == 3)
+            // {
+
+            // }
+
+            // if(queryArgs == 4)
+            // {
+
+            // }
+
+            // if(queryArgs == 5)
+            // {
+
+            // }
+
+            // if(queryArgs == 6)
+            // {
+
+            // }
+
+            else 
+                return Enumerable.Empty<Listing>().AsQueryable();
+        }
+
+        //     // one field queried
+        //     if(queryArgs==1)
+        //         return OneFieldListingQuery(postCodes, keyword, minPrice, postCodeQuery, keywordQuery, sortedList);
+
+        //     // two fields queried
+        //     if(queryArgs==2)
+        //         return TwoFieldListingQuery(postCodes, keyword, minPrice, postCodeQuery, keywordQuery, sortedList);
+            
+        //     // all three search fields are queried
+        //     else 
+        //     { 
+        //         var results = _context.Listings.Where(x => postCodes.Contains(x.ListingPostCode))
+        //             .Where(x => x.ListingPrice <= minPrice)
+        //             .Where(x => x.ListingDescription.Contains(keyword) || x.ListingTitle.Contains(keyword))
+        //             .ToList();
+                
+        //         var sortedResults = SortListByPostCode(results, postCodes, sortedList);
+        //         return sortedResults.AsQueryable();
+        //     }
+        // }
+
+        // one search field query
+        public IQueryable<Listing> OneFieldListingQuery(List<int> postCodes, string keyword, string listType, List<string> queriedFields)
+        {
+            var sortedList = new List<Listing>();
+
             // only postcode queried
-            if(postCodeQuery)
+            if(postCodes.Any())
             {
                 var results = _context.Listings.Where(x => postCodes.Contains(x.ListingPostCode)).ToList();
                 var sortedResults = SortListByPostCode(results, postCodes, sortedList);
@@ -111,12 +217,12 @@ namespace API.Services
             } 
             
             // only keyword queried
-            if(keywordQuery)
+            if(queriedFields.Contains("keyword"))
                 return _context.Listings.Where(x => x.ListingDescription.Contains(keyword) || x.ListingTitle.Contains(keyword)).AsQueryable();
-
-            // only price queried
-            else 
-                return _context.Listings.Where(x => x.ListingPrice <= price).AsQueryable();
+            
+            // only type is queried
+            else
+                return _context.Listings.Where(x => x.ListingType == listType).AsQueryable();
         }
 
         // two search fields query
@@ -168,6 +274,14 @@ namespace API.Services
                 }
             }
             return sortedList;
+        }
+
+        public IQueryable<Listing> FilterResultsByPrice(IQueryable<Listing> results, decimal min, decimal max)
+        {
+            if(max > 0)
+                return results.Where(x => x.ListingPrice <= max).Where(x => x.ListingPrice >= min).AsQueryable();
+            else
+                return results.Where(x => x.ListingPrice >= min).AsQueryable();
         }
 
         public async Task<Listing> EditListing(int listingID, AddListingInput input)

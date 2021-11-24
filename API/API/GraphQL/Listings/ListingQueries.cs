@@ -18,8 +18,9 @@ namespace API.GraphQL.Users
 
         public IQueryable<Listing> Ads => _listingService.GetAll();
 
-        public IQueryable<Listing> ListingsByFilter(int listingPostCode, string keyword, decimal price) => 
-            _listingService.ListingByFilter(listingPostCode, keyword, price);
+        public IQueryable<Listing> ListingsByFilter(int listingPostCode, string keyword, decimal minPrice, decimal maxPrice, 
+            string listType, string category, string quality) => 
+            _listingService.ListingByFilter(listingPostCode, keyword, minPrice, maxPrice, listType, category, quality);
         
         public IQueryable<Listing> AdminListingSearch(string user, int listingID, string keyword) => 
             _listingService.AdminListingSearch(user, listingID, keyword);

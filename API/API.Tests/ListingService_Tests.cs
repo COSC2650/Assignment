@@ -125,18 +125,14 @@ namespace Tests
         [Fact]
         public async Task Listing_Service_ListingsByFilter_Pass()
         {
-            string keyword;
-            decimal price;
-            int postCode;
-
             AddListingInput Test = new(
                 1,
                 4000,
-                "Test Product",
-                "Test Products",
+                "Title",
+                "Category",
                 2,
-                "Product",
-                "Test Product",
+                "Type",
+                "Description",
                 "Condition"
                 );
 
@@ -155,53 +151,56 @@ namespace Tests
             await listingService.CreateListing(Test);
 
             // Check for zero field query
-            postCode = 0;
-            keyword = "";
-            price = 0;
-            Assert.Equal(1, listingService.ListingByFilter(postCode, keyword, price).Count());
+            Assert.Equal(1, listingService.ListingByFilter(0, "", 0, 0, "", "", "").Count());
 
-            // Check for single field query - postcode
-            postCode = 4000;
-            keyword = "";
-            price = 0;
-            Assert.Equal(1, listingService.ListingByFilter(postCode, keyword, price).Count());
+            // Check for minPrice field query
+            Assert.Equal(1, listingService.ListingByFilter(0, "", 1, 0, "", "", "").Count());
 
-            // Check for single field query - keyword and checks no duplicate entries
-            postCode = 0;
-            keyword = "Product";
-            price = 0;
-            Assert.Equal(1, listingService.ListingByFilter(postCode, keyword, price).Count());
+            // Check for maxPrice field query
+            Assert.Equal(1, listingService.ListingByFilter(0, "", 0, 3, "", "", "").Count());
 
-            // Check for single field query - price
-            postCode = 0;
-            keyword = "";
-            price = 2;
-            Assert.Equal(1, listingService.ListingByFilter(postCode, keyword, price).Count());
+            // Check for minPrice and maxPrice field query
+            Assert.Equal(1, listingService.ListingByFilter(0, "", 1, 3, "", "", "").Count());
 
-            // Check for two field query - postcode and listingtype
-            postCode = 4000;
-            keyword = "Product";
-            price = 0;
-            Assert.Equal(1, listingService.ListingByFilter(postCode, keyword, price).Count());
-
-            // Check for two field query - postcode and category
-            postCode = 4000;
-            keyword = "";
-            price = 2;
-            Assert.Equal(1, listingService.ListingByFilter(postCode, keyword, price).Count());
-
-            // Check for two field query - listingtype and category
-            postCode = 0;
-            keyword = "Product";
-            price = 2;
-            Assert.Equal(1, listingService.ListingByFilter(postCode, keyword, price).Count());
-
-            // Check for three field query - alter to check each field
-            postCode = 4000;
-            keyword = "Product";
-            price = 2;
-            Assert.Equal(1, listingService.ListingByFilter(postCode, keyword, price).Count());
+            // Check for equal minPrice and maxPrice field query
+            Assert.Equal(1, listingService.ListingByFilter(0, "", 2, 2, "", "", "").Count());
         }
+
+        [Fact]
+        public async Task Listing_Service_ListingsByFilter_Fail()
+        {
+            AddListingInput Test = new(
+                1,
+                4000,
+                "Title",
+                "Category",
+                2,
+                "Type",
+                "Description",
+                "Condition"
+                );
+
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                  .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                  .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the ListingService with the mocked context
+            ListingService listingService = new(context);
+
+            // Create a listing
+            await listingService.CreateListing(Test);
+
+            // Check for higher minPrice than maxPrice field query
+            Assert.Equal(0, listingService.ListingByFilter(0, "", 2, 1, "", "", "").Count());
+
+            // Check for no implementation yet
+            Assert.Equal(0, listingService.ListingByFilter(4000, "", 0, 0, "", "", "").Count());
+        }
+
         [Fact]
         public async Task ListingService_EditListing()
         {
@@ -347,57 +346,6 @@ namespace Tests
              // Check we have successfully delete the listing
              Assert.Equal(0, listingService.GetAll().Count());
          }
-
-        [Fact]
-        public async Task Listing_Service_ListingsByFilter_Fail()
-        {
-            string keyword;
-            decimal price;
-            int postCode;
-
-            AddListingInput Test = new(
-                1,
-                4000,
-                "Test Product",
-                "Test Products",
-                1,
-                "Product",
-                "Description",
-                "Condition"
-                );
-
-            // Change the context options to use an inmemory database
-            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
-                  .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
-                  .Options;
-
-            // Create a new instance of the ZipitContext
-            var context = new API.Data.ZipitContext(contextOptions);
-
-            // Create a new instance on the ListingService with the mocked context
-            ListingService listingService = new(context);
-
-            // Create a listing
-            await listingService.CreateListing(Test);
-
-            // Check for single field query - alter to check each field
-            postCode = 0;
-            keyword = "mismatch";
-            price = 0;
-            Assert.Equal(0, listingService.ListingByFilter(postCode, keyword, price).Count());
-
-            // Check for two field query - alter to check each field
-            postCode = 4000;
-            keyword = "mismatch";
-            price = 0;
-            Assert.Equal(0, listingService.ListingByFilter(postCode, keyword, price).Count());
-
-            // Check for three field query - alter to check each field
-            postCode = 3000;
-            keyword = "mismatch";
-            price = 1;
-            Assert.Equal(0, listingService.ListingByFilter(postCode, keyword, price).Count());
-        }
 
         [Fact]
         public async Task AdminListingSearch_Test()
