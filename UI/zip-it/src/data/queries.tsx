@@ -2,7 +2,6 @@ import { gql } from '@apollo/client';
 
 //fetches user authentication information
 const query = (props) => {
-  console.log(props);
   if (props.email != null) {
     return {
       query: gql`
@@ -25,8 +24,8 @@ const query = (props) => {
   }
   //adminUserSearch(id: string, role: number, keyword: string):[User]
   if (
-    props.emailIDSelection !== undefined &&
-    props.emailIDSelection !== 'emailIDSelection'
+    props.emailIDSelection !== 'emailIDSelection' &&
+    props.emailIDSelection !== undefined
   ) {
     return {
       query: gql`
@@ -48,8 +47,8 @@ const query = (props) => {
     };
   }
   if (
-    props.listingIDSelection !== undefined &&
-    props.listingIDSelection !== 0
+    props.listingIDSelection !== 0 &&
+    props.listingIDSelection !== undefined
   ) {
     return {
       query: gql`
@@ -66,81 +65,11 @@ const query = (props) => {
               `,
     };
   }
-  if (props.listingType !== 'product' && props.listingType !== 'service') {
-    console.log('new user search');
-
-    //fetches listings according to passed params
-    return {
-      query: gql`
-              {
-                listingsByFilter(listingPostCode:${
-                  props.listingPostCode < 800 ? 0 : props.listingPostCode
-                },listingType:"${props.listingType}",listingCategory:"${
-        props.listingCategory
-      }") {
-                  listingID
-                  listingTitle
-                  listingDescription
-                  listingType
-                  listingPostCode
-                  listingPrice
-                  listingAvailability
-                  listingCategory
-                  listingCondition
-                }
-              }
-              `,
-    };
-
-    // return {
-    //   query: gql`
-    //           {
-    //             listingsByFilter(listingPostCode:${
-    //               props.listingPostCode === undefined
-    //                 ? 0
-    //                 : props.listingPostCode
-    //             },listingKeyword:"${props.listingKeyword}",listingMinPrice:${
-    //     props.listingMinPrice
-    //   },listingMaxPrice:${props.listingMaxPrice}
-    //   ) {
-    //               listingID
-    //               listingTitle
-    //               listingDescription
-    //               listingType
-    //               listingPostCode
-    //               listingPrice
-    //               listingAvailability
-    //               listingCategory
-    //               listingCondition
-    //             }
-    //           }
-    //           `,
-    // };
-  }
-  if (props.listingType !== undefined && props.listingType === 'service') {
-    console.log('service');
-
-    return {
-      query: gql`
-              {
-                listingsByFilter(listingPostCode:${
-                  props.listingPostCode < 800 ? 0 : props.listingPostCode
-                },listingType:"${props.listingType}",listingCategory:"${
-        props.listingCategory
-      }") {
-                  listingID
-                  listingTitle
-                  listingDescription
-                  listingType
-                  listingPostCode
-                  listingPrice
-                  listingAvailability
-                  listingCategory
-                  listingCondition
-                }
-              }
-              `,
-    };
+  if (
+    props.listingPostCode >= 0 &&
+    props.listingPostCode !== undefined &&
+    props.listingPostCode <= 900
+  ) {
 
     // return {
     //   query: gql`
@@ -151,11 +80,9 @@ const query = (props) => {
     //                 : props.listingPostCode
     //             },listingKeyword:"${props.listingKeyword}",listingMinPrice:${
     //     props.listingMinPrice
-    //   },listingMaxPrice:${
-    //     props.listingMaxPrice
-    //   },listingQuality:"${props.listingQuality}", listingCagegory:"${
+    //   },listingMaxPrice:${props.listingMaxPrice}, listingType:"${props.listingType}", listingCagegory:"${
     //     props.listingCategory
-    //   }"
+    //   }", listingQuality:"${props.listingQuality}"
     //   ) {
     //               listingID
     //               listingTitle
@@ -170,14 +97,14 @@ const query = (props) => {
     //           }
     //           `,
     // };
-  }
-  if (props.listingType !== undefined && props.listingType === 'product') {
-    console.log('product');
+
     return {
       query: gql`
               {
                 listingsByFilter(listingPostCode:${
-                  props.listingPostCode < 800 ? 0 : props.listingPostCode
+                  props.listingPostCode === undefined
+                    ? 0
+                    : props.listingPostCode
                 },listingType:"${props.listingType}",listingCategory:"${
         props.listingCategory
       }") {
@@ -194,7 +121,7 @@ const query = (props) => {
               }
               `,
     };
-
+  } else {
     // return {
     //   query: gql`
     //           {
@@ -204,11 +131,9 @@ const query = (props) => {
     //                 : props.listingPostCode
     //             },listingKeyword:"${props.listingKeyword}",listingMinPrice:${
     //     props.listingMinPrice
-    //   },listingMaxPrice:${
-    //     props.listingMaxPrice
-    //   },listingQuality:"${props.listingQuality}", listingCagegory:"${
+    //   },listingMaxPrice:${props.listingMaxPrice}, listingType:"${props.listingType}", listingCagegory:"${
     //     props.listingCategory
-    //   }"
+    //   }", listingQuality:"${props.listingQuality}"
     //   ) {
     //               listingID
     //               listingTitle
@@ -223,11 +148,7 @@ const query = (props) => {
     //           }
     //           `,
     // };
-  }
-  
-  else {
-    console.log('default');
-    //default if no params are selected and no user logged in
+
     return {
       query: gql`
               {
@@ -252,38 +173,3 @@ const query = (props) => {
   }
 };
 export default query;
-
-
-////original search query
-  // if (
-  //   props.listingPostCode !== undefined &&
-  //   props.listingPostCode >= 0 &&
-  //   props.listingPostCode <= 900
-  // ) {
-  //   console.log('if');
-
-  //   //fetches listings according to passed params
-  //   return {
-  //     query: gql`
-  //             {
-  //               listingsByFilter(listingPostCode:${
-  //                 props.listingPostCode === undefined
-  //                   ? 0
-  //                   : props.listingPostCode
-  //               },listingType:"${props.listingType}",listingCategory:"${
-  //       props.listingCategory
-  //     }") {
-  //                 listingID
-  //                 listingTitle
-  //                 listingDescription
-  //                 listingType
-  //                 listingPostCode
-  //                 listingPrice
-  //                 listingAvailability
-  //                 listingCategory
-  //                 listingCondition
-  //               }
-  //             }
-  //             `,
-  //   };
-  // }
