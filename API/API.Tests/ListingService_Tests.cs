@@ -637,7 +637,7 @@ namespace Tests
             return fixture.Build<List<AddListingInput>>().Create();
         }
 
-        private static AddListingInput GenerateListingInput()
+        public static AddListingInput GenerateListingInput()
         {
             // Create a new instance on the fixture
             Fixture fixture = new();
