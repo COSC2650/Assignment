@@ -10,7 +10,9 @@ import clientConnection from './data/client';
 import UserListings from './components/display/useritemlist';
 import { AdminListings } from './components/display/adminitemlist';
 import NewListing, { newListingDetails } from './components/forms/newlisting';
-import UserProfile, { userProfileDetails } from './components/forms/userprofile';
+import UserProfile, {
+  userProfileDetails,
+} from './components/forms/userprofile';
 
 import Confirmation, {
   ConfirmationDetails,
@@ -61,7 +63,6 @@ function App() {
   const onUserProfileClose = () => setUserProfileVisible(false);
   const onShowDeleteUser = () => setDeleteUserVisible(true);
   const onShowDeleteUserClose = () => setDeleteUserVisible(false);
-
 
   const onConfirmationClose = () => {
     setUserTitle('Welcome');
@@ -116,7 +117,6 @@ function App() {
         if (queryResult != null) {
           //set user data
           setUserTitle('Hi, ' + queryResult.userFirstName + '!');
-          setUserPostCode(queryResult.userPostCode);
           setUserID(queryResult.userID);
           setRoleID(queryResult.roleID);
           setUserFirstName(queryResult.userFirstName);
@@ -124,6 +124,11 @@ function App() {
           setUserStreet(queryResult.userStreet);
           setUserCity(queryResult.userCity);
           setUserState(queryResult.userState);
+          if (queryResult.roleID === 1) {
+            setUserPostCode(0);
+          } else {
+            setUserPostCode(queryResult.userPostCode);
+          }
 
           //hide login
           setLoginVisible(false);
@@ -164,7 +169,7 @@ function App() {
         setLogInDisabled(false);
       });
   };
- 
+
   //logic for logout function
   const onLogout = () => {
     setRoleID(2);
@@ -346,20 +351,27 @@ function App() {
     client
       .mutate({ mutation: mutation(userProfileProps) })
       .then((result) => {
-        if (props.userFirstName != null){
-        setUserTitle('Hi, ' + props.userFirstName + '!');}
-        if (props.userPostCode != null){
-        setUserPostCode(props.userPostCode);}
-        if (props.userFirstName != null){
-        setUserFirstName(props.userFirstName);}
-        if (props.userLastName != null){
-        setUserLastName(props.userLastName);}
-        if (props.userStreet != null){
-        setUserStreet(props.userStreet);}
-        if (props.userCity != null){
-        setUserCity(props.userCity);}
-        if (props.userState != null){
-        setUserState(props.userState);}
+        if (props.userFirstName != null) {
+          setUserTitle('Hi, ' + props.userFirstName + '!');
+        }
+        if (props.userPostCode != null) {
+          setUserPostCode(props.userPostCode);
+        }
+        if (props.userFirstName != null) {
+          setUserFirstName(props.userFirstName);
+        }
+        if (props.userLastName != null) {
+          setUserLastName(props.userLastName);
+        }
+        if (props.userStreet != null) {
+          setUserStreet(props.userStreet);
+        }
+        if (props.userCity != null) {
+          setUserCity(props.userCity);
+        }
+        if (props.userState != null) {
+          setUserState(props.userState);
+        }
 
         console.log(result);
         toast({
@@ -372,7 +384,6 @@ function App() {
           position: 'top',
         });
         setUserProfileVisible(false);
-
       })
 
       .catch((result) => {
@@ -404,18 +415,18 @@ function App() {
     client
       .mutate({ mutation: mutation(deleteUserProps) })
       .then((result) => {
-
         console.log(result);
         toast({
           title: 'Delete User Profile',
-          description: 'Your profile information has been successfully removed.',
+          description:
+            'Your profile information has been successfully removed.',
           status: 'success',
           duration: 2000,
           isClosable: true,
           position: 'top',
         });
         setUserTitle(' Welcome!');
-        setUserPostCode(0o0);
+        setUserPostCode(0);
         setAuthenticated(undefined);
         setLogInDisabled(false);
         setUserProfileVisible(false);
@@ -446,7 +457,7 @@ function App() {
     if (RoleID === 1) {
       return (
         <>
-          <AdminListings />
+          <AdminListings userPostCode={userPostCode} />
         </>
       );
     } else {
@@ -524,10 +535,10 @@ function App() {
         onOpen={onShowDeleteUser}
         onClose={onShowDeleteUserClose}
         onDeleteUser={onDeleteUser}
-        userID={userID} />
+        userID={userID}
+      />
     </>
   );
 }
 
 export default App;
-

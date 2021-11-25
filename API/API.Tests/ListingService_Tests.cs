@@ -123,22 +123,17 @@ namespace Tests
         }
 
         [Fact]
-        public async Task Listing_Service_ListingsByQueries_Pass()
+        public async Task Listing_Service_ListingsByFilter_Pass()
         {
-            string listingType;
-            string category;
-            int postCode;
-
             AddListingInput Test = new(
                 1,
                 4000,
-                "Test Product",
-                "Test Products",
-                1,
-                "Product",
+                "Title",
+                "Category",
+                2,
+                "Type",
                 "Description",
-                "Condition",
-                "www.image.com"
+                "Condition"
                 );
 
             // Change the context options to use an inmemory database
@@ -156,53 +151,174 @@ namespace Tests
             await listingService.CreateListing(Test);
 
             // Check for zero field query
-            postCode = 0;
-            listingType = "";
-            category = "";
-            Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
+            Assert.Equal(1, listingService.ListingByFilter(0, "", 0, 0, "", "", "").Count());
 
-            // Check for single field query - postcode
-            postCode = 4000;
-            listingType = "";
-            category = "";
-            Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
+            // Check for minPrice field query
+            Assert.Equal(1, listingService.ListingByFilter(0, "", 1, 0, "", "", "").Count());
 
-            // Check for single field query - listingtype
-            postCode = 0;
-            listingType = "Product";
-            category = "";
-            Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
+            // Check for maxPrice field query
+            Assert.Equal(1, listingService.ListingByFilter(0, "", 0, 3, "", "", "").Count());
 
-            // Check for single field query - category
-            postCode = 0;
-            listingType = "";
-            category = "Test Products";
-            Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
+            // Check for minPrice and maxPrice field query
+            Assert.Equal(1, listingService.ListingByFilter(0, "", 1, 3, "", "", "").Count());
 
-            // Check for two field query - postcode and listingtype
-            postCode = 4000;
-            listingType = "Product";
-            category = "";
-            Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
+            // Check for equal minPrice and maxPrice field query
+            Assert.Equal(1, listingService.ListingByFilter(0, "", 2, 2, "", "", "").Count());
 
-            // Check for two field query - postcode and category
-            postCode = 4000;
-            listingType = "";
-            category = "Test Products";
-            Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
+            // Check for one field query - postcode
+            Assert.Equal(1, listingService.ListingByFilter(4000, "", 0, 0, "", "", "").Count());
 
-            // Check for two field query - listingtype and category
-            postCode = 0;
-            listingType = "Product";
-            category = "Test Products";
-            Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
+            // Check for one field query - keyword
+            Assert.Equal(1, listingService.ListingByFilter(0, "Title", 0, 0, "", "", "").Count());
+            Assert.Equal(1, listingService.ListingByFilter(0, "Description", 0, 0, "", "", "").Count());
 
-            // Check for three field query - alter to check each field
-            postCode = 4000;
-            listingType = "Product";
-            category = "Test Products";
-            Assert.Equal(1, listingService.ListingByFilter(postCode, listingType, category).Count());
+            // Check for one field query - type
+            Assert.Equal(1, listingService.ListingByFilter(0, "", 0, 0, "Type", "", "").Count());
+
+            // Check for two field query - type + postcode
+            Assert.Equal(1, listingService.ListingByFilter(4000, "", 0, 0, "Type", "", "").Count());
+
+            // Check for two field query - type + keyword
+            Assert.Equal(1, listingService.ListingByFilter(0, "Title", 0, 0, "Type", "", "").Count());
+            Assert.Equal(1, listingService.ListingByFilter(0, "Description", 0, 0, "Type", "", "").Count());
+
+            // Check for two field query - type + category
+            Assert.Equal(1, listingService.ListingByFilter(0, "", 0, 0, "Type", "Category", "").Count());
+
+            // Check for two field query - type + quality
+            Assert.Equal(1, listingService.ListingByFilter(0, "", 0, 0, "Type", "", "Condition").Count());
+
+            // Check for two field query - postcode + keyword
+            Assert.Equal(1, listingService.ListingByFilter(4000, "Title", 0, 0, "", "", "").Count());
+            Assert.Equal(1, listingService.ListingByFilter(4000, "Description", 0, 0, "", "", "").Count());
+
+            // Check for three field query - type + postcode + keyword
+            Assert.Equal(1, listingService.ListingByFilter(4000, "Title", 0, 0, "Type", "", "").Count());
+            Assert.Equal(1, listingService.ListingByFilter(4000, "Description", 0, 0, "Type", "", "").Count());
+
+            // Check for three field query - type + postcode + category
+            Assert.Equal(1, listingService.ListingByFilter(4000, "", 0, 0, "Type", "Category", "").Count());
+
+            // Check for three field query - type + postcode + quality
+            Assert.Equal(1, listingService.ListingByFilter(4000, "", 0, 0, "Type", "", "Condition").Count());
+
+            // Check for three field query - type + keyword + category
+            Assert.Equal(1, listingService.ListingByFilter(0, "Title", 0, 0, "Type", "Category", "").Count());
+            Assert.Equal(1, listingService.ListingByFilter(0, "Description", 0, 0, "Type", "Category", "").Count());
+
+            // Check for three field query - type + keyword + quality
+            Assert.Equal(1, listingService.ListingByFilter(0, "Title", 0, 0, "Type", "", "Condition").Count());
+            Assert.Equal(1, listingService.ListingByFilter(0, "Description", 0, 0, "Type", "", "Condition").Count());
+
+            // Check for four field query - type + postcode + keyword + category 
+            Assert.Equal(1, listingService.ListingByFilter(4000, "Title", 0, 0, "Type", "Category", "").Count());
+            Assert.Equal(1, listingService.ListingByFilter(4000, "Description", 0, 0, "Type", "Category", "").Count());
+
+            // Check for four field query - type + postcode + keyword + quality
+            Assert.Equal(1, listingService.ListingByFilter(4000, "Title", 0, 0, "Type", "", "Condition").Count());
+            Assert.Equal(1, listingService.ListingByFilter(4000, "Description", 0, 0, "Type", "", "Condition").Count());
+
+            // Check for four field query - type + keyword + category + quality
+            Assert.Equal(1, listingService.ListingByFilter(0, "Title", 0, 0, "Type", "Category", "Condition").Count());
+            Assert.Equal(1, listingService.ListingByFilter(0, "Description", 0, 0, "Type", "Category", "Condition").Count());
+
+            // Check for four field query - type + postcode + category + quality
+            Assert.Equal(1, listingService.ListingByFilter(4000, "", 0, 0, "Type", "Category", "Condition").Count());
+
+            // Check for five field query - type + postcode + keyword + category + quality
+            Assert.Equal(1, listingService.ListingByFilter(4000, "Title", 0, 0, "Type", "Category", "Condition").Count());
+            Assert.Equal(1, listingService.ListingByFilter(4000, "Description", 0, 0, "Type", "Category", "Condition").Count());
         }
+
+        [Fact]
+        public async Task Listing_Service_ListingsByFilter_Fail()
+        {
+            AddListingInput Test = new(
+                1,
+                4000,
+                "Title",
+                "Category",
+                2,
+                "Type",
+                "Description",
+                "Condition"
+                );
+
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                  .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                  .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the ListingService with the mocked context
+            ListingService listingService = new(context);
+
+            // Create a listing
+            await listingService.CreateListing(Test);
+
+            // Check for higher minPrice than maxPrice field query
+            Assert.Equal(0, listingService.ListingByFilter(0, "", 2, 1, "", "", "").Count());
+
+            // Check for wrong postcode
+            Assert.Equal(0, listingService.ListingByFilter(3000, "", 2, 1, "", "", "").Count());
+
+            // Check for wrong keyword
+            Assert.Equal(0, listingService.ListingByFilter(0, "wrong", 2, 1, "", "", "").Count());
+
+            // Check for wrong type
+            Assert.Equal(0, listingService.ListingByFilter(0, "", 2, 1, "wrong", "", "").Count());
+
+            // Check for wrong type + postcode
+            Assert.Equal(0, listingService.ListingByFilter(3000, "", 0, 0, "wrong", "", "").Count());
+            
+            // Check for wrong type + keyword
+            Assert.Equal(0, listingService.ListingByFilter(0, "wrong", 0, 0, "wrong", "", "").Count());
+
+            // Check for wrong keyword + postcode
+            Assert.Equal(0, listingService.ListingByFilter(3000, "wrong", 0, 0, "", "", "").Count());
+
+            // Check for wrong type + category
+            Assert.Equal(0, listingService.ListingByFilter(0, "", 0, 0, "wrong", "wrong", "").Count());
+
+            // Check for wrong type + quality
+            Assert.Equal(0, listingService.ListingByFilter(0, "", 0, 0, "wrong", "", "wrong").Count());
+
+            // listType + postCode + keyword
+            Assert.Equal(0, listingService.ListingByFilter(4000, "wrong", 0, 0, "wrong", "", "").Count());
+
+            // listType + postCode + category
+            Assert.Equal(0, listingService.ListingByFilter(4000, "wrong", 0, 0, "wrong", "", "").Count());
+
+            // listType + postCode + quality
+            Assert.Equal(0, listingService.ListingByFilter(4000, "wrong", 0, 0, "", "", "wrong").Count());
+
+            // listType + category + keyword
+            Assert.Equal(0, listingService.ListingByFilter(0, "wrong", 0, 0, "wrong", "wrong", "").Count());
+
+            // listType + condition + keyword
+            Assert.Equal(0, listingService.ListingByFilter(0, "wrong", 0, 0, "wrong", "", "wrong").Count());
+
+            // listType + postcode + keyword + catgeory
+            Assert.Equal(0, listingService.ListingByFilter(3000, "wrong", 0, 0, "wrong", "wrong", "").Count());
+
+            // listType + postcode + keyword + condition
+            Assert.Equal(0, listingService.ListingByFilter(3000, "wrong", 0, 0, "wrong", "", "wrong").Count());
+
+            // listType + condition + keyword + category
+            Assert.Equal(0, listingService.ListingByFilter(0, "wrong", 0, 0, "wrong", "wrong", "wrong").Count());
+
+            // listType + condition + postcode + category
+            Assert.Equal(0, listingService.ListingByFilter(3000, "", 0, 0, "wrong", "wrong", "wrong").Count());
+
+            // keyword + condition + postcode + category (should be impossible)
+            Assert.Equal(0, listingService.ListingByFilter(3000, "wrong", 0, 0, "", "wrong", "wrong").Count());
+
+            // listType + keyword + condition + postcode + category 
+            Assert.Equal(0, listingService.ListingByFilter(3000, "wrong", 0, 0, "wrong", "wrong", "wrong").Count());
+        }
+
         [Fact]
         public async Task ListingService_EditListing()
         {
@@ -215,8 +331,8 @@ namespace Tests
                 0,
                 "Product",
 				"Selling my bug zapper",
-				"New",
-                "https://picsum.photos/100?random=5");
+				"New"
+                );
 
             // Change the context options to use an inmemory database
             var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
@@ -244,8 +360,7 @@ namespace Tests
 				1,
                 "editType",
 				"editDescription",
-				"editCondition",
-				"https://picsum.photos/100?random=5"
+				"editCondition"
 				);
             
             // Edit listing first details
@@ -276,8 +391,8 @@ namespace Tests
                 0,
                 "Product",
 				"Selling my bug zapper",
-				"New",
-                "https://picsum.photos/100?random=5");
+				"New"
+                );
             
             // Edit listing first details
             await listingService.EditListing(genInput.ListingID, invalidPostCodeRange);
@@ -297,8 +412,8 @@ namespace Tests
                 0,
                 "Product",
 				"Selling my bug zapper",
-				"New",
-                "https://picsum.photos/100?random=5");
+				"New"
+                );
             
             // Edit listing first details
             await listingService.EditListing(genInput.ListingID, invalidPostCodeZero);
@@ -323,8 +438,8 @@ namespace Tests
                 0,
                 "Product",
 				"Selling my bug zapper",
-				"New",
-                "https://picsum.photos/100?random=5");
+				"New"
+                );
 
              // Change the context options to use an inmemory database
              var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
@@ -349,58 +464,6 @@ namespace Tests
              // Check we have successfully delete the listing
              Assert.Equal(0, listingService.GetAll().Count());
          }
-
-        [Fact]
-        public async Task Listing_Service_ListingsByQueries_Fail()
-        {
-            string listingType;
-            string category;
-            int postCode;
-
-            AddListingInput Test = new(
-                1,
-                4000,
-                "Test Product",
-                "Test Products",
-                1,
-                "Product",
-                "Description",
-                "Condition",
-                "www.image.com"
-                );
-
-            // Change the context options to use an inmemory database
-            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
-                  .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
-                  .Options;
-
-            // Create a new instance of the ZipitContext
-            var context = new API.Data.ZipitContext(contextOptions);
-
-            // Create a new instance on the ListingService with the mocked context
-            ListingService listingService = new(context);
-
-            // Create a listing
-            await listingService.CreateListing(Test);
-
-            // Check for single field query - alter to check each field
-            postCode = 0;
-            listingType = "Wrong ListingType";
-            category = "";
-            Assert.Equal(0, listingService.ListingByFilter(postCode, listingType, category).Count());
-
-            // Check for two field query - alter to check each field
-            postCode = 4000;
-            listingType = "Wrong ListingType";
-            category = "";
-            Assert.Equal(0, listingService.ListingByFilter(postCode, listingType, category).Count());
-
-            // Check for three field query - alter to check each field
-            postCode = 4000;
-            listingType = "Wrong ListingType";
-            category = "Test Products";
-            Assert.Equal(0, listingService.ListingByFilter(postCode, listingType, category).Count());
-        }
 
         [Fact]
         public async Task AdminListingSearch_Test()
@@ -434,8 +497,7 @@ namespace Tests
                 1,
                 "Product",
                 "Description",
-                "Condition",
-                "www.image.com"
+                "Condition"
                 );
 
             // Create a listing
@@ -478,8 +540,8 @@ namespace Tests
                 0,
                 "Product",
 				"Selling my bug zapper",
-				"New",
-                "https://picsum.photos/100?random=5");
+				"New"
+                );
             
             AddListingInput secondInput = new(
                 2,
@@ -489,8 +551,8 @@ namespace Tests
                 0,
                 "Product",
 				"Selling my bug zapper",
-				"New",
-                "https://picsum.photos/100?random=5");
+				"New"
+                );
 
             // Change the context options to use an inmemory database
             var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
@@ -528,8 +590,8 @@ namespace Tests
                 0,
                 "Product",
 				"Selling my bug zapper",
-				"New",
-                "https://picsum.photos/100?random=5");
+				"New"
+                );
 
             // Change the context options to use an inmemory database
             var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()

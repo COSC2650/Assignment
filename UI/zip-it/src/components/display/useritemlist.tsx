@@ -18,6 +18,10 @@ export function UserListings(props: userDetails) {
     listingPostCode: props.userPostCode,
     listingType: '',
     listingCategory: '',
+    listingQuality: '',
+    listingMinPrice: 0,
+    listingMaxPrice: 0,
+    listingKeyword: '',
   };
 
   const queryAPI = (props: SearchDetails) => {
@@ -77,8 +81,6 @@ export function UserListings(props: userDetails) {
           <ListingsFragment />
         </VStack>
       </Stack>
-
-      
     </>
   );
 }

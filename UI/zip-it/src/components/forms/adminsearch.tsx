@@ -19,56 +19,45 @@ export interface SearchPannelProps {
 
 export function AdminSearch(props: SearchPannelProps) {
   //defines Search Type and creates setter
-  let [listingType, setType] = useState('');
-  let [listingCategory, setCategory] = useState('');
-  let [currentUserPostCode, setCurrentUserPostCode] = useState<number>(0);
+
   let [adminselection, setAdminSelection] = useState('');
   let [emailIDSelection, setUserEmailSelection] = useState('emailIDSelection');
   let [listingIDSelection, setListingIDSelection] = useState(0);
   const emailRegex = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
 
-
   //clears conflicting search parameters
-  const typeOnChange = (event) => setType(event.target.value);
-  const categoryOnChange = (event) => setCategory(event.target.value);
   const adminOnChange = (event) => setAdminSelection(event.target.value);
-  
-  const postcodeOnChange = (event) => {
-    setUserEmailSelection('emailIDSelection');
-    setListingIDSelection(0);
-    setCurrentUserPostCode(event.target.value);
-  };
+
   const userEmailOnChange = (event) => {
     setUserEmailSelection(event.target.value);
     setListingIDSelection(0);
-    setCurrentUserPostCode(0);
   };
   const listingIDOnChange = (event) => {
     if (isNaN(event.target.value) || event.target.value === undefined) {
       setListingIDSelection(0);
       setUserEmailSelection('emailIDSelection');
-      setCurrentUserPostCode(0);
     } else {
       setListingIDSelection(event.target.value);
       setUserEmailSelection('emailIDSelection');
-      setCurrentUserPostCode(0);
     }
   };
-  
+
   //admin search function
   const onSearch = (postcode?: number) => {
-    
     //sets search setails
     const SearchDetails: SearchDetails = {
       listingIDSelection: listingIDSelection,
       emailIDSelection: emailIDSelection,
-      listingPostCode: currentUserPostCode,
-      listingType: listingType,
-      listingCategory: listingCategory,
+      listingPostCode: 0,
+      listingType: '',
+      listingCategory: '',
     };
 
     //sets details in interface
-    if (!emailRegex.test('{listingPostCode}') && !emailRegex.test('{emailSelection}')) {
+    if (
+      !emailRegex.test('{listingPostCode}') &&
+      !emailRegex.test('{emailSelection}')
+    ) {
       props.onAdminSearchInterface(SearchDetails);
     }
   };
@@ -89,7 +78,6 @@ export function AdminSearch(props: SearchPannelProps) {
       >
         <option value="users">User</option>
         <option value="listings">Listing</option>
-        <option value="general">General</option>
       </Select>
       {adminselection === 'users' && (
         <>
@@ -103,9 +91,6 @@ export function AdminSearch(props: SearchPannelProps) {
           <Button leftIcon={<Icon as={FaSearch} />} onClick={() => onSearch()}>
             Search
           </Button>
-          <Button leftIcon={<Icon as={FaTrashAlt} />} onClick={onMultiDelete}>
-            Delete Items
-          </Button>
         </>
       )}
       {adminselection === 'listings' && (
@@ -117,108 +102,14 @@ export function AdminSearch(props: SearchPannelProps) {
             id="listingidadminsearch"
             onChange={listingIDOnChange}
           />
-          <Button
-            leftIcon={<Icon as={FaSearch} />}
-            onClick={() => onSearch()}
-          >
-            Search
-          </Button>
-          <Button leftIcon={<Icon as={FaTrashAlt} />} onClick={onMultiDelete}>
-            Delete Items
-          </Button>
-        </>
-      )}
-      {adminselection === 'general' && (
-        <>
-          <Input
-            placeholder="Post Code"
-            variant="filled"
-            type="inputfield"
-            id="postcodeselect"
-            onChange={postcodeOnChange}
-          />
-          <Select
-            placeholder="Products or Services"
-            defaultValue=""
-            type="dropdownselect"
-            id="listingselect"
-            onChange={typeOnChange}
-          >
-            <option value="product">Product</option>
-            <option value="service">Service</option>
-          </Select>
-          {listingType === 'product' && (
-            <>
-              <Select
-                placeholder="Product Category"
-                type="dropdownselect"
-                id="productategoryselect"
-                onChange={categoryOnChange}
-              >
-                <option value="clothes">Clothes</option>
-                <option value="automotive">Automotive</option>
-                <option value="industrial">Industrial</option>
-                <option value="handcrafted">HandCrafted</option>
-              </Select>
-              <>
-                <Select
-                  placeholder="Condition"
-                  type="dropdownselect"
-                  id="conditionselect"
-                >
-                  <option value="">Good Condition</option>
-                  <option value="">Well used</option>
-                  <option value="">Barely Used</option>
-                  <option value="">Unused</option>
-                </Select>
-                <Select placeholder="Availability" disabled={false}>
-                  <option value="">Now</option>
-                  <option value="">Date and Time</option>
-                  <option value="">Pre Order</option>
-                </Select>
-              </>
-            </>
-          )}
-          {listingType === 'service' && (
-            <>
-              <Select
-                placeholder="Qualification"
-                type="dropdownselect"
-                id="qualificationcategoryselect"
-                onChange={categoryOnChange}
-              >
-                <option value="qualandcert">Qualified and Certified</option>
-                <option value="qualified">Qualified</option>
-                <option value="unqualcert">Unqualified and Uncertified</option>
-              </Select>
-              <Select
-                placeholder="Availability"
-                type="dropdownselect"
-                id="serviceavailability"
-                disabled={false}
-              >
-                <option value="">Now</option>
-                <option value="">Date</option>
-              </Select>
-            </>
-          )}
-          {listingType === '' && (
-            <>
-              <Select
-                placeholder="Availability"
-                type="dropdownselect"
-                id="generalavailability"
-              ></Select>
-            </>
-          )}
-          <Button
-            leftIcon={<Icon as={FaSearch} />}
-            onClick={() => onSearch(currentUserPostCode)}
-          >
+          <Button leftIcon={<Icon as={FaSearch} />} onClick={() => onSearch()}>
             Search
           </Button>
         </>
       )}
+      <Button leftIcon={<Icon as={FaTrashAlt} />} onClick={onMultiDelete}>
+        Delete Items
+      </Button>
       {<></>}
     </Stack>
   );

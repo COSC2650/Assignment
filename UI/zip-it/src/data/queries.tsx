@@ -24,8 +24,8 @@ const query = (props) => {
   }
   //adminUserSearch(id: string, role: number, keyword: string):[User]
   if (
-    props.emailIDSelection !== 'emailIDSelection' &&
-    props.emailIDSelection !== undefined
+    props.emailIDSelection !== undefined &&
+    props.emailIDSelection !== 'emailIDSelection'
   ) {
     return {
       query: gql`
@@ -47,8 +47,8 @@ const query = (props) => {
     };
   }
   if (
-    props.listingIDSelection !== 0 &&
-    props.listingIDSelection !== undefined
+    props.listingIDSelection !== undefined &&
+    props.listingIDSelection !== 0
   ) {
     return {
       query: gql`
@@ -64,13 +64,7 @@ const query = (props) => {
               }
               `,
     };
-  }
-  if (
-    props.listingPostCode >= 0 &&
-    props.listingPostCode !== undefined &&
-    props.listingPostCode <= 900
-  ) {
-    //fetches listings according to passed params
+  } else {
     return {
       query: gql`
               {
@@ -78,31 +72,14 @@ const query = (props) => {
                   props.listingPostCode === undefined
                     ? 0
                     : props.listingPostCode
-                },listingType:"${props.listingType}",listingCategory:"${
-        props.listingCategory
-      }") {
-                  listingID
-                  listingTitle
-                  listingDescription
-                  listingType
-                  listingPostCode
-                  listingPrice
-                  listingAvailability
-                  listingCategory
-                  listingCondition
-                }
-              }
-              `,
-    };
-  } else {
-    return {
-      query: gql`
-              {
-                listingsByFilter(listingPostCode:${
-                  props.listingPostCode < 800 ? 0 : props.listingPostCode
-                },listingType:"${props.listingType}",listingCategory:"${
-        props.listingCategory
-      }") {
+                },listingKeyword:"${props.listingKeyword}",listingMinPrice:${
+        props.listingMinPrice
+      },listingMaxPrice:${props.listingMaxPrice}, listingType:"${
+        props.listingType
+      }", listingCategory:"${props.listingCategory}", listingQuality:"${
+        props.listingQuality
+      }"
+      ) {
                   listingID
                   listingTitle
                   listingDescription
