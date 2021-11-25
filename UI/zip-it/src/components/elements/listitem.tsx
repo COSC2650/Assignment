@@ -23,6 +23,8 @@ export interface ListItemProp {
   listingPrice: number;
   listingQuantity: number;
   listingType: string;
+  listingUserID: number;
+  viewerID: number;
 }
 
 //list item fragment
@@ -31,7 +33,7 @@ const ListItem = (props: ListItemProp) => {
   const { isOpen,onOpen, onClose } = useDisclosure();
 
   function RespondListing() {
-    if (props.authenticated) {
+    if (props.viewerID != null) {
       return (
         <>
         <Text> Authenticated, respond to listing button goes here </Text>

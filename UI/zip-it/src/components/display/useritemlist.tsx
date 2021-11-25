@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 
 interface userDetails {
   userPostCode: number;
+  userID: number;
 }
 
 export function UserListings(props: userDetails) {

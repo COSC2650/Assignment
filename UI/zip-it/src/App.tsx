@@ -463,7 +463,7 @@ function App() {
     } else {
       return (
         <>
-          <UserListings userPostCode={userPostCode} />
+          <UserListings userPostCode={userPostCode} userID={userID} />
         </>
       );
     }
