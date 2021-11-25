@@ -65,11 +65,22 @@ namespace Tests
             Assert.Equal(message.ListingID, genListing.ListingID);
             Assert.Equal(message.SenderID, genUser.UserID);
             Assert.Equal(message.MessageBody, "Hi");
+            Assert.NotNull(message.MessaageID);
+            Assert.Null(message.User);
+            Assert.Null(message.Listing);
 
             context.Messages.Add(message);
             context.SaveChanges();
 
             Assert.Equal(1, messageService.GetAll().Count());
+
+            var listData = context.Listings.FirstOrDefault();
+            Assert.NotEmpty(listData.Messages);
+
+            var userData = context.Users.FirstOrDefault();
+            Assert.Null(userData.Messages);
+            Assert.Null(userData.Listings);
+            Assert.Null(userData.Role);
         }
     }
 }
