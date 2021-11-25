@@ -40,8 +40,11 @@ namespace Tests
             // Create a new instance on the UserService with the mocked context
             UserService userService = new(context);
 
-            // Create a new instance on the UserService with the mocked context
+            // Create a new instance on the ListingService with the mocked context
             ListingService listingService = new(context);
+
+            // Create a new instance on the MessageService with the mocked context
+            MessageService messageService = new(context);
 
             // Add the user
             var genUser = await userService.CreateUser(user, mockedSMTPClient.Object);
@@ -62,6 +65,11 @@ namespace Tests
             Assert.Equal(message.ListingID, genListing.ListingID);
             Assert.Equal(message.SenderID, genUser.UserID);
             Assert.Equal(message.MessageBody, "Hi");
+
+            context.Messages.Add(message);
+            context.SaveChanges();
+
+            Assert.Equal(1, messageService.GetAll().Count());
         }
     }
 }
