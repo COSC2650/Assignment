@@ -4,8 +4,8 @@ import { useState } from "react";
 
 export interface RespondListingDetails {
   senderID: number;
-  messageBody: string;
   listingID: number;
+  messageBody: string;
 }
 
 export interface RespondListingProps {
@@ -24,8 +24,8 @@ export function RespondListing(props: RespondListingProps) {
   const onRespondListing = () => {
     const respondListingDetails: RespondListingDetails = {
       senderID: props.userID,
-      messageBody: messageBody,
-      listingID: 0
+      listingID: 0,
+      messageBody: messageBody
     };
 
     props.onRespondListing(respondListingDetails);
