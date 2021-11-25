@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -37,5 +38,7 @@ namespace API.Models
         public string ListingCondition { get; set; }
 
         public DateTime ListingAvailability { get; set; }
+
+        public virtual List<Message> Messages { get; set; }
     }
 }

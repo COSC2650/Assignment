@@ -42,6 +42,8 @@ namespace API.Models
         public virtual Role Role { get; set; }
 
         public virtual List<Listing> Listings { get; set; }
+
+        public virtual List<Message> Messages { get; set; }
     }
 
 }
