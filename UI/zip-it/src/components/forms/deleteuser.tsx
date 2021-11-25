@@ -1,30 +1,30 @@
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button } from "@chakra-ui/react";
 import { Flex, Spacer } from "@chakra-ui/layout";
 
-export interface DeleteUserDetails{
-    userID: number;
+export interface DeleteUserDetails {
+  userID: number;
 }
 
 export interface DeleteUserProps {
-    onOpen(): void;
-    onClose(): void;
-    onDeleteUser(props: DeleteUserDetails): void;
-    visible: boolean;
-    disabled: boolean;
-    userID: number;
+  onOpen(): void;
+  onClose(): void;
+  onDeleteUser(props: DeleteUserDetails): void;
+  visible: boolean;
+  disabled: boolean;
+  userID: number;
 }
 
 export function DeleteUser(props: DeleteUserProps) {
 
-    const onDeleteUser = () => {
-        const deleteUserDetails: DeleteUserDetails = {
-          userID: props.userID,
-        };
-        
-props.onDeleteUser(deleteUserDetails);
-    }
+  const onDeleteUser = () => {
+    const deleteUserDetails: DeleteUserDetails = {
+      userID: props.userID,
+    };
 
-return (
+    props.onDeleteUser(deleteUserDetails);
+  }
+
+  return (
     <Modal isOpen={props.visible} onClose={props.onClose} id="delete">
       <ModalOverlay />
       <ModalContent>
@@ -33,7 +33,7 @@ return (
         <ModalBody>
           Are you sure you want to delete this profile?
           WARNING this permanently delete this account
-          </ModalBody>
+        </ModalBody>
         <ModalFooter>
           <Flex width="100%">
             <Button id="confirm" onClick={onDeleteUser}>

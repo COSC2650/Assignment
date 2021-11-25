@@ -1,7 +1,7 @@
 import {
-  Heading, 
-  HStack,  
-  Text, 
+  Heading,
+  HStack,
+  Text,
   Drawer,
   DrawerBody,
   DrawerFooter,
@@ -32,15 +32,15 @@ export interface ListItemProp {
 //list item fragment
 const ListItem = (props: ListItemProp) => {
 
-  const { isOpen,onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   function RespondListing() {
     if (props.viewerID !== 0) {
       return (
         <>
-        <Button id="respond"onClick={props.onRespondListing} mr={2}>
-              Respond to Listing
-            </Button>
+          <Button id="respond" onClick={props.onRespondListing} mr={2}>
+            Respond to Listing
+          </Button>
         </>
       );
     } else {
@@ -53,45 +53,45 @@ const ListItem = (props: ListItemProp) => {
 
 
   return (
-      <>
-        <HStack align="flex-start" width="100%" onClick={onOpen}>
-          <HStack align="left">
-            <Heading as="h1" size="md" id="heading">
-              {props.listingTitle}
-            </Heading>
-            <Text size="md" id="contents">
-              {props.listingDescription}
-            </Text>
-            <Text size="md" id="postcode">
-              {'Postcode - ' + props.listingPostCode}
-            </Text>
-            <Text size="md" id="price">
-              {'Price - ' + props.listingPrice}
-            </Text>
-          </HStack>
+    <>
+      <HStack align="flex-start" width="100%" onClick={onOpen}>
+        <HStack align="left">
+          <Heading as="h1" size="md" id="heading">
+            {props.listingTitle}
+          </Heading>
+          <Text size="md" id="contents">
+            {props.listingDescription}
+          </Text>
+          <Text size="md" id="postcode">
+            {'Postcode - ' + props.listingPostCode}
+          </Text>
+          <Text size="md" id="price">
+            {'Price - ' + props.listingPrice}
+          </Text>
         </HStack>
-        <Drawer isOpen={isOpen} placement="bottom" onClose={onClose}>
-          <DrawerOverlay />
-          <DrawerContent>
-            <DrawerHeader>{props.listingTitle}
+      </HStack>
+      <Drawer isOpen={isOpen} placement="bottom" onClose={onClose}>
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerHeader>{props.listingTitle}
             <RespondListing />
-            </DrawerHeader>
-            <DrawerBody>
-              <Text> {'Post Code - ' + props.listingPostCode}</Text>
-              <Text>{'Category- ' + props.listingCategory}</Text>
-              <Text>{'Condition - ' + props.listingCondition}</Text>
-              <Text>{'Availability - ' + props.listingAvailibility}</Text>
-              <Text>{'Description: ' + props.listingDescription}</Text>
-              <Text>{'Price - ' + props.listingPrice}</Text>
-              <Text>{'Type - ' + props.listingType}</Text>
-            </DrawerBody>
+          </DrawerHeader>
+          <DrawerBody>
+            <Text> {'Post Code - ' + props.listingPostCode}</Text>
+            <Text>{'Category- ' + props.listingCategory}</Text>
+            <Text>{'Condition - ' + props.listingCondition}</Text>
+            <Text>{'Availability - ' + props.listingAvailibility}</Text>
+            <Text>{'Description: ' + props.listingDescription}</Text>
+            <Text>{'Price - ' + props.listingPrice}</Text>
+            <Text>{'Type - ' + props.listingType}</Text>
+          </DrawerBody>
 
-            <DrawerFooter>
-            </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
-      </>
-    );
+          <DrawerFooter>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+    </>
+  );
 };
 
 

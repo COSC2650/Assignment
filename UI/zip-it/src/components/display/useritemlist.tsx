@@ -7,7 +7,9 @@ import React, { useState, useEffect } from 'react';
 
 interface userDetails {
   userPostCode: number;
-  userID: number;
+  viewerID: number;
+  listingUserID: number;
+  onRespondListing(): void;
 }
 
 export function UserListings(props: userDetails) {
@@ -52,7 +54,9 @@ export function UserListings(props: userDetails) {
           <>
             {listings.map((listing: ListItemProp) => (
               <ListItem key={listing.listingID} {...listing}
-              viewerID={props.userID}
+                viewerID={props.viewerID}
+                listingUserID={props.listingUserID}
+                onRespondListing={props.onRespondListing}
               ></ListItem>
             ))}
           </>

@@ -18,6 +18,7 @@ import Confirmation, {
   ConfirmationDetails,
 } from './components/forms/confirmation';
 import DeleteUser, { DeleteUserDetails } from './components/forms/deleteuser';
+import RespondListing, { RespondListingDetails } from './components/forms/respondlisting';
 
 interface LogInDetails {
   userID: number;
@@ -50,6 +51,8 @@ function App() {
   const [newListingDisabled, setNewListingDisabled] = useState(false);
   const [DeleteUserDisabled, setDeleteUserDisabled] = useState(false);
   const [DeleteUserVisible, setDeleteUserVisible] = useState(false);
+  const [RespondListingDisabled, setRespondListingDisabled] = useState(false);
+  const [RespondListingVisible, setRespondListingVisible] = useState(false);
   const { toggleColorMode } = useColorMode();
   const onShowLogin = () => setLoginVisible(true);
   const onShowRegister = () => setRegisterVisible(true);
@@ -63,6 +66,8 @@ function App() {
   const onUserProfileClose = () => setUserProfileVisible(false);
   const onShowDeleteUser = () => setDeleteUserVisible(true);
   const onShowDeleteUserClose = () => setDeleteUserVisible(false);
+  const onShowRespondListing = () => setRespondListingVisible(true);
+  const onShowRespondListingClose = () => setRespondListingVisible(false);
 
   const onConfirmationClose = () => {
     setUserTitle('Welcome');
@@ -452,6 +457,11 @@ function App() {
       });
   };
 
+  const onRespondListing = (props: RespondListingDetails) => {
+      setRespondListingDisabled(false);
+  }
+
+
   //portal type selection logic
   function UserAdminPortalDisplay() {
     if (RoleID === 1) {
@@ -463,7 +473,20 @@ function App() {
     } else {
       return (
         <>
-          <UserListings userPostCode={userPostCode} userID={userID} />
+          <UserListings
+            userPostCode={userPostCode}
+            viewerID={userID}
+            listingUserID={0}
+            onRespondListing={onShowRespondListing}
+          />
+          <RespondListing
+            disabled={RespondListingDisabled}
+            visible={RespondListingVisible}
+            onOpen={onShowRespondListing}
+            onClose={onShowRespondListingClose}
+            onRespondListing={onRespondListing}
+            userID={userID}
+          />
         </>
       );
     }
