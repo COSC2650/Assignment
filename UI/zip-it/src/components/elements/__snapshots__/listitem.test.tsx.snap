@@ -67,7 +67,7 @@ LoadedCheerio {
                   },
                   "children": Array [
                     Node {
-                      "data": "Price - 100",
+                      "data": "$100",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
@@ -164,7 +164,7 @@ LoadedCheerio {
                 },
                 "children": Array [
                   Node {
-                    "data": "Price - 100",
+                    "data": "$100",
                     "next": null,
                     "parent": [Circular],
                     "prev": null,
@@ -261,7 +261,7 @@ LoadedCheerio {
               },
               "children": Array [
                 Node {
-                  "data": "Price - 100",
+                  "data": "$100",
                   "next": null,
                   "parent": [Circular],
                   "prev": null,
@@ -358,7 +358,7 @@ LoadedCheerio {
             },
             "children": Array [
               Node {
-                "data": "Price - 100",
+                "data": "$100",
                 "next": null,
                 "parent": [Circular],
                 "prev": null,

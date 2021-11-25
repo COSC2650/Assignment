@@ -80,7 +80,7 @@ const ListItem = (props: ListItemProp) => {
               {'Postcode - ' + props.listingPostCode}
             </Text>
             <Text size="md" id="price">
-              {'Price - ' + props.listingPrice}
+              {'$' + props.listingPrice}
             </Text>
           </HStack>
         </HStack>
@@ -93,9 +93,8 @@ const ListItem = (props: ListItemProp) => {
               <Text> {'Post Code - ' + props.listingPostCode}</Text>
               <Text>{'Category- ' + props.listingCategory}</Text>
               <Text>{'Condition - ' + props.listingCondition}</Text>
-              <Text>{'Availability - ' + props.listingAvailibility}</Text>
               <Text>{'Description: ' + props.listingDescription}</Text>
-              <Text>{'Price - ' + props.listingPrice}</Text>
+              <Text>{'Price - $' + props.listingPrice}</Text>
               <Text>{'Type - ' + props.listingType}</Text>
             </DrawerBody>
 
