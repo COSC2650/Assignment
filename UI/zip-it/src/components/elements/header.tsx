@@ -4,8 +4,6 @@ import {
   EditIcon,
   HamburgerIcon,
   MoonIcon,
-  SearchIcon,
-  SettingsIcon,
   SunIcon
 } from '@chakra-ui/icons';
 import { Flex, Spacer } from '@chakra-ui/layout';

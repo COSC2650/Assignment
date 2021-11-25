@@ -7,7 +7,7 @@ import { useToast } from '@chakra-ui/toast';
 import query from '../../data/queries';
 import AdminSearch, { SearchDetails } from '../forms/adminsearch';
 import clientConnection from '../../data/client';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import mutation from '../../data/mutations';
 import Search from '../forms/usersearch';
 
