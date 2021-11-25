@@ -1,8 +1,11 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, Input } from "@chakra-ui/react";
 import { Flex, Spacer } from "@chakra-ui/layout";
+import { useState } from "react";
 
 export interface RespondListingDetails {
-  userID: number;
+  senderID: number;
+  messageBody: string;
+  listingID: number;
 }
 
 export interface RespondListingProps {
@@ -15,10 +18,14 @@ export interface RespondListingProps {
 }
 
 export function RespondListing(props: RespondListingProps) {
+  const [messageBody, setMessageBody] = useState('')
+  const messageBodyOnChange = (event) => setMessageBody(event.target.value)
 
   const onRespondListing = () => {
     const respondListingDetails: RespondListingDetails = {
-      userID: props.userID,
+      senderID: props.userID,
+      messageBody: messageBody,
+      listingID: 0
     };
 
     props.onRespondListing(respondListingDetails);
@@ -32,6 +39,9 @@ export function RespondListing(props: RespondListingProps) {
         <ModalCloseButton />
         <ModalBody>
           Would you like to respond to the owner of this listing?
+
+          Enter a brief description:
+          <Input onChange={messageBodyOnChange} placeholder="Send the seller a question" variant="filled" mb={3} type="message" id="message" />
         </ModalBody>
         <ModalFooter>
           <Flex width="100%">

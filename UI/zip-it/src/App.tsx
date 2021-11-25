@@ -415,6 +415,10 @@ function App() {
     setListPane(1);
   };
 
+  const onList = () => {
+    setListPane(0);
+  };
+
   const onDeleteUser = (props: DeleteUserDetails) => {
     const client = clientConnection();
     const deleteUserProps = {
@@ -463,7 +467,44 @@ function App() {
   };
 
   const onRespondListing = (props: RespondListingDetails) => {
-    setRespondListingDisabled(false);
+    const client = clientConnection();
+    const respondListingProps = {
+      type: 'respondListing',
+      data: props,
+    };
+
+    client
+      .mutate({ mutation: mutation(respondListingProps) })
+      .then((result) => {
+        console.log(result);
+        toast({
+          title: 'Message Created',
+          description: 'Your message has been successfully sent to sender.',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+          position: 'top',
+        });
+        setRespondListingVisible(false);
+      })
+
+      .catch((result) => {
+        toast({
+          title: 'Catch Error',
+          description: 'Your message has encountered an error.',
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+          position: 'top',
+        });
+
+        console.log('Apollo/GraphQL failure - Zip-It');
+        console.log('check relevant query in queries.tsx');
+        console.log(props);
+        console.log(result);
+
+        setRespondListingDisabled(false);
+      });
   }
 
 
@@ -504,6 +545,7 @@ function App() {
         toggleColorMode={toggleColorMode}
         UserProfile={onShowUserProfile}
         MessageItem={onMessage}
+        ListItem={onList}
         toggleLogIn={onShowLogin}
         toggleLogout={onShowLogout}
         NewListing={onShowNewListing}

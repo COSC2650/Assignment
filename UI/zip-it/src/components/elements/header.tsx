@@ -27,6 +27,7 @@ interface HeaderProps {
   toggleLogIn(): void;
   toggleLogout(): void;
   NewListing(): void;
+  ListItem(): void;
   MessageItem(): void;
   UserProfile(): void;
   userTitle: string;
@@ -100,11 +101,11 @@ const Header = (props: HeaderProps) => {
           <MenuItem icon={<AddIcon />} onClick={props.NewListing}>
             New Listing
           </MenuItem>
-          <MenuItem icon={<SearchIcon />} command="">
-            Current Listings
+          <MenuItem icon={<SearchIcon />} onClick={props.ListItem}>
+            View Listings
           </MenuItem>
           <MenuItem icon={<EmailIcon />} onClick={props.MessageItem}>
-            Messages
+            View Messages
           </MenuItem>
           <MenuItem icon={<EditIcon />} onClick={props.UserProfile}>
             User Profile

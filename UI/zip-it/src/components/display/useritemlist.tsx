@@ -4,7 +4,7 @@ import Search, { SearchDetails } from '../forms/usersearch';
 import query from '../../data/queries';
 import clientConnection from '../../data/client';
 import React, { useState, useEffect } from 'react';
-import MessageItem from '../elements/messages';
+import MessageItem from '../elements/listmessage';
 
 interface userDetails {
   userPostCode: number;
