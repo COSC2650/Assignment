@@ -21,7 +21,7 @@ namespace Tests
         readonly Mock<ISmtpClient> mockedSMTPClient = new();
 
         [Fact]
-        public async Task UserService_ModelTest()
+        public async Task MessageService_ModelTest()
         {
             // Generate a user
             AddUserInput user = UserService_Tests.GenerateUserInput();
@@ -58,13 +58,13 @@ namespace Tests
                 UserID = genListing.UserID,
                 ListingID = genListing.ListingID,
                 SenderID = genUser.UserID,
-                MessageBody = "Hi"
+                MessageBody = "Test"
             };
 
             Assert.Equal(genListing.UserID, message.UserID);
             Assert.Equal(genListing.ListingID, message.ListingID);
             Assert.Equal(genUser.UserID, message.SenderID);
-            Assert.Equal("Hi", message.MessageBody);
+            Assert.Equal("Test", message.MessageBody);
             Assert.IsType<int>(message.MessaageID);
             Assert.Null(message.User);
             Assert.Null(message.Listing);
@@ -81,6 +81,86 @@ namespace Tests
             Assert.Null(userData.Messages);
             Assert.Null(userData.Listings);
             Assert.Null(userData.Role);
+        }
+        
+        [Fact]
+        public async Task MessageService_CreateMessageTest()
+        {
+            // Generate a user
+            AddUserInput user = UserService_Tests.GenerateUserInput();
+
+            // generate a listing
+            AddListingInput listing = ListingService_Tests.GenerateListingInput();
+
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                  .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                  .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the UserService with the mocked context
+            UserService userService = new(context);
+
+            // Create a new instance on the ListingService with the mocked context
+            ListingService listingService = new(context);
+
+            // Create a new instance on the MessageService with the mocked context
+            MessageService messageService = new(context);
+
+            // Add the user
+            var genUser = await userService.CreateUser(user, mockedSMTPClient.Object);
+
+            // Add the listing
+            var genListing = await listingService.CreateListing(listing);
+
+            // Create new message
+            Assert.True(await messageService.CreateMessage(genListing.ListingID, genUser.UserID, "Test"));
+
+            // fail new message
+            Assert.False(await messageService.CreateMessage(0, genUser.UserID, "Test"));
+            Assert.False(await messageService.CreateMessage(genListing.ListingID, 0, "Test"));
+            Assert.False(await messageService.CreateMessage(genListing.ListingID, genUser.UserID, ""));
+        }
+
+        [Fact]
+        public async Task MessageService_GetUserMessagesTest()
+        {
+            // Generate a user
+            AddUserInput user = UserService_Tests.GenerateUserInput();
+
+            // generate a listing
+            AddListingInput listing = ListingService_Tests.GenerateListingInput();
+
+            // Change the context options to use an inmemory database
+            var contextOptions = new DbContextOptionsBuilder<API.Data.ZipitContext>()
+                  .UseInMemoryDatabase(System.Guid.NewGuid().ToString())
+                  .Options;
+
+            // Create a new instance of the ZipitContext
+            var context = new API.Data.ZipitContext(contextOptions);
+
+            // Create a new instance on the UserService with the mocked context
+            UserService userService = new(context);
+
+            // Create a new instance on the ListingService with the mocked context
+            ListingService listingService = new(context);
+
+            // Create a new instance on the MessageService with the mocked context
+            MessageService messageService = new(context);
+
+            // Add the user
+            var genUser = await userService.CreateUser(user, mockedSMTPClient.Object);
+
+            // Add the listing
+            var genListing = await listingService.CreateListing(listing);
+
+            // Create new message
+            await messageService.CreateMessage(genListing.ListingID, genUser.UserID, "Test");
+
+            // get user messages
+            Assert.Equal(1, messageService.GetUserMessages(genListing.UserID).Count());
         }
     }
 }

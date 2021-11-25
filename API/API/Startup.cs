@@ -46,7 +46,8 @@ namespace API
                 .AddScoped<UserMutations>()
                 .AddScoped<ListingQueries>()
                 .AddScoped<ListingMutations>()
-                .AddScoped<MessageQueries>();
+                .AddScoped<MessageQueries>()
+                .AddScoped<MessageMutations>();
 
             services.AddGraphQLServer()
                 .AddQueryType(d => d.Name("Query"))
@@ -56,6 +57,7 @@ namespace API
                 .AddMutationType(d => d.Name("Mutation"))
                     .AddTypeExtension<UserMutations>()
                     .AddTypeExtension<ListingMutations>()
+                    .AddTypeExtension<MessageMutations>()
                 .AddType<UserType>()
                 .AddType<ListingType>()
                 .AddType<MessageType>();
