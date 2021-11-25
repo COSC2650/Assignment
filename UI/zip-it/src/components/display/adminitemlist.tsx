@@ -7,7 +7,7 @@ import { useToast } from '@chakra-ui/toast';
 import query from '../../data/queries';
 import AdminSearch, { SearchDetails } from '../forms/adminsearch';
 import clientConnection from '../../data/client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import mutation from '../../data/mutations';
 import Search from '../forms/usersearch';
 
@@ -26,9 +26,13 @@ export function AdminListings(props: userDetails) {
 
   //sets default search details
   const SearchDetails = {
-    listingPostCode: props.userPostCode,
-    listingType: '',
-    listingCategory: '',
+    listingPostCode: 0,
+    listingKeyword: ' ',
+    listingMinPrice: 0,
+    listingMaxPrice: 0,
+    listingType: ' ',
+    listingCategory: ' ',
+    listingQuality: ' ',
   };
 
   //checked item iterator and checked item array
@@ -90,38 +94,46 @@ export function AdminListings(props: userDetails) {
 
   //delete multi item client call
   const mutateAPI = () => {
-    const client = clientConnection();
-    client
-      .mutate({ mutation: mutation(DeleteProps) })
-      .then((result) => {
-        if (result) {
-          toast({
-            title: 'Listing Deleted',
-            description: 'Selected listings have been deleted',
-            status: 'success',
-            duration: 2000,
-            isClosable: true,
-            position: 'top',
-          });
-          console.log(SearchDetails);
-          queryAPI(SearchDetails);
-        } else {
-          toast({
-            title: 'Listing Not Deleted',
-            description: 'The listing you tried to delete does not exist',
-            status: 'warning',
-            duration: 2000,
-            isClosable: true,
-            position: 'top',
-          });
-        }
-      })
-      .catch((result) => {
-        console.log('Apollo/GraphQL failure - Zip-It');
-        console.log('check relevant query in queries.tsx');
-        console.log(props);
-        console.log(result);
-      });
+    if (
+      (DeleteProps.itemsHashmap.size < 1 &&
+        DeleteProps.usersHashmap.size > 0) ||
+      (DeleteProps.itemsHashmap.size > 0 && DeleteProps.usersHashmap.size < 1)
+    ) {
+      const client = clientConnection();
+      client
+        .mutate({ mutation: mutation(DeleteProps) })
+        .then((result) => {
+          if (result) {
+            toast({
+              title: 'Listing Deleted',
+              description: 'Selected listings have been deleted',
+              status: 'success',
+              duration: 2000,
+              isClosable: true,
+              position: 'top',
+            });
+            console.log(SearchDetails);
+            queryAPI(SearchDetails);
+          } else {
+            toast({
+              title: 'Listing Not Deleted',
+              description: 'The listing you tried to delete does not exist',
+              status: 'warning',
+              duration: 2000,
+              isClosable: true,
+              position: 'top',
+            });
+          }
+        })
+        .catch((result) => {
+          console.log('Apollo/GraphQL failure - Zip-It');
+          console.log('check relevant query in queries.tsx');
+          console.log(props);
+          console.log(result);
+        });
+    } else {
+      return null;
+    }
   };
 
   function ListingsFragment() {
@@ -156,6 +168,11 @@ export function AdminListings(props: userDetails) {
       return null;
     }
   }
+
+  useEffect(() => {
+    queryAPI(SearchDetails);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>

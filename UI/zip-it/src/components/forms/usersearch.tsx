@@ -17,9 +17,7 @@ export interface UserSearchProps {
   userPostCode: number;
 }
 
-
 export function Search(props: UserSearchProps) {
-  
   //state variables
   const [listingType, setType] = useState('');
   const [listingCategory, setCategory] = useState('');
@@ -65,7 +63,6 @@ export function Search(props: UserSearchProps) {
 
   //search function
   const onSearch = (postcode?: number) => {
-    
     //Search details constructor
     const searchDetails: SearchDetails = {
       listingPostCode: postcodeOnChange(postcode),
@@ -121,10 +118,16 @@ export function Search(props: UserSearchProps) {
             id="productcategoryselect"
             onChange={categoryOnChange}
           >
-            <option value="clothes">Clothes</option>
             <option value="automotive">Automotive</option>
-            <option value="industrial">Industrial</option>
+            <option value="clothes">Clothes</option>
+            <option value="domestic">Domestic Goods</option>
+            <option value="ectronics">Electronics</option>
+            <option value="gardening">Gardening</option>
             <option value="handcrafted">HandCrafted</option>
+            <option value="hardware">Hardware</option>
+            <option value="industrial">Industrial</option>
+            <option value="sporting">Sporting Goods</option>
+            <option value="toys">Toys</option>
           </Select>
           <>
             <Select
@@ -133,10 +136,11 @@ export function Search(props: UserSearchProps) {
               id="conditionselect"
               onChange={qualityOnChange}
             >
-              <option value="good">Good Condition</option>
-              <option value="wellused">Well used</option>
-              <option value="barelyused">Barely Used</option>
               <option value="unused">Unused</option>
+              <option value="likenew">Like New</option>
+              <option value="goodcondition">Good Condition</option>
+              <option value="wellused">Well Used</option>
+              <option value="needsrepair">Needs Repair</option>
             </Select>
           </>
         </>
@@ -149,10 +153,13 @@ export function Search(props: UserSearchProps) {
             id="servicecategoryselect"
             onChange={categoryOnChange}
           >
-            <option value="plumbing">Plumbing</option>
-            <option value="mechanical">Mechanical</option>
             <option value="carpentry">Carpentry</option>
+            <option value="cleaning">Cleaning</option>
             <option value="fabrication">Fabrication</option>
+            <option value="landscaping">Landscaping</option>
+            <option value="mechanical">Mechanical</option>
+            <option value="plumbing">Plumbing</option>
+            <option value="transport">Transport</option>
           </Select>
           <Select
             placeholder="Qualification"

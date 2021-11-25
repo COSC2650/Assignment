@@ -307,7 +307,6 @@ function App() {
     client
       .mutate({ mutation: mutation(listingProps) })
       .then((result) => {
-        console.log(result);
         toast({
           title: 'Listing Created',
           description: 'Your listing has been successfully created.',
@@ -412,7 +411,6 @@ function App() {
     client
       .mutate({ mutation: mutation(deleteUserProps) })
       .then((result) => {
-        console.log(result);
         toast({
           title: 'Delete User Profile',
           description:
