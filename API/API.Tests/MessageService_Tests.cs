@@ -61,11 +61,11 @@ namespace Tests
                 MessageBody = "Hi"
             };
 
-            Assert.Equal(message.UserID, genListing.UserID);
-            Assert.Equal(message.ListingID, genListing.ListingID);
-            Assert.Equal(message.SenderID, genUser.UserID);
-            Assert.Equal(message.MessageBody, "Hi");
-            Assert.NotNull(message.MessaageID);
+            Assert.Equal(genListing.UserID, message.UserID);
+            Assert.Equal(genListing.ListingID, message.ListingID);
+            Assert.Equal(genUser.UserID, message.SenderID);
+            Assert.Equal("Hi", message.MessageBody);
+            Assert.IsType<int>(message.MessaageID);
             Assert.Null(message.User);
             Assert.Null(message.Listing);
 
