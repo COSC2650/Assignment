@@ -30,6 +30,23 @@ const ListItem = (props: ListItemProp) => {
 
   const { isOpen,onOpen, onClose } = useDisclosure();
 
+  function RespondListing() {
+    if (props.authenticated) {
+      return (
+        <>
+        <Text> Authenticated, respond to listing button goes here </Text>
+        </>
+      );
+    } else {
+      return (
+        <>
+        <Text> Testing if a user is unauthenticated</Text>
+        </>
+      );
+    }
+  }
+
+
   return (
       <>
         <HStack align="flex-start" width="100%" onClick={onOpen}>
@@ -54,6 +71,7 @@ const ListItem = (props: ListItemProp) => {
             <DrawerHeader>{props.listingTitle}</DrawerHeader>
 
             <DrawerBody>
+              <RespondListing />
               <Text> {'Post Code - ' + props.listingPostCode}</Text>
               <Text>{'Category- ' + props.listingCategory}</Text>
               <Text>{'Condition - ' + props.listingCondition}</Text>
