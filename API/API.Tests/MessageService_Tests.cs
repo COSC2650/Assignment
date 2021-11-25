@@ -21,7 +21,7 @@ namespace Tests
         readonly Mock<ISmtpClient> mockedSMTPClient = new();
 
         [Fact]
-        public async Task UserService_GetAll()
+        public async Task UserService_ModelTest()
         {
             // Generate a user
             AddUserInput user = UserService_Tests.GenerateUserInput();
