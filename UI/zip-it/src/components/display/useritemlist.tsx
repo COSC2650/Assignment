@@ -51,7 +51,9 @@ export function UserListings(props: userDetails) {
         {listings && (
           <>
             {listings.map((listing: ListItemProp) => (
-              <ListItem key={listing.listingID} {...listing}></ListItem>
+              <ListItem key={listing.listingID} {...listing}
+              viewerID={props.userID}
+              ></ListItem>
             ))}
           </>
         )}

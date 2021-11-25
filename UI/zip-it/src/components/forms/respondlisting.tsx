@@ -36,7 +36,7 @@ return (
         <ModalFooter>
           <Flex width="100%">
             <Button id="confirm" onClick={onRespondListing}>
-              Respong
+              Respond
             </Button>
             <Spacer></Spacer>
             <Button id="cancel" onClick={props.onClose}>

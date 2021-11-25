@@ -8,7 +8,8 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  useDisclosure
+  useDisclosure,
+  Button
 } from '@chakra-ui/react';
 
 //listItem properties
@@ -25,6 +26,7 @@ export interface ListItemProp {
   listingType: string;
   listingUserID: number;
   viewerID: number;
+  onRespondListing(): void;
 }
 
 //list item fragment
@@ -33,16 +35,17 @@ const ListItem = (props: ListItemProp) => {
   const { isOpen,onOpen, onClose } = useDisclosure();
 
   function RespondListing() {
-    if (props.viewerID != null) {
+    if (props.viewerID !== 0) {
       return (
         <>
-        <Text> Authenticated, respond to listing button goes here </Text>
+        <Button id="respond"onClick={props.onRespondListing} mr={2}>
+              Respond to Listing
+            </Button>
         </>
       );
     } else {
       return (
         <>
-        <Text> Testing if a user is unauthenticated</Text>
         </>
       );
     }
@@ -70,10 +73,10 @@ const ListItem = (props: ListItemProp) => {
         <Drawer isOpen={isOpen} placement="bottom" onClose={onClose}>
           <DrawerOverlay />
           <DrawerContent>
-            <DrawerHeader>{props.listingTitle}</DrawerHeader>
-
+            <DrawerHeader>{props.listingTitle}
+            <RespondListing />
+            </DrawerHeader>
             <DrawerBody>
-              <RespondListing />
               <Text> {'Post Code - ' + props.listingPostCode}</Text>
               <Text>{'Category- ' + props.listingCategory}</Text>
               <Text>{'Condition - ' + props.listingCondition}</Text>
