@@ -12,6 +12,7 @@ namespace API.Data
         public DbSet<Role> Roles { get; set; }
         public DbSet<Listing> Listings { get; set; }
         public DbSet<ConfirmCode> ConfirmCodes { get; set; }
+        public DbSet<Message> Messages {get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

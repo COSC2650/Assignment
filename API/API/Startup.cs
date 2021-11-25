@@ -12,6 +12,7 @@ using HotChocolate;
 using System;
 using API.GraphQL.Users;
 using API.GraphQL.Listings;
+using API.GraphQL.Messages;
 
 namespace API
 {
@@ -40,20 +41,26 @@ namespace API
 
             services.AddScoped<IUserService, UserService>()
                 .AddScoped<IListingService, ListingService>()
+                .AddScoped<IMessageService, MessageService>()
                 .AddScoped<UserQueries>()
                 .AddScoped<UserMutations>()
                 .AddScoped<ListingQueries>()
-                .AddScoped<ListingMutations>();
+                .AddScoped<ListingMutations>()
+                .AddScoped<MessageQueries>()
+                .AddScoped<MessageMutations>();
 
             services.AddGraphQLServer()
                 .AddQueryType(d => d.Name("Query"))
                     .AddTypeExtension<UserQueries>()
                     .AddTypeExtension<ListingQueries>()
+                    .AddTypeExtension<MessageQueries>()
                 .AddMutationType(d => d.Name("Mutation"))
                     .AddTypeExtension<UserMutations>()
                     .AddTypeExtension<ListingMutations>()
+                    .AddTypeExtension<MessageMutations>()
                 .AddType<UserType>()
-                .AddType<ListingType>();
+                .AddType<ListingType>()
+                .AddType<MessageType>();
 
             services
                 .AddCors(options =>
