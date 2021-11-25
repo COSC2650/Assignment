@@ -29,6 +29,7 @@ interface LogInDetails {
 
 function App() {
   const [userTitle, setUserTitle] = useState(' Welcome!');
+  const [listPane, setListPane] = useState(0);
   const [userID, setUserID] = useState(0);
   const [RoleID, setRoleID] = useState(0);
   const [userPostCode, setUserPostCode] = useState(0);
@@ -410,6 +411,10 @@ function App() {
       });
   };
 
+  const onMessage = () => {
+    setListPane(1);
+  };
+
   const onDeleteUser = (props: DeleteUserDetails) => {
     const client = clientConnection();
     const deleteUserProps = {
@@ -458,7 +463,7 @@ function App() {
   };
 
   const onRespondListing = (props: RespondListingDetails) => {
-      setRespondListingDisabled(false);
+    setRespondListingDisabled(false);
   }
 
 
@@ -478,6 +483,7 @@ function App() {
             viewerID={userID}
             listingUserID={0}
             onRespondListing={onShowRespondListing}
+            panelOption={listPane}
           />
           <RespondListing
             disabled={RespondListingDisabled}
@@ -497,6 +503,7 @@ function App() {
       <Header
         toggleColorMode={toggleColorMode}
         UserProfile={onShowUserProfile}
+        MessageItem={onMessage}
         toggleLogIn={onShowLogin}
         toggleLogout={onShowLogout}
         NewListing={onShowNewListing}
