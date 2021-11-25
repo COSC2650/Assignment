@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(ZipitContext))]
-    partial class ZipitContextModelSnapshot : ModelSnapshot
+    [Migration("20211125124825_user messages")]
+    partial class usermessages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,8 +100,6 @@ namespace API.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("MessaageID");
-
-                    b.HasIndex("ListingID");
 
                     b.HasIndex("UserID");
 
@@ -211,19 +211,11 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.Message", b =>
                 {
-                    b.HasOne("API.Models.Listing", "Listing")
-                        .WithMany("Messages")
-                        .HasForeignKey("ListingID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("API.Models.User", "User")
                         .WithMany("Messages")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Listing");
 
                     b.Navigation("User");
                 });
@@ -237,11 +229,6 @@ namespace API.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("API.Models.Listing", b =>
-                {
-                    b.Navigation("Messages");
                 });
 
             modelBuilder.Entity("API.Models.Role", b =>
