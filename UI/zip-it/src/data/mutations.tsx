@@ -70,7 +70,7 @@ function mutation(props): DocumentNode {
     let keys = Array.from(props.itemsHashmap.keys());
     result = gql`
             mutation {
-                deleteMultiListings(listings:${keys}) 
+                deleteMultiListings(listings:[${keys}]) 
             }
         `;
   }
@@ -79,7 +79,7 @@ function mutation(props): DocumentNode {
     let keys = Array.from(props.usersHashmap.keys());
     result = gql`
               mutation {
-                  deleteMultiUsers(users:"${keys}")
+                  deleteMultiUsers(users:["${keys}"])
               }
           `;
   }

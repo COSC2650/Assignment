@@ -465,7 +465,7 @@ namespace Tests
             Assert.Equal(2, userService.GetAll().Count());
 
             // create string array of user emails
-            var users = new string [] {firstUser.UserEmail, secondUser.UserEmail};
+            var users = new string [] {firstUser.UserEmail + ',' + secondUser.UserEmail};
 
             // Delete the listings
             Assert.True(await userService.DeleteMultiUsers(users));
@@ -512,7 +512,7 @@ namespace Tests
             Assert.False(await userService.DeleteMultiUsers(null));
 
             // send bad email
-            var badUsers = new string [] {firstUser.UserEmail, "not@matched.com"};
+            var badUsers = new string [] {"firstUserUserEmailnot@matched.com"};
 
             // Check that fail message is returned
             Assert.False(await userService.DeleteMultiUsers(badUsers));
