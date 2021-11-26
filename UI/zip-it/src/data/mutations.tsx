@@ -68,6 +68,7 @@ function mutation(props): DocumentNode {
   if (props.itemsHashmap !== undefined && props.itemsHashmap.size > 0) {
     //create array from hashmap
     let keys = Array.from(props.itemsHashmap.keys());
+    console.log(keys)
     result = gql`
             mutation {
                 deleteMultiListings(listings:${keys}) 
