@@ -102,7 +102,7 @@ function App() {
       position: 'top',
     });
 
-    
+
 
   //Logic for Login function
   const onLogin = (props: LoginDetails) => {
@@ -117,8 +117,6 @@ function App() {
       .then((result) => {
         const queryResult = result.data.userByEmail;
         if (queryResult.userEmail === props.email) {
-          console.log(queryResult.userEmail)
-        console.log(props.email)
           //set user data
           setUserTitle('Hi, ' + queryResult.userFirstName + '!');
           setUserID(queryResult.userID);
