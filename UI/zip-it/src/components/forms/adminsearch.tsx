@@ -25,6 +25,8 @@ export function AdminSearch(props: SearchPannelProps) {
   let [listingIDSelection, setListingIDSelection] = useState(0);
   const emailRegex = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
 
+  
+
   //clears conflicting search parameters
   const adminOnChange = (event) => setAdminSelection(event.target.value);
 
@@ -49,8 +51,8 @@ export function AdminSearch(props: SearchPannelProps) {
       listingIDSelection: listingIDSelection,
       emailIDSelection: emailIDSelection,
       listingPostCode: 0,
-      listingType: '',
-      listingCategory: '',
+      listingType: ' ',
+      listingCategory: ' ',
     };
 
     //sets details in interface
@@ -75,6 +77,7 @@ export function AdminSearch(props: SearchPannelProps) {
         type="dorpdownselect"
         id="adminslection"
         onChange={adminOnChange}
+        defaultValue=""
       >
         <option value="users">User</option>
         <option value="listings">Listing</option>

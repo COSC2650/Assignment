@@ -36,8 +36,14 @@ export function Login(props: LoginProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const emailOnChange = (event) => setEmail(event.target.value);
-  const passwordOnChange = (event) => setPassword(event.target.value);
+  const emailOnChange = (event) => {
+    setEmail(event.target.value);
+    setFormValidationHidden(true);
+  };
+  const passwordOnChange = (event) => {
+    setPassword(event.target.value);
+    setFormValidationHidden(true);
+  };
 
   const onLogin = () => {
     const loginDetails: LoginDetails = {
@@ -57,6 +63,8 @@ export function Login(props: LoginProps) {
     } else {
       setFormValidationHidden(true);
       props.onLogin(loginDetails);
+      setEmail('');
+      setPassword('');
     }
   };
 
