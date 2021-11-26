@@ -25,11 +25,15 @@ namespace API.Services
                 return false;
             
             var listing = _context.Listings.FirstOrDefault(x => x.ListingID == listingID);
+            var sender = _context.Users.FirstOrDefault(x => x.UserID == senderID);
 
             var message = new Message{
                 UserID = listing.UserID,
                 ListingID = listingID,
                 SenderID = senderID,
+                SenderEmail = sender.UserEmail,
+                SenderFirstName = sender.UserFirstName,
+                SenderLastName = sender.UserLastName,
                 MessageBody = messageBody
             };
 

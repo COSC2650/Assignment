@@ -122,6 +122,12 @@ namespace Tests
             Assert.False(await messageService.CreateMessage(0, genUser.UserID, "Test"));
             Assert.False(await messageService.CreateMessage(genListing.ListingID, 0, "Test"));
             Assert.False(await messageService.CreateMessage(genListing.ListingID, genUser.UserID, ""));
+
+            var message = context.Messages.FirstOrDefault();
+
+            Assert.Equal(genUser.UserEmail, message.SenderEmail);
+            Assert.Equal(genUser.UserFirstName, message.SenderFirstName);
+            Assert.Equal(genUser.UserLastName, message.SenderLastName);
         }
 
         [Fact]

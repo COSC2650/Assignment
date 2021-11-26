@@ -66,7 +66,6 @@ function mutation(props): DocumentNode {
             `;
   }
   if (props.itemsHashmap !== undefined && props.itemsHashmap.size > 0) {
-    console.log('items');
     //create array from hashmap
     let keys = Array.from(props.itemsHashmap.keys());
     result = gql`
@@ -87,7 +86,11 @@ function mutation(props): DocumentNode {
   if (props.type === 'newListing') {
     result = gql`
             mutation {
-                createListing(input: { userID: ${props.data.listingUserID}, listingPostCode: ${props.data.listingPostCode}, listingTitle: "${props.data.listingTitle}", listingCategory: "${props.data.listingCategory}", listingPrice: ${props.data.listingPrice}, listingType: "${props.data.listingType}",  listingDescription: "${props.data.listingDescription}", listingCondition: "${props.data.listingCondition}"}) {
+                createListing(input: { userID: ${props.data.listingUserID}, listingPostCode: ${props.data.listingPostCode}, 
+                listingTitle: "${props.data.listingTitle}", listingCategory: "${props.data.listingCategory}", 
+                listingPrice: ${props.data.listingPrice}, listingType: "${props.data.listingType}",  
+                listingDescription: "${props.data.listingDescription}", 
+                listingCondition: "${props.data.listingCondition}"}) {
                     listingID
                 }
             }

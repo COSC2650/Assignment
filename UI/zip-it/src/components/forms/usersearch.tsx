@@ -1,8 +1,8 @@
 import { Input, Select, Stack, Button, Icon, HStack } from '@chakra-ui/react';
 import { FaSearch } from 'react-icons/fa';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-//SearchDetails constructor
+//interfaces
 export interface SearchDetails {
   listingPostCode?: number;
   listingType: string;
@@ -12,15 +12,13 @@ export interface SearchDetails {
   listingMaxPrice: number;
   listingKeyword: string;
 }
-
-//interface to caller
 export interface UserSearchProps {
   onSearchInterface(props: SearchDetails): void;
   userPostCode: number;
 }
 
 export function Search(props: UserSearchProps) {
-  //defines Search Type and creates setter
+  //state variables
   const [listingType, setType] = useState('');
   const [listingCategory, setCategory] = useState('');
   const [listingQuality, setQuality] = useState('');
@@ -29,7 +27,7 @@ export function Search(props: UserSearchProps) {
   const [maxPrice, setMaxPrice] = useState(0);
   const [minPrice, setMinPrice] = useState(0);
 
-  //on change validation and default value set
+  //onchange events
   function postcodeOnChange(postCodeInput?: number): number | undefined {
     if (postCodeInput === 0) {
       return 5;
@@ -50,8 +48,6 @@ export function Search(props: UserSearchProps) {
       return 6;
     }
   }
-
-  //dropdown onchange
   const typeOnChange = (event) => setType(event.target.value);
   const categoryOnChange = (event) => setCategory(event.target.value);
   const qualityOnChange = (event) => setQuality(event.target.value);
@@ -65,8 +61,9 @@ export function Search(props: UserSearchProps) {
       : setMaxPrice(event.target.value);
   const keywordOnChange = (event) => setKeyword(event.target.value);
 
+  //search function
   const onSearch = (postcode?: number) => {
-    //sets search setails
+    //Search details constructor
     const searchDetails: SearchDetails = {
       listingPostCode: postcodeOnChange(postcode),
       listingType: listingType,
@@ -78,7 +75,7 @@ export function Search(props: UserSearchProps) {
     };
 
     // Email regex
-    var regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
+    const regexp = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
 
     //sets details in interface
     if (!regexp.test('{listingPostCode}')) {
@@ -86,8 +83,8 @@ export function Search(props: UserSearchProps) {
     }
   };
 
-  //used to overcome async state change
-  React.useEffect(() => {
+  //Runs query on load
+  useEffect(() => {
     setCurrentUserPostCode(props.userPostCode);
     onSearch(props.userPostCode);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -120,11 +117,18 @@ export function Search(props: UserSearchProps) {
             type="dropdownselect"
             id="productcategoryselect"
             onChange={categoryOnChange}
+            defaultValue=""
           >
-            <option value="clothes">Clothes</option>
             <option value="automotive">Automotive</option>
-            <option value="industrial">Industrial</option>
+            <option value="clothes">Clothes</option>
+            <option value="domestic">Domestic Goods</option>
+            <option value="ectronics">Electronics</option>
+            <option value="gardening">Gardening</option>
             <option value="handcrafted">HandCrafted</option>
+            <option value="hardware">Hardware</option>
+            <option value="industrial">Industrial</option>
+            <option value="sporting">Sporting Goods</option>
+            <option value="toys">Toys</option>
           </Select>
           <>
             <Select
@@ -132,11 +136,13 @@ export function Search(props: UserSearchProps) {
               type="dropdownselect"
               id="conditionselect"
               onChange={qualityOnChange}
+              defaultValue=""
             >
-              <option value="good">Good Condition</option>
-              <option value="wellused">Well used</option>
-              <option value="barelyused">Barely Used</option>
               <option value="unused">Unused</option>
+              <option value="likenew">Like New</option>
+              <option value="goodcondition">Good Condition</option>
+              <option value="wellused">Well Used</option>
+              <option value="needsrepair">Needs Repair</option>
             </Select>
           </>
         </>
@@ -148,17 +154,22 @@ export function Search(props: UserSearchProps) {
             type="dropdownselect"
             id="servicecategoryselect"
             onChange={categoryOnChange}
+            defaultValue=""
           >
-            <option value="plumbing">Plumbing</option>
-            <option value="mechanical">Mechanical</option>
             <option value="carpentry">Carpentry</option>
+            <option value="cleaning">Cleaning</option>
             <option value="fabrication">Fabrication</option>
+            <option value="landscaping">Landscaping</option>
+            <option value="mechanical">Mechanical</option>
+            <option value="plumbing">Plumbing</option>
+            <option value="transport">Transport</option>
           </Select>
           <Select
             placeholder="Qualification"
             type="dropdownselect"
             id="qualificationcategoryselect"
             onChange={qualityOnChange}
+            defaultValue=""
           >
             <option value="qualandcert">Qualified and Certified</option>
             <option value="qualified">Qualified</option>

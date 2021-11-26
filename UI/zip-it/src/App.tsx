@@ -56,7 +56,8 @@ function App() {
   const [RespondListingVisible, setRespondListingVisible] = useState(false);
   const { toggleColorMode } = useColorMode();
   const onShowLogin = () => setLoginVisible(true);
-  const onShowRegister = () => setRegisterVisible(true);
+  const onShowRegister = () => {setRegisterVisible(true)
+  setLoginVisible(false)};
   const onShowLogout = () => setLogoutVisible(true);
   const onShowUserProfile = () => setUserProfileVisible(true);
   const onShowNewListing = () => setNewListingVisible(true);
@@ -108,6 +109,8 @@ function App() {
       position: 'top',
     });
 
+
+
   //Logic for Login function
   const onLogin = (props: LoginDetails) => {
     setLogInDisabled(true);
@@ -120,7 +123,7 @@ function App() {
       .query(query(props))
       .then((result) => {
         const queryResult = result.data.userByEmail;
-        if (queryResult != null) {
+        if (queryResult.userEmail === props.email) {
           //set user data
           setUserTitle('Hi, ' + queryResult.userFirstName + '!');
           setUserID(queryResult.userID);
@@ -178,7 +181,20 @@ function App() {
 
   //logic for logout function
   const onLogout = () => {
+    
+    //clear user details
+    setAuthenticated(undefined);
     setRoleID(2);
+    setUserTitle(' Welcome!');
+    setUserPostCode(0);
+    setLogInDisabled(false);
+    setUserID(0);
+    setUserFirstName("");
+    setUserLastName("");
+    setUserStreet('');
+    setUserCity("");
+    setUserState("");
+
     //log out confirmation
     toast({
       title: 'Logged out',
@@ -188,12 +204,6 @@ function App() {
       isClosable: true,
       position: 'top',
     });
-
-    //setheader title and authentication status
-    setUserTitle(' Welcome!');
-    setUserPostCode(0);
-    setAuthenticated(undefined);
-    setLogInDisabled(false);
 
     //hide login
     setLogoutVisible(false);
@@ -313,7 +323,6 @@ function App() {
     client
       .mutate({ mutation: mutation(listingProps) })
       .then((result) => {
-        console.log(result);
         toast({
           title: 'Listing Created',
           description: 'Your listing has been successfully created.',
@@ -352,8 +361,6 @@ function App() {
       data: props,
     };
 
-    console.log(props.userFirstName);
-
     client
       .mutate({ mutation: mutation(userProfileProps) })
       .then((result) => {
@@ -379,7 +386,6 @@ function App() {
           setUserState(props.userState);
         }
 
-        console.log(result);
         toast({
           title: 'User Profile',
           description:
@@ -429,7 +435,6 @@ function App() {
     client
       .mutate({ mutation: mutation(deleteUserProps) })
       .then((result) => {
-        console.log(result);
         toast({
           title: 'Delete User Profile',
           description:
@@ -573,7 +578,6 @@ function App() {
       <Register
         disabled={registerDisabled}
         visible={registerVisible}
-        onOpenLogin={onShowLogin}
         onRegister={onRegister}
         onClose={onRegisterClose}
       ></Register>
