@@ -103,6 +103,7 @@ export function AdminListings(props: userDetails) {
       client
         .mutate({ mutation: mutation(DeleteProps) })
         .then((result) => {
+          console.log(result)
           if (result) {
             toast({
               title: 'Listing Deleted',

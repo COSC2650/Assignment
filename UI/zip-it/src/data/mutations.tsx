@@ -71,16 +71,18 @@ function mutation(props): DocumentNode {
     console.log(keys)
     result = gql`
             mutation {
-                deleteMultiListings(listings:${keys}) 
+                deleteMultiListings(listings:[${keys}]) 
             }
         `;
   }
   if (props.usersHashmap !== undefined && props.usersHashmap.size > 0) {
     //create array from hashmap
-    let keys = Array.from(props.usersHashmap.keys());
+    let keys =[""];
+    keys = Array.from(props.usersHashmap.keys());
+    console.log(keys)
     result = gql`
               mutation {
-                  deleteMultiUsers(users:"${keys}")
+                  deleteMultiUsers(users:["${keys}"])
               }
           `;
   }
