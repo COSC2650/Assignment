@@ -14,7 +14,6 @@ export interface RegistrationDetails {
 }
 
 export interface RegisterProps {
-    onOpenLogin(): void;
     onRegister(props: RegistrationDetails): void;
     onClose(): void;
     visible: boolean;
@@ -119,8 +118,8 @@ export function Register(props: RegisterProps) {
 
                 <ModalFooter>
                     <Flex width="100%">
-                        <Button disabled={props.disabled} onClick={props.onOpenLogin} id="login">
-                            Log In
+                        <Button disabled={props.disabled} onClick={props.onClose} id="cancel">
+                            Cancel
                         </Button>
                         <Spacer></Spacer>
                         <Button disabled={props.disabled} onClick={onRegister} id="register">

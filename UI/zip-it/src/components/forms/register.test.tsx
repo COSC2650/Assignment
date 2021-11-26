@@ -1,4 +1,4 @@
-import Register, { RegisterProps, RestrationDetails } from "./register";
+import Register, { RegisterProps, RegistrationDetails } from "./register";
 import { configure, mount, render } from "enzyme";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 
@@ -14,16 +14,15 @@ jest.mock("react", () => ({
 describe("Register", () => {
     it("Should render correctly", () => {
         let props: RegisterProps = {
-            onOpenLogin: () => {
-                // Intentional
-            },
-            onRegister: (ldprops: RestrationDetails) => {
+            
+            onRegister: (ldprops: RegistrationDetails) => {
                 // Intentional
             },
             onClose: () => {
                 // Intentional
             },
             visible: true,
+            disabled:false,
         };
 
         const component = render(<Register {...props} />);
@@ -32,16 +31,15 @@ describe("Register", () => {
 
     it("Visibility should change", () => {
         const props: RegisterProps = {
-            onOpenLogin: () => {
-                // Intentional
-            },
-            onRegister: (ldprops: RestrationDetails) => {
+            
+            onRegister: (ldprops: RegistrationDetails) => {
                 // Intentional
             },
             onClose: () => {
                 // Intentional
             },
             visible: false,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -58,15 +56,16 @@ describe("Register", () => {
     });
 
     it("onClose method should be triggered", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -79,19 +78,20 @@ describe("Register", () => {
 
         // Check that none of the other callbacks were called
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
     });
 
     it("onRegister method should be triggered", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -114,20 +114,21 @@ describe("Register", () => {
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(1);
 
         // Check that none of the other callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - no registration details", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -137,21 +138,22 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - invalid email", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -172,21 +174,22 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - no email", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -206,21 +209,22 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - no first name", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -240,21 +244,22 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - short first name", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -275,21 +280,22 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - long first name", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -310,21 +316,22 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - no last name", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -340,21 +347,22 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - short last name", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -375,21 +383,22 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - long last name", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -410,21 +419,22 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - no password", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -444,21 +454,22 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - short password", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -479,21 +490,22 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - long password", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -514,21 +526,22 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - no confirmation password", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -548,21 +561,22 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - short confirmation password", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -583,21 +597,22 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - long confirmation password", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -618,21 +633,22 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - mismatched passwords", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -653,21 +669,22 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - no street", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -687,21 +704,22 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - short street", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -722,21 +740,22 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - long street", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -757,21 +776,22 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - no post code", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -791,21 +811,22 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - three digit postcode", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -826,21 +847,22 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onRegister method should not be triggered - five digit postcode", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
@@ -861,31 +883,29 @@ describe("Register", () => {
         wrapper.find("Button#register").simulate("click");
 
         // Check that none of the callbacks were called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(0);
+        
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);
         expect(mockOnCloseCallBack.mock.calls.length).toEqual(0);
     });
 
     it("onOpenRegister method should be triggered", () => {
-        const mockonOpenLoginCallBack = jest.fn();
+        
         const mockonRegisterCallBack = jest.fn();
         const mockOnCloseCallBack = jest.fn();
 
         const props: RegisterProps = {
-            onOpenLogin: mockonOpenLoginCallBack,
+            
             onRegister: mockonRegisterCallBack,
             onClose: mockOnCloseCallBack,
             visible: true,
+            disabled:false,
         };
 
         // Render the component in a hidden state
         const wrapper = mount(<Register {...props} />);
 
         // Click the Login button
-        wrapper.find("Button#login").simulate("click");
-
-        // Check that the onRegisterCallBack is called
-        expect(mockonOpenLoginCallBack.mock.calls.length).toEqual(1);
+        wrapper.find("Button#register").simulate("click");
 
         // Check that none of the other callbacks were called
         expect(mockonRegisterCallBack.mock.calls.length).toEqual(0);

@@ -52,7 +52,8 @@ function App() {
   const [DeleteUserVisible, setDeleteUserVisible] = useState(false);
   const { toggleColorMode } = useColorMode();
   const onShowLogin = () => setLoginVisible(true);
-  const onShowRegister = () => setRegisterVisible(true);
+  const onShowRegister = () => {setRegisterVisible(true)
+  setLoginVisible(false)};
   const onShowLogout = () => setLogoutVisible(true);
   const onShowUserProfile = () => setUserProfileVisible(true);
   const onShowNewListing = () => setNewListingVisible(true);
@@ -505,7 +506,6 @@ function App() {
       <Register
         disabled={registerDisabled}
         visible={registerVisible}
-        onOpenLogin={onShowLogin}
         onRegister={onRegister}
         onClose={onRegisterClose}
       ></Register>
