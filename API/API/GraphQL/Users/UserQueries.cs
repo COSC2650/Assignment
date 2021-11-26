@@ -16,8 +16,6 @@ namespace API.GraphQL.Users
             _userService = userService;
         }
 
-        public IQueryable<User> Users => _userService.GetAll();
-
         public Task<User> GetUserByEmail(string email, string password) =>
             _userService.GetUserByEmail(email, password);
         

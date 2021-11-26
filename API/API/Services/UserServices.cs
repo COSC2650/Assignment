@@ -138,16 +138,6 @@ namespace API.Services
             return response;
         }
 
-        public IQueryable<User> GetAll()
-        {
-            var users = _context.Users.AsQueryable();
-            foreach (User user in users)
-            {
-                user.UserPasswordHash = "#";
-            }
-            return users;
-        }
-
         public async Task<User> GetUserByEmail(string email, string password)
         {
             var user = await _context.Users.FirstOrDefaultAsync(c => c.UserEmail == email);
@@ -293,7 +283,10 @@ namespace API.Services
 
             var listPassed = 0;
 
-            foreach(string email in users)
+            // graphql sent array as a string so we split it here
+            string[] entries = users.First().Split(',');
+
+            foreach(string email in entries)
             {
                 var result = _context.Users.Any(x => x.UserEmail == email);
                 if(result)
@@ -304,7 +297,7 @@ namespace API.Services
                 }
             }
 
-            if (users.Length == listPassed)
+            if (entries.Length == listPassed)
                 return true;
 
             return false;

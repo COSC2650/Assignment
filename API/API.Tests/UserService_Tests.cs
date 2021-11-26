@@ -40,7 +40,7 @@ namespace Tests
                 await userService.CreateUser(input, new API.Extensions.SmtpClient());
 
             // Get all users
-            var usersToAssert = userService.GetAll();
+            var usersToAssert = context.Users;
 
             // Assert that the generated list is equal to the returned
             Assert.Equal(usersToAssert.Count(), users.Count);
@@ -68,7 +68,7 @@ namespace Tests
             user = await userService.CreateUser(input, mockedSMTPClient.Object);
 
             // Get all users
-            var userToAssert = userService.GetAll().FirstOrDefault();
+            var userToAssert = context.Users.FirstOrDefault();
 
             // Assert that the generated list is equal to the returned
             Assert.Equal(userToAssert, user);
@@ -221,13 +221,13 @@ namespace Tests
              var genInput = await userService.CreateUser(input, mockedSMTPClient.Object);
 
              // Check we've added a user
-             Assert.Equal(1, userService.GetAll().Count());
+             Assert.Equal(1, context.Users.Count());
 
              // Delete the user
              await userService.DeleteUser(genInput.UserID);
 
              // Check we have successfully delete the user
-             Assert.Equal(0, userService.GetAll().Count());
+             Assert.Equal(0, context.Users.Count());
          }
 
         [Fact]
@@ -287,7 +287,7 @@ namespace Tests
             var genInput = await userService.CreateUser(input, mockedSMTPClient.Object);
 
             // Check we've added a user
-            Assert.Equal(1, userService.GetAll().Count());
+            Assert.Equal(1, context.Users.Count());
 
             // Create edit input for user change first name
             AddUserInput editInput = new(
@@ -396,7 +396,7 @@ namespace Tests
             var genInput = await userService.CreateUser(input, mockedSMTPClient.Object);
 
             // Check user exists
-            Assert.Equal(1, userService.GetAll().Count());
+            Assert.Equal(1, context.Users.Count());
 
             // check email search
             Assert.NotEmpty(userService.AdminUserSearch(genInput.UserEmail, 0, ""));
@@ -462,10 +462,10 @@ namespace Tests
             var secondUser = await userService.CreateUser(secondInput, mockedSMTPClient.Object);
 
             // Check we've added the users
-            Assert.Equal(2, userService.GetAll().Count());
+            Assert.Equal(2, context.Users.Count());
 
             // create string array of user emails
-            var users = new string [] {firstUser.UserEmail, secondUser.UserEmail};
+            var users = new string [] {firstUser.UserEmail + ',' + secondUser.UserEmail};
 
             // Delete the listings
             Assert.True(await userService.DeleteMultiUsers(users));
@@ -500,7 +500,7 @@ namespace Tests
             var firstUser = await userService.CreateUser(firstInput, mockedSMTPClient.Object);
 
             // Check we've added the listing
-            Assert.Equal(1, userService.GetAll().Count());
+            Assert.Equal(1, context.Users.Count());
 
             // send empty array
             var emptyUsers = Array.Empty<string>();
@@ -512,7 +512,7 @@ namespace Tests
             Assert.False(await userService.DeleteMultiUsers(null));
 
             // send bad email
-            var badUsers = new string [] {firstUser.UserEmail, "not@matched.com"};
+            var badUsers = new string [] {"firstUserUserEmailnot@matched.com"};
 
             // Check that fail message is returned
             Assert.False(await userService.DeleteMultiUsers(badUsers));
