@@ -497,7 +497,6 @@ function App() {
       <Register
         disabled={registerDisabled}
         visible={registerVisible}
-        onOpenLogin={onShowLogin}
         onRegister={onRegister}
         onClose={onRegisterClose}
       ></Register>
