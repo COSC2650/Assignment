@@ -103,7 +103,6 @@ export function AdminListings(props: userDetails) {
       client
         .mutate({ mutation: mutation(DeleteProps) })
         .then((result) => {
-          console.log(result)
           if (result) {
             toast({
               title: 'Listing Deleted',
@@ -113,7 +112,6 @@ export function AdminListings(props: userDetails) {
               isClosable: true,
               position: 'top',
             });
-            console.log(SearchDetails);
             queryAPI(SearchDetails);
           } else {
             toast({
