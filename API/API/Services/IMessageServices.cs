@@ -9,8 +9,6 @@ namespace API.Services
 {  
    public interface IMessageService  
     {  
-        IQueryable<Message> GetAll();
-
         IQueryable<Message> GetUserMessages(int userID);
 
         Task<bool> CreateMessage(int listingID, int senderID, string messageBody);

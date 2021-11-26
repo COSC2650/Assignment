@@ -16,8 +16,6 @@ namespace API.GraphQL.Messages
             _messageService = messageService;
         }
 
-        public IQueryable<Message> Messages => _messageService.GetAll();
-
         public IQueryable<Message> GetUserMessages(int userID) => _messageService.GetUserMessages(userID);
     }
 }

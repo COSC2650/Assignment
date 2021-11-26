@@ -12,7 +12,6 @@ namespace API.Services
         Task<User> CreateUser(AddUserInput input, ISmtpClient smtpClient);
         Task<bool> DeleteUser(int userID);
         Task<bool> DeleteMultiUsers(string[] users);
-        IQueryable<User> GetAll(); 
         Task<User> GetUserByEmail(string email, string password);
         bool ValidatePassword(User user, string password);
         Task<User> ConfirmUser(string userEmail, int confirmationCode);

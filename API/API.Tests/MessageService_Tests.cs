@@ -3,14 +3,10 @@ using API.Models;
 using API.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Collections.Generic;
-using AutoFixture;
 using System.Threading.Tasks;
 using API.GraphQL.Users;
-using API.GraphQL.Messages;
 using API.Extensions;
 using Moq;
-using System;
 using API.GraphQL.Listings;
 
 namespace Tests
@@ -72,7 +68,7 @@ namespace Tests
             context.Messages.Add(message);
             context.SaveChanges();
 
-            Assert.Equal(1, messageService.GetAll().Count());
+            Assert.Equal(1, context.Messages.Count());
 
             var listData = context.Listings.FirstOrDefault();
             Assert.NotEmpty(listData.Messages);

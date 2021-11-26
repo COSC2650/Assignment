@@ -43,11 +43,6 @@ namespace API.Services
             return true;
         }
 
-        public IQueryable<Message> GetAll()
-        {
-            return _context.Messages.AsQueryable();
-        }
-
         public IQueryable<Message> GetUserMessages(int userID)
         {
             return _context.Messages.Where(x => x.UserID == userID);

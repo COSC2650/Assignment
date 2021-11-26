@@ -138,16 +138,6 @@ namespace API.Services
             return response;
         }
 
-        public IQueryable<User> GetAll()
-        {
-            var users = _context.Users.AsQueryable();
-            foreach (User user in users)
-            {
-                user.UserPasswordHash = "#";
-            }
-            return users;
-        }
-
         public async Task<User> GetUserByEmail(string email, string password)
         {
             var user = await _context.Users.FirstOrDefaultAsync(c => c.UserEmail == email);
