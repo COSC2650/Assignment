@@ -20,6 +20,15 @@ namespace API.Models
         [Required]
         public int SenderID { get; set; }
 
+        [Required]
+        public string SenderFirstName { get; set; }
+
+        [Required]
+        public string SenderLastName { get; set; }
+
+        [Required]
+        public string SenderEmail { get; set; }
+
         [Required, MinLength(3)]
         public string MessageBody { get; set; }
     }
