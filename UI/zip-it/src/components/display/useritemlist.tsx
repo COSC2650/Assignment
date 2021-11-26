@@ -3,7 +3,7 @@ import ListItem, { ListItemProp } from '../elements/listitem';
 import Search, { SearchDetails } from '../forms/usersearch';
 import query from '../../data/queries';
 import clientConnection from '../../data/client';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import MessageItem from '../elements/listmessage';
 
 //interfaces

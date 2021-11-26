@@ -76,6 +76,7 @@ const ListItem = (props: ListItemProp) => {
             <DrawerHeader>{props.listingTitle}</DrawerHeader>
 
             <DrawerBody>
+              <RespondListing />
               <Text> {'Post Code - ' + props.listingPostCode}</Text>
               <Text>{'Category- ' + props.listingCategory}</Text>
               <Text>{'Condition - ' + props.listingCondition}</Text>
