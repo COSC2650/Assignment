@@ -112,7 +112,6 @@ export function AdminListings(props: userDetails) {
               isClosable: true,
               position: 'top',
             });
-            console.log(SearchDetails);
             queryAPI(SearchDetails);
           } else {
             toast({

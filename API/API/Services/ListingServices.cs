@@ -40,11 +40,6 @@ namespace API.Services
             return listing;
         }
 
-        public IQueryable<Listing> GetAll()
-        {
-            return _context.Listings.AsQueryable();
-        }
-
         public IQueryable<Listing> ListingByFilter(
             int postCode, 
             string keyword, 

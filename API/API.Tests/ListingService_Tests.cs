@@ -6,7 +6,6 @@ using System.Linq;
 using System.Collections.Generic;
 using AutoFixture;
 using System.Threading.Tasks;
-
 using System;
 using API.GraphQL.Listings;
 using Moq;
@@ -89,7 +88,7 @@ namespace Tests
             }
 
             // Get all listings
-            var listingsToAssert = listingService.GetAll();
+            var listingsToAssert = context.Listings;
 
             // Assert that the generated list is equal to the returned
             Assert.Equal(listingsToAssert.Count(), listings.Count);
@@ -116,7 +115,7 @@ namespace Tests
             var testListing = await listingService.CreateListing(listing);
 
             // Get all users
-            var listingToAssert = listingService.GetAll().FirstOrDefault();
+            var listingToAssert = context.Listings.First();
 
             // Assert that the generated list is equal to the returned
             Assert.Equal(listingToAssert, testListing);
@@ -349,7 +348,7 @@ namespace Tests
             var genInput = await listingService.CreateListing(input);
 
             // Check we've added a listing
-            Assert.Equal(1, listingService.GetAll().Count());
+            Assert.Equal(1, context.Listings.Count());
 
             // Create edit input for listing change first name
             AddListingInput editInput = new(
@@ -456,13 +455,13 @@ namespace Tests
              var genInput = await listingService.CreateListing(input);
 
              // Check we've added a listing
-             Assert.Equal(1, listingService.GetAll().Count());
+             Assert.Equal(1, context.Listings.Count());
 
              // Delete the listing
              await listingService.DeleteListing(genInput.ListingID);
 
              // Check we have successfully delete the listing
-             Assert.Equal(0, listingService.GetAll().Count());
+             Assert.Equal(0, context.Listings.Count());
          }
 
         [Fact]
@@ -570,7 +569,7 @@ namespace Tests
             var secondListing = await listingService.CreateListing(secondInput);
 
             // Check we've added the listings
-            Assert.Equal(2, listingService.GetAll().Count());
+            Assert.Equal(2, context.Listings.Count());
 
             var listings = new int [] {firstListing.ListingID, secondListing.ListingID};
 
@@ -608,7 +607,7 @@ namespace Tests
             var firstListing = await listingService.CreateListing(firstInput);
 
             // Check we've added the listing
-            Assert.Equal(1, listingService.GetAll().Count());
+            Assert.Equal(1, context.Listings.Count());
 
             // send empty array
             var emptyListings = Array.Empty<int>();
