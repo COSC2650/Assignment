@@ -119,8 +119,8 @@ export function Register(props: RegisterProps) {
 
                 <ModalFooter>
                     <Flex width="100%">
-                        <Button disabled={props.disabled} onClick={props.onOpenLogin} id="login">
-                            Log In
+                        <Button disabled={props.disabled} onClick={props.onClose} id="login">
+                            Cancel
                         </Button>
                         <Spacer></Spacer>
                         <Button disabled={props.disabled} onClick={onRegister} id="register">
