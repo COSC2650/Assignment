@@ -293,7 +293,10 @@ namespace API.Services
 
             var listPassed = 0;
 
-            foreach(string email in users)
+            // graphql sent array as a string so we split it here
+            string[] entries = users.First().Split(',');
+
+            foreach(string email in entries)
             {
                 var result = _context.Users.Any(x => x.UserEmail == email);
                 if(result)
@@ -304,7 +307,7 @@ namespace API.Services
                 }
             }
 
-            if (users.Length == listPassed)
+            if (entries.Length == listPassed)
                 return true;
 
             return false;

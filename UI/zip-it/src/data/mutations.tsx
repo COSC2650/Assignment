@@ -77,8 +77,7 @@ function mutation(props): DocumentNode {
   }
   if (props.usersHashmap !== undefined && props.usersHashmap.size > 0) {
     //create array from hashmap
-    let keys =[""];
-    keys = Array.from(props.usersHashmap.keys());
+    let keys = Array.from(props.usersHashmap.keys());
     console.log(keys)
     result = gql`
               mutation {
