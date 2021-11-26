@@ -117,6 +117,7 @@ export function Search(props: UserSearchProps) {
             type="dropdownselect"
             id="productcategoryselect"
             onChange={categoryOnChange}
+            defaultValue=""
           >
             <option value="automotive">Automotive</option>
             <option value="clothes">Clothes</option>
@@ -135,6 +136,7 @@ export function Search(props: UserSearchProps) {
               type="dropdownselect"
               id="conditionselect"
               onChange={qualityOnChange}
+              defaultValue=""
             >
               <option value="unused">Unused</option>
               <option value="likenew">Like New</option>
@@ -152,6 +154,7 @@ export function Search(props: UserSearchProps) {
             type="dropdownselect"
             id="servicecategoryselect"
             onChange={categoryOnChange}
+            defaultValue=""
           >
             <option value="carpentry">Carpentry</option>
             <option value="cleaning">Cleaning</option>
@@ -166,6 +169,7 @@ export function Search(props: UserSearchProps) {
             type="dropdownselect"
             id="qualificationcategoryselect"
             onChange={qualityOnChange}
+            defaultValue=""
           >
             <option value="qualandcert">Qualified and Certified</option>
             <option value="qualified">Qualified</option>

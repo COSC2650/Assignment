@@ -77,6 +77,7 @@ export function AdminSearch(props: SearchPannelProps) {
         type="dorpdownselect"
         id="adminslection"
         onChange={adminOnChange}
+        defaultValue=""
       >
         <option value="users">User</option>
         <option value="listings">Listing</option>

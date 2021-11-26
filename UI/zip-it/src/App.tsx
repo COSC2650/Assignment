@@ -102,6 +102,8 @@ function App() {
       position: 'top',
     });
 
+
+
   //Logic for Login function
   const onLogin = (props: LoginDetails) => {
     setLogInDisabled(true);
@@ -114,7 +116,7 @@ function App() {
       .query(query(props))
       .then((result) => {
         const queryResult = result.data.userByEmail;
-        if (queryResult != null) {
+        if (queryResult.userEmail === props.email) {
           //set user data
           setUserTitle('Hi, ' + queryResult.userFirstName + '!');
           setUserID(queryResult.userID);
@@ -172,7 +174,20 @@ function App() {
 
   //logic for logout function
   const onLogout = () => {
+    
+    //clear user details
+    setAuthenticated(undefined);
     setRoleID(2);
+    setUserTitle(' Welcome!');
+    setUserPostCode(0);
+    setLogInDisabled(false);
+    setUserID(0);
+    setUserFirstName("");
+    setUserLastName("");
+    setUserStreet('');
+    setUserCity("");
+    setUserState("");
+
     //log out confirmation
     toast({
       title: 'Logged out',
@@ -182,12 +197,6 @@ function App() {
       isClosable: true,
       position: 'top',
     });
-
-    //setheader title and authentication status
-    setUserTitle(' Welcome!');
-    setUserPostCode(0);
-    setAuthenticated(undefined);
-    setLogInDisabled(false);
 
     //hide login
     setLogoutVisible(false);
