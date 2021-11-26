@@ -99,9 +99,7 @@ function mutation(props): DocumentNode {
   if (props.type === 'respondListing') {
     result = gql`
             mutation {
-                createMessage(input: { listingID: ${props.data.listingID}, senderID: ${props.data.senderID}, messageBody: "${props.data.messageBody}"}) {
-                    messageID
-                }
+                createMessage( listingID: ${props.data.listingID}, senderID: ${props.data.senderID}, messageBody: "${props.data.messageBody}")
             }
         `;
   }

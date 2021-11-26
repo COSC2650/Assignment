@@ -1,4 +1,4 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, Input } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, Text, ModalCloseButton, Button, Input } from "@chakra-ui/react";
 import { Flex, Spacer } from "@chakra-ui/layout";
 import { useState } from "react";
 
@@ -15,6 +15,7 @@ export interface RespondListingProps {
   visible: boolean;
   disabled: boolean;
   userID: number;
+  listingID: number;
 }
 
 export function RespondListing(props: RespondListingProps) {
@@ -24,7 +25,7 @@ export function RespondListing(props: RespondListingProps) {
   const onRespondListing = () => {
     const respondListingDetails: RespondListingDetails = {
       senderID: props.userID,
-      listingID: 0,
+      listingID: props.listingID,
       messageBody: messageBody
     };
 
@@ -38,6 +39,10 @@ export function RespondListing(props: RespondListingProps) {
         <ModalHeader>Respond to Listing</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
+        <Text size="md" id="senderID">
+              {'Sender - ' + props.userID}
+              {'ListID - '+ props.listingID}
+            </Text>
           Would you like to respond to the owner of this listing?
 
           Enter a brief description:
