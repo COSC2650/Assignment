@@ -1,4 +1,4 @@
-import ListItem, { ListingItemProps } from './listitem';
+import ListItem, { ListItemProp } from './listitem';
 import { configure, render } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { describe, expect } from '@jest/globals';
