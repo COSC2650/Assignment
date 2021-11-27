@@ -122,7 +122,7 @@ export function Search(props: UserSearchProps) {
             <option value="automotive">Automotive</option>
             <option value="clothes">Clothes</option>
             <option value="domestic">Domestic Goods</option>
-            <option value="ectronics">Electronics</option>
+            <option value="electronics">Electronics</option>
             <option value="gardening">Gardening</option>
             <option value="handcrafted">HandCrafted</option>
             <option value="hardware">Hardware</option>
