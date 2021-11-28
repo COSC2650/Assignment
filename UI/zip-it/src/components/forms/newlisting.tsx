@@ -156,13 +156,14 @@ export function NewListing(props: newListingProps) {
                   <option value="automotive">Automotive</option>
                   <option value="clothes">Clothes</option>
                   <option value="domestic">Domestic Goods</option>
-                  <option value="ectronics">Electronics</option>
+                  <option value="electronics">Electronics</option>
                   <option value="gardening">Gardening</option>
                   <option value="handcrafted">HandCrafted</option>
                   <option value="hardware">Hardware</option>
                   <option value="industrial">Industrial</option>
                   <option value="sporting">Sporting Goods</option>
                   <option value="toys">Toys</option>
+                  <option value="misc">Misc.</option>
                 </Select>
                 <Select
                   onChange={qualityOnChange}
