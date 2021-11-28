@@ -1,14 +1,15 @@
 import {
-  Heading, 
-  HStack,  
-  Text, 
+  Heading,
+  HStack,
+  Text,
   Drawer,
   DrawerBody,
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  useDisclosure
+  useDisclosure,
+  Button
 } from '@chakra-ui/react';
 
 //listItem properties
@@ -23,12 +24,33 @@ export interface ListItemProp {
   listingPrice: number;
   listingQuantity: number;
   listingType: string;
+  listingUserID: number;
+  viewerID: number;
+  onRespondListing(): void;
 }
 
 //list item fragment
 const ListItem = (props: ListItemProp) => {
 
-  const { isOpen,onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  function RespondListing() {
+    if (props.viewerID !== 0) {
+      return (
+        <>
+          <Button id="respond" onClick={props.onRespondListing} mr={2}>
+            Respond to Listing
+          </Button>
+        </>
+      );
+    } else {
+      return (
+        <>
+        </>
+      );
+    }
+  }
+
 
   return (
       <>
@@ -54,6 +76,7 @@ const ListItem = (props: ListItemProp) => {
             <DrawerHeader>{props.listingTitle}</DrawerHeader>
 
             <DrawerBody>
+              <RespondListing />
               <Text> {'Post Code - ' + props.listingPostCode}</Text>
               <Text>{'Category- ' + props.listingCategory}</Text>
               <Text>{'Condition - ' + props.listingCondition}</Text>
@@ -62,12 +85,12 @@ const ListItem = (props: ListItemProp) => {
               <Text>{'Type - ' + props.listingType}</Text>
             </DrawerBody>
 
-            <DrawerFooter>
-            </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
-      </>
-    );
+          <DrawerFooter>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+    </>
+  );
 };
 
 

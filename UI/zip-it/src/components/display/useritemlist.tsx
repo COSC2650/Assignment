@@ -4,10 +4,15 @@ import Search, { SearchDetails } from '../forms/usersearch';
 import query from '../../data/queries';
 import clientConnection from '../../data/client';
 import React, { useState } from 'react';
+import MessageItem from '../elements/listmessage';
 
 //interfaces
 interface userDetails {
   userPostCode: number;
+  viewerID: number;
+  listingUserID: number;
+  panelOption: number;
+  onRespondListing(): void;
 }
 export function UserListings(props: userDetails) {
   let [listings, setListings] = useState([]);
@@ -37,17 +42,31 @@ export function UserListings(props: userDetails) {
 
   //passes data returned to listItem to be rendered
   function ListingsFragment() {
-    return (
-      <>
-        {listings && (
-          <>
-            {listings.map((listing: ListItemProp) => (
-              <ListItem key={listing.listingID} {...listing}></ListItem>
-            ))}
-          </>
-        )}
-      </>
-    );
+    if (props.panelOption !== 1) {
+      return (
+        <>
+          {listings && (
+            <>
+              {listings.map((listing: ListItemProp) => (
+                <ListItem key={listing.listingID} {...listing}
+                  viewerID={props.viewerID}
+                  listingUserID={props.listingUserID}
+                  onRespondListing={props.onRespondListing}
+                ></ListItem>
+              ))}
+            </>
+          )}
+        </>
+      );
+    } else {
+      return (
+        <MessageItem
+          senderName={'Dougie Douglas'}
+          messageDesc={'Hey just wondering if this is still for sale?'}
+          senderEmail={'test@test.com'}
+        ></MessageItem>
+      )
+    }
   }
 
   //item list component

@@ -18,6 +18,7 @@ import Confirmation, {
   ConfirmationDetails,
 } from './components/forms/confirmation';
 import DeleteUser, { DeleteUserDetails } from './components/forms/deleteuser';
+import RespondListing, { RespondListingDetails } from './components/forms/respondlisting';
 
 interface LogInDetails {
   userID: number;
@@ -28,6 +29,8 @@ interface LogInDetails {
 
 function App() {
   const [userTitle, setUserTitle] = useState(' Welcome!');
+  const [listPane, setListPane] = useState(0);
+  const [listingID] = useState(1065);
   const [userID, setUserID] = useState(0);
   const [RoleID, setRoleID] = useState(0);
   const [userPostCode, setUserPostCode] = useState(0);
@@ -50,6 +53,8 @@ function App() {
   const [newListingDisabled, setNewListingDisabled] = useState(false);
   const [DeleteUserDisabled, setDeleteUserDisabled] = useState(false);
   const [DeleteUserVisible, setDeleteUserVisible] = useState(false);
+  const [RespondListingDisabled, setRespondListingDisabled] = useState(false);
+  const [RespondListingVisible, setRespondListingVisible] = useState(false);
   const { toggleColorMode } = useColorMode();
   const onShowLogin = () => setLoginVisible(true);
   const onShowRegister = () => {setRegisterVisible(true)
@@ -64,6 +69,8 @@ function App() {
   const onUserProfileClose = () => setUserProfileVisible(false);
   const onShowDeleteUser = () => setDeleteUserVisible(true);
   const onShowDeleteUserClose = () => setDeleteUserVisible(false);
+  const onShowRespondListing = () => setRespondListingVisible(true);
+  const onShowRespondListingClose = () => setRespondListingVisible(false);
 
   const onConfirmationClose = () => {
     setUserTitle('Welcome');
@@ -411,6 +418,14 @@ function App() {
       });
   };
 
+  const onMessage = () => {
+    setListPane(1);
+  };
+
+  const onList = () => {
+    setListPane(0);
+  };
+
   const onDeleteUser = (props: DeleteUserDetails) => {
     const client = clientConnection();
     const deleteUserProps = {
@@ -457,6 +472,48 @@ function App() {
       });
   };
 
+  const onRespondListing = (props: RespondListingDetails) => {
+    const client = clientConnection();
+    const respondListingProps = {
+      type: 'respondListing',
+      data: props,
+    };
+
+    client
+      .mutate({ mutation: mutation(respondListingProps) })
+      .then((result) => {
+        console.log(result);
+        toast({
+          title: 'Message Created',
+          description: 'Your message has been successfully sent to sender.',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+          position: 'top',
+        });
+        setRespondListingVisible(false);
+      })
+
+      .catch((result) => {
+        toast({
+          title: 'Catch Error',
+          description: 'Your message has encountered an error.',
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+          position: 'top',
+        });
+
+        console.log('Apollo/GraphQL failure - Zip-It');
+        console.log('check relevant query in queries.tsx');
+        console.log(props);
+        console.log(result);
+
+        setRespondListingDisabled(false);
+      });
+  }
+
+
   //portal type selection logic
   function UserAdminPortalDisplay() {
     if (RoleID === 1) {
@@ -468,7 +525,22 @@ function App() {
     } else {
       return (
         <>
-          <UserListings userPostCode={userPostCode} />
+          <UserListings
+            userPostCode={userPostCode}
+            viewerID={userID}
+            listingUserID={0}
+            onRespondListing={onShowRespondListing}
+            panelOption={listPane}
+          />
+          <RespondListing
+            disabled={RespondListingDisabled}
+            visible={RespondListingVisible}
+            onOpen={onShowRespondListing}
+            onClose={onShowRespondListingClose}
+            onRespondListing={onRespondListing}
+            userID={userID}
+            listingID={listingID}
+          />
         </>
       );
     }
@@ -479,6 +551,8 @@ function App() {
       <Header
         toggleColorMode={toggleColorMode}
         UserProfile={onShowUserProfile}
+        MessageItem={onMessage}
+        ListItem={onList}
         toggleLogIn={onShowLogin}
         toggleLogout={onShowLogout}
         NewListing={onShowNewListing}

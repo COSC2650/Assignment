@@ -4,6 +4,8 @@ import {
   EditIcon,
   HamburgerIcon,
   MoonIcon,
+  SearchIcon,
+  EmailIcon,
   SunIcon
 } from '@chakra-ui/icons';
 import { Flex, Spacer } from '@chakra-ui/layout';
@@ -25,6 +27,8 @@ interface HeaderProps {
   toggleLogIn(): void;
   toggleLogout(): void;
   NewListing(): void;
+  ListItem(): void;
+  MessageItem(): void;
   UserProfile(): void;
   userTitle: string;
   authenticated: boolean;
@@ -96,6 +100,12 @@ const Header = (props: HeaderProps) => {
         <MenuList>
           <MenuItem icon={<AddIcon />} onClick={props.NewListing}>
             New Listing
+          </MenuItem>
+          <MenuItem icon={<SearchIcon />} onClick={props.ListItem}>
+            View Listings
+          </MenuItem>
+          <MenuItem icon={<EmailIcon />} onClick={props.MessageItem}>
+            View Messages
           </MenuItem>
           <MenuItem icon={<EditIcon />} onClick={props.UserProfile}>
             User Profile
