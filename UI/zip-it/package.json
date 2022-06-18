@@ -47,9 +47,9 @@
         ]
     },
     "devDependencies": {
-        "@jest/globals": "27.3.1",
+        "@jest/globals": "27.5.1",
         "@testing-library/react": "12.1.2",
-        "@types/jest": "27.0.3",
+        "@types/jest": "27.5.2",
         "@wojtekmaj/enzyme-adapter-react-17": "0.6.5",
         "enzyme": "3.11.0",
         "eslint8": "npm:eslint@8.3.0",
