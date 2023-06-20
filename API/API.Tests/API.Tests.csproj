@@ -28,7 +28,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <ProjectReference Include="..\API\API.csproj" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.32.0.39516">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.56.0.67649">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
